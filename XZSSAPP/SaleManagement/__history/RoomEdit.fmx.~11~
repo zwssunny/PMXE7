@@ -1,0 +1,989 @@
+inherited frmRoomEditForm: TfrmRoomEditForm
+  Caption = #25151#38388#36164#26009
+  FormFactor.Devices = [Desktop, iPhone]
+  DesignerMasterStyle = 3
+  inherited MainPanel: TPanel
+    inherited ToolBarTop: TToolBar
+      inherited lbTitle: TLabel
+        Text = #25151#38388#36164#26009
+      end
+      object BtnReserve: TButton
+        Align = Right
+        Position.X = 199.000000000000000000
+        Size.Width = 73.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'buttonstyleBak'
+        TabOrder = 2
+        Text = #39044#30041#25151#38388
+        OnClick = BtnReserveClick
+      end
+      object BtnLoanCal: TButton
+        Align = Right
+        Position.X = 272.000000000000000000
+        Size.Width = 88.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'buttonstyleBak'
+        TabOrder = 1
+        Text = #25151#36151#35745#31639#22120
+        OnClick = BtnLoanCalClick
+      end
+    end
+    inherited ClientVertScrollBox: TVertScrollBox
+      object TabControl: TTabControl
+        Align = Client
+        FullSize = True
+        Size.Width = 50.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabHeight = 49.000000000000000000
+        TabIndex = 1
+        TabOrder = 0
+        TabPosition = PlatformDefault
+        OnChange = TabControlChange
+        object DataTab: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 25.000000000000000000
+          Size.Height = 49.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Text = #25151#38388#36164#26009
+          object VertScrollBox1: TVertScrollBox
+            Align = Client
+            Size.Width = 50.000000000000000000
+            Size.Height = 1.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            ShowScrollBars = False
+            object expBaseInfo: TExpander
+              Align = Top
+              ShowCheck = False
+              Size.Width = 50.000000000000000000
+              Size.Height = 273.000000000000000000
+              Size.PlatformDefault = False
+              Text = #22522#26412#20449#24687
+              TabOrder = 3
+              ContentSize = '248'
+              object FlowLayout1: TFlowLayout
+                Align = Top
+                Size.Width = 50.000000000000000000
+                Size.Height = 241.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Justify = Left
+                JustifyLastLine = Left
+                FlowDirection = LeftToRight
+                object Panel3: TPanel
+                  Align = Top
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object Label3: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #27004#30424#21517#31216#65306
+                  end
+                  object edEstateName: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel2: TPanel
+                  Position.Y = 41.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  object Label2: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #27004#38401#21517#31216#65306
+                  end
+                  object edBuildName: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel1: TPanel
+                  Align = Top
+                  Position.Y = 82.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                  object Label1: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#21517#31216#65306
+                  end
+                  object edRoomName: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel4: TPanel
+                  Position.Y = 123.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  object Label4: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#27004#23618#65306
+                  end
+                  object edFloorNum: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel5: TPanel
+                  Position.Y = 164.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  object Label5: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#32534#21495#65306
+                  end
+                  object edNumber: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel6: TPanel
+                  Position.Y = 205.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                  object Label6: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#29366#24577#65306
+                  end
+                  object edStatus: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+              end
+            end
+            object expAttribute: TExpander
+              Align = Top
+              Position.Y = 833.000000000000000000
+              ShowCheck = False
+              Size.Width = 50.000000000000000000
+              Size.Height = 352.000000000000000000
+              Size.PlatformDefault = False
+              Text = #23646#24615
+              TabOrder = 1
+              ContentSize = '327'
+              object FlowLayout2: TFlowLayout
+                Align = Top
+                Size.Width = 50.000000000000000000
+                Size.Height = 321.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Justify = Left
+                JustifyLastLine = Left
+                FlowDirection = LeftToRight
+                object Panel7: TPanel
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object Label7: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#21151#33021' '#65306
+                  end
+                  object edFunction: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel8: TPanel
+                  Position.Y = 41.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  object Label8: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#35013#20462' '#65306
+                  end
+                  object edDecoration: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel9: TPanel
+                  Position.Y = 82.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                  object Label9: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#25143#22411' '#65306
+                  end
+                  object edHouseType: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel10: TPanel
+                  Position.Y = 123.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  object Label10: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#26397#21521' '#65306
+                  end
+                  object edOrientation: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel11: TPanel
+                  Position.Y = 164.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  object Label11: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25151#38388#26223#35266' '#65306
+                  end
+                  object edLandscape: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel12: TPanel
+                  Position.Y = 205.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 6
+                  object Label12: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #20132#27004#26085#26399' '#65306
+                  end
+                  object edDeliveryDate: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel13: TPanel
+                  Position.Y = 246.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                  object Label13: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #20132#27004#26631#35760' '#65306
+                  end
+                  object edDeliveryState: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel14: TPanel
+                  Position.Y = 287.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                  object Label14: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #38144#21806#31867#22411' '#65306
+                  end
+                  object edSellType: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+              end
+            end
+            object expAea: TExpander
+              Align = Top
+              Position.Y = 273.000000000000000000
+              ShowCheck = False
+              Size.Width = 50.000000000000000000
+              Size.Height = 560.000000000000000000
+              Size.PlatformDefault = False
+              Text = #38754#31215
+              TabOrder = 0
+              ContentSize = '535'
+              object FlowLayout3: TFlowLayout
+                Align = Top
+                Size.Width = 50.000000000000000000
+                Size.Height = 529.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Justify = Left
+                JustifyLastLine = Left
+                FlowDirection = LeftToRight
+                object Panel15: TPanel
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object Label15: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #24314#31569#38754#31215#65306
+                  end
+                  object edFloorArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel16: TPanel
+                  Position.Y = 41.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  object Label16: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #22871#20869#38754#31215#65306
+                  end
+                  object edInnerArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel17: TPanel
+                  Position.Y = 82.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 12
+                  object Label17: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #39044#21806#24314#31569#38754#31215#65306
+                  end
+                  object edFloorPreArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel18: TPanel
+                  Position.Y = 123.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  object Label18: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #39044#21806#22871#20869#38754#31215#65306
+                  end
+                  object edInnerPreArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel19: TPanel
+                  Position.Y = 164.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  object Label19: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #23454#27979#24314#31569#38754#31215#65306
+                  end
+                  object edFloorFactArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel20: TPanel
+                  Position.Y = 205.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 10
+                  object Label20: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #23454#27979#22871#20869#38754#31215#65306
+                  end
+                  object edInnerFactArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel21: TPanel
+                  Position.Y = 246.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 6
+                  object Label21: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #38754#31215#31867#22411#65306
+                  end
+                  object cbAreaType: TComboBox
+                    Align = Client
+                    Enabled = False
+                    Items.Strings = (
+                      ''
+                      #39044#21806#38754#31215
+                      #23454#27979#38754#31215)
+                    ItemIndex = 0
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                  end
+                end
+                object Panel22: TPanel
+                  Position.Y = 287.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                  object Label22: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #26159#21542#22797#24335' '#65306
+                  end
+                  object swIsDuplex: TSwitch
+                    Align = Center
+                    Enabled = False
+                    IsChecked = False
+                    Size.Width = 76.000000000000000000
+                    Size.Height = 26.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 3
+                  end
+                end
+                object Panel26: TPanel
+                  Position.Y = 328.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 8
+                  object Label26: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #19978#23618#38754#31215#65306
+                  end
+                  object edUpperArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel27: TPanel
+                  Position.Y = 369.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                  object Label27: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #19979#23618#38754#31215#65306
+                  end
+                  object edLowerArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel23: TPanel
+                  Position.Y = 410.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                  object Label23: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #33457#22253#38754#31215#65306
+                  end
+                  object edGardenFactArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel24: TPanel
+                  Position.Y = 451.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 11
+                  object Label24: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #20844#25674#38754#31215#65306
+                  end
+                  object edPublicArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel25: TPanel
+                  Position.Y = 492.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 9
+                  object Label25: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #38451#21488#38754#31215#65306
+                  end
+                  object edBalconyArea: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+              end
+            end
+            object expPrice: TExpander
+              Align = Top
+              Position.Y = 1185.000000000000000000
+              ShowCheck = False
+              Size.Width = 50.000000000000000000
+              Size.Height = 232.000000000000000000
+              Size.PlatformDefault = False
+              Text = #20215#26684
+              TabOrder = 2
+              ContentSize = '207'
+              object FlowLayout4: TFlowLayout
+                Align = Client
+                Size.Width = 50.000000000000000000
+                Size.Height = 207.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Justify = Left
+                JustifyLastLine = Left
+                FlowDirection = LeftToRight
+                object Panel28: TPanel
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object Label28: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #24314#31569#21333#20215#65306
+                  end
+                  object edFloorAreaPrice: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel29: TPanel
+                  Position.Y = 41.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  object Label29: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #22871#20869#21333#20215#65306
+                  end
+                  object edInnerAreaPrice: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    ReadOnly = True
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel30: TPanel
+                  Position.Y = 82.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                  object Label30: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #38144#21806#24635#20215#65306
+                  end
+                  object nbSellAmt: TNumberBox
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    Cursor = crIBeam
+                    Max = 9999999827968.000000000000000000
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel31: TPanel
+                  Position.Y = 123.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  object Label31: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #25104#20132#24635#20215#65306
+                  end
+                  object nbSubscribeAmt: TNumberBox
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    Cursor = crIBeam
+                    Max = 9999999827968.000000000000000000
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+                object Panel32: TPanel
+                  Position.Y = 164.000000000000000000
+                  Size.Width = 355.000000000000000000
+                  Size.Height = 41.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  object Label32: TLabel
+                    Align = Left
+                    Size.Width = 130.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.HorzAlign = Trailing
+                    Text = #34917#24046#24635#20215#65306
+                  end
+                  object nbSubsidyAmt: TNumberBox
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 2
+                    Cursor = crIBeam
+                    Max = 9999999827968.000000000000000000
+                    Enabled = False
+                    Size.Width = 225.000000000000000000
+                    Size.Height = 41.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+              end
+            end
+          end
+        end
+        object ImageTab: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 25.000000000000000000
+          Size.Height = 49.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Text = #25143#22411#22270
+          object ImageListLayout: TFlowLayout
+            Align = Client
+            Size.Width = 50.000000000000000000
+            Size.Height = 1.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Justify = Left
+            JustifyLastLine = Left
+            FlowDirection = LeftToRight
+          end
+          object WaitAniIndicator: TAniIndicator
+            Align = Center
+            Cursor = crHourGlass
+            Visible = False
+          end
+        end
+      end
+    end
+  end
+  object Query: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 112
+    Top = 176
+  end
+  object tempResponse: TRESTResponse
+    Left = 184
+    Top = 240
+  end
+end

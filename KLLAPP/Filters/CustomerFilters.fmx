@@ -1,0 +1,148 @@
+inherited CustomerFiltersForm: TCustomerFiltersForm
+  Caption = #23458#25143#36807#28388#26465#20214
+  DesignerMasterStyle = 3
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      object cboClientType: TComboBox
+        DisableFocusEffect = False
+        Items.Strings = (
+          #25152#26377#29366#24577
+          #30331#35760#23458#25143
+          #19994#20027
+          #39044#23450#23458#25143
+          #31614#32422#23458#25143)
+        ItemIndex = 1
+        Position.X = 92.000000000000000000
+        Position.Y = 53.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+      end
+      object edCardID: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 2
+        Position.X = 92.000000000000000000
+        Position.Y = 240.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edCardNo: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 3
+        Position.X = 92.000000000000000000
+        Position.Y = 202.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edCustName: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 4
+        Position.X = 92.000000000000000000
+        Position.Y = 90.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edCustNum: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 5
+        Position.X = 92.000000000000000000
+        Position.Y = 128.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edMobilePhone: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 6
+        Position.X = 92.000000000000000000
+        Position.Y = 165.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object Label1: TLabel
+        AutoSize = True
+        Position.X = 10.000000000000000000
+        Position.Y = 98.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #23458#25143#21517#31216':'
+      end
+      object Label2: TLabel
+        AutoSize = True
+        Position.X = 10.000000000000000000
+        Position.Y = 136.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #23458#25143#32534#21495':'
+      end
+      object Label3: TLabel
+        AutoSize = True
+        Position.X = 10.000000000000000000
+        Position.Y = 173.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #31227#21160#30005#35805':'
+      end
+      object Label4: TLabel
+        AutoSize = True
+        Position.X = 10.000000000000000000
+        Position.Y = 210.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #20250#21592#21345#21495':'
+      end
+      object Label5: TLabel
+        AutoSize = True
+        Position.X = 10.000000000000000000
+        Position.Y = 61.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #23458#25143#29366#24577':'
+      end
+      object Label6: TLabel
+        AutoSize = True
+        Position.X = 28.000000000000000000
+        Position.Y = 248.000000000000000000
+        Size.Width = 64.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #35777#20214#21495':'
+      end
+      object Label7: TLabel
+        AutoSize = True
+        Position.X = 10.000000000000000000
+        Position.Y = 24.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #23458#25143#20998#31867':'
+      end
+      object cbBoxClientClass: TComboBox
+        DisableFocusEffect = False
+        Position.X = 92.000000000000000000
+        Position.Y = 16.000000000000000000
+        Size.Width = 200.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 8
+      end
+    end
+  end
+end

@@ -1,0 +1,312 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseFormH
+#define BaseFormH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "ZClientDataSet.h"
+#include "ZClientQuery.h"
+#include "ClientBroker.h"
+#include "ModuleEnum.h"
+//---------------------------------------------------------------------------
+enum TFormCreateStyle : unsigned char{fcsNone=0,fcsClass=1,fCZDataSet=2,fcsOther=3}; //窗体创建方式
+//fcsNone-不创建数据集，fcsClass-传入业务类代码，fCZDataSet-传入数据集，fcsOther-其他
+
+enum TOperateType : unsigned char{otBrowse=0,otAdd=1,otEdit=2,otDel=3,otAddDetail=4,otEditDetail=5,
+				  otDelDetail=6,otUpdate=7,otUpdateDetail=8,otCancel=9,otCancelDetail=10,
+				  otMove=11,otMoveDetail=12,otOpen=13,otClose=14,otInsert=15,otInsertDetail=16};
+//OptType 操作类型 0-浏览,1-新增，2-修改,3-删除,4-新增明细，5－修改明细，6－删除明细,
+//       7-保存，8-保存明细,9-取消，10-取消明细,11-移动,12-移动明细,13-打开，14-关闭
+//       15-插入，16-插入明细
+enum TWorkflowStatus : unsigned char { wsNotStarted, wsRunning, wsFinished};
+//工作流状态
+class TfrmBaseForm : public TForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+	TStringList * FReportTypeList;
+	TZClientDataSet *m_DataSet;
+	TCZDataSet *m_GlobeVars;
+	TFormCreateStyle m_CreateStyle;
+
+	int FFormModuleCode;      //窗体菜单代码
+	void __fastcall SetFormModuleCode(int value);
+	String FOperateRight; //操作权限
+	String FFormDefRight; //窗体自定义权限
+	String FFormDefFunc;  //窗体自定义功能
+	String FFormDataAccess;  //窗体自定义数据权限
+	bool FFormDefReport;      //窗体自定义报表
+	bool FCanDefReport;       //是否自定义报表
+	bool FWorkflowReport; //是否显示审批报表
+	bool FWorkflowSend; //是否显示工作流发起
+	String FFlowDefinID;//流程定义ID
+	String FWorkflowID;//执行流程ID
+	TWorkflowStatus FWorkflowStatus;//流程图状态
+	TClientBroker * FClientBroker;
+	void __fastcall InitDevLocalize();
+	void __fastcall InitWithClassCode(TComponent* Owner,String ClassCode,String Param);
+	void __fastcall InitWithDataSet(TComponent* Owner,TZClientDataSet *FDataSet,String Param);
+	String __fastcall get_GlobeVarValue(String varname);
+private:
+	int FFormID;        // Property Function
+	bool FMoneyHide;
+	String FClearMasterFieldsString,FClearDetailFieldsString;
+	TZClientDataSet *dsFormDefRpt;
+
+	String __fastcall get_MasterSQLString();
+	void __fastcall set_MasterSQLString(String value);
+
+	String __fastcall get_DetailSQLString();
+	void __fastcall set_DetailSQLString(String value);
+
+	String __fastcall get_MasterWhereString();
+	void __fastcall set_MasterWhereString(String value);
+
+	String __fastcall get_DetailWhereString();
+	void __fastcall set_DetailWhereString(String value);
+
+	String __fastcall get_MasterOrderString();
+	void __fastcall set_MasterOrderString(String value);
+
+	String __fastcall get_DetailOrderString();
+	void __fastcall set_DetailOrderString(String value);
+
+	String __fastcall get_MasterGroupString();
+	void __fastcall set_MasterGroupString(String value);
+
+	String __fastcall get_DetailGroupString();
+	void __fastcall set_DetailGroupString(String value);
+
+	String __fastcall get_MasterFixWhereString();
+	String __fastcall get_MasterFixGroupString();
+	String __fastcall get_MasterFixOrderString();
+
+	String __fastcall get_MasterLinkString();
+	String __fastcall get_MasterLinkFields();
+
+	String __fastcall get_DetailFixWhereString();
+	String __fastcall get_DetailFixGroupString();
+	String __fastcall get_DetailFixOrderString();
+
+	String __fastcall get_MasterKeyFields();
+	void __fastcall set_MasterKeyFields(String value);
+	String __fastcall get_DetailKeyFields();
+	void __fastcall set_DetailKeyFields(String value);
+	String __fastcall get_LinkFields();
+	void __fastcall set_LinkFields(String value);
+	String __fastcall get_MasterSort();
+	void __fastcall set_MasterSort(String value);
+	String __fastcall get_DetailSort();
+	void __fastcall set_DetailSort(String value);
+	String __fastcall get_Filter();
+	void __fastcall set_Filter(String value);
+	bool __fastcall get_Filtered();
+	void __fastcall set_Filtered(bool value);
+	TDataSetState __fastcall get_MasterStatus();
+	TDataSetState __fastcall get_DetailStatus();
+	int __fastcall get_DataSetType();
+	TZClientQuery * __fastcall get_Query();
+	bool __fastcall get_Bof();
+	bool __fastcall get_Eof();
+	int __fastcall get_RecordCount();
+	int __fastcall get_CurRecNo();
+	int __fastcall get_MasterFieldCount();
+	TFields * __fastcall get_MasterFields();
+	bool __fastcall get_DetailBof();
+	bool __fastcall get_DetailEof();
+	int __fastcall get_DetailCount();
+	int __fastcall get_DetailRecNo();
+	int __fastcall get_DetailFieldCount();
+	TFields * __fastcall get_DetailFields();
+	String __fastcall get_MasterFieldName(int index);
+	TFieldType __fastcall get_MasterFieldType(int index);
+	int __fastcall get_MasterFieldSize(int index);
+	String __fastcall get_DetailFieldName(int index);
+	TFieldType __fastcall get_DetailFieldType(int index);
+	int __fastcall get_DetailFieldSize(int index);
+	bool __fastcall get_DataSetActive();
+	int __fastcall get_TimeOut();
+	void __fastcall set_TimeOut(int value);
+	bool __fastcall get_NeedValid();
+	void __fastcall set_NeedValid(bool value);
+	String __fastcall get_MasterValidFieldList();
+	void __fastcall set_MasterValidFieldList(String value);
+	String __fastcall get_DetailValidFieldList();
+	void __fastcall set_DetailValidFieldList(String value);
+	int __fastcall GetFormID();
+protected:      //DataSet Function
+	void __fastcall DS_Open();
+	void __fastcall DS_AddNew();
+	void __fastcall DS_Insert();
+	void __fastcall DS_Edit();
+	void __fastcall DS_Delete();
+	void __fastcall DS_Update();
+	void __fastcall DS_Cancel();
+	void __fastcall DS_AddDetail();
+	void __fastcall DS_InserDetail();
+	void __fastcall DS_EditDetail();
+	void __fastcall DS_DeleteDetail();
+	void __fastcall DS_UpdateDetail();
+	void __fastcall DS_CancelDetail();
+	void __fastcall DS_Close();      //TClientDataSet::Close()
+	void __fastcall DS_MoveFirst();
+	void __fastcall DS_MoveLast();
+	void __fastcall DS_MoveNext();
+	void __fastcall DS_MovePrior();
+	void __fastcall DS_MoveTo(int Distance);
+
+	void __fastcall DS_DetailFirst();
+	void __fastcall DS_DetailLast();
+	void __fastcall DS_DetailPrior();
+	void __fastcall DS_DetailNext();
+	void __fastcall DS_DetailMoveTo(int Distance);
+
+	bool __fastcall DS_LocateMaster(String KeyValues);
+	bool __fastcall DS_LocateDetail(String KeyValues);
+	TField *__fastcall DS_FindMasterField(String fieldname);
+	TField *__fastcall DS_FindDetailField(String fieldname);
+	bool __fastcall DS_FindMasterKey(String KeyValues);
+	bool __fastcall DS_FindDetailKey(String KeyValues);
+
+	Variant __fastcall DS_GetMasterValue(String fieldname);
+	Variant __fastcall DS_GetMasterOldValue(String fieldname);
+	void __fastcall DS_SetMasterValue(String fieldname,Variant value);
+	Variant __fastcall DS_GetDetailValue(String fieldname);
+	Variant __fastcall DS_GetDetailOldValue(String fieldname);
+	void __fastcall DS_SetDetailValue(String fieldname,Variant value);
+
+	void __fastcall DS_CmdExec(String Param);
+	void __fastcall DS_Check(int IsCheck);
+	void __fastcall DS_CloseOff(int IsClose);
+	void __fastcall DS_Revoke(int IsRevoke);
+	void __fastcall DS_Tally(int IsTally);
+	void __fastcall DS_ValidField(TValidType vt,TValidAffect va);
+	void __fastcall DS_ExecSQL(String sqlstr);
+
+	void __fastcall DS_ExitClientDataSet();
+
+protected:  //DataSet Property
+
+	__property String MasterSQLString={read=get_MasterSQLString,write=set_MasterSQLString};
+	__property String DetailSQLString={read=get_DetailSQLString,write=set_DetailSQLString};
+	__property String MasterWhereString={read=get_MasterWhereString,write=set_MasterWhereString};
+	__property String DetailWhereString={read=get_DetailWhereString,write=set_DetailWhereString};
+	__property String MasterOrderString={read=get_MasterOrderString,write=set_MasterOrderString};
+	__property String DetailOrderString={read=get_DetailOrderString,write=set_DetailOrderString};
+	__property String MasterGroupString={read=get_MasterGroupString,write=set_MasterGroupString};
+	__property String DetailGroupString={read=get_DetailGroupString,write=set_DetailGroupString};
+
+	__property String MasterFixWhereString={read=get_MasterFixWhereString};
+	__property String MasterFixGroupString={read=get_MasterFixGroupString};
+	__property String MasterFixOrderString={read=get_MasterFixOrderString};
+
+	__property String MasterLinkString={read=get_MasterLinkString};
+	__property String MasterLinkFields={read=get_MasterLinkFields};
+
+	__property String DetailFixWhereString={read=get_DetailFixWhereString};
+	__property String DetailFixGroupString={read=get_DetailFixGroupString};
+	__property String DetailFixOrderString={read=get_DetailFixOrderString};
+
+	__property String MasterKeyFields={read=get_MasterKeyFields,write=set_MasterKeyFields};
+	__property String DetailKeyFields={read=get_DetailKeyFields,write=set_DetailKeyFields};
+	__property String LinkFields={read=get_LinkFields,write=set_LinkFields};
+	__property String MasterSort={read=get_MasterSort,write=set_MasterSort};
+	__property String DetailSort={read=get_DetailSort,write=set_DetailSort};
+	__property String Filter={read=get_Filter,write=set_Filter};
+	__property bool Filtered={read=get_Filtered,write=set_Filtered};
+	__property TDataSetState MasterStatus={read=get_MasterStatus};
+	__property TDataSetState DetailStatus={read=get_DetailStatus};
+	__property int DataSetType={read=get_DataSetType};
+	__property TZClientQuery *Query={read=get_Query};
+
+	__property bool Bof={read=get_Bof};
+	__property bool Eof={read=get_Eof};
+	__property int RecordCount={read=get_RecordCount};
+	__property int CurRecNo={read=get_CurRecNo};
+	__property int MasterFieldCount={read=get_MasterFieldCount};
+	__property TFields *MasterFields={read=get_MasterFields};
+	__property bool DetailBof={read=get_DetailBof};
+	__property bool DetailEof={read=get_DetailEof};
+	__property int DetailCount={read=get_DetailCount};
+	__property int DetailRecNo={read=get_DetailRecNo};
+	__property int DetailFieldCount={read=get_DetailFieldCount};
+	__property TFields *DetailFields={read=get_DetailFields};
+
+	__property String MasterFieldName[int index]={read=get_MasterFieldName};
+	__property TFieldType MasterFieldType[int index]={read=get_MasterFieldType};
+	__property int MasterFieldSize[int index]={read=get_MasterFieldSize};
+	__property String DetailFieldName[int index]={read=get_DetailFieldName};
+	__property TFieldType DetailFieldType[int index]={read=get_DetailFieldType};
+	__property int DetailFieldSize[int index]={read=get_DetailFieldSize};
+
+//	__property HWND DS_Handle={read=get_Handle};
+//	__property HWND DS_Parent={read=get_Parent};
+	__property bool DS_Active={read=get_DataSetActive};
+	__property int DS_TimeOut={read=get_TimeOut,write=set_TimeOut};
+
+	__property bool NeedValid={read=get_NeedValid,write=set_NeedValid};
+	__property String MasterValidFieldList={read=get_MasterValidFieldList,write=set_MasterValidFieldList};
+	__property String DetailValidFieldList={read=get_DetailValidFieldList,write=set_DetailValidFieldList};
+
+protected: //virtual funtion
+	void __fastcall AddReportType(String RptTypeName,int AType);
+	virtual void __fastcall BeforeDataSetOperate(TOperateType OptType){}; //执行数据操作前的处理函数
+	virtual void __fastcall AfterDataSetOperate(TOperateType OptType){};  //执行数据操作后的处理函数
+	virtual void __fastcall PushVariantValue(){};    //虚函数，把变量压入变量列表
+	virtual void __fastcall PopupMenuItemClick(int ItemIndex){};
+	virtual void __fastcall MasterDataSetBeforePost(TDataSet* DataSet){};
+	virtual void __fastcall MasterDataSetAfterPost(TDataSet* DataSet){};
+	virtual void __fastcall DetailDataSetBeforePost(TDataSet* DataSet){};
+	virtual void __fastcall ShowWorkflowReport(TObject *Sender){};
+	virtual void __fastcall SendWorkflow(TObject *Sender){};
+public:
+	TDataSource *MasterDataSource;
+	TDataSource *DetailDataSource;
+
+	__property TZClientDataSet *DataSet={read=m_DataSet,write=m_DataSet}; //数据集指针，窗体构造函数中使用，其他代码不要引用
+	__property TFormCreateStyle CreateStyle={read=m_CreateStyle,write=m_CreateStyle};//窗体创建方式
+	__property String GlobeVarValue[String varname]={read=get_GlobeVarValue}; //全局变量
+
+	__property int FormModuleCode = { read=FFormModuleCode, write=SetFormModuleCode };
+	//窗体菜单代码
+	__property String OperateRight = { read=FOperateRight, write=FOperateRight };
+	//窗体操作权限,FR_SYSTEMREAD－读权限，FR_SYSTEMWRITE－写权限
+	__property String FormDefRight = { read=FFormDefRight, write=FFormDefRight };
+	//窗体自定义权限，见ModuleEnum.h宏定义
+	__property String FormDefFunc = { read=FFormDefFunc, write=FFormDefFunc };
+	//窗体自定义功能，见ModuleEnum.h宏定义
+	__property String FormDataAccess = { read=FFormDataAccess, write=FFormDataAccess };
+	//窗体自定义数据权限
+	__property bool FormDefReport = {read=FFormDefReport,write=FFormDefReport};
+	//窗体自定义报表
+	__property int FormID  = { read=GetFormID, write=FFormID };
+	//窗体编号,对应系统数据库的前台窗体编号，修要FormMgr里赋值
+	__property TClientBroker * ClientBroker = {read=FClientBroker, write=FClientBroker};
+	__property bool WorkflowReport = {read = FWorkflowReport,write = FWorkflowReport};
+	//是否显示审批报表，默认是否
+	__property bool WorkflowSend = {read = FWorkflowSend,write = FWorkflowSend};
+	//是否显示审批流发起菜单，默认是否
+	__property String FlowDefinID = {read = FFlowDefinID,write = FFlowDefinID};
+	//该业务对应的流程图定义
+	__property String WorkflowID = {read =FWorkflowID,write = FWorkflowID};
+	//该业务已发起，执行中的流程图
+	__property TWorkflowStatus WorkflowStatus={read=FWorkflowStatus,write = FWorkflowStatus};
+	//该业务执行中的流程状态
+	TZClientDataSet * __fastcall CreateDataSet(String ClassCode); //创建数据集
+	void __fastcall FreeDataSet(TZClientDataSet *ds);                 //删除并释放数据集
+	void __fastcall SendMsgToOther(int itype,String Msg); //通知其他客户端更新消息，itype:11-审核,12-短消息
+	__property bool MoneyHide={read=FMoneyHide,write=FMoneyHide,default=false};
+	__property String ClearMasterFieldsString={read=FClearMasterFieldsString,write=FClearMasterFieldsString};
+	__property String ClearDetailFieldsString={read=FClearDetailFieldsString,write=FClearDetailFieldsString};
+public:  //constructor and destructor
+	__fastcall TfrmBaseForm(TComponent* Owner);
+	__fastcall TfrmBaseForm(TComponent* Owner,TClientBroker * clBroker,String ClassCode,String Param);
+	__fastcall TfrmBaseForm(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet *FDataSet,String Param);
+	virtual __fastcall ~TfrmBaseForm();
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmBaseForm *frmBaseForm;
+//---------------------------------------------------------------------------
+#endif

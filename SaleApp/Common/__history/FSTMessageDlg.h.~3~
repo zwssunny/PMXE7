@@ -1,0 +1,20 @@
+//---------------------------------------------------------------------------
+
+#ifndef FSTMessageDlgH
+#define FSTMessageDlgH
+#include <System.Classes.hpp>
+#include <System.SyncObjs.hpp>
+//---------------------------------------------------------------------------
+class TMessageDialogHandler :public TCppInterfacedObject<TInputCloseDialogProc>
+{
+public:
+	System::Uitypes::TModalResult RetResult;
+	TEvent *InputEvent;
+	void __fastcall Invoke(const System::Uitypes::TModalResult AResult) {
+	 RetResult= AResult;
+	 InputEvent->SetEvent();
+	}
+};
+int __fastcall FSTMessageDlg(const System::UnicodeString AMessage, const System::Uitypes::TMsgDlgType ADialogType, const System::Uitypes::TMsgDlgButtons AButtons, const int AHelpContext);
+#endif
+

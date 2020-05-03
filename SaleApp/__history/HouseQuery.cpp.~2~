@@ -1,0 +1,18 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "HouseQuery.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseListShow"
+#pragma resource "*.fmx"
+TfrmHouseQuery *frmHouseQuery;
+//---------------------------------------------------------------------------
+__fastcall TfrmHouseQuery::TfrmHouseQuery(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,
+							 String WhereStr)
+	: TfrmBaseListShow(Owner, clBroker,ModuleCode,WhereStr)
+{
+}
+//---------------------------------------------------------------------------

@@ -1,0 +1,9 @@
+//---------------------------------------------------------------------------
+
+#ifndef UnicodeAndStdstringH
+#define UnicodeAndStdstringH
+using namespace std;
+//---------------------------------------------------------------------------
+UnicodeString stdStringToUnicodeString(string StrSource);
+string UnicodeStringTostdString(UnicodeString StrSource);
+#endif

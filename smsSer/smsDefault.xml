@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="AgentServer" value=""/>
+	<Setting Name="AgentAddress" value="127.0.0.1"/>
+	<Setting Name="AgentPort" value="211"/>
+	<Setting Name="Protocol" value="TCP/IP"/>
+	<Setting Name="SMSType" value="0"/>
+	<Setting Name="SmsServerName" value="XZSmsServerXE"/>
+	<Setting Name="BeginTime" value="2010-03-18 08:00:00"/>
+	<Setting Name="EndTime" value="2010-03-18 22:00:00"/>
+	<Setting Name="WaitLong" value="5"/>
+	<Setting Name="RepeatCount" value="3"/>
+	<Setting Name="GateCordId" value="402881d825c477820125c4cb4df40037"/>
+	<Setting Name="GateUserName" value="testjk01"/>
+	<Setting Name="GatePassWord" value=""/>
+	<Setting Name="MonType" value="0"/>
+	<Setting Name="PortNum" value="2"/>
+</DefaultSettings>

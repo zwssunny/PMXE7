@@ -1,0 +1,129 @@
+inherited SelectStuSupplyNoteForm: TSelectStuSupplyNoteForm
+  Caption = 'SelectStuSupplyNoteForm'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      object BillDateExpander: TExpander
+        Align = Top
+        Height = 161.000000000000000000
+        ShowCheck = False
+        Text = #20379#36135#21333#26085#26399#33539#22260
+        Width = 384.000000000000000000
+        TabOrder = 0
+        ContentSize = '136'
+        inline StartAndEndDateFrame1: TStartAndEndDateFrame
+          Height = 110.000000000000000000
+          Position.X = 24.000000000000000000
+          Position.Y = 8.000000000000000000
+          Width = 305.000000000000000000
+          TabOrder = 0
+          inherited lbBegEndScope: TLabel
+            Height = 23.000000000000000000
+            Width = 90.000000000000000000
+          end
+          inherited cbDateRange: TComboBox
+            Height = 32.000000000000000000
+            Position.X = 107.000000000000000000
+            Position.Y = 7.000000000000000000
+            Width = 142.000000000000000000
+          end
+          inherited lbBeginDate: TLabel
+            Height = 23.000000000000000000
+            Width = 90.000000000000000000
+          end
+          inherited lbEndDate: TLabel
+            Height = 23.000000000000000000
+            Width = 90.000000000000000000
+          end
+          inherited deStart: TDateEdit
+            Height = 32.000000000000000000
+            Position.X = 107.000000000000000000
+            Position.Y = 39.000000000000000000
+            Width = 142.000000000000000000
+          end
+          inherited deEnd: TDateEdit
+            Height = 32.000000000000000000
+            Position.X = 107.000000000000000000
+            Position.Y = 71.000000000000000000
+            Width = 142.000000000000000000
+          end
+        end
+      end
+      object BillFilerExpander: TExpander
+        Align = Top
+        Height = 160.000000000000000000
+        Position.Y = 161.000000000000000000
+        ShowCheck = False
+        Text = #26597#35810#26465#20214
+        Width = 384.000000000000000000
+        TabOrder = 1
+        ContentSize = '135'
+        object Label1: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 24.000000000000000000
+          Position.Y = 8.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #20379#24212#21830':'
+          Width = 59.000000000000000000
+        end
+        object Label2: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 24.000000000000000000
+          Position.Y = 48.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #21512#21516#21495':'
+          Width = 59.000000000000000000
+        end
+        object Label3: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 6.000000000000000000
+          Position.Y = 88.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #20379#36135#21333#21495':'
+          Width = 77.000000000000000000
+        end
+        object Edit1: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 3
+          Position.X = 88.000000000000000000
+          Position.Y = 1.000000000000000000
+          Width = 217.000000000000000000
+          Height = 32.000000000000000000
+        end
+        object Edit2: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 4
+          Position.X = 88.000000000000000000
+          Position.Y = 41.000000000000000000
+          Width = 217.000000000000000000
+          Height = 32.000000000000000000
+        end
+        object Edit3: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 5
+          Position.X = 88.000000000000000000
+          Position.Y = 81.000000000000000000
+          Width = 217.000000000000000000
+          Height = 32.000000000000000000
+          object SearchEditButton1: TSearchEditButton
+            CanFocus = False
+            Cursor = crArrow
+            Height = 32.000000000000000000
+            TabOrder = 0
+            Width = 32.000000000000000000
+          end
+        end
+      end
+    end
+  end
+end

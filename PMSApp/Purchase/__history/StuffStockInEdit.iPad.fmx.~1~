@@ -1,0 +1,273 @@
+inherited frmStuffStockInEdit_iPad: TfrmStuffStockInEdit_iPad
+  ClientHeight = 748
+  ClientWidth = 1024
+  DesignerMasterStyle = 2
+  inherited MainVertScrollBox: TVertScrollBox
+    Size.Width = 1024.000000000000000000
+    Size.Height = 748.000000000000000000
+    inherited MainLayout: TLayout
+      Size.Width = 1024.000000000000000000
+      Size.Height = 748.000000000000000000
+      inherited tcDetailControl: TTabControl
+        Size.Width = 1024.000000000000000000
+        Size.Height = 748.000000000000000000
+        TabIndex = 1
+        inherited tabDetail: TTabItem
+          IsSelected = False
+          Size.Width = 512.000000000000000000
+          inherited tcMainControl: TTabControl
+            Size.Width = 1024.000000000000000000
+            Size.Height = 699.000000000000000000
+            inherited TabDetailMain: TTabItem
+              inherited DetailMainToolBar: TToolBar
+                Position.Y = 655.000000000000000000
+                Size.Width = 1024.000000000000000000
+                inherited btMainNext: TButton
+                  Position.X = 944.000000000000000000
+                end
+                inherited btNextRecord: TButton
+                  Position.X = 900.000000000000000000
+                end
+                inherited btPriorRecord: TButton
+                  Position.X = 856.000000000000000000
+                end
+              end
+              inherited EditVertScrollBox: TVertScrollBox
+                Size.Width = 1024.000000000000000000
+                Size.Height = 655.000000000000000000
+                inherited EditLayout: TLayout
+                  Size.Width = 1019.000000000000000000
+                  inherited cbCheckState: TComboBox
+                    Position.X = 673.000000000000000000
+                    Position.Y = 21.000000000000000000
+                  end
+                  inherited deStuSkInDate: TEdit
+                    Position.X = 673.000000000000000000
+                    Position.Y = 153.000000000000000000
+                    Size.Height = 30.000000000000000000
+                  end
+                  inherited Label1: TLabel
+                    Position.X = 56.000000000000000000
+                    Position.Y = 24.000000000000000000
+                  end
+                  inherited Label10: TLabel
+                    Position.X = 584.000000000000000000
+                    Position.Y = 156.000000000000000000
+                    Size.Width = 77.000000000000000000
+                  end
+                  inherited Label11: TLabel
+                    Position.X = 584.000000000000000000
+                    Position.Y = 70.000000000000000000
+                  end
+                  inherited Label12: TLabel
+                    Position.X = 602.000000000000000000
+                    Position.Y = 113.000000000000000000
+                  end
+                  inherited Label13: TLabel
+                    Position.X = 602.000000000000000000
+                    Position.Y = 200.000000000000000000
+                    Size.Width = 60.000000000000000000
+                  end
+                  inherited Label14: TLabel
+                    Position.X = 584.000000000000000000
+                    Position.Y = 26.000000000000000000
+                  end
+                  inherited Label15: TLabel
+                    Position.X = 584.000000000000000000
+                    Position.Y = 330.000000000000000000
+                  end
+                  inherited Label16: TLabel
+                    Position.X = 584.000000000000000000
+                    Position.Y = 286.000000000000000000
+                    Size.Width = 77.000000000000000000
+                  end
+                  inherited Label2: TLabel
+                    Position.X = 56.000000000000000000
+                    Position.Y = 67.000000000000000000
+                  end
+                  inherited Label3: TLabel
+                    Position.X = 56.000000000000000000
+                    Position.Y = 110.000000000000000000
+                  end
+                  inherited Label4: TLabel
+                    Position.X = 74.000000000000000000
+                    Position.Y = 154.000000000000000000
+                  end
+                  inherited Label5: TLabel
+                    Position.X = 56.000000000000000000
+                    Position.Y = 197.000000000000000000
+                  end
+                  inherited Label6: TLabel
+                    Position.X = 56.000000000000000000
+                    Position.Y = 240.000000000000000000
+                  end
+                  inherited Label7: TLabel
+                    Position.X = 74.000000000000000000
+                    Position.Y = 292.000000000000000000
+                  end
+                  inherited Label8: TLabel
+                    Position.X = 56.000000000000000000
+                    Position.Y = 335.000000000000000000
+                  end
+                  inherited Label9: TLabel
+                    Position.X = 584.000000000000000000
+                    Position.Y = 243.000000000000000000
+                    Size.Width = 77.000000000000000000
+                  end
+                  inherited sdCheckDate: TEdit
+                    Position.X = 673.000000000000000000
+                    Position.Y = 65.000000000000000000
+                  end
+                  inherited seStuSkInChecker: TEdit
+                    Position.X = 673.000000000000000000
+                    Position.Y = 109.000000000000000000
+                  end
+                  inherited seStuSkInCreator: TEdit
+                    Position.X = 673.000000000000000000
+                    Position.Y = 196.000000000000000000
+                    Size.Height = 30.000000000000000000
+                  end
+                  inherited seStuSkInFKID_Cont: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 103.000000000000000000
+                  end
+                  inherited seStuSkInFKID_Rep: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 59.000000000000000000
+                  end
+                  inherited seStuSkInFKID_Unit: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 190.000000000000000000
+                  end
+                  inherited seStuSkInInvNum: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 286.000000000000000000
+                  end
+                  inherited seStuSkInMonth: TEdit
+                    Position.X = 673.000000000000000000
+                    Position.Y = 240.000000000000000000
+                    Size.Height = 30.000000000000000000
+                    inherited ebStuSkInMonth: TEditButton
+                      Size.Height = 26.000000000000000000
+                    end
+                  end
+                  inherited seStuSkInNum: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 16.000000000000000000
+                  end
+                  inherited seStuSkInSupplier: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 147.000000000000000000
+                  end
+                  inherited seStuSkInTranNum: TEdit
+                    Position.X = 145.000000000000000000
+                    Position.Y = 234.000000000000000000
+                  end
+                  inherited edProjectName: TEdit
+                    Position.X = 672.000000000000000000
+                    Position.Y = 280.000000000000000000
+                    Size.Height = 30.000000000000000000
+                    inherited EditButton1: TEditButton
+                      Size.Height = 26.000000000000000000
+                    end
+                  end
+                  inherited edDepotName: TEdit
+                    Position.X = 672.000000000000000000
+                    Position.Y = 320.000000000000000000
+                    Size.Height = 30.000000000000000000
+                    inherited DepotNameButton: TEditButton
+                      Size.Height = 26.000000000000000000
+                    end
+                  end
+                  inherited Panel1: TPanel
+                    Position.X = 145.000000000000000000
+                    Position.Y = 329.000000000000000000
+                  end
+                end
+              end
+            end
+            inherited TabDetailItem: TTabItem
+              inherited ItemToolBar: TToolBar
+                Position.Y = 651.000000000000000000
+                Size.Width = 1024.000000000000000000
+                inherited btDeleteItem: TButton
+                  Position.X = 928.000000000000000000
+                end
+                inherited btAddItem: TButton
+                  Position.X = 976.000000000000000000
+                end
+                inherited btBrowsItem: TButton
+                  Position.X = 880.000000000000000000
+                end
+              end
+              inherited ItemStringGrid: TStringGrid
+                Size.Width = 1024.000000000000000000
+                Size.Height = 651.000000000000000000
+              end
+            end
+          end
+        end
+        inherited tabOA: TTabItem
+          IsSelected = True
+          Size.Width = 512.000000000000000000
+          inherited TaskStringGrid: TStringGrid
+            Size.Width = 1024.000000000000000000
+          end
+          inherited tcWorkflowControl: TTabControl
+            Size.Width = 1024.000000000000000000
+            Size.Height = 474.000000000000000000
+            inherited TabCheckExec: TTabItem
+              Size.Width = 256.000000000000000000
+              inherited TaskListBox: TListBox
+                Size.Width = 1024.000000000000000000
+                Size.Height = 425.000000000000000000
+              end
+            end
+            inherited TabCheckStare: TTabItem
+              Size.Width = 256.000000000000000000
+              inherited FlowMainListBox: TListBox
+                Size.Width = 1024.000000000000000000
+                Size.Height = 425.000000000000000000
+              end
+            end
+            inherited tabTaskLog: TTabItem
+              Size.Width = 256.000000000000000000
+              inherited TaskLogStringGrid: TStringGrid
+                Size.Width = 1024.000000000000000000
+                Size.Height = 425.000000000000000000
+              end
+            end
+            inherited tabTaskflow: TTabItem
+              Size.Width = 256.000000000000000000
+              inherited FlowScrollBox: TScrollBox
+                Size.Width = 1024.000000000000000000
+                inherited FlowLayout: TLayout
+                  Size.Width = 1024.000000000000000000
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  inherited DetailGestureManager: TGestureManager
+    GestureData = <
+      item
+        Control = EditLayout
+        Collection = <
+          item
+            Action = MovePriorAction
+            GestureID = sgiLeft
+          end
+          item
+            Action = MoveNextAction
+            GestureID = sgiRight
+          end>
+      end
+      item
+        Control = FlowLayout
+        Collection = <>
+      end>
+  end
+end

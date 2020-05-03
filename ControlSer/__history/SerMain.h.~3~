@@ -1,0 +1,23 @@
+//---------------------------------------------------------------------------
+#ifndef SerMainH
+#define SerMainH
+//---------------------------------------------------------------------------
+#include <SysUtils.hpp>
+#include <Classes.hpp>
+#include <SvcMgr.hpp>
+#include <vcl.h>
+//---------------------------------------------------------------------------
+class TFSControlService : public TService
+{
+__published:    // IDE-managed Components
+private:        // User declarations
+public:         // User declarations
+	__fastcall TFSControlService(TComponent* Owner);
+	TServiceController __fastcall GetServiceController(void);
+
+	friend void __stdcall ServiceController(unsigned CtrlCode);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFSControlService *FSControlService;
+//---------------------------------------------------------------------------
+#endif

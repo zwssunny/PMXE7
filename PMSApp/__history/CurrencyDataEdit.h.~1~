@@ -1,0 +1,26 @@
+//---------------------------------------------------------------------------
+
+#ifndef CurrencyDataEditH
+#define CurrencyDataEditH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "DetailBaseForm.h"
+#include <FMX.ActnList.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.TabControl.hpp>
+#include <FMX.Types.hpp>
+#include <System.Actions.hpp>
+//---------------------------------------------------------------------------
+class TfrmDetailBaseForm1 : public TfrmDetailBaseForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmDetailBaseForm1(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmDetailBaseForm1 *frmDetailBaseForm1;
+//---------------------------------------------------------------------------
+#endif

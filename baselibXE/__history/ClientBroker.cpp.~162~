@@ -1,0 +1,1083 @@
+// ---------------------------------------------------------------------------
+#include <fmx.h>
+#pragma hdrstop
+// ---------------------------------------------------------------------------
+#include <System.SysUtils.hpp>
+#include <System.JSON.hpp>
+#include "ClientBroker.h"
+#include "APIbase.h"
+#include "SHConst.h"
+#include "DecEnc.h"
+#include "DSClientProxy.h"
+#include "fsScreenCursor.h"
+#include "DataSnapStream.h"
+#include "ZClientDataSet.h"
+#include "ZClientQuery.h"
+#include "LogoutThread.h"
+#define _TimeOuts 10       //秒
+// ---------------------------------------------------------------------------
+#pragma package(smart_init)
+// ---------------------------------------------------------------------------
+const int TRIAL_MAX_UPDATE = 60;
+// ---------------------------------------------------------------------------
+__fastcall TClientBroker::TClientBroker(TComponent* Owner)
+{
+	FClientID = 0;
+	FRemoter = false;
+	FPassword = "";
+	FAccBookID = "0";
+	FUserCode = "";
+	FLogonCode = "";
+	FAccBookName = "";
+	FUserEmpID = "";
+	FQQID = "0";
+	FIsSystemer = 0;
+	FRecvAccBook = false;
+	FSysDbType = 1;
+	FAccDbType = 1;
+
+	BrokerErrorMessage = "";
+	FInstanceOwner=false;
+	GClientBroker = this;
+	FEvent=new TEvent(false);
+//	logfile = NULL;
+
+	FClientLibs = new TCZDataSet;
+	FClientLibs->AddField("libcode"); // 动态链接库代码
+	FClientLibs->AddField("hinst");   // 动态链接库句柄
+	FClientLibs->AddField("count");   // 动态链接装载次数
+	FClientLibs->AddField("libname"); // 动态链接库文件名称
+
+	FClientForms = new TCZDataSet;
+	FClientForms->AddField("modulecode");
+	FClientForms->AddField("modulecaption");
+	FClientForms->AddField("formcode"); // 窗体编码
+	FClientForms->AddField("formid");   // 窗体地址,通过窗体地址可获取窗体Handle
+	FClientForms->AddField("libhinst");
+
+	FAccBooks = new TCZDataSet;
+	FAccBooks->AddField("accbookcode");
+	FAccBooks->AddField("accbookname");
+	FAccBooks->KeyField = "accbookcode";
+
+	FModuleRight = new TDataSnapClientDataSet(NULL); // 用于保存模块权限数据
+	FUserDataSet = new TCZDataSet;      // 保存系统用户数据集
+	FUserDataSet->AddField("LoginCode");
+	FUserDataSet->AddField("UserName");
+	FUserDataSet->AddField("UserCode");
+	FUserDataSet->AddField("UserID");
+	FUserDataSet->KeyField = "LoginCode";
+
+	ClientBrokerStatus = 0; // -1-系统错误,0-尚未注册,1-尚未登录,2-系统准备好
+
+	FServerID     = "";
+	FRecvAccBook  = false;
+	FIsTrial      = true;
+	FUpdateTimes  = 0;
+
+	FAppConnected = false;
+
+	ClientPath = ExtractFilePath(ParamStr(0));
+	if ( !AnsiEndsStr("\\", ClientPath) &&
+	   !AnsiEndsStr("/", ClientPath))
+	  ClientPath = ClientPath + Sysutils::PathDelim;
+
+//	FWorkflowStudioClient = NULL;
+//	FWorkflowZClientDB    = NULL;
+	LoginUserClient       = NULL;
+	WorkFlowServerClient  =NULL;
+	HouseViewClient       =NULL;
+	DSConnection          = new TSQLConnection(NULL);
+	LChannelManager       = NULL;
+	MsgCallBack           = NULL;
+	FSendUserMessageClient=NULL;
+}
+// ---------------------------------------------------------------------------
+TDBXConnection* __fastcall TClientBroker::GetDBXConnection()
+{
+	return DSConnection->DBXConnection;
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::get_Active()
+{
+	return	DSConnection->Connected;
+}
+// ---------------------------------------------------------------------------
+int __fastcall TClientBroker::get_UserCount()
+{
+	return FUserCount;
+}
+// ---------------------------------------------------------------------------
+String __fastcall TClientBroker::get_DevCorp()
+{
+	return FDevCorp;
+}
+// ---------------------------------------------------------------------------
+String __fastcall TClientBroker::get_SoftName()
+{
+	return FSoftName;
+}
+// ---------------------------------------------------------------------------
+String __fastcall TClientBroker::get_Version()
+{
+	return FVersion;
+}
+// ---------------------------------------------------------------------------
+String __fastcall TClientBroker::get_HomePage()
+{
+	return FHomePage;
+}
+// ---------------------------------------------------------------------------
+String __fastcall TClientBroker::get_Email()
+{
+	return FEmail;
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::GetConnected()
+{
+	return (DSConnection->Connected);// && FRecvAccBook;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::SetLogonCode(String Value)
+{
+	FLogonCode = Value;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::SetUserCode(String Value)
+{
+	FUserCode = Value;
+}
+
+// ---------------------------------------------------------------------------
+String __fastcall TClientBroker::ServerWorkFlowStart(String FlowDefID, String Subject, String Content, String BusWindow, String BusCode, int Rank, String PrjID, String Report)
+{
+  if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+  return WorkFlowServerClient->ServerWorkFlowStart(FlowDefID,Subject,Content,BusWindow,BusCode,Rank,PrjID, Report);
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::ServerWorkFlowExec(String FlowDefID, String WorkInsID, String TaskInsID, String TskStatus, String TskComments, TJSONArray * varJsonArray)
+{
+  if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+  return WorkFlowServerClient->ServerWorkFlowExec( FlowDefID,  WorkInsID,  TaskInsID,  TskStatus,  TskComments, varJsonArray);
+}
+// ---------------------------------------------------------------------------
+TJSONObject* TClientBroker::GetTaskdefList(String TaskInsID)
+{
+	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	 TJSONObject *retJSonObject= WorkFlowServerClient->GetTaskdefList(TaskInsID);
+	 return ((TJSONObject *)retJSonObject->Clone());
+}
+// ---------------------------------------------------------------------------
+TJSONObject* TClientBroker::GetVariableList(String TaskInsID)
+{
+	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	 TJSONObject *retJSonObject= WorkFlowServerClient->GetVariableList(TaskInsID);
+	 return ((TJSONObject *)retJSonObject->Clone());
+}
+// ---------------------------------------------------------------------------
+TStream* TClientBroker::GetTaskdefListDS(String TaskInsID)
+{
+	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	TStream* AStream= WorkFlowServerClient->GetTaskdefListDS(TaskInsID);
+	TDataSnapStream * dsStream=new TDataSnapStream(AStream);
+	return dsStream;
+}
+// ---------------------------------------------------------------------------
+TStream* TClientBroker::GetVariableListDS(String TaskInsID)
+{
+ 	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	TStream* AStream= WorkFlowServerClient->GetVariableListDS(TaskInsID);
+	TDataSnapStream * dsStream=new TDataSnapStream(AStream);
+	return dsStream;
+}
+// ---------------------------------------------------------------------------
+bool TClientBroker::TaskCanUpdate(String TaskInsID)
+{
+   	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	return WorkFlowServerClient->TaskCanUpdate(TaskInsID);
+}
+// ---------------------------------------------------------------------------
+TStream* TClientBroker::GetWorkFlowChart(String FlowID,bool isDef)
+{
+	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	TStream* AStream= WorkFlowServerClient->GetWorkFlowChart(FlowID,isDef);
+	TDataSnapStream * dsStream=new TDataSnapStream(AStream);
+	return dsStream;
+}
+TStream* TClientBroker::GetTaskListDS(String AUserID, int ACompletedState, String AOtherCondition)
+{
+ 	if(WorkFlowServerClient==NULL)
+	 WorkFlowServerClient=new TWorkFlowServerClient(DSConnection->DBXConnection,FInstanceOwner);
+	TStream* AStream= WorkFlowServerClient->GetTaskListDS(AUserID, ACompletedState, AOtherCondition);
+	TDataSnapStream * dsStream=new TDataSnapStream(AStream);
+	return dsStream;
+
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::SetHookCallBack(THookMsgCallback Value)
+{
+	if(MsgCallBack)
+		MsgCallBack->HookCallBack = Value;
+}
+// ---------------------------------------------------------------------------
+THookMsgCallback __fastcall TClientBroker::GetHookCallBack()
+{
+	if(MsgCallBack)
+		return MsgCallBack->HookCallBack;
+	else
+		return NULL;
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::InitClientComm()
+{
+	if(DSConnection->Connected)
+      LogOut();
+	String NL = "\r\n";
+	String ConnectionStr = "DriverName=Datasnap"+NL+
+												 "DriverUnit=Data.DBXDataSnap"+NL+
+												 "HostName="+FAgentAddress+NL+
+												 "Port="+IntToStr(FAgentPort)+NL+
+												 "CommunicationProtocol="+FCommunicationProtocol+NL+
+												 "DatasnapContext=datasnap/"+NL+
+												 "DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland.Data.DbxClientDriver,Version=16.0.0.0,Culture=neutral,PublicKeyToken=91d62ebb5b0d1b1b"+NL+
+												 "CommunicationTimeout=50000"+NL+
+												 "DSAuthenticationUser="+FLogonCode+NL+
+												 "DSAuthenticationPassword="+FPassword+NL;
+
+	DSConnection->DriverName      = "Datasnap";
+	DSConnection->Params->Text    = ConnectionStr;
+	DSConnection->LoginPrompt     = false;
+	DSConnection->KeepConnection  = false;
+	DSConnection->AfterConnect    = AppOnConnect;
+	DSConnection->AfterDisconnect = AppOnDisConnect;
+	try{
+	DSConnection->Open();
+	}
+	catch(Exception &e)
+	{
+		throw Exception(L"连接服务器失败："+e.Message);
+    }
+	return DSConnection->Connected;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::AppOnConnect(TObject * Sender)
+{
+	ClientBrokerStatus = 1;
+   //	DSConnection->DBXConnection->OnErrorEvent=OnDBXConnErrorEvent;
+	LoginUserClient = new TLoginUserClient(DSConnection->DBXConnection,FInstanceOwner);
+	GetAccInforJSON();
+	//FAppConnected = true;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::AppOnDisConnect(TObject * Sender)
+{
+	FAppConnected   = false;
+  //	if(ClientBrokerStatus!=0)
+ //	  ReConnetToAgentAndApp();
+   /*	if(LChannelManager)
+	{
+		MsgCallBack->HookCallBack=NULL;
+		LChannelManager->CloseClientChannel();
+		MsgCallBack=NULL;
+		delete  LChannelManager;
+		LChannelManager = NULL;
+
+	}
+
+	if(WorkFlowServerClient)
+	{
+	  delete WorkFlowServerClient;
+	   WorkFlowServerClient =NULL;
+	}
+	 if(HouseViewClient)
+	 {
+		delete HouseViewClient;
+		HouseViewClient=NULL;
+	 }
+	if(LoginUserClient)
+	{
+	  delete LoginUserClient;
+	  LoginUserClient = NULL;
+	} */
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::OnDBXConnErrorEvent(TDBXError* FDBXError)
+{
+   if(FDBXError->ErrorCode==TDBXErrorCodes::InvalidHandle)
+	  ReConnetToAgentAndApp();
+   throw Exception(L"错误代码:"+IntToStr(FDBXError->ErrorCode)+L"错误消息:"+FDBXError->Message);
+}
+// ---------------------------------------------------------------------------
+__fastcall TClientBroker::~TClientBroker()
+{
+	ClientCommTerminate(NULL);
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::ClientCommTerminate(TObject *Sender)
+{
+	LogOut();
+	delete FEvent;
+	delete DSConnection;
+
+	FClientForms->Clear();
+	delete FClientForms;
+	FClientForms = NULL;
+
+	delete FModuleRight;
+	delete FAccBooks;
+	delete FUserDataSet;
+   /*
+	FClientLibs->First();
+	while (!FClientLibs->Eof)
+	{
+		unsigned hInst=(unsigned )(FClientLibs->FieldValues["hinst"].ToInt());
+		String libFileName=FClientLibs->FieldValues["libname"];
+//		if(ExtractFileExt(libFileName).UpperCase()==".BPL")   //zws20131213
+		//UnloadPackage(hInst);
+		FClientLibs->Next();
+	}  */
+	delete FClientLibs;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::CloseAllForms()
+{
+	if(FClientForms==NULL || FClientForms->RecordCount == 0) return;
+
+	FClientForms->First();
+	while (!FClientForms->Eof)
+	{
+		TForm* pForm = (TForm*)(FClientForms->FieldValues["formid"].ToInt());
+		if(pForm != NULL)
+		{
+		  delete pForm;
+		  pForm=NULL;
+		}
+		FClientForms->Next();
+	}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::AddClientDataSet(TZClientDataSet *cds)
+{
+   /*	if (CDataSetList)
+		CDataSetList->Add(cds);  */
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::DeleteClientDataSet(TZClientDataSet *cds)
+{
+  /*	if (CDataSetList)
+		CDataSetList->Remove(cds);  */
+}
+// ---------------------------------------------------------------------------
+DWORD __fastcall TClientBroker::GetRemoteVersion()
+{
+			if(FVersion.IsEmpty())
+				return 0;
+			else
+				return FVersion.SubString0(0, 6).ToInt();
+
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::GetLogUserInfo(TLogInfo &Info)
+{
+   GetLogInfo(&Info);
+}
+DWORD __fastcall TClientBroker::GetModuleList(String &szModuleList)
+{
+			szModuleList= FModuleList;
+			return FModuleList.Length();
+}
+DWORD __fastcall TClientBroker::GetFormCode(DWORD dwModule)
+{
+	DWORD retDword=0;
+	TLocateOptions Opts;
+	Opts.Clear();
+	Opts << loCaseInsensitive;
+	bool retval = FModuleRight->Locate("modulecode", dwModule, Opts);
+	if(retval)
+	{
+	   String szBuff = FModuleRight->FieldByName("formcode")->AsString;
+		retDword = szBuff.ToInt();
+	}
+
+	return retDword;
+}
+DWORD __fastcall TClientBroker::GetClassCode(DWORD dwModule)
+{
+	TLocateOptions Opts;
+	DWORD retDword=0;
+	Opts.Clear();
+	Opts << loCaseInsensitive;
+	bool retval = FModuleRight->Locate("modulecode", dwModule, Opts);
+	if(retval)
+	{
+	   String szBuff = FModuleRight->FieldByName("classcode")->AsString;
+	   retDword = szBuff.ToInt();
+	}
+	return retDword;
+}
+int __fastcall TClientBroker::GetModuleRight(DWORD dwModule, String &szRight)
+{
+	TLocateOptions Opts;
+	Opts.Clear();
+	Opts << loCaseInsensitive;
+	bool retval = FModuleRight->Locate("modulecode", dwModule, Opts);
+	if(retval)
+	{
+		szRight = FModuleRight->FieldByName("moduleright")->AsString;
+	}
+	return retval;
+}
+int __fastcall TClientBroker::GetModuleDefRight(DWORD dwModule, String &szRight)
+{
+	TLocateOptions Opts;
+	Opts.Clear();
+	Opts << loCaseInsensitive;
+	bool retval = FModuleRight->Locate("modulecode", dwModule, Opts);
+	if(retval)
+	{
+		szRight = FModuleRight->FieldByName("defright")->AsString;
+	}
+	return retval;
+
+}
+int __fastcall TClientBroker::GetModuleDefFunc(DWORD dwModule, String &szFunc)
+{
+	TLocateOptions Opts;
+	Opts.Clear();
+	Opts << loCaseInsensitive;
+	bool retval = FModuleRight->Locate("modulecode", dwModule, Opts);
+	if(retval)
+	{
+		szFunc = FModuleRight->FieldByName("deffunc")->AsString;
+	}
+	return retval;
+
+}
+int __fastcall TClientBroker::GetDataAccess(DWORD dwModule, String &szRight)
+{
+	TLocateOptions Opts;
+	Opts.Clear();
+	Opts << loCaseInsensitive;
+	bool retval = FModuleRight->Locate("modulecode", dwModule, Opts);
+	if(retval)
+	{
+		szRight = FModuleRight->FieldByName("dataright")->AsString;
+	}
+	return retval;
+}
+DWORD __fastcall TClientBroker::GetProjectLevel()
+{
+
+			if(FProjectLevel > 0 && FProjectLevel < 51)
+				return FProjectLevel;
+			else
+				return 0;
+
+}
+void __fastcall TClientBroker::MessageCallBackHook(TJSONObject* Arg) // 接收消息
+{
+	//转化有问题
+	String msgText = Arg->ToString();
+	ShowMessage(msgText);
+}
+// ---------------------------------------------------------------------------
+// 发送系统到服务器消息 type:11-审批消息，12-短消息，13-备忘录
+void __fastcall TClientBroker::SendUserMessage(int type, String FID)
+{
+   if(FSendUserMessageClient==NULL)
+	FSendUserMessageClient=new TSendUserMessageClient(DSConnection->DBXConnection, FInstanceOwner);
+  FSendUserMessageClient->SendUserMessage(type,FID);
+}
+// ---------------------------------------------------------------------------
+// 接收界面数据
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::RefershUserCount()
+{
+	TMsgStream *stream = new TMsgStream();
+	try
+	{
+		FUserCount = stream->ValueAttribute["usercount"].ToInt();
+		// 尚未处理
+		// SendMessage(HWND_BROADCAST,msg_OnlineCount,0,0);
+	}
+	__finally
+	{
+		delete stream;
+	}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::ShowForm(int modulecode, String param,bool bShow)
+{
+   //	String msg=L"打开窗体函数：菜单号:"+IntToStr(modulecode)+L" 参数："+param+L"是否显示："+(bShow==true?L"是":L"否");
+  //	MessageDlg(msg,TMsgDlgType::mtInformation, TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+	bool retval;
+
+	String LibName, classcode, modulecaption;
+	int formcode;
+	String moduleright;
+	int index, formid;
+	TLocateOptions Opts;
+	TForm *p;
+	String WarnMsg, ErrorMsg;
+	String lpBuffer;
+	try
+	{
+		Opts.Clear();
+		Opts << loCaseInsensitive;
+		retval = FModuleRight->Locate("modulecode", Variant(modulecode), Opts);
+		if (!retval)
+		{
+			MessageDlg("您没有授权操作该功能,访问拒绝!",TMsgDlgType::mtWarning,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+			return;
+		}
+		else
+		{
+			moduleright = FModuleRight->FieldByName("moduleright")->AsString;
+			if (moduleright.IsEmpty())
+			{
+			  MessageDlg("您没有授权操作该功能,访问拒绝!",TMsgDlgType::mtWarning,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+			  return;
+			}
+
+		}
+		ShowMessage(L"未实现!");
+	}
+	catch (Exception &e)
+	{
+	  MessageDlg( String("创建窗体错误," + e.Message),TMsgDlgType::mtError,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+	}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::CloseForm(int formid)
+{
+	bool retval;
+	String libcode;
+	try
+	{
+		retval = FClientForms->LocateField("formid", formid);
+		if (retval)
+		{
+			FClientForms->DelRecord();
+//			PostMessage(Application->MainForm->Handle, WM_FORMS_CHANGED, formid, 1);
+		}
+	}
+	catch (Exception &e)
+	{
+	MessageDlg(_D("关闭窗体错误,") + e.Message,TMsgDlgType::mtError,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+	}
+}
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::InitUserDataSet(TDataSnapClientDataSet* value)
+{
+	TDataSnapClientDataSet* UserListQuery = value;
+	String LoginCode, UserName, UserCode, UserID;
+	UserListQuery->First();
+	while (!UserListQuery->Eof)
+	{
+		LoginCode = UserListQuery->FieldByName("LoginCode")->AsString;
+		UserName  = UserListQuery->FieldByName("UserName")->AsString;
+		UserCode  = UserListQuery->FieldByName("UserCode")->AsString;
+		UserID    = UserListQuery->FieldByName("UserID")->AsString;
+
+		FUserDataSet->AddNew();
+		FUserDataSet->FieldValues["LoginCode"] = LoginCode;
+		FUserDataSet->FieldValues["UserCode"] = UserCode;
+		FUserDataSet->FieldValues["UserID"] = UserID;
+		FUserDataSet->FieldValues["UserName"] = UserName;
+		FUserDataSet->Update();
+		UserListQuery->Next();
+	}
+	USERLISTQUERY = FUserDataSet;
+   //	SetEnvironmentVariable(L"USERLISTQUERY", String((int)FUserDataSet).c_str());
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::ReConnetToAgentAndApp()
+{
+	TfsScreenCursor * ScreenCursor = new TfsScreenCursor();
+	try
+	{
+		DSConnection->Close();
+		DSConnection->Open();
+		if(DSConnection->Connected)
+		 RegMsgCallBack();
+	}
+	__finally
+	{
+		delete ScreenCursor;
+	}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::RefreshGlobeVar()
+{
+ //增加调用，返回帐套全局变量
+	TStream *ms = LoginUserClient->RefreshGlobeVar();
+	ms->Position = 0;
+	TMsgStream *stream = new TMsgStream(ms);
+	TDataSnapClientDataSet *GlobeVarDataSet = new TDataSnapClientDataSet(NULL);
+	int index;
+	try
+	{
+		if(stream->ValueAttribute["status"] == "s")
+		{
+			FAccDbType    = stream->ItemAttribute["accdbtype"].ToInt();
+			FUserName     = stream->ItemAttribute["username"];
+			FQQID         = stream->ItemAttribute["qqid"];
+			FQQPassword   = stream->ItemAttribute["qqpassword"];
+			FUserCode     = stream->ItemAttribute["usercode"];
+			FUserEmpID    = stream->ItemAttribute["userempid"];
+			FProjectLevel = stream->ItemAttribute["prjlevel"].ToInt();
+			FIsSystemer   = stream->ItemAttribute["systemer"].ToInt();
+
+			//处理其他变量
+			stream->SaveMasterToDataSet(GlobeVarDataSet);
+			BuildGlobeVar(GlobeVarDataSet);
+
+			index = FGlobeVarStr.Pos0("\r\n");
+			if(index > -1)
+			{
+				FGlobeVarStr.Insert0(FUserCode + "\t" + FUserEmpID + "\t" + FUserName + "\t" + FIsSystemer + "\t", index + 2);
+				FGlobeVarStr.Insert0("usercode\tuseridcode\tusername\tissystemer\t", 0);
+			}
+			else
+			{
+				FGlobeVarStr = "usercode\tuseridcode\tusername\tissystemer\r\n" + FUserCode + "\t" + FUserEmpID + "\t" + FUserName + "\t" + FIsSystemer + "\r\n";
+			}
+		}
+	}
+	__finally
+	{
+		delete stream;
+		delete GlobeVarDataSet;
+	}
+}
+// ---------------------------------------------------------------------------
+//void __fastcall TClientBroker::RefreshGlobeVarJO()
+//{
+//	TDataSnapClientDataSet *GlobeVarDataSet = new TDataSnapClientDataSet(NULL);
+//	try
+//	{
+//		TJSONObject *Json = (TJSONObject*)(LoginUserClient->RefreshGlobeVarJO()->Clone());
+//		if(Json->Count > 0)
+//		{
+//			String sStatus = Json->GetValue("Status")->Value();
+//			if(sStatus == "s")
+//			{
+//				FAccDbType    = Json->GetValue("AccDbType")->Value().ToInt();
+//				FUserName     = Json->GetValue("UserName")->Value();
+//				FQQID         = Json->GetValue("QQID")->Value();
+//				FQQPassword   = Json->GetValue("QQPassword")->Value();
+//				FUserCode     = Json->GetValue("UserCode")->Value();
+//				FUserEmpID    = Json->GetValue("UserEmpID")->Value();
+//				FProjectLevel = Json->GetValue("ProjectLevel")->Value().ToInt();
+//				FIsSystemer   = Json->GetValue("IsSystemer")->Value().ToInt();
+//
+//				TJSONObject *MstJson = (TJSONObject*)Json->GetValue("Master");
+//				_di_ISuperObject pso = SO(MstJson->ToString());
+//				TTableJson::JsonToDataSet(GlobeVarDataSet,pso);
+//				BuildGlobeVar(GlobeVarDataSet);
+//
+//				int index = FGlobeVarStr.Pos("\r\n");
+//				if(index > 0)
+//				{
+//					FGlobeVarStr.Insert(FUserCode + "\t" + FUserEmpID + "\t" + FUserName + "\t" + FIsSystemer + "\t", index + 2);
+//					FGlobeVarStr.Insert("usercode\tuseridcode\tusername\tissystemer\t", 1);
+//				}
+//				else
+//				{
+//					FGlobeVarStr = "usercode\tuseridcode\tusername\tissystemer\r\n" + FUserCode + "\t" + FUserEmpID + "\t" + FUserName + "\t" + FIsSystemer + "\r\n";
+//				}
+//			}
+//		}
+//	}
+//	__finally
+//	{
+//		delete GlobeVarDataSet;
+//  }
+//}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::BuildGlobeVar(TDataSnapClientDataSet *DataSet)
+{
+	FGlobeVarStr = "";
+	if(DataSet->RecordCount > 0)
+	{
+		for (int i = 0; i < DataSet->FieldCount; i++)
+		{
+			if(i < DataSet->FieldCount - 1)
+				FGlobeVarStr += DataSet->Fields->Fields[i]->FieldName + "\t";
+			else
+				FGlobeVarStr += DataSet->Fields->Fields[i]->FieldName + "\r\n";
+		}
+
+		DataSet->First();
+		for (int i = 0; i < DataSet->FieldCount; i++)
+		{
+			if(i < DataSet->FieldCount - 1)
+				FGlobeVarStr += DataSet->Fields->Fields[i]->AsString + "\t";
+			else
+				FGlobeVarStr += DataSet->Fields->Fields[i]->AsString + "\r\n";
+		}
+	}
+	DataSet->Close();
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::GetAccInforJSON()
+{
+	TJSONObject *ms = LoginUserClient->GetAccInforJSON();
+	GetAccInforJSONBack((TJSONObject*)ms->Clone());
+}
+// ---------------------------------------------------------------------------
+// 接收账套数据
+void __fastcall TClientBroker::GetAccInforJSONBack(TJSONObject *fdata)
+{
+	String s;
+	try
+	{
+		if(fdata->GetValue("status")->Value() == "f")
+		{
+			s = fdata->GetValue("errormessage")->Value();
+			MessageDlg(s,TMsgDlgType::mtError,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+			Application->Terminate();
+			return;
+		}
+		FModuleList     = fdata->GetValue("modulelist")->Value();
+		FSoftName       = fdata->GetValue("softname")->Value();
+		FVersion        = fdata->GetValue("version")->Value();
+
+		FftpInteranetIP = fdata->GetValue("ftpInteranetIP")->Value();
+		FftpInternetIP  = fdata->GetValue("ftpInternetIP")->Value();
+		FftpUserName    = fdata->GetValue("ftpUserName")->Value();
+		FftpPassword    = fdata->GetValue("ftpPassword")->Value();
+		FftpPort        = fdata->GetValue("ftpPort")->Value().ToInt();
+		FftpNeedFTP     = fdata->GetValue("ftpNeedFTP")->Value() == 1;
+		FftpPassive     = fdata->GetValue("ftpPassive")->Value() == 1;
+		FUpdateURL      = fdata->GetValue("updateurl")->Value();
+
+		// mail
+		FMailServer     = fdata->GetValue("mailServer")->Value();
+		FSendEMail      = fdata->GetValue("sendEmail")->Value();
+		FMailUserName   = fdata->GetValue("mailUserName")->Value();
+		FMailPassword   = fdata->GetValue("mailPassword")->Value();
+		FMailPort       = fdata->GetValue("mailPort")->Value().ToInt();
+
+		String LocalVersion=String(GetLocalVersion());
+		if(FVersion.IsEmpty())
+		{
+			s = _D("版本不匹配,系统将终止运行...");
+			MessageDlg(s,TMsgDlgType::mtError,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+			Application->Terminate();
+		}
+		else if(FVersion.SubString0(0, 3)!= LocalVersion)
+		{
+			s = _D("版本不匹配,系统将终止运行...")+FVersion.SubString0(0, 3);
+			MessageDlg(s,TMsgDlgType::mtError,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+			Application->Terminate();
+		}
+
+		String sIsTrial = fdata->GetValue("IsTrial")->Value();
+		if(sIsTrial.IsEmpty())
+			FIsTrial = true;
+		else
+			FIsTrial = sIsTrial.ToInt() == 1;
+
+		String sdbType = fdata->GetValue("sysdbtype")->Value();
+		if(!sdbType.IsEmpty())
+		{
+			FSysDbType = sdbType.ToInt();
+		}
+
+		FDevCorp  = fdata->GetValue("devcorp")->Value();
+		FHomePage = fdata->GetValue("homepage")->Value();
+		FEmail    = fdata->GetValue("email")->Value();
+	 /*	TJSONArray * AccList = (TJSONArray *)(fdata->GetValue("accbooks"));
+		FAccBooks->Clear();
+		for (int i = 0; i < AccList->Count; i++)
+		{
+			TJSONObject *recdObject = (TJSONObject*)(AccList->GetValue(i));
+			FAccBooks->AddNew();
+			FAccBooks->FieldValues["accbookcode"] = recdObject->GetValue("syaccbookcode")->Value();
+			FAccBooks->FieldValues["accbookname"] = recdObject->GetValue("syaccbookname")->Value();
+			FAccBooks->Update();
+		}
+		FRecvAccBook = true;   */
+		delete fdata;
+	}
+	catch (Exception &e)
+	{
+		s = _D("账套数据非法,系统将终止运行...");
+		MessageDlg(s,TMsgDlgType::mtError,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+//		MessageBox(Application->Handle, s.c_str(), L"错误提示", MB_ICONWARNING);
+		Application->Terminate();
+	}
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::GetLogInfo(TLogInfo *logInfo)
+{
+	try
+	{
+		logInfo->IsSystemer = IsSystemer;
+		logInfo->AgentPort = AgentPort;
+		StrCopy(logInfo->UserCode, UserCode.c_str());
+		StrCopy(logInfo->LogonCode, LogonCode.c_str());
+		StrCopy(logInfo->UserEmpID, FUserEmpID.c_str());
+		StrCopy(logInfo->AccBookID, AccBookID.c_str());
+		StrCopy(logInfo->UserName, UserName.c_str());
+		StrCopy(logInfo->AccBookName, AccBookName.c_str());
+		StrCopy(logInfo->Version, Version.c_str());
+		StrCopy(logInfo->AgentAddress, AgentAddress.c_str());
+		StrCopy(logInfo->SoftName, SoftName.c_str());
+		StrCopy(logInfo->Email, Email.c_str());
+		StrCopy(logInfo->HomePage, HomePage.c_str());
+
+		logInfo->IsRemoter = FRemoter; // 20090830需要修改
+		// ftp
+		logInfo->ftpPort = FftpPort;
+		logInfo->ftpNeedFTP = FftpNeedFTP;
+		logInfo->ftpPassive = FftpPassive;
+		if(FRemoter)
+			StrCopy(logInfo->ftpIP, FftpInternetIP.c_str()); // 外部
+		else
+			StrCopy(logInfo->ftpIP, ftpInteranetIP.c_str()); // 内部
+
+		StrCopy(logInfo->ftpUserName, FftpUserName.c_str());
+		StrCopy(logInfo->ftpPassword, FftpPassword.c_str());
+		// QQ
+		StrCopy(logInfo->QQID, FQQID.c_str());
+		StrCopy(logInfo->QQPassword, FQQPassword.c_str());
+		// mail
+		StrCopy(logInfo->mailServer, FMailServer.c_str());
+		StrCopy(logInfo->mailUserName, FMailUserName.c_str());
+		StrCopy(logInfo->mailPassword, FMailPassword.c_str());
+		StrCopy(logInfo->sendEMail, FSendEMail.c_str());
+		StrCopy(logInfo->UpdateURL, FUpdateURL.c_str());
+		logInfo->mailPort = FMailPort;
+	}
+	catch (...)
+	{
+		return false;
+	}
+	return true;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::GetCurUserInfo()
+{
+	TDataSnapClientDataSet *curUserInfo  = new TDataSnapClientDataSet(NULL);
+	try
+	{
+		TStream *ms = LoginUserClient->GetCurUserInfo();
+		curUserInfo->LoadFromStream(ms);
+		if(curUserInfo->RecordCount > 0)
+		{
+			curUserInfo->First();
+			FQQID       = curUserInfo->FieldByName("UserLanguage")->AsString;
+			FQQPassword = curUserInfo->FieldByName("UserPassword")->AsString;
+			FUserCode   = curUserInfo->FieldByName("UserIDCode")->AsString;
+			FUserEmpID  = curUserInfo->FieldByName("EmpPKID")->AsString;
+		}
+
+	}
+	__finally
+	{
+		delete curUserInfo;
+	}
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::RegMsgCallBack()
+{
+	String errMsg;
+	if(FLogonCode.IsEmpty()||FAccBookID.IsEmpty())
+		throw Exception(_D("登录信息没有赋值！"));
+
+	TfsScreenCursor * ScreenCursor = new TfsScreenCursor();
+	FAppConnected=false;
+	RefreshGlobeVar();
+	GetAllModuleRight();
+	if(LChannelManager==NULL)
+	{
+		LChannelManager = new TDSClientCallbackChannelManager(NULL);
+		LChannelManager->ChannelName = SMessageChannel+FAccBookID;
+		LChannelManager->DSHostname  = DSConnection->Params->Values["HostName"];
+		LChannelManager->DSPort      = DSConnection->Params->Values["Port"];
+		// LChannelManager->DSPath = DSConnection->Params->Values["URLPath"];
+		LChannelManager->CommunicationProtocol = DSConnection->Params->Values["CommunicationProtocol"];
+		LChannelManager->UserName = GetSysAdmin();
+		LChannelManager->Password =GetSysPassWord();
+		MsgCallBack = new TCallbackClient(LChannelManager,SMsgCallback);
+	    FAppConnected=LoginUserClient->UpdateCurUserCallbackClientID(LChannelManager->ManagerId);
+	}
+	delete ScreenCursor;
+	return FAppConnected;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::LogOut()
+{
+	try
+	{
+		ClientBrokerStatus = 0;
+		CloseAllForms();
+		if(LChannelManager)
+		{
+			MsgCallBack->HookCallBack=NULL;
+			LChannelManager->CloseClientChannel();
+			MsgCallBack=NULL;
+			delete  LChannelManager;
+			LChannelManager = NULL;
+
+		}
+
+		if(WorkFlowServerClient)
+		{
+		  delete WorkFlowServerClient;
+		   WorkFlowServerClient =NULL;
+		}
+		 if(HouseViewClient)
+		 {
+			delete HouseViewClient;
+			HouseViewClient=NULL;
+		 }
+		if(FSendUserMessageClient)
+		{
+		    delete FSendUserMessageClient;
+			FSendUserMessageClient=NULL;
+		}
+		if(LoginUserClient)
+		{
+
+		   //避免等待阻塞,注销和关闭连接都在线程里做
+		  FEvent->ResetEvent();
+		  TLogOutThread *logOutTread=new TLogOutThread(DSConnection, LoginUserClient,FEvent);
+		  if(FEvent->WaitFor(2000)!=TWaitResult::wrSignaled)
+		  {
+			 DSConnection->Close();
+			 delete LoginUserClient;
+			 LoginUserClient=NULL;
+		  }
+		}
+	}
+	catch (Exception &e)
+	{
+	 throw Exception(e.Message);
+	}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::GetModuleData(TDataSnapClientDataSet *DataSet)
+{
+
+		TStream *ms  = LoginUserClient->GetModuleData();
+		ms->Position = 0;
+		DataSet->LoadFromStream(ms);
+}
+// ---------------------------------------------------------------------------
+void __fastcall TClientBroker::GetAllModuleRight()
+{
+		TStream *ms  = LoginUserClient->GetModuleRight();
+		ms->Position = 0;
+		FModuleRight->LoadFromStream(ms);
+}
+
+// ---------------------------------------------------------------------------
+TStream* __fastcall TClientBroker::GetClassList()
+{
+	return LoginUserClient->GetClassList();
+}
+// ---------------------------------------------------------------------------
+TJSONObject* __fastcall TClientBroker::GetClassListJO()
+{
+   	if(LoginUserClient)
+	{
+	 TJSONObject *retJSonObject= LoginUserClient->GetClassListJO();
+	 return (TJSONObject *)(retJSonObject->Clone());
+	}
+	else
+	 return NULL;
+}
+// ---------------------------------------------------------------------------
+TStream* __fastcall TClientBroker::GetAutoCodeFields()
+{
+	return LoginUserClient->GetAutoCodeFields();
+}
+// ---------------------------------------------------------------------------
+TJSONObject* __fastcall TClientBroker::GetAutoCodeFieldsJO()
+{
+	if(LoginUserClient)
+	{
+	 TJSONObject *retJSonObject= LoginUserClient->GetAutoCodeFieldsJO();
+	 return (TJSONObject *)(retJSonObject->Clone());
+	}
+	else
+	 return NULL;
+}
+// ---------------------------------------------------------------------------
+TJSONArray* __fastcall TClientBroker::GetUserList()
+{
+	TJSONObject * UserArray;
+	if(LoginUserClient)
+	{
+		TJSONArray *retArray = LoginUserClient->GetUserList();
+		return (TJSONArray *)(retArray->Clone());
+	}
+	else
+	{
+		return NULL;
+	}
+}
+TStream* __fastcall TClientBroker::ListOfLoginUser()
+{
+ 	if(LoginUserClient)
+	{
+		return LoginUserClient->ListOfLoginUser();
+	}
+	else
+	{
+		return NULL;
+	}
+}
+// ---------------------------------------------------------------------------
+TJSONArray* __fastcall TClientBroker::GetDepartmentAndUsersList()
+{
+ 	if(LoginUserClient)
+	{
+	 TJSONArray *retArray= LoginUserClient->GetDepartmentAndUsersList();
+	 return (TJSONArray *)(retArray->Clone());
+	}
+	else
+	 return NULL;
+}
+
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::ChangePwd(String szNewPwd)
+{
+	String errMsg;
+	bool retResult=false;
+	retResult=LoginUserClient->ChangePassword(FUserCode,FPassword,szNewPwd,errMsg);
+	if(retResult==false)
+	ShowMessage(errMsg);
+	return retResult;
+}
+// ---------------------------------------------------------------------------
+TStream* __fastcall TClientBroker::GetHouseViewStream(String AKeyID)
+{
+  if(HouseViewClient==NULL)
+	 HouseViewClient=new THouseViewClient(DSConnection->DBXConnection,FInstanceOwner);
+	TStream *AStream=HouseViewClient->GetHouseViewStream(AKeyID);
+	TDataSnapStream * dsStream=new TDataSnapStream(AStream);
+  return dsStream;
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TClientBroker::UpdateHouseViewFile(String AKeyID, String AFileName, TStream* AStream)
+{
+	if(HouseViewClient==NULL)
+	 HouseViewClient=new THouseViewClient(DSConnection->DBXConnection,FInstanceOwner);
+	return	HouseViewClient->UpdateHouseViewFile(AKeyID, AFileName, AStream);
+}
+// ---------------------------------------------------------------------------
+

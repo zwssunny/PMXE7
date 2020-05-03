@@ -1,0 +1,497 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{c2bfa763-88b2-4fd4-b3c4-662d5c511ca1}</ProjectGuid>
+			<ProjectType>CppPackage</ProjectType>
+			<MainSource>baseCom2009.cpp</MainSource>
+			<Config Condition="'$(Config)'==''">Debug Build</Config>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug Build' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release Build' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<LinkPackageStatics>rtl.lib;vcl.lib;tee.lib;vcldb.lib;adortl.lib;bdertl.lib;vcldbx.lib;ibxpress.lib;dsnap.lib;dsnapcon.lib;teeui.lib;teedb.lib;bcbsmp.lib;inetdbbde.lib;inetdbxpress.lib;dbexpress.lib;bcbie.lib;soaprtl.lib;dbxcds.lib</LinkPackageStatics>
+			<DesignOnlyPackage>false</DesignOnlyPackage>
+			<BPILibOutputDir>..\lib\</BPILibOutputDir>
+			<DCC_Optimize>false</DCC_Optimize>
+			<OutputExt>bpl</OutputExt>
+			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+			<DynamicRTL>true</DynamicRTL>
+			<ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+			<ILINK_GenerateLibFile>true</ILINK_GenerateLibFile>
+			<BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+			<BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+			<ILINK_AppType>Windows</ILINK_AppType>
+			<ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
+			<ILINK_ObjectSearchPath>..\other</ILINK_ObjectSearchPath>
+			<BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+			<BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
+			<DCC_MakeModifiedUnits>true</DCC_MakeModifiedUnits>
+			<FinalOutputDir>..\lib\</FinalOutputDir>
+			<TASM_AdditionalSwitches> /w2</TASM_AdditionalSwitches>
+			<DCC_UnitSearchPath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_UnitSearchPath>
+			<ILINK_Description>HYWY Standard Component  for C++ Builder2009</ILINK_Description>
+			<BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
+			<BCC_StackFrames>true</BCC_StackFrames>
+			<ILINK_WinAppType>Package</ILINK_WinAppType>
+			<BRCC_UserSuppliedOptions> -I$(BDS)\include;$(BDS)\include\vcl;..\Other;$(BDS)\include\dinkumware</BRCC_UserSuppliedOptions>
+			<IncludePath>..\other</IncludePath>
+			<BCC_PCHCache>true</BCC_PCHCache>
+			<ILINK_BpiLibOutputDir>..\lib\</ILINK_BpiLibOutputDir>
+			<BCC_IntegerSizedEnums>false</BCC_IntegerSizedEnums>
+			<BCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;..\Other;$(BDS)\include\dinkumware</BCC_IncludePath>
+			<TASM_IncludePath>$(BDS)\include;$(BDS)\include\vcl;..\Other;$(BDS)\include\dinkumware</TASM_IncludePath>
+			<AllPackageLibs>rtl.lib;vcl.lib;tee.lib;vcldb.lib;adortl.lib;bdertl.lib;vcldbx.lib;ibxpress.lib;dsnap.lib;dsnapcon.lib;teeui.lib;teedb.lib;dsnapcon.lib;bcbsmp.lib;inetdbbde.lib;inetdbxpress.lib;dbexpress.lib;bcbie.lib;soaprtl.lib;dbxcds.lib</AllPackageLibs>
+			<BRCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;..\Other;$(BDS)\include\dinkumware</BRCC_IncludePath>
+			<DCC_IncludePath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_IncludePath>
+			<BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+			<BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+			<ILINK_LibraryPath>$(BDS)\Bin;$(BDS)\lib\obj;$(BDS)\lib;..\other</ILINK_LibraryPath>
+			<BCC_Defines>NO_STRICT</BCC_Defines>
+			<BRCC_Defines>_DEBUG</BRCC_Defines>
+			<TASM_Defines>_DEBUG</TASM_Defines>
+			<Multithreaded>true</Multithreaded>
+			<TASM_Debugging>Full</TASM_Debugging>
+			<BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+			<DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+			<IntermediateOutputDir>Debug_Build</IntermediateOutputDir>
+			<TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+			<ILINK_LibraryPath>$(BDS)\lib\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<BCC_Defines>_DEBUG;$(BCC_Defines)</BCC_Defines>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+			<DCC_Optimize>true</DCC_Optimize>
+			<BCC_InlineFunctionExpansion>true</BCC_InlineFunctionExpansion>
+			<BCC_UseRegisterVariables>Always</BCC_UseRegisterVariables>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+			<IntermediateOutputDir>Release_Build</IntermediateOutputDir>
+			<BCC_StackFrames>false</BCC_StackFrames>
+			<ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<BCC_Defines>NDEBUG;$(BCC_Defines)</BCC_Defines>
+			<TASM_Debugging>None</TASM_Debugging>
+		</PropertyGroup>
+		<ProjectExtensions>
+			<Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+			<Borland.ProjectType>CppPackage</Borland.ProjectType>
+			<BorlandProject>
+				<CPlusPlusBuilder.Personality>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">7</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">20</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">2052</VersionInfo>
+						<VersionInfo Name="CodePage">936</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">HYWY</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">7.0.0.20</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">7.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<ExcludedPackages>
+						<ExcludedPackages Name="C:\Program Files\Borland\CBuilder6\Projects\Bpl\sdChart.bpl">GoodView sdChart</ExcludedPackages>
+						<ExcludedPackages Name="C:\Program Files\Borland\CBuilder6\Projects\Bpl\Sdrpt.bpl">GoodView SDReport</ExcludedPackages>
+					</ExcludedPackages>
+					<HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Count">9</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item0">..\other</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item1">$(BCB)\include;$(BCB)\include\vcl;..\Other</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item2">$(BCB)\include;$(BCB)\include\vcl;..\Other;d:\sdlib6</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item3">$(BCB)\include;$(BCB)\include\vcl;..\Other;d:\sdlib</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item4">$(BCB)\include;$(BCB)\include\vcl;..\Other;F:\sdlib</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item5">C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl;..\Other;F:\vclpack</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item6">$(BCB)\include;$(BCB)\include\vcl;..\Other;F:\vclpack</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item7">$(BCB)\include;$(BCB)\include\vcl;F:\package\Sdlib\Other</HistoryLists_hlIncludePath>
+						<HistoryLists_hlIncludePath Name="Item8">$(BCB)\include;$(BCB)\include\vcl</HistoryLists_hlIncludePath>
+					</HistoryLists_hlIncludePath>
+					<HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Count">8</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item0">$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\other</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item1">$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\other;D:\pm2构件\sdlib6\ctrls</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item2">C:\Program Files\Borland\CBuilder6\Projects;..\other;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item3">..\other;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item4">..\other;$(BCB)\Projects\Lib;..\chart;$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item5">$(BCB)\Projects\Lib;..\chart;$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item6">..\chart;$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
+						<HistoryLists_hlLibraryPath Name="Item7">$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath>
+					</HistoryLists_hlLibraryPath>
+					<HistoryLists_hlDebugSourcePath>
+						<HistoryLists_hlDebugSourcePath Name="Count">1</HistoryLists_hlDebugSourcePath>
+						<HistoryLists_hlDebugSourcePath Name="Item0">$(BCB)\source\vcl</HistoryLists_hlDebugSourcePath>
+					</HistoryLists_hlDebugSourcePath>
+					<HistoryLists_hlConditionals>
+						<HistoryLists_hlConditionals Name="Count">1</HistoryLists_hlConditionals>
+						<HistoryLists_hlConditionals Name="Item0">_DEBUG</HistoryLists_hlConditionals>
+					</HistoryLists_hlConditionals>
+					<HistoryLists_hlIntOutputDir>
+						<HistoryLists_hlIntOutputDir Name="Count">4</HistoryLists_hlIntOutputDir>
+						<HistoryLists_hlIntOutputDir Name="Item0">..</HistoryLists_hlIntOutputDir>
+						<HistoryLists_hlIntOutputDir Name="Item1">E:\projects\pack\sdlib</HistoryLists_hlIntOutputDir>
+						<HistoryLists_hlIntOutputDir Name="Item2">F:\package\Sdlib\Ctrls\</HistoryLists_hlIntOutputDir>
+						<HistoryLists_hlIntOutputDir Name="Item3">F:\package\Sdlib\Ctrls</HistoryLists_hlIntOutputDir>
+					</HistoryLists_hlIntOutputDir>
+					<HistoryLists_hlFinalOutputDir>
+						<HistoryLists_hlFinalOutputDir Name="Count">5</HistoryLists_hlFinalOutputDir>
+						<HistoryLists_hlFinalOutputDir Name="Item0">..\lib\</HistoryLists_hlFinalOutputDir>
+						<HistoryLists_hlFinalOutputDir Name="Item1">..\</HistoryLists_hlFinalOutputDir>
+						<HistoryLists_hlFinalOutputDir Name="Item2">E:\projects\pack\sdlib</HistoryLists_hlFinalOutputDir>
+						<HistoryLists_hlFinalOutputDir Name="Item3">F:\package\Sdlib\Ctrls\</HistoryLists_hlFinalOutputDir>
+						<HistoryLists_hlFinalOutputDir Name="Item4">F:\package\Sdlib\Ctrls</HistoryLists_hlFinalOutputDir>
+					</HistoryLists_hlFinalOutputDir>
+					<HistoryLists_hIBPIOutputDir>
+						<HistoryLists_hIBPIOutputDir Name="Count">4</HistoryLists_hIBPIOutputDir>
+						<HistoryLists_hIBPIOutputDir Name="Item0">E:\projects\pack\sdlib\</HistoryLists_hIBPIOutputDir>
+						<HistoryLists_hIBPIOutputDir Name="Item1">E:\projects\pack\sdlib</HistoryLists_hIBPIOutputDir>
+						<HistoryLists_hIBPIOutputDir Name="Item2">F:\package\Sdlib\Ctrls\</HistoryLists_hIBPIOutputDir>
+						<HistoryLists_hIBPIOutputDir Name="Item3">F:\package\Sdlib\Ctrls</HistoryLists_hIBPIOutputDir>
+					</HistoryLists_hIBPIOutputDir>
+					<Debugging>
+						<Debugging Name="DebugSourceDirs">$(BCB)\source\vcl</Debugging>
+					</Debugging>
+					<Parameters>
+						<Parameters Name="RunParams"/>
+						<Parameters Name="Launcher"/>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="DebugCWD"/>
+						<Parameters Name="HostApplication">D:\pm2构件\sdlib6\TabSet测试\Project1.exe</Parameters>
+						<Parameters Name="RemoteHost"/>
+						<Parameters Name="RemotePath"/>
+						<Parameters Name="RemoteLauncher"/>
+						<Parameters Name="RemoteCWD"/>
+						<Parameters Name="RemoteDebug">False</Parameters>
+						<Parameters Name="RemoteParams"/>
+						<Parameters Name="UseRemoteLauncher">False</Parameters>
+						<Parameters Name="Debug Symbols Search Path"/>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<Compiler>
+						<Compiler Name="ShowInfoMsgs">0</Compiler>
+						<Compiler Name="LinkDebugVcl">0</Compiler>
+						<Compiler Name="LinkCGLIB">0</Compiler>
+					</Compiler>
+					<CORBA>
+						<CORBA Name="AddServerUnit">1</CORBA>
+						<CORBA Name="AddClientUnit">1</CORBA>
+						<CORBA Name="PrecompiledHeaders">1</CORBA>
+					</CORBA>
+					<Linker>
+						<Linker Name="LibPrefix"/>
+						<Linker Name="LibSuffix"/>
+						<Linker Name="LibVersion"/>
+					</Linker>
+					<ProjectProperties>
+						<ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
+						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+					</ProjectProperties>
+					<Source>
+						<Source Name="MainSource">baseCom2009.cpp</Source>
+					</Source>
+					<HistoryLists_hlILINK_LibraryPath>
+						<HistoryLists_hlILINK_LibraryPath Name="Count">1</HistoryLists_hlILINK_LibraryPath>
+						<HistoryLists_hlILINK_LibraryPath Name="Item0">$(BDS)\Bin;$(BDS)\lib\obj;$(BDS)\lib;..\other</HistoryLists_hlILINK_LibraryPath>
+					</HistoryLists_hlILINK_LibraryPath>
+					<HistoryLists_hlILINK_BpiLibOutputDir>
+						<HistoryLists_hlILINK_BpiLibOutputDir Name="Count">1</HistoryLists_hlILINK_BpiLibOutputDir>
+						<HistoryLists_hlILINK_BpiLibOutputDir Name="Item0">..\lib\</HistoryLists_hlILINK_BpiLibOutputDir>
+					</HistoryLists_hlILINK_BpiLibOutputDir>
+					<Excluded_Packages>
+						<Excluded_Packages Name="D:\DeveloperExpress45\Library\CBuilder12\dclcxPivotGridOLAPC12.bpl">ExpressPivotGrid 2 connection to ExpressQuantumGrid Chart View by Developer Express Inc.</Excluded_Packages>
+					</Excluded_Packages>
+				</CPlusPlusBuilder.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+		<ItemGroup>
+			<CppCompile Include="ZLabel.cpp">
+				<DependentOn>ZLabel.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZLine.cpp">
+				<DependentOn>ZLine.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZGroupBox.cpp">
+				<DependentOn>ZGroupBox.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZImage.cpp">
+				<DependentOn>ZImage.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZMaskEdit.cpp">
+				<DependentOn>ZMaskEdit.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZMemo.cpp">
+				<DependentOn>ZMemo.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZListBox.cpp">
+				<DependentOn>ZListBox.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZListView.cpp">
+				<DependentOn>ZListView.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZColorSet.cpp">
+				<DependentOn>ZColorSet.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZComboBox.cpp">
+				<DependentOn>ZComboBox.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZCalculator.cpp">
+				<DependentOn>ZCalculator.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZCheckBox.cpp">
+				<DependentOn>ZCheckBox.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZEdit.cpp">
+				<DependentOn>ZEdit.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Zgrid.cpp">
+				<DependentOn>Zgrid.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZDateEdit.cpp">
+				<DependentOn>ZDateEdit.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZDropDown.cpp">
+				<DependentOn>ZDropDown.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZMonthCalendar.cpp">
+				<DependentOn>ZMonthCalendar.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZTreeView.cpp">
+				<DependentOn>ZTreeView.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZUpDown.cpp">
+				<DependentOn>ZUpDown.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZStatusBar.cpp">
+				<DependentOn>ZStatusBar.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZTabControl.cpp">
+				<DependentOn>ZTabControl.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="vclactnband.bpi">
+				<BuildOrder>68</BuildOrder>
+			</PackageImport>
+			<PackageImport Include="vclx.bpi">
+				<BuildOrder>69</BuildOrder>
+			</PackageImport>
+			<PackageImport Include="designide.bpi">
+				<BuildOrder>66</BuildOrder>
+			</PackageImport>
+			<PackageImport Include="xmlrtl.bpi">
+				<BuildOrder>67</BuildOrder>
+			</PackageImport>
+			<CppCompile Include="ZRadioButton.cpp">
+				<DependentOn>ZRadioButton.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZRichEdit.cpp">
+				<DependentOn>ZRichEdit.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZPageControl.cpp">
+				<DependentOn>ZPageControl.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZPanel.cpp">
+				<DependentOn>ZPanel.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZSpeedButton.cpp">
+				<DependentOn>ZSpeedButton.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZStaticText.cpp">
+				<DependentOn>ZStaticText.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZScale.cpp">
+				<DependentOn>ZScale.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZShape.cpp">
+				<DependentOn>ZShape.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZButton.cpp">
+				<DependentOn>ZButton.h</DependentOn>
+				<BuildOrder>64</BuildOrder>
+			</CppCompile>
+			<DelphiCompile Include="Paletteunit.pas">
+				<BuildOrder>10</BuildOrder>
+			</DelphiCompile>
+			<PackageImport Include="rtl.bpi">
+				<BuildOrder>1</BuildOrder>
+			</PackageImport>
+			<DelphiCompile Include="Zgrids.pas">
+				<BuildOrder>24</BuildOrder>
+			</DelphiCompile>
+			<DelphiCompile Include="ZCnDate.pas">
+				<BuildOrder>11</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="baseCom2009.cpp">
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZWeekGrid.cpp">
+				<DependentOn>ZWeekGrid.h</DependentOn>
+				<BuildOrder>48</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="bcbsmp.bpi">
+				<BuildOrder>0</BuildOrder>
+			</PackageImport>
+			<PackageImport Include="vcl.bpi">
+				<BuildOrder>2</BuildOrder>
+			</PackageImport>
+			<DelphiCompile Include="ZXPTab.pas">
+				<BuildOrder>51</BuildOrder>
+			</DelphiCompile>
+			<DelphiCompile Include="XPButton.pas">
+				<BuildOrder>50</BuildOrder>
+			</DelphiCompile>
+			<ResFiles Include="baseCom2009.res">
+				<BuildOrder>5</BuildOrder>
+			</ResFiles>
+			<DelphiCompile Include="XPMenu.pas">
+				<BuildOrder>53</BuildOrder>
+			</DelphiCompile>
+			<DelphiCompile Include="ZSplitter.pas">
+				<BuildOrder>6</BuildOrder>
+			</DelphiCompile>
+			<ResFiles Include="ZVCLSR.RES">
+				<BuildOrder>48</BuildOrder>
+			</ResFiles>
+			<None Include="ColorDefine.h">
+				<BuildOrder>7</BuildOrder>
+			</None>
+			<DelphiCompile Include="ZImagePanel.pas">
+				<BuildOrder>8</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="CnCalendar.cpp">
+				<DependentOn>CnCalendar.h</DependentOn>
+				<BuildOrder>48</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="SymTable.cpp">
+				<BuildOrder>61</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Tokstr.cpp">
+				<DependentOn>Tokstr.h</DependentOn>
+				<BuildOrder>62</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="rmb.cpp">
+				<DependentOn>rmb.h</DependentOn>
+				<BuildOrder>58</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="StrMap.cpp">
+				<BuildOrder>60</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="VOR.cpp">
+				<DependentOn>VOR.h</DependentOn>
+				<BuildOrder>64</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZBitBtn.cpp">
+				<DependentOn>ZBitBtn.h</DependentOn>
+				<BuildOrder>64</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="TransPanel.cpp">
+				<DependentOn>TransPanel.h</DependentOn>
+				<BuildOrder>63</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="vclComFunc.cpp">
+				<DependentOn>vclComFunc.h</DependentOn>
+				<BuildOrder>63</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="DynamicGrid.cpp">
+				<DependentOn>DynamicGrid.h</DependentOn>
+				<BuildOrder>50</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Errmsgs.cpp">
+				<DependentOn>Errmsgs.h</DependentOn>
+				<BuildOrder>51</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="copyright.cpp">
+				<DependentOn>copyright.h</DependentOn>
+				<BuildOrder>48</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Cplexer.cpp">
+				<BuildOrder>49</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="MathLexer.cpp">
+				<BuildOrder>56</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="MathParser.cpp">
+				<BuildOrder>57</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Istream.cpp">
+				<DependentOn>Istream.h</DependentOn>
+				<BuildOrder>53</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Lexer.cpp">
+				<BuildOrder>55</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZToolBar.cpp">
+				<DependentOn>ZToolBar.h</DependentOn>
+				<BuildOrder>67</BuildOrder>
+			</CppCompile>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release Build">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug Build">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Cpp.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')"/>
+	</Project>

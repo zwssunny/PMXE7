@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="NeedFTP" value="true"/>
+	<Setting Name="InternetIP" value="192.168.1.10"/>
+	<Setting Name="InteranetIP" value="192.168.1.10"/>
+	<Setting Name="UserName" value="ftpuser"/>
+	<Setting Name="Password" value="4236324F46354C474266632B53584131397A6C5351513D3D"/>
+	<Setting Name="Port" value="22"/>
+	<Setting Name="Passive" value="true"/>
+</DefaultSettings>

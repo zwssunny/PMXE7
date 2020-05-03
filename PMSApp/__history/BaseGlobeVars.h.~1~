@@ -1,0 +1,11 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseGlobeVarsH
+#define BaseGlobeVarsH
+#include "CZDataSet.h"
+//---------------------------------------------------------------------------
+extern PACKAGE String gGlobeVarsStr;
+extern PACKAGE TCZDataSet *GlobeVarSet;
+extern PACKAGE HWND GlobeCommHandle;
+extern PACKAGE String ProductVersion;
+#endif

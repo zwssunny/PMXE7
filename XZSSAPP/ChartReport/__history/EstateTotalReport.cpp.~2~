@@ -1,0 +1,165 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "EstateTotalReport.h"
+#include "CommFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseForm"
+#pragma link "StartAndEndDate"
+#pragma resource "*.fmx"
+TfrmEstateTotalReport *frmEstateTotalReport;
+//---------------------------------------------------------------------------
+__fastcall TfrmEstateTotalReport::TfrmEstateTotalReport(TComponent* Owner,TClientBroker *clBroker,int modulecode,String param)
+	: TfrmBaseForm(Owner,clBroker,modulecode,param)
+{
+	InitBuildingTree();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmEstateTotalReport::InitBuildingTree()
+{
+   	TRESTRequestParameterList *Params = new TRESTRequestParameterList(this);
+	Params->AddItem("MenuID",ModuleCode);
+	Query = csGetData("/Common/HouseViewPermission/GetEstateAndBuildingTree",Params);
+	if(Query->Active && Query->RecordCount > 0)
+	{
+		Query->First();
+		while(!Query->Eof)
+		{
+			TTreeViewItem *item = new TTreeViewItem(BuildingTree);
+			item->Text = Query->FieldByName("Name")->AsString;
+			item->TagString = Query->FieldByName("FID")->AsString;
+			String PID = Query->FieldByName("PID")->AsString;
+			if(PID == "0")
+			{
+				item->Parent = BuildingTree;
+			}
+			else
+			{
+				for(int i=0;i<BuildingTree->Count;i++)
+				{
+					if(BuildingTree->Items[i]->TagString == PID)
+					{
+						item->Parent = BuildingTree->Items[i];
+                    }
+				}
+            }
+
+			Query->Next();
+        }
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmEstateTotalReport::BuildingTreeChangeCheck(TObject *Sender)
+{
+	TTreeViewItem *item = dynamic_cast<TTreeViewItem*>(Sender);
+	if(item)
+	{
+		String FID = item->TagString;
+		if(!item->IsExpanded)
+			item->Expand();
+		for(int i=0;i<item->Count;i++)
+			item->Items[i]->IsChecked = item->IsChecked;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmEstateTotalReport::BtnQueryClick(TObject *Sender)
+{
+	QtySeries->Clear();
+	AmtSeries->Clear();
+	String start = StartAndEndDateFrame->BeginDate;
+	TJSONObject *s = new TJSONObject();
+	s->AddPair("Year",start.SubString1(1,4));
+	s->AddPair("Month",start.SubString1(6,2));
+
+	String end = StartAndEndDateFrame->EndDate;
+	TJSONObject *e = new TJSONObject();
+	e->AddPair("Year",end.SubString1(1,4));
+	e->AddPair("Month",end.SubString1(6,2));
+
+	TJSONArray* cs  = new TJSONArray();
+	for(int i=0;i<BuildingTree->ComponentCount;i++)
+	{
+		TTreeViewItem *item = dynamic_cast<TTreeViewItem*>(BuildingTree->Components[i]);
+		if(item)
+		{
+			if(item->Count == 0 && item->IsChecked)
+			{
+				cs->Add(item->TagString);
+			}
+        }
+	}
+
+	TJSONObject *Data = new TJSONObject();
+	Data->AddPair("Start",s);
+	Data->AddPair("End",e);
+	Data->AddPair("Building",cs);
+
+    TRESTRequestParameterList *Params = new TRESTRequestParameterList(this);
+	Params->AddItem("Data",Data->ToString());
+	Query = csGetData("/ChartReport/tbEstateTotalReport/csGetData",Params);
+	if(Query->Active && Query->RecordCount > 0)
+	{
+		TJSONValue *ParamJson = ClientBroker->Response->JSONValue;
+//		String ResponseContent = ClientBroker->Response->Content;
+//		TJSONObject *ParamJson = new TJSONObject();
+//		ParamJson->Parse(BytesOf(ResponseContent),0);
+		TJSONArray *DataArray = (TJSONArray*)((TJSONPair*)ParamJson);
+		for(int i=0;i<DataArray->Count;i++)
+		{
+			TJSONObject *item = (TJSONObject*)DataArray->Items[i];
+			int index = StrToInt(item->Values["Index"]->Value());
+			if(index > 1)
+			{
+				double qty = 0;
+				double amt = 0;
+				if(item->Get("Num"))
+					qty = GetFloatFromStr(item->Values["Num"]->ToString().Trim());
+				if(item->Get("Money"))
+					amt = GetFloatFromStr(item->Values["Money"]->ToString().Trim());
+
+				String label = "";
+				unsigned corlor = claBlack;
+				if(index == 2)
+				{
+					label = L"已签合同";
+					corlor = claDeepskyblue;
+				}
+				else if(index == 3)
+				{
+					label = L"未签合同";
+					corlor = claGold;
+				}
+				else if(index == 4)
+				{
+					label = L"未售";
+					corlor = claDarkorange;
+				}
+
+				QtySeries->AddPie(qty,label,TAlphaColor(corlor));
+				AmtSeries->AddPie(amt,label,TAlphaColor(corlor));
+			}
+		}
+	}
+	QueryView->HideMaster();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmEstateTotalReport::ChartTabCtrGesture(TObject *Sender, const TGestureEventInfo &EventInfo,
+		  bool &Handled)
+{
+	short id = EventInfo.GestureID;
+	if(id == sgiLeft)
+	{
+		ChartTabCtr->Next(TTabTransition::Slide);
+		Handled = true;
+	}
+	else if(id == sgiRight)
+	{
+		ChartTabCtr->Previous(TTabTransition::Slide);
+		Handled = true;
+    }
+}
+//---------------------------------------------------------------------------
+

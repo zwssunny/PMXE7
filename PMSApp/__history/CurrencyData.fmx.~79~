@@ -1,0 +1,172 @@
+inherited frmCurrencyData: TfrmCurrencyData
+  Caption = #36135#24065#32500#25252
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object ListStringGrid: TStringGrid [2]
+    Align = Client
+    Height = 471.000000000000000000
+    TabOrder = 10
+    Width = 384.000000000000000000
+    Options = [ColumnResize, ColLines, RowLines, RowSelect, AlwaysShowSelection, Tabs, Header, HeaderClick]
+    RowCount = 0
+    RowHeight = 30.000000000000000000
+    object StringColumn1: TStringColumn
+      Header = #34892#21495
+      Height = 0.000000000000000000
+      TabOrder = 0
+      Width = 50.000000000000000000
+    end
+    object StringColumn3: TStringColumn
+      Header = #36135#24065#21517#31216
+      Height = 0.000000000000000000
+      Position.X = 50.000000000000000000
+      TabOrder = 2
+      Width = 100.000000000000000000
+    end
+    object StringColumn2: TStringColumn
+      Header = #36135#24065#20195#30721
+      Height = 0.000000000000000000
+      Position.X = 150.000000000000000000
+      TabOrder = 1
+      Width = 80.000000000000000000
+    end
+    object StringColumn4: TStringColumn
+      Header = #27719#29575
+      Height = 0.000000000000000000
+      Position.X = 230.000000000000000000
+      TabOrder = 3
+      Width = 100.000000000000000000
+    end
+    object StringColumn5: TStringColumn
+      Header = #26412#20301#24065
+      Height = 0.000000000000000000
+      Position.X = 330.000000000000000000
+      TabOrder = 4
+      Width = 50.000000000000000000
+    end
+  end
+  inherited GridBindSourceDB: TBindSourceDB
+    Left = 312
+  end
+  inherited ListFormBindingsList: TBindingsList
+    Left = 296
+    object BindStringGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = ListStringGrid
+      SourceComponent = GridBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'Row'
+          ColumnIndex = 0
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'RecNo'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[0].Header'
+              SourceExpression = '"'#34892#21495'"'
+            end>
+        end
+        item
+          ColumnName = 'CurDataPKID'
+          ColumnIndex = 1
+          SourceMemberName = 'CurDataPKID'
+          ParseCellExpressions = <
+            item
+              ControlExpression = 'SelectedText(Self)'
+              SourceExpression = 'AsString'
+            end>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[1].Header'
+              SourceExpression = '"'#36135#24065#20195#30721'"'
+            end>
+        end
+        item
+          ColumnName = 'CurDataName'
+          ColumnIndex = 2
+          SourceMemberName = 'CurDataName'
+          ParseCellExpressions = <
+            item
+              ControlExpression = 'SelectedText(Self)'
+              SourceExpression = 'AsString'
+            end>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[2].Header'
+              SourceExpression = '"'#36135#24065#21517#31216'"'
+            end>
+        end
+        item
+          ColumnName = 'CurDataExchangeRate'
+          ColumnIndex = 3
+          SourceMemberName = 'CurDataExchangeRate'
+          ParseCellExpressions = <
+            item
+              ControlExpression = 'SelectedText(Self)'
+              SourceExpression = 'AsString'
+            end>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[3].Header'
+              SourceExpression = '"'#27719#29575'"'
+            end>
+        end
+        item
+          ColumnName = 'CurDataIsStandard'
+          ColumnIndex = 4
+          SourceMemberName = 'CurDataIsStandard'
+          ParseCellExpressions = <
+            item
+              ControlExpression = 'IfThen(SelectedText(Self)="'#26159'",1,0)'
+              SourceExpression = 'AsInteger'
+            end>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'IfThen(AsInteger=1,"'#26159'","'#21542'")'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[4].Header'
+              SourceExpression = '"'#26412#20301#24065'"'
+            end>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'Math_Max(0, DBUtils_ActiveRecord(Self))'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Math_Max(0, Selected)'
+          SourceExpression = 'DBUtils_ValidRecNo(Self)'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+  end
+end

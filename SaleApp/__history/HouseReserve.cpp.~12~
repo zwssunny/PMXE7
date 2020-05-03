@@ -1,0 +1,118 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "HouseReserve.h"
+#include "HouseReserveFilters.h"
+#include "HouseReserveEdit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseListShow"
+#pragma resource "*.fmx"
+TfrmHouseReserve *frmHouseReserve;
+//---------------------------------------------------------------------------
+__fastcall TfrmHouseReserve::TfrmHouseReserve(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,
+							 String WhereStr)
+	: TfrmBaseListShow(Owner,clBroker,ModuleCode,WhereStr)
+{
+	 GridBindSourceDB->DataSet=this->DataSet->MasterDataSet;
+	 GridBindSourceDB->DataSource=this->MasterDataSource;
+	 GetSalesType();
+}
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmHouseReserve::NewEditForm(TZClientDataSet *FDataSet,int status)
+{
+  THouseReserveEditForm *p=new THouseReserveEditForm(this,ClientBroker,FDataSet,status);
+  return p;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmHouseReserve::FormFillData()
+{
+	 BindStringGridLink->Active=false;
+	 BindStringGridLink->Active=true;
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmHouseReserve::BeforeUpdateData(int OptType)
+{
+   int UnitChgPriceState;
+   bool canModife=IsSalesManager||(VarToStr(GetFieldValue("ClientSalerFKID"))== ClientBroker->UserEmpID);
+   Query->Close();
+   Query->SQL->Text=String("select * from tbSysParameter where SysParamClassCode='110'")
+             +" and SysParamPKID='UnitChgPriceState'";
+   Query->Open();
+   if(Query->RecordCount>0)
+   {
+     if(Query->FieldValues["SysParamValue"]==0)
+	   UnitChgPriceState = 0 ;
+     else
+       UnitChgPriceState = 1 ;
+   }
+   else
+     UnitChgPriceState = 0 ;
+   Query->Close();
+  switch(OptType)
+  {
+    case 1:
+      if(UnitChgPriceState == 1)
+      {
+       MessageDlg(_D("正在单元调价状态，不能新增") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+        return false;
+      }
+      return true;
+    case 2:
+	  if(UnitChgPriceState == 1)
+      {
+       MessageDlg(_D("正在单元调价状态，不能修改") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+        return false;
+      }
+      if(Integer(GetFieldValue("HseRsveProperty"))!=1)
+      {
+        MessageDlg(_D("该预定单非预定状态，不能修改！") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+        return false;
+	  }
+	  return canModife;
+    case 3:
+      if(UnitChgPriceState == 1)
+      {
+       MessageDlg(_D("正在单元调价状态，不能删除") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+        return false;
+      }
+      if(Integer(GetFieldValue("HseRsveProperty"))!=1)
+      {
+       MessageDlg(_D("该预定单非预定状态，不能删除！") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+		return false;
+      }
+      return canModife;
+    default :
+      return true;
+  }
+
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmHouseReserve::NewFilterForm(TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker)
+{
+   THouseReserveFiltersForm *QP=new THouseReserveFiltersForm(this,AOnFilteredDataSet,ABroker);
+   return QP;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmHouseReserve::SetUserCtrlStatus()
+{
+  //只有数据本人或者是销售主管才能修改数据
+   bool canModife=IsSalesManager||(VarToStr(GetFieldValue("ClientSalerFKID"))== ClientBroker->UserEmpID);
+  DetailEditAction->Enabled= canModife;
+  SaveDetailAction->Enabled= canModife;
+}
+void __fastcall TfrmHouseReserve::GetSalesType()
+{
+	   IsSalesManager=false;
+	   Query->Close();
+	   Query->SQL->Text="select EmpSalesPs from tbEmployeeData where EmpPKID='"+ClientBroker->UserEmpID+"'";
+	   Query->Open();
+	   if(Query->RecordCount>0)
+	   {
+		   IsSalesManager=Query->FieldByName("EmpSalesPs")->AsInteger==2;
+	   }
+	   Query->Close();
+}

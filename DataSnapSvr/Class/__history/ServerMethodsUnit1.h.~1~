@@ -1,0 +1,40 @@
+//---------------------------------------------------------------------------
+
+#ifndef ServerMethodsUnit1H
+#define ServerMethodsUnit1H
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <DSServer.hpp>
+#include "wsAccAndSysDB.hpp"
+#include "wsClasses.hpp"
+#include "wsDB.hpp"
+#include "wsMain.hpp"
+#include <Data.DB.hpp>
+#include <Data.Win.ADODB.hpp>
+//---------------------------------------------------------------------------
+class TServerMethods1 : public TDSServerModule
+{
+__published:	// IDE-managed Components
+	TADOConnection *SysADOConnection;
+	TADOConnection *ACCADOConnection;
+	TWorkflowAccAndSysDB *AccAndSysDB;
+	TWorkflowStudio *FWorkflowStudioSvr;
+	TADOQuery *FQuery;
+private:	// User declarations
+	TWorkflowInstance* __fastcall GetWorkIns(String FFlowDefID,String WorkInsID);
+	void __fastcall InitWorkFlowStudio();
+public:		// User declarations
+	__fastcall TServerMethods1(TComponent* Owner);
+	String ServerWorkFlowStart(String FlowDefID,String Subject,String Content,
+				String BusWindow,String BusCode,int Rank , String PrjID , String Report);
+	bool ServerWorkFlowExec(String FlowDefID,String WorkInsID,
+				String TaskInsID,String TskStatus,String TskComments,TJSONArray *VariableList);
+	TJSONObject* GetTaskList(String AUserID, int ACompletedState,String AOtherCondition);// AUserID:查询员工ID；ACompletedState：查询任务状态，0-待办，1-已完成，2-全部；AOtherCondition：查询过滤条件。
+    String GetLogList(int ALogFilterType,String AFilterKey); //ALogFilterType：日志类型，1-流程日志，2-任务日志。AFilterKey：流程实例ID或任务实例ID
+	String GetDiagram(int ADiagramType,String ADiagramKey);//ADiagramType:查询流程图类型，0-流程定义，1-流程实例，2-任务实例；ADiagramKey:流程定义ID、流程实例ID或者任务实例ID。
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TServerMethods1 *ServerMethods1;
+//---------------------------------------------------------------------------
+#endif
+

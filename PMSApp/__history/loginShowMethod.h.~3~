@@ -1,0 +1,34 @@
+//---------------------------------------------------------------------------
+
+#ifndef loginShowMethodH
+#define loginShowMethodH
+#include "Main.h"
+#include "Config.h"
+#include "Login.h"
+//---------------------------------------------------------------------------
+class TLoginMethodReference : public TCppInterfacedObject<TProc__1<TModalResult> > {
+public:
+  TLoginForm *dlg;
+  TMainForm *OwerForm;
+
+  void __fastcall Invoke(TModalResult ModalResult) {
+	if (ModalResult == mrOk)
+	{
+ 		OwerForm->ClientBroker->LogonCode = dlg->LogonCode;
+		OwerForm->ClientBroker->Password = dlg->Password;
+		OwerForm->ClientBroker->AccBookID = "0";
+		if(OwerForm->ClientBroker->InitClientComm())
+		{
+		 bool blogin = OwerForm->ClientBroker->RegMsgCallBack();
+			if (blogin)
+			{
+			   OwerForm->ChangeControlState();
+			   OwerForm->LoadStudioPane();
+			   OwerForm->CreateMsgDataSet();
+			}
+		}
+		dlg->Free();
+	}
+  }
+};
+#endif

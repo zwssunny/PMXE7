@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "SendUserMessage.h"
+#include "MessageManage.h"
+#include "FSServerContainer.h"
+#include "SHConst.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+__fastcall TSendUserMessage::TSendUserMessage(TComponent* Owner)
+	: TDMBaseServerClass(Owner) {
+	m_Connection=AccConnection;
+	AccQuery = new TADOQuery(NULL);
+	AccQuery->ParamCheck = false;
+	AccQuery->EnableBCD = false;
+	AccQuery->CommandTimeout = 60;
+	AccQuery->Connection = m_Connection;
+
+	Query = new TADOQuery(NULL);
+	Query->ParamCheck = false;
+	Query->EnableBCD = false;
+	Query->CommandTimeout = 60;
+	Query->Connection = m_Connection;
+
+	FFMessageManage = new TMessageManage(this);
+
+	TLoginUserRecord *curLoginUser = GetCurLoginUser();
+	if (curLoginUser)
+		FUserCode = curLoginUser->UserID;
+}
+
+// ---------------------------------------------------------------------------
+__fastcall TSendUserMessage::~TSendUserMessage() {
+	delete AccQuery;
+	delete Query;
+	delete FFMessageManage;
+}

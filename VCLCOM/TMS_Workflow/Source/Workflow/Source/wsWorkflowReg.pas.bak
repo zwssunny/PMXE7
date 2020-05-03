@@ -1,0 +1,34 @@
+unit wsWorkflowReg;
+
+{$I wsdefs.inc}
+
+interface
+uses
+  Classes,
+  {$IFDEF DELPHI6_LVL}
+  DesignEditors, Variants, DesignIntf
+  {$ELSE}
+  DsgnIntf
+  {$ENDIF}
+  ;
+
+procedure Register;
+
+implementation
+uses wsBlocks, wsUserInterface, wsControls, wsMain, wsClasses,
+  wsDiagram,
+  wsScripter,
+  wsDB;
+
+procedure Register;
+begin
+  RegisterComponents('Workflow Studio', [                                       
+    TWorkflowStudio,
+    TWorkflowDB,
+    TWorkflowDiagram,
+    TWorkDefListView,
+    TTaskListView, TAttachmentListView,
+    TTaskStatusCombo, TTaskLogListView]);
+end;
+
+end.

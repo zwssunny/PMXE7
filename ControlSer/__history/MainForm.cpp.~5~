@@ -1,0 +1,49 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "MainForm.h"
+#include "ServerContainerModule.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfrmMainForm *frmMainForm;
+//---------------------------------------------------------------------------
+__fastcall TfrmMainForm::TfrmMainForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmMainForm::Button1Click(TObject *Sender)
+{
+  ServerControlModule->StartServer();
+  Button1->Enabled=!ServerControlModule->DSServer1->Started;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmMainForm::Button2Click(TObject *Sender)
+{
+	unsigned long* pPid;   //LPDWORD
+	unsigned long result;      //DWORD
+	void *hg;                  //HGLOBAL
+	unsigned long id;
+	String ServerName="FSService";
+	SERVICE_STATUS_PROCESS ssp;
+	SC_HANDLE shOpenSCManager = OpenSCManager(NULL, NULL,
+		SC_MANAGER_ALL_ACCESS);
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, ServerName.c_str(),
+		SERVICE_ALL_ACCESS);
+	  QueryServiceStatusEx
+	hg = GlobalAlloc(GMEM_SHARE,sizeof(unsigned long));
+	pPid = (unsigned long *)GlobalLock(hg);
+	result = GetWindowThreadProcessId(shOpenService,pPid);
+	if(result)
+	{
+	   HANDLE ps = OpenProcess(PROCESS_ALL_ACCESS,false,*pPid);
+	   if(ps)
+		 TerminateProcess(ps,-9);
+	}
+}
+//---------------------------------------------------------------------------
+

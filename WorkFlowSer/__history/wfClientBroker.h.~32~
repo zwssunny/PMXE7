@@ -1,0 +1,141 @@
+//---------------------------------------------------------------------------
+
+#ifndef wfClientBrokerH
+#define wfClientBrokerH
+#include <Classes.hpp>
+#include "wsmain.hpp"
+#include "wsAccAndSysDB.hpp"
+#include "CZDataSet.h"
+#include <IndyPeerImpl.hpp>
+#include "wfCallback.h"
+#include <SqlExpr.hpp>
+class TLoginUserClient;
+//---------------------------------------------------------------------------
+class TwfClientBroker
+{
+private:
+		String FAgentAddress;
+		int FAgentPort;
+		String FOaAdmin;
+		String FOaPassword;
+		String FOaUserID;
+		String FCommunicationProtocol;
+		bool FAppConnected;
+
+		String FftpInteranetIP;
+		String FftpInternetIP;
+		String FftpUserName;
+		String FftpPassword;
+		int FftpPort;
+		bool FftpNeedFTP;
+		bool FftpPassive;
+		String FUpdateURL;
+
+		// mail
+		String FMailServer;
+		String FSendEMail;
+		String FMailUserName;
+		String FMailPassword;
+		int FMailPort;
+
+		int FSysDbType;
+		int FAccDbType;
+		int FcurrAcckIndex;
+
+		String FLocalMachineName; //
+		String FLocalIP; //
+		String ClientPath; //
+		//////////////////////////////////////////////////
+		TCZDataSet  *FAccBooks;    // 保存当前系统可提供的账套信息
+		String FSysConnectiongString;
+		String FAccConnectiongString;
+		TADOConnection * SysConnection;
+		TADOConnection * AccConnection;
+		TADOQuery * SysQuery;
+		TADOQuery * m_Query;
+		// ----------------------------------------------------------------
+		int ClientBrokerStatus;
+		TTimer *tmWorkflowTimeout;
+		// ----------------------------------------------------------------
+		TWorkflowStudio *FWorkflowStudioClient;
+		TWorkflowAccAndSysDB *FWorkflowZClientDB;
+		TSQLConnection *DSConnection;
+		TLoginUserClient *LoginUserClient;
+		TDSClientCallbackChannelManager* LChannelManager;
+		TWFCallbackClient * wfCallBack;
+		TRunPendProc  FRunPendProc;
+		TRTLCriticalSection *wfCriticalSection;
+		// ----------------------------------------------------------------
+		void __fastcall GetAccInforJSON();
+		void __fastcall GetAccInforJSONBack(TJSONObject *fdata); // 初始化账套数据
+		void __fastcall GetCurUserBack(TJSONObject *jdata); // 读取当前用户
+		void __fastcall wfCallBackHook(TJSONObject* Arg,TJSONObject* Ret); // 接收消息
+
+		bool __fastcall GetConnected();
+		void __fastcall ReConnetToAgentAndApp();
+
+		TDBXConnection* __fastcall GetDBXConnection();
+		void __fastcall AppOnConnect(TObject * Sender);
+		void __fastcall AppOnDisConnect(TObject * Sender);
+
+		TWorkflowStudio* __fastcall GetWorkFlowStudio();
+		TWorkflowInstance* __fastcall GetWorkIns(String FlowDefID, String WorkInsID);
+		void __fastcall InitWorkFlowStudio(String FUserEmpID,String FUserCode);
+		void  __fastcall WritLog(String ErrorLong);
+		void __fastcall OnTimer(TObject *Sender);
+
+protected:
+		void __fastcall ClientCommTerminate(TObject *Sender);
+		void __fastcall SetHookCallBack(THookWFCallback Value);
+		THookWFCallback __fastcall GetHookCallBack();
+		//返回当前工作流ID
+		String __fastcall ServerWorkFlowStart(TJSONObject* Arg);
+		//返回是否调用成功
+		bool __fastcall ServerWorkFlowExec(TJSONObject* Arg);
+		void __fastcall OnTaskCreate(TObject *Sender, TTaskInstance *ATaskIns);
+
+public:
+		__fastcall TwfClientBroker();
+		__fastcall virtual ~TwfClientBroker();
+		void __fastcall RunPendingWorkflow();
+		bool __fastcall InitClientComm(); // 初始化ClientComm
+		bool __fastcall RegCallBack();          // 登录
+		void __fastcall UnRegCallBack();         // 注销
+
+public:
+		__property TDBXConnection* DBXConnection = {read=GetDBXConnection};
+		__property int SysDbType = {read = FSysDbType, write = FSysDbType};
+		__property String AgentAddress = {read = FAgentAddress, write = FAgentAddress};
+		__property int AgentPort = {read = FAgentPort, write = FAgentPort};
+		__property bool Connected = {read = GetConnected};
+		__property bool AppConnected = {read = FAppConnected};
+		__property String CommunicationProtocol ={read = FCommunicationProtocol, write = FCommunicationProtocol};
+		//登录用户 ，为OA系统管理员
+		__property String OaAdmin = {read = FOaAdmin, write = FOaAdmin};
+		__property String OaPassword = {read = FOaPassword, write = FOaPassword};
+
+
+		// ftp
+		__property String ftpInteranetIP = {read = FftpInteranetIP, write = FftpInteranetIP};
+		__property String ftpInternetIP = {read = FftpInternetIP, write = FftpInternetIP};
+		__property String ftpUserName = {read = FftpUserName, write = FftpUserName};
+		__property String ftpPassword = {read = FftpPassword, write = FftpPassword};
+		__property int ftpPort = {read = FftpPort, write = FftpPort};
+		__property bool ftpNeedFTP = {read = FftpNeedFTP, write = FftpNeedFTP};
+		__property bool ftpPassive = {read = FftpPassive, write = FftpPassive};
+		//UpdateURL
+		__property String UpdateURL = {read = FUpdateURL, write = FUpdateURL};
+		// 邮件发送服务
+		__property String MailServer = {read = FMailServer, write = FMailServer};
+		__property String ESendMail = {read = FSendEMail, write = FSendEMail};
+		__property String MailUserName = {read = FMailUserName, write = FMailUserName};
+		__property String MailPassword = {read = FMailPassword, write = FMailPassword};
+		__property int MailPort = {read = FMailPort, write = FMailPort};
+
+		// 工作流引擎
+		__property TWorkflowStudio* WorkflowStudio = {read = GetWorkFlowStudio};
+		__property TRunPendProc  RunPendProc ={read = FRunPendProc, write = FRunPendProc};
+		//消息处理钩子
+		__property THookWFCallback HookCallBack = {read = GetHookCallBack,write = SetHookCallBack};
+};
+#endif

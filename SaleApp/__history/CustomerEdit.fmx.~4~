@@ -1,0 +1,26 @@
+inherited CustomerEditForm: TCustomerEditForm
+  Caption = 'frmDetailBaseForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited tcDetailControl: TTabControl
+    inherited tabOA: TTabItem
+      inherited tcWorkflowControl: TTabControl
+        inherited TabCheckStare: TTabItem
+          Width = 192.000000000000000000
+        end
+      end
+    end
+    inherited tabFlow: TTabItem
+      Width = 128.000000000000000000
+      inherited tcflowLogControl: TTabControl
+        inherited tabTaskflow: TTabItem
+          Width = 192.000000000000000000
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.384,E:\PMXE6\tethering\Zxing\bigint\BigIntegerAlgorithms.cc=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.432,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.903,=E:\PMXE6\tethering\Zxing\bigint\BigIntegerUtils.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.399,E:\PMXE6\tethering\Zxing\bigint\BigIntegerUtils.cc=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.882,=E:\PMXE6\tethering\Zxing\bigint\BigIntegerAlgorithms.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.444,=E:\PMXE6\tethering\Zxing\test2\lodepng.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.978,=E:\PMXE6\tethering\Zxing\win32\Debug\Onedlib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.160,E:\PMXE6\tethering\Zxing\test2\test2.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.439,=E:\PMXE6\tethering\Zxing\test2\main.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.934,=E:\PMXE6\tethering\Zxing\bigint\BigUnsigned.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.413,E:\PMXE6\tethering\Zxing\bigint\BigUnsigned.cc=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.921,=E:\PMXE6\tethering\Zxing\win32\Debug\Datamatrixlib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.167,=E:\PMXE6\tethering\Zxing\test2\ImageReaderSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.057,=E:\PMXE6\tethering\Zxing\win32\Debug\BigIntlib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.273,=E:\PMXE6\tethering\Zxing\win32\Debug\QRCodelib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.868,=E:\PMXE6\tethering\Zxing\win32\Debug\ZxingCommon.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.220,=E:\PMXE6\tethering\Zxing\win32\Debug\Multilib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.935,E:\PMXE6\tethering\Zxing\test2\test2PCH.h=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.481,=E:\PMXE6\tethering\Zxing\win32\Debug\Pdf417lib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.505,=E:\PMXE6\tethering\Zxing\win32\Debug\Azteclib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.861,=E:\PMXE6\tethering\Zxing\bigint\BigInteger.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.305,E:\PMXE6\tethering\Zxing\bigint\BigInteger.cc=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.961,=E:\PMXE6\tethering\Zxing\bigint\BigUnsignedInABase.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.429,E:\PMXE6\tethering\Zxing\bigint\BigUnsignedInABase.cc=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.288,=E:\PMXE6\tethering\Zxing\test2\jpgd.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

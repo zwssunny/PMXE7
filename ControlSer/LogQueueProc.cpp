@@ -1,0 +1,21 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "LogQueueProc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+TLogQueueProc::TLogQueueProc(TWriteUserLog& AWriteUserLog,String AIPAddress, TDateTime Adtime,String AMsg)
+{
+	FWriteUserLog=AWriteUserLog;
+	FIPAddress=AIPAddress;
+	Fdtime=Adtime;
+	FMsg=AMsg;
+}
+//---------------------------------------------------------------------------
+void __fastcall TLogQueueProc::Invoke()
+{
+  FWriteUserLog(FIPAddress+" "+FMsg,Fdtime);
+}
+//---------------------------------------------------------------------------

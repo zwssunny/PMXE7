@@ -1,0 +1,9 @@
+//---------------------------------------------------------------------------
+
+#ifndef VersionH
+#define VersionH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+//---------------------------------------------------------------------------
+extern PACKAGE DWORD GetLocalVersion();
+#endif

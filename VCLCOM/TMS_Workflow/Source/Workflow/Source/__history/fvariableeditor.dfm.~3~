@@ -1,0 +1,116 @@
+object fmVariableEditor: TfmVariableEditor
+  Left = 517
+  Top = 152
+  Caption = 'Variables'
+  ClientHeight = 360
+  ClientWidth = 510
+  Color = clBtnFace
+  Constraints.MinHeight = 300
+  Constraints.MinWidth = 400
+  Font.Charset = GB2312_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = #23435#20307
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  DesignSize = (
+    510
+    360)
+  PixelsPerInch = 96
+  TextHeight = 12
+  object PageControl1: TPageControl
+    Left = 195
+    Top = 5
+    Width = 300
+    Height = 310
+    ActivePage = TabSheet1
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'General'
+      ExplicitTop = 24
+      ExplicitHeight = 282
+      DesignSize = (
+        292
+        283)
+      object Label1: TLabel
+        Left = 5
+        Top = 5
+        Width = 30
+        Height = 12
+        Caption = 'Value'
+      end
+      object edValue: TEdit
+        Left = 6
+        Top = 20
+        Width = 278
+        Height = 20
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 0
+        OnChange = PropertyChanged
+      end
+      object ckbInteraction: TCheckBox
+        Left = 6
+        Top = 53
+        Width = 107
+        Height = 17
+        Caption = #38656#35201#36319#19994#21153#20851#32852
+        TabOrder = 1
+        OnClick = PropertyChanged
+      end
+    end
+  end
+  object lvVars: TListView
+    Left = 5
+    Top = 35
+    Width = 185
+    Height = 280
+    Anchors = [akLeft, akTop, akBottom]
+    Columns = <>
+    HideSelection = False
+    TabOrder = 1
+    ViewStyle = vsReport
+    OnEdited = lvVarsEdited
+    OnSelectItem = lvVarsSelectItem
+  end
+  object btAdd: TButton
+    Left = 5
+    Top = 5
+    Width = 60
+    Height = 25
+    Caption = '&Add'
+    TabOrder = 2
+    OnClick = btAddClick
+  end
+  object btDelete: TButton
+    Left = 70
+    Top = 5
+    Width = 60
+    Height = 25
+    Caption = '&Delete'
+    TabOrder = 3
+    OnClick = btDeleteClick
+  end
+  object btCancel: TButton
+    Left = 420
+    Top = 320
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Cancel'
+    TabOrder = 5
+    OnClick = btCancelClick
+  end
+  object btOk: TButton
+    Left = 340
+    Top = 320
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Caption = '&Ok'
+    TabOrder = 4
+    OnClick = btOkClick
+  end
+end

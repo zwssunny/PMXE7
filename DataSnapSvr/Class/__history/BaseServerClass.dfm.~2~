@@ -1,0 +1,9 @@
+object DMBaseServerClass: TDMBaseServerClass
+  OldCreateOrder = False
+  Height = 150
+  Width = 215
+  object SQLConnection1: TSQLConnection
+    Left = 112
+    Top = 64
+  end
+end

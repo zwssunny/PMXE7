@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#ifndef QueryFilterH
+#define QueryFilterH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.ListView.hpp>
+#include <FMX.ListView.Types.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+//---------------------------------------------------------------------------
+class TQueryFilterForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *tBarTitle;
+	TToolBar *tBarBottom;
+	TLabel *lbTitle;
+	TListView *lvQueryData;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TQueryFilterForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TQueryFilterForm *QueryFilterForm;
+//---------------------------------------------------------------------------
+#endif

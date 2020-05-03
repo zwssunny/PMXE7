@@ -1,0 +1,24 @@
+//---------------------------------------------------------------------------
+#include "SerMain.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+
+TFSControlService *FSControlService;
+//---------------------------------------------------------------------------
+__fastcall TFSControlService::TFSControlService(TComponent* Owner)
+	: TService(Owner)
+{
+}
+
+void __stdcall ServiceController(unsigned CtrlCode)
+{
+	FSControlService->Controller(CtrlCode);
+}
+
+TServiceController __fastcall TFSControlService::GetServiceController(void)
+{
+	return (TServiceController) ServiceController;
+}
+
+//---------------------------------------------------------------------------

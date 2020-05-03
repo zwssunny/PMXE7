@@ -1,0 +1,23 @@
+//---------------------------------------------------------------------------
+
+#ifndef DataSnapClientDataSetH
+#define DataSnapClientDataSetH
+//---------------------------------------------------------------------------
+#include <System.SysUtils.hpp>
+#include <System.Classes.hpp>
+#include <Data.DB.hpp>
+#include <Data.DBXCommon.hpp>
+#include <Data.DBXDataSnap.hpp>
+#include <Datasnap.DBClient.hpp>
+//---------------------------------------------------------------------------
+class PACKAGE TDataSnapClientDataSet : public TClientDataSet
+{
+private:
+protected:
+public:
+	__fastcall TDataSnapClientDataSet(TComponent* Owner);
+	__fastcall virtual ~TDataSnapClientDataSet();
+	void __fastcall LoadFromStream(System::Classes::TStream* Stream);
+};
+//---------------------------------------------------------------------------
+#endif

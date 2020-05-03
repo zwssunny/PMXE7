@@ -1,0 +1,11 @@
+inherited frmBaseBillForm: TfrmBaseBillForm
+  Caption = 'frmBaseForm1'
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 567
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+end

@@ -1,0 +1,77 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "ItemBaseForm.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseBillFrom"
+#pragma resource "*.fmx"
+TfrmItemBaseForm *frmItemBaseForm;
+//---------------------------------------------------------------------------
+__fastcall TfrmItemBaseForm::TfrmItemBaseForm(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet *FDataSet,int DataSetStatus)
+	:TfrmBaseBillForm(Owner, clBroker,FDataSet, DataSetStatus)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmItemBaseForm::SetOptCtrlStatus(int status)    //重载函数，设置窗体状态
+{
+  OperateStatus = status;
+  if(OperateRight.Pos(FR_SYSTEMWRITE) <= 0 && OperateRight.Pos(FR_SYSTEMREAD) > 0) //只读权限
+  {
+		ItemEditAction->Enabled = false;
+		ItemSaveAction->Enabled = false;
+  }
+  else
+  {
+    switch(status) //窗体状态控制
+    {
+      case 0: //浏览
+		ItemEditAction->Enabled = true;
+		ItemSaveAction->Enabled = false;
+		break;
+	  case 3: //新增
+		ItemEditAction->Enabled = false;
+		ItemSaveAction->Enabled = true;
+		break;
+	  case 4: //编辑
+		ItemEditAction->Enabled = true;
+		ItemSaveAction->Enabled = false;
+		break;
+	  default:
+		break;
+    }
+  }
+  SetUserCtrlStatus();    //按状态设置用户构件状态
+}
+void __fastcall TfrmItemBaseForm::ItemEditActionExecute(TObject *Sender)
+{
+	 this->EditItemData();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::ItemSaveActionExecute(TObject *Sender)
+{
+     this->SaveItemData();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::ItemEditActionUpdate(TObject *Sender)
+{
+  btEdit->Visible=ItemEditAction->Enabled;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::ItemSaveActionUpdate(TObject *Sender)
+{
+	btSave->Visible=ItemSaveAction->Enabled;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::btBaseCloseClick(TObject *Sender)
+{
+ Close();
+}
+//---------------------------------------------------------------------------
+

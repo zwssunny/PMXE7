@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5CD62595-BAF0-4657-9380-8F1C36E60DDF}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ctrls\baseComXE6.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="chart\ChartXE6.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="report\RptXE6.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="baseComXE6">
+        <MSBuild Projects="ctrls\baseComXE6.cbproj"/>
+    </Target>
+    <Target Name="baseComXE6:Clean">
+        <MSBuild Projects="ctrls\baseComXE6.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="baseComXE6:Make">
+        <MSBuild Projects="ctrls\baseComXE6.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="ChartXE6">
+        <MSBuild Projects="chart\ChartXE6.cbproj"/>
+    </Target>
+    <Target Name="ChartXE6:Clean">
+        <MSBuild Projects="chart\ChartXE6.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ChartXE6:Make">
+        <MSBuild Projects="chart\ChartXE6.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="RptXE6">
+        <MSBuild Projects="report\RptXE6.cbproj"/>
+    </Target>
+    <Target Name="RptXE6:Clean">
+        <MSBuild Projects="report\RptXE6.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RptXE6:Make">
+        <MSBuild Projects="report\RptXE6.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="baseComXE6;ChartXE6;RptXE6"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="baseComXE6:Clean;ChartXE6:Clean;RptXE6:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="baseComXE6:Make;ChartXE6:Make;RptXE6:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

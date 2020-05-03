@@ -1,0 +1,26 @@
+//---------------------------------------------------------------------------
+
+#ifndef ConfigH
+#define ConfigH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.MobilePreview.hpp>
+//---------------------------------------------------------------------------
+class THeaderFooterForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *Header;
+	TToolBar *Footer;
+	TLabel *HeaderLabel;
+private:	// User declarations
+public:		// User declarations
+	__fastcall THeaderFooterForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE THeaderFooterForm *HeaderFooterForm;
+//---------------------------------------------------------------------------
+#endif

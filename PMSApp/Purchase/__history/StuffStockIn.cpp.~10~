@@ -1,0 +1,92 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "StuffStockIn.h"
+#include "CommFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseListShow"
+#pragma resource "*.fmx"
+TfrmStuffStockIn *frmStuffStockIn;
+//---------------------------------------------------------------------------
+__fastcall TfrmStuffStockIn::TfrmStuffStockIn(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,String WhereStr,int Flag)
+	: TfrmBaseListShow(Owner, clBroker, ModuleCode, WhereStr)
+{
+	 FFlag=Flag;
+	 GridBindSourceDB->DataSet=this->DataSet->MasterDataSet;
+	 GridBindSourceDB->DataSource=this->MasterDataSource;
+	 StoreQuery=new  TZClientQuery(this,clBroker);
+	 StuffStockInEdit=NULL;
+	 FiltersForm=NULL;
+}
+//---------------------------------------------------------------------------
+__fastcall TfrmStuffStockIn::~TfrmStuffStockIn()
+{
+  delete StoreQuery;
+}
+void __fastcall TfrmStuffStockIn::FormFillData()
+{
+  	 BindStringGridLink->Active=false;
+	 BindStringGridLink->Active=true;
+}
+void __fastcall TfrmStuffStockIn::SetUserCtrlStatus()
+{
+	int Check;
+	bool canWrite = OperateRight.Pos(FR_SYSTEMWRITE)>0;
+	Check = GetFieldValue("StuSkInChkState");
+	EditAction->Enabled = Check == 0 && canWrite;
+	DelAction->Enabled = Check == 0 && canWrite;
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmStuffStockIn::BeforeUpdateData(int OptType)
+{
+/*
+  if(FDepotCode.IsEmpty())
+  {
+	MessageDlg(_D("请先选择一个仓库") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+	return false;
+  }
+  FPrjRight=GetDataRight(Query,FProjectCode,BtProject);
+  switch(OptType)
+  {
+	case 0:
+	  if(FPrjRight<1)
+	  {
+		MessageDlg(_D("您没有与该仓库关联的项目的读权限") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+		return false;
+	  }
+	  break;
+	case 1:
+	case 2:
+	  if(FPrjRight<2)
+	  {
+		MessageDlg(_D("您没有该仓库关联的项目的写权限") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+		return false;
+	  }
+	  break;
+  }           */
+  return true;
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmStuffStockIn::NewEditForm(TZClientDataSet *m_DataSet,int status)
+{
+   if(StuffStockInEdit==NULL)
+	  StuffStockInEdit=new TfrmStuffStockInEdit(this,ClientBroker,this->FormModuleCode,m_DataSet,status,FFlag);
+   StuffStockInEdit->DepotCode=FDepotCode;
+   StuffStockInEdit->DepotName=FDepotName;
+   StuffStockInEdit->ProjectCode=FProjectCode;
+   StuffStockInEdit->labDepot->Text="["+FDepotName+"]";
+   StuffStockInEdit->PrjRight=FPrjRight;
+  // pEdit->FormID=FormID;
+   return StuffStockInEdit;
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmStuffStockIn::NewFilterForm(TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker) //创建过滤窗口，传递查询事件
+{
+   if(FiltersForm==NULL)
+	 FiltersForm= new TStuffStockInFiltersForm(this,AOnFilteredDataSet,ABroker,1);
+   return FiltersForm;
+}
+

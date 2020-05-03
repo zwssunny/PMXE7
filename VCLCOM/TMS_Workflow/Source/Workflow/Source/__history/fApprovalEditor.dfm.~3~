@@ -1,0 +1,296 @@
+object fmApprovalEditor: TfmApprovalEditor
+  Left = 384
+  Top = 172
+  Caption = 'Approval'
+  ClientHeight = 470
+  ClientWidth = 493
+  Color = clBtnFace
+  Constraints.MinHeight = 340
+  Constraints.MinWidth = 300
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  DesignSize = (
+    493
+    470)
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PageControl1: TPageControl
+    Left = 5
+    Top = 5
+    Width = 473
+    Height = 420
+    ActivePage = tsGeneral
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    TabOrder = 0
+    ExplicitWidth = 380
+    ExplicitHeight = 290
+    object tsGeneral: TTabSheet
+      Caption = 'General'
+      ExplicitWidth = 372
+      ExplicitHeight = 262
+      DesignSize = (
+        465
+        392)
+      object lbSubject: TLabel
+        Left = 5
+        Top = 5
+        Width = 36
+        Height = 13
+        Caption = 'Subject'
+      end
+      object lbDescription: TLabel
+        Left = 5
+        Top = 45
+        Width = 53
+        Height = 13
+        Caption = 'Description'
+      end
+      object edSubject: TEdit
+        Left = 5
+        Top = 20
+        Width = 455
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 0
+        OnChange = PropertyChanged
+        ExplicitWidth = 362
+      end
+      object mmComments: TMemo
+        Left = 5
+        Top = 60
+        Width = 455
+        Height = 85
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 1
+        OnChange = PropertyChanged
+        ExplicitWidth = 441
+      end
+      object cbMailNotification: TCheckBox
+        Left = 5
+        Top = 152
+        Width = 250
+        Height = 17
+        Caption = 'Send mail notification'
+        TabOrder = 2
+      end
+      inline frAssignedUser: TfrAssignedUserFrame
+        Left = 0
+        Top = 172
+        Width = 465
+        Height = 220
+        Align = alBottom
+        TabOrder = 3
+        ExplicitTop = 158
+        ExplicitWidth = 474
+        inherited Splitter1: TSplitter
+          Width = 465
+          ExplicitWidth = 474
+        end
+        inherited Panel1: TPanel
+          Width = 465
+          ExplicitWidth = 474
+          inherited lvAssignedUsers: TListView
+            Width = 455
+            ExplicitWidth = 464
+          end
+        end
+        inherited Panel2: TPanel
+          Width = 465
+          ExplicitWidth = 474
+        end
+        inherited Panel3: TPanel
+          Width = 465
+          ExplicitWidth = 474
+        end
+      end
+    end
+    object tsStatus: TTabSheet
+      Caption = 'Status'
+      ImageIndex = 1
+      ExplicitWidth = 451
+      ExplicitHeight = 367
+      inline frStatus: TfrStatusFrame
+        Left = 0
+        Top = 0
+        Width = 465
+        Height = 392
+        Align = alClient
+        TabOrder = 0
+        ExplicitWidth = 451
+        ExplicitHeight = 367
+        inherited Splitter1: TSplitter
+          Width = 465
+          ExplicitWidth = 372
+        end
+        inherited Panel1: TPanel
+          Width = 465
+          ExplicitWidth = 451
+          inherited lvStatus: TListView
+            Width = 455
+            ExplicitWidth = 441
+          end
+        end
+        inherited Panel2: TPanel
+          Width = 465
+          Height = 234
+          ExplicitWidth = 451
+          ExplicitHeight = 209
+          inherited edStatusName: TEdit
+            Width = 370
+            ExplicitWidth = 356
+          end
+        end
+        inherited Panel3: TPanel
+          Width = 465
+          ExplicitWidth = 451
+        end
+      end
+    end
+    object tsAttachments: TTabSheet
+      Caption = 'Attachments'
+      ImageIndex = 2
+      ExplicitWidth = 451
+      ExplicitHeight = 367
+      inline frPermissions: TfrAttachPermissions
+        Left = 0
+        Top = 0
+        Width = 465
+        Height = 392
+        Align = alClient
+        TabOrder = 0
+        ExplicitWidth = 451
+        ExplicitHeight = 367
+        inherited cbShowAttachments: TCheckBox
+          Width = 220
+          ExplicitWidth = 220
+        end
+        inherited cbDelAttachment: TCheckBox
+          Width = 220
+          ExplicitWidth = 220
+        end
+        inherited cbInsAttachment: TCheckBox
+          Width = 220
+          ExplicitWidth = 220
+        end
+        inherited cbEditAttachment: TCheckBox
+          Width = 220
+          ExplicitWidth = 220
+        end
+      end
+    end
+    object tsFields: TTabSheet
+      Caption = 'Fields'
+      ImageIndex = 3
+      ExplicitWidth = 372
+      ExplicitHeight = 367
+      inline frFields: TfrFieldFrame
+        Left = 0
+        Top = 0
+        Width = 465
+        Height = 392
+        Align = alClient
+        TabOrder = 0
+        ExplicitWidth = 372
+        ExplicitHeight = 367
+        inherited Splitter1: TSplitter
+          Top = 151
+          Width = 465
+          ExplicitTop = 151
+          ExplicitWidth = 372
+        end
+        inherited Panel1: TPanel
+          Top = 30
+          Width = 465
+          ExplicitTop = 30
+          ExplicitWidth = 451
+          inherited lvVars: TListView
+            Width = 455
+            ExplicitWidth = 441
+          end
+        end
+        inherited Panel2: TPanel
+          Top = 154
+          Width = 465
+          Height = 238
+          ExplicitTop = 154
+          ExplicitWidth = 372
+          ExplicitHeight = 213
+          inherited edCaption: TEdit
+            Width = 360
+            ExplicitWidth = 346
+          end
+          inherited cbReadOnly: TCheckBox
+            Width = 85
+            ExplicitWidth = 85
+          end
+          inherited cbRequired: TCheckBox
+            Width = 85
+            ExplicitWidth = 85
+          end
+        end
+        inherited Panel3: TPanel
+          Width = 465
+          Height = 30
+          ExplicitWidth = 451
+          ExplicitHeight = 30
+        end
+      end
+    end
+    object tsExpiration: TTabSheet
+      Caption = 'Expiration'
+      ImageIndex = 4
+      ExplicitWidth = 372
+      ExplicitHeight = 367
+      inline frExpiration: TfrExpirationFrame
+        Left = 0
+        Top = 0
+        Width = 465
+        Height = 392
+        Align = alClient
+        TabOrder = 0
+        ExplicitWidth = 372
+        ExplicitHeight = 367
+        inherited edExpression: TEdit
+          Width = 435
+          ExplicitWidth = 421
+        end
+        inherited cbStatus: TComboBox
+          Width = 455
+          ExplicitWidth = 362
+        end
+      end
+    end
+  end
+  object btCancel: TButton
+    Left = 403
+    Top = 430
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Cancel'
+    TabOrder = 2
+    OnClick = btCancelClick
+    ExplicitLeft = 310
+    ExplicitTop = 300
+  end
+  object btOk: TButton
+    Left = 323
+    Top = 430
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Caption = '&Ok'
+    TabOrder = 1
+    OnClick = btOkClick
+    ExplicitLeft = 230
+    ExplicitTop = 300
+  end
+end

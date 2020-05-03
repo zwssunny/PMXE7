@@ -1,0 +1,21 @@
+//---------------------------------------------------------------------------
+
+#ifndef fsScreenCursorH
+#define fsScreenCursorH
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+//---------------------------------------------------------------------------
+class TfsScreenCursor : public TObject
+{
+private:
+		TAniIndicator  *SaveCursor;
+		void __fastcall SetCurCursor(TAniIndicator * Value);
+		TAniIndicator*  __fastcall GetCurCursor();
+protected:
+
+public:
+	__fastcall TfsScreenCursor();
+	__fastcall ~TfsScreenCursor();
+	__property TAniIndicator * Cursor={read = GetCurCursor,write = SetCurCursor};
+};
+#endif

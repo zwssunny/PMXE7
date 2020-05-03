@@ -1,0 +1,48 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "HouseInformation.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "DetailBaseForm"
+#pragma resource "*.fmx"
+THouseReserveEditForm *HouseReserveEditForm;
+//---------------------------------------------------------------------------
+__fastcall THouseReserveEditForm::THouseReserveEditForm(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet
+								*FDataSet,int DataSetStatus)
+	: TfrmDetailBaseForm(Owner,clBroker,FDataSet, DataSetStatus)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall THouseReserveEditForm::FormInitControl()
+{
+
+}
+//---------------------------------------------------------------------------
+void __fastcall THouseReserveEditForm::FormClearControl(int Section)
+{
+
+}
+//---------------------------------------------------------------------------
+void __fastcall THouseReserveEditForm::SendDataToDataSet(int Section)
+{
+
+}
+//---------------------------------------------------------------------------
+void __fastcall THouseReserveEditForm::GetDataFromDataSet(int Section)
+{
+
+}
+//---------------------------------------------------------------------------
+void __fastcall THouseReserveEditForm::VerifyFieldData(int Section,int status)
+{
+
+}
+//---------------------------------------------------------------------------
+bool __fastcall THouseReserveEditForm::BeforeUpdateData(int OptType)
+{
+
+}
+//---------------------------------------------------------------------------

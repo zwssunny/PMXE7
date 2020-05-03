@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#ifndef DMH
+#define DMH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Data.DB.hpp>
+#include <Data.DBXCommon.hpp>
+#include <Data.DBXDataSnap.hpp>
+#include <Data.SqlExpr.hpp>
+#include <IndyPeerImpl.hpp>
+#include <IPPeerClient.hpp>
+#include <Datasnap.DBClient.hpp>
+#include <Datasnap.DSCommon.hpp>
+//---------------------------------------------------------------------------
+class TDMmodule : public TDataModule
+{
+__published:	// IDE-managed Components
+	TSQLConnection *FSDSConnection;
+	TDSClientCallbackChannelManager *DSClientCallbackChannelManager1;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TDMmodule(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TDMmodule *DMmodule;
+//---------------------------------------------------------------------------
+#endif

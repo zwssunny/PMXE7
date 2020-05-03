@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.285,=C:\Users\ws\Documents\RAD Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.802,E:\PMXE3\WorkFlowSer\wfClientBroker.cpp=E:\PMXE3\WorkFlowSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.941,E:\PMXE3\WorkFlowSer\Unit1.cpp=E:\PMXE3\WorkFlowSer\wfCallback.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.010,C:\Users\zhanws\Documents\RAD Studio\Projects\Project1.cbproj=E:\PMXE3\WorkFlowSer\WorkFlowSer.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.504,=E:\PMXE3\baselib\DSClientProxy.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.994,=E:\PMXE6\baselibXE\LogoutThread.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.937,=E:\PMXE6\VCLCOM\TMS_Workflow\lib\XZWorkflowXE6.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.094,=E:\PMXE6\baselibXE\SendWFMessage.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.343,=C:\Users\ws\Documents\RAD Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.483,=D:\Embarcadero\Studio\14.0\lib\win32\release\soaprtl.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.432,E:\PMXE3\baselib\BaseLib.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.977,=E:\PMXE3\WorkFlowSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.077,=E:\PMXE3\WorkFlowSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.606,=E:\PMXE3\baselib\BaseLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.193,E:\PMXE6\WorkFlowSer\SendWFMessage.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.260,=E:\PMXE6\WorkFlowSer\SendWFMessage.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.025,=E:\PMXE3\VclCom\TMS_Workflow\library\bpl\Win32\XZworkflowsxe3.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.523,=E:\PMXE7\baselibXE\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.883,=E:\PMXE3\baselib\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.941,E:\PMXE3\WorkFlowSer\Unit1.h=E:\PMXE3\WorkFlowSer\wfCallback.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.209,E:\PMXE7\baselibXE\SerLib.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.577,=C:\Users\zhanws\Documents\RAD Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.599,=C:\Users\zhanws\Documents\RAD Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.879,=E:\PMXE5\baselibXE\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.915,C:\Users\zhanws\Documents\RAD Studio\Projects\Project1PCH1.h=E:\PMXE3\WorkFlowSer\WorkFlowPCH.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.554,=E:\PMXE7\VCLCOM\TMS_Workflow\lib\XZWorkflowXE7.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.251,=E:\PMXE3\WorkFlowSer\main.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.802,E:\PMXE3\WorkFlowSer\wfClientBroker.h=E:\PMXE3\WorkFlowSer\Unit1.h</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2014-11-19 10:27:33.743,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2014-11-19 10:28:00.357,E:\PMXE7\VCLCOM\TMS_Workflow\Demos\main\WorkflowDemo.dproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2014-11-19 10:28:27.316,=E:\PMXE7\VCLCOM\TMS_Workflow\Demos\main\dADO.pas</Transaction>
+    <Transaction>2014-11-19 10:28:27.377,=E:\PMXE7\VCLCOM\TMS_Workflow\Demos\main\dDBX.pas</Transaction>
+    <Transaction>2014-11-19 10:28:27.427,=E:\PMXE7\VCLCOM\TMS_Workflow\Demos\main\fMain.pas</Transaction>
+  </Transactions>
+</BorlandProject>

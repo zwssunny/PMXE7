@@ -1,0 +1,69 @@
+object frmBaseForm: TfrmBaseForm
+  Left = 0
+  Top = 0
+  Caption = 'BaseForm'
+  ClientHeight = 640
+  ClientWidth = 360
+  StyleBook = StyleBook1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object StyleBook1: TStyleBook
+    Left = 192
+    Top = 160
+    ResourcesBin = {464D585F5354594C4520322E350100}
+  end
+  object MainPanel: TPanel
+    Align = Client
+    Size.Width = 360.000000000000000000
+    Size.Height = 640.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    object ToolBarTop: TToolBar
+      Size.Width = 360.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object lbTitle: TLabel
+        StyledSettings = [FontColor]
+        Position.X = 16.000000000000000000
+        Position.Y = 11.000000000000000000
+        Size.Width = 185.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = #24494#36719#38597#40657
+        TextSettings.Font.Size = 22.000000000000000000
+        TextSettings.Font.Style = [fsBold]
+        Text = #26631#39064
+      end
+    end
+    object ToolBarBottom: TToolBar
+      Align = Bottom
+      Position.Y = 592.000000000000000000
+      Size.Width = 360.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      object btClose: TButton
+        Align = MostLeft
+        Size.Width = 73.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'backtoolbutton'
+        TabOrder = 1
+        Text = #36820#22238
+        OnClick = btCloseClick
+      end
+    end
+    object ClientVertScrollBox: TVertScrollBox
+      Align = Client
+      Size.Width = 360.000000000000000000
+      Size.Height = 544.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+    end
+  end
+end

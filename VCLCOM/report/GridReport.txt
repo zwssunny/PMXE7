@@ -1,0 +1,18 @@
+TGridReport构件中新增属性：
+1、PrintHeader--bool是否打印页眉，默认false;
+2、PrintFooter--bool是否打印页脚，默认false;
+3、PageHeaderHeight--int 页眉高度，默认12；
+4、PageFooterHeight--int页脚高度，默认15；
+5、PageFooter，PageHeader--页眉和页脚TPageColontitle类
+TPageColontitle类主要包含下面几个属性：
+         1、TStrings* CenterText--居中文本;
+         2、TStrings* LeftText--居左文本;
+         3、TStrings* RightText--居右文本;
+         4、TFont* Font--字体;
+         TPageColontitleLineType LineType-线类型，默认pcltNon;
+         定义TPageColontitleLineType { pcltNon, //没有横线
+         			pcltSingleLine, //一条横线
+         			pcltDoubleLine //两条横线
+         			};
+应用时可以在设计时和运行时设置：PageFooter和PageHeader的4个属性来定义自己的页眉和页脚；
+具体请看例子

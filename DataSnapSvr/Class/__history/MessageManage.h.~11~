@@ -1,0 +1,63 @@
+//---------------------------------------------------------------------------
+
+#ifndef MessageManageH
+#define MessageManageH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TMessageManage : public TDMBaseServerClass
+{
+private:
+	TADOQuery *AccQuery;
+	TADOQuery *Query;
+	TADOQuery *EmpQuery;
+	TADOConnection *m_Connection;
+	TLoginUserRecord *curLoginUser;
+	void  SaveMessage(String MsgID,String MsgUserID,int MsgRecType,String MsgReceiver,String MsgContent);
+	void  SaveMsgToReceiver(String MsgID,String UserID,int online=1);
+    bool FNeedSendToOwn;
+public:
+	__fastcall TMessageManage(TComponent* Owner);
+	__fastcall ~TMessageManage();
+	__property bool NeedSendToOwn = {read = FNeedSendToOwn, write = FNeedSendToOwn};
+	void NewMessageGroup(String GroupName,String Description);
+	void DelMessageGroup(String GroupID);
+	void UpdateMessageGroup(String GroupID,String GroupName,String Description);
+	void NewMessageMember(String GroupID,String GroupMemberID,int IsAdmin);
+	void UpdateMessageMember(String GroupID,String GroupMemberID,int IsAdmin);
+	void DelMessageMember(String GroupID,String GroupMemberID);
+	TJSONArray*  GetMessageGroupList();
+	TJSONArray*  GetGroupMemberList(String GroudId);
+	TJSONArray*  GetAllEmployee(String GroupId);
+	bool IsGroupMember(String GroupId,String MemberId);
+	TJSONArray*  GetUserList();
+	String  GetHTMLEscapedString(String const Value);
+	bool  UpdateCurUserCallbackClientID(String const Value);
+
+	bool  SendMessageToAll(String const Msg);
+	bool  SendMessageToUser(String const Msg, String const UserID);
+	bool  SendMessageToDepartment(String const Msg, String const DepartmentID);
+	bool  SendMessageToGroup(String const Msg, String const GroupID);
+	bool  SendMessageToJob(String const Msg, String const JobID);
+	bool  SendMessageToRole(String const Msg, String const RoleID);
+	bool  SendMessageToFollow(String const Msg);
+	bool  SendCMDToFollow(String const cmdStr);
+	bool  SendCMDToAll(String const cmdStr);
+	bool  SendCMDToUser(String const cmdStr, String const UserID);
+	bool  SendCMDToDepartment(String const cmdStr, String const DepartmentID);
+	bool  SendCMDToGroup(String const cmdStr, String const GroupID);
+	bool  SendCMDToJob(String const cmdStr, String const JobID);
+	bool  SendCMDToRole(String const cmdStr, String const RoleID);
+	bool  SendMgrMessage(int itype, String const Msg);
+
+	void SendMissMessage(String UserId);
+	TJSONArray*  GetLatelyMessage(String UserId,String ReceId,int RecType);
+	bool  SendMissMessageToUser(String const Msg,String const FromID,String const FromName,String const MsgID,String const sendtime);
+	bool  SendMissMessageToDepartment(String const Msg,String const FromID,String const FromName, String const DepartmentID,String const MsgID,String const sendtime);
+	bool  SendMissMessageToGroup(String const Msg, String const FromID,String const FromName,String const GroupID,String const MsgID,String const sendtime);
+};
+#endif

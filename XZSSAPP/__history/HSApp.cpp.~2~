@@ -1,0 +1,53 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#ifdef _WIN32
+#include <tchar.h>
+#endif
+#pragma hdrstop
+#include <System.StartUpCopy.hpp>
+#include <FMX.MobilePreview.hpp>
+//---------------------------------------------------------------------------
+USEFORM("SaleManagement\RoomEdit.cpp", frmRoomEditForm);
+USEFORM("SaleManagement\SaleSubscribeCancel.cpp", frmSaleSubscribeCancel);
+USEFORM("SaleManagement\SaleSubscribeCancelDetail.cpp", frmSaleSubscribeCancelDetail);
+USEFORM("Main.cpp", MainForm);
+USEFORM("SaleManagement\Room.cpp", frmRoom);
+USEFORM("SaleManagement\SaleSubscribeMangeDetail.cpp", frmSaleSubscribeMangeDetail);
+USEFORM("WorkFlow\WorkFlowDetailForm.cpp", frmWorkFlowDetailForm);
+USEFORM("WorkFlow\NotPassTextForm.cpp", frmNotPassTextForm);
+USEFORM("WorkFlow\WorkFlowBrowseForm.cpp", frmWorkFlowBrowseForm);
+USEFORM("Login.cpp", LoginForm);
+USEFORM("Common\PhotoViewer.cpp", frmPhotoViewer);
+USEFORM("BaseForm\BaseBillForm.cpp", frmBaseBillForm);
+USEFORM("BaseForm\BaseForm.cpp", frmBaseForm);
+USEFORM("LoanCalculation.cpp", frmLoanCalculation);
+USEFORM("Config.cpp", ConfigForm);
+USEFORM("DocCheck.cpp", frmDocCheck);
+//---------------------------------------------------------------------------
+extern "C" int FMXmain()
+{
+	try
+	{
+		Application->Initialize();
+		Application->CreateForm(__classid(TMainForm), &MainForm);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

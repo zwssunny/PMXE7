@@ -1,0 +1,10 @@
+object SmsServer: TSmsServer
+  OldCreateOrder = False
+  OnDestroy = ServiceDestroy
+  DisplayName = 'SmsServer'
+  AfterInstall = ServiceAfterInstall
+  OnStart = ServiceStart
+  OnStop = ServiceStop
+  Height = 34
+  Width = 123
+end

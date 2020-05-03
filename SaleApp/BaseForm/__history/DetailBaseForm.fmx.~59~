@@ -1,0 +1,1227 @@
+inherited frmDetailBaseForm: TfrmDetailBaseForm
+  Caption = 'frmDetailBaseForm'
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object MainVertScrollBox: TVertScrollBox
+    Align = Contents
+    Size.Width = 384.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 9
+    object MainLayout: TLayout
+      Align = Client
+      Size.Width = 50.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object tcDetailControl: TTabControl
+        Align = Client
+        FullSize = True
+        Size.Width = 50.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabHeight = 49.000000000000000000
+        TabIndex = 1
+        TabOrder = 0
+        TabPosition = Top
+        OnChange = tcDetailControlChange
+        object tabDetail: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 25.000000000000000000
+          Size.Height = 49.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Text = #21333#25454#35814#24773
+          object tcMainControl: TTabControl
+            Align = Client
+            FullSize = True
+            Size.Width = 50.000000000000000000
+            Size.Height = 1.000000000000000000
+            Size.PlatformDefault = False
+            TabHeight = 49.000000000000000000
+            TabIndex = 0
+            TabOrder = 0
+            TabPosition = None
+            object TabDetailMain: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = True
+              Size.Width = 8.000000000000000000
+              Size.Height = 8.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'TabDetailMain'
+              object DetailMainToolBar: TToolBar
+                Align = Bottom
+                Position.Y = -47.000000000000000000
+                Size.Width = 50.000000000000000000
+                Size.Height = 48.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object btSave: TButton
+                  Action = SaveDetailAction
+                  Align = Center
+                  Enabled = True
+                  Size.Width = 79.636367797851560000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'donetoolbutton'
+                  TabOrder = 0
+                  Visible = True
+                end
+                object btMainNext: TButton
+                  Action = MainNextTabAction
+                  Align = MostRight
+                  Enabled = True
+                  Position.X = 2.000000000000000000
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'toolbutton'
+                  TabOrder = 2
+                  Visible = True
+                end
+                object btBaseClose: TButton
+                  Action = CloseFormAction
+                  Align = Left
+                  Enabled = True
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'backtoolbutton'
+                  TabOrder = 3
+                  Visible = True
+                end
+                object btEdit: TButton
+                  Action = DetailEditAction
+                  Align = Center
+                  Enabled = True
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'composetoolbutton'
+                  TabOrder = 4
+                  Visible = True
+                end
+                object btNextRecord: TButton
+                  Action = MoveNextAction
+                  Align = Right
+                  Enabled = True
+                  Position.X = -46.000000000000000000
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'arrowdowntoolbutton'
+                  TabOrder = 5
+                  Visible = True
+                end
+                object btPriorRecord: TButton
+                  Action = MovePriorAction
+                  Align = Right
+                  Enabled = True
+                  Position.X = -94.000000000000000000
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'arrowuptoolbutton'
+                  TabOrder = 6
+                  Visible = True
+                end
+              end
+              object EditVertScrollBox: TVertScrollBox
+                Align = Client
+                Size.Width = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object EditLayout: TLayout
+                  Touch.GestureManager = DetailGestureManager
+                  Align = Top
+                  HitTest = True
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 470.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                end
+              end
+            end
+            object TabDetailItem: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 8.000000000000000000
+              Size.Height = 8.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'TabDetailItem'
+              object ItemToolBar: TToolBar
+                Align = Bottom
+                Position.Y = -47.000000000000000000
+                Size.Width = 50.000000000000000000
+                Size.Height = 48.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object btItemBack: TButton
+                  Action = ItemPreviousTabAction
+                  Align = Left
+                  Enabled = True
+                  Size.Width = 57.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'backtoolbutton'
+                  TabOrder = 2
+                  TextSettings.HorzAlign = Leading
+                  Visible = True
+                end
+                object btDeleteItem: TButton
+                  Action = DeleteItemAction
+                  Align = Right
+                  Enabled = True
+                  Position.X = -46.000000000000000000
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'trashtoolbutton'
+                  TabOrder = 3
+                  Visible = True
+                end
+                object btAddItem: TButton
+                  Action = AddItemAction
+                  Align = Right
+                  Enabled = True
+                  Position.X = 2.000000000000000000
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'addtoolbutton'
+                  TabOrder = 1
+                  Visible = True
+                end
+                object btBrowsItem: TButton
+                  Action = BrowseItemAction
+                  Align = Right
+                  Enabled = True
+                  Position.X = -94.000000000000000000
+                  Size.Width = 48.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'infotoolbutton'
+                  TabOrder = 4
+                  Visible = True
+                end
+              end
+            end
+          end
+        end
+        object tabOA: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 25.000000000000000000
+          Size.Height = 49.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Text = #23457#25209#20219#21153
+          object TaskStringGrid: TStringGrid
+            Align = Top
+            Size.Width = 50.000000000000000000
+            Size.Height = 225.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Options = [ColumnResize, ColumnMove, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick]
+            RowCount = 0
+            RowHeight = 40.000000000000000000
+            object wtNoColumn: TStringColumn
+              Header = #24207#21495
+              Size.Width = 60.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+            end
+            object wtNameColumn: TStringColumn
+              Header = #20219#21153#26631#39064
+              Position.X = 60.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+            end
+            object wtStatusColumn: TStringColumn
+              Header = #29366#24577
+              Position.X = 160.000000000000000000
+              Size.Width = 60.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+            end
+            object wtReceiverColumn: TStringColumn
+              Header = #25509#25910#32773
+              Position.X = 220.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+            end
+            object wtCreateTimeColumn: TStringColumn
+              Header = #29983#25104#26102#38388
+              Position.X = 300.000000000000000000
+              Size.Width = 170.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 4
+            end
+            object wtOperaterColumn: TStringColumn
+              Header = #25805#20316#32773
+              Position.X = 470.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 5
+            end
+            object wtResultsColumn: TStringColumn
+              Header = #32467#26524
+              Position.X = 550.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 6
+            end
+            object wtFinishTimeColumn: TStringColumn
+              Header = #23436#25104#26102#38388
+              Position.X = 650.000000000000000000
+              Size.Width = 170.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 7
+            end
+            object wtStepColumn: TStringColumn
+              Header = #27493#39588
+              Position.X = 820.000000000000000000
+              Size.Width = 60.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 8
+            end
+          end
+          object tcWorkflowControl: TTabControl
+            Align = Client
+            FullSize = True
+            Size.Width = 50.000000000000000000
+            Size.PlatformDefault = False
+            TabHeight = 49.000000000000000000
+            TabIndex = 0
+            TabOrder = 1
+            TabPosition = Top
+            OnChange = tcWorkflowControlChange
+            object TabCheckExec: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = True
+              Size.Width = 13.000000000000000000
+              Size.Height = 49.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = #20219#21153#20449#24687
+              object TaskListBox: TListBox
+                Align = Client
+                HitTest = False
+                Size.Width = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 4
+                DisableFocusEffect = True
+                DefaultItemStyles.ItemStyle = 'listboxitemnodetail'
+                DefaultItemStyles.GroupHeaderStyle = ''
+                DefaultItemStyles.GroupFooterStyle = ''
+                object TaskListBoxItem1: TListBoxItem
+                  TabOrder = 0
+                  object lbTaskTitle: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #20219#21153#26631#39064':'
+                  end
+                  object lbTaskTitleText: TLabel
+                    Align = Client
+                    Margins.Left = 2.000000000000000000
+                    Size.Width = 305.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = 'lbTaskTitleText'
+                  end
+                end
+                object TaskListBoxItem2: TListBoxItem
+                  Position.Y = 44.000000000000000000
+                  Size.Width = 384.000000000000000000
+                  Size.Height = 85.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object lbTaskDes: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 85.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #20219#21153#25551#36848':'
+                  end
+                  object mmFlowMnDtlRemark: TMemo
+                    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                    Align = Client
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 1.000000000000000000
+                    Margins.Bottom = 1.000000000000000000
+                    Size.Width = 305.000000000000000000
+                    Size.Height = 83.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                    ReadOnly = True
+                  end
+                end
+                object TaskListBoxItem3: TListBoxItem
+                  Position.Y = 129.000000000000000000
+                  TabOrder = 2
+                  object edFlowMnDtlComments: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 1
+                    Enabled = False
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 5.000000000000000000
+                    Size.Width = 305.000000000000000000
+                    Size.Height = 39.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                  object lbTaskComment: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #23457#25209#24847#35265':'
+                  end
+                end
+                object TaskListBoxItem4: TListBoxItem
+                  Position.Y = 173.000000000000000000
+                  TabOrder = 3
+                  object btCheck: TButton
+                    Action = OACheckAction
+                    Align = Right
+                    Enabled = True
+                    Position.X = 311.000000000000000000
+                    Size.Width = 73.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    StyleLookup = 'donetoolbutton'
+                    TabOrder = 1
+                    Visible = True
+                  end
+                  object cbFlowMnDtlResults: TComboBox
+                    Align = Left
+                    DisableFocusEffect = False
+                    Enabled = False
+                    Margins.Left = 2.000000000000000000
+                    Position.X = 79.000000000000000000
+                    Size.Width = 153.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                    OnClosePopup = cbFlowMnDtlResultsClosePopup
+                  end
+                  object lbTastResult: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #19994#21153#27969#36716':'
+                  end
+                end
+              end
+            end
+            object TabCheckStare: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 12.000000000000000000
+              Size.Height = 49.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = #27969#31243#20449#24687
+              object FlowMainListBox: TListBox
+                Align = Client
+                HitTest = False
+                Size.Width = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                DisableFocusEffect = True
+                DefaultItemStyles.ItemStyle = 'listboxitemnodetail'
+                DefaultItemStyles.GroupHeaderStyle = ''
+                DefaultItemStyles.GroupFooterStyle = ''
+                object TaskListBoxItem5: TListBoxItem
+                  TabOrder = 0
+                  object edWorkflowTitle: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    TabOrder = 1
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 5.000000000000000000
+                    Size.Width = 305.000000000000000000
+                    Size.Height = 39.000000000000000000
+                    Size.PlatformDefault = False
+                    TextPrompt = #35831#36755#20837#21457#36215#23457#25209#30340#26631#39064
+                  end
+                  object lbWorkflowTitle: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #19994#21153#26631#39064':'
+                  end
+                end
+                object TaskListBoxItem6: TListBoxItem
+                  Position.Y = 44.000000000000000000
+                  Size.Width = 384.000000000000000000
+                  Size.Height = 61.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object lbWorkflowContent: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 61.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #19994#21153#20869#23481':'
+                  end
+                  object mmWorkflowContent: TMemo
+                    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                    Align = Client
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 1.000000000000000000
+                    Margins.Bottom = 1.000000000000000000
+                    Size.Width = 305.000000000000000000
+                    Size.Height = 59.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                  end
+                end
+                object TaskListBoxItem7: TListBoxItem
+                  Position.Y = 105.000000000000000000
+                  TabOrder = 2
+                  object cbWorkflowLeve: TComboBox
+                    Align = Left
+                    DisableFocusEffect = False
+                    Items.Strings = (
+                      #26222#36890
+                      #21152#24613
+                      #32039#24613)
+                    ItemIndex = 0
+                    Margins.Left = 2.000000000000000000
+                    Position.X = 79.000000000000000000
+                    Size.Width = 97.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 1
+                  end
+                  object lbWorkflowLeve: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #19994#21153#32423#21035':'
+                  end
+                  object btOAStare: TButton
+                    Action = OAStareAction
+                    Align = Right
+                    Enabled = True
+                    Position.X = 303.000000000000000000
+                    Size.Width = 81.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 3
+                    Visible = True
+                  end
+                end
+                object TaskListBoxItem8: TListBoxItem
+                  Position.Y = 149.000000000000000000
+                  TabOrder = 3
+                  object cbWorkflowStatus: TComboBox
+                    Align = Left
+                    DisableFocusEffect = False
+                    Enabled = False
+                    Items.Strings = (
+                      #26410#24320#22987
+                      #25191#34892#20013
+                      #24050#32467#26463
+                      #21462#28040#25110#20986#38169)
+                    ItemIndex = 0
+                    Margins.Left = 2.000000000000000000
+                    Position.X = 79.000000000000000000
+                    Size.Width = 97.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 1
+                  end
+                  object lbWorkflowStatus: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 77.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #19994#21153#29366#24577':'
+                  end
+                end
+                object TaskListBoxItem9: TListBoxItem
+                  Position.Y = 193.000000000000000000
+                  TabOrder = 4
+                  object lbCreator: TLabel
+                    Align = Left
+                    AutoSize = True
+                    Size.Width = 59.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = #21457#36215#20154':'
+                  end
+                  object lbCreatorName: TLabel
+                    Align = Client
+                    AutoSize = True
+                    Margins.Left = 2.000000000000000000
+                    Size.Width = 323.000000000000000000
+                    Size.Height = 44.000000000000000000
+                    Size.PlatformDefault = False
+                    TextSettings.WordWrap = False
+                    Text = 'lbCreatorName'
+                  end
+                end
+              end
+            end
+            object tabTaskLog: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 13.000000000000000000
+              Size.Height = 49.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = #26085#24535
+              object TaskLogStringGrid: TStringGrid
+                Align = Client
+                Size.Width = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Options = [ColumnResize, ColumnMove, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick]
+                RowCount = 0
+                RowHeight = 30.000000000000000000
+                object TaskLogNum: TStringColumn
+                  Header = #24207#21495
+                  Size.Width = 60.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                end
+                object FlowTaskLogTaskNameColumn: TStringColumn
+                  Header = #20219#21153#26631#39064
+                  Position.X = 60.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                end
+                object FlowTaskLogDateColumn: TStringColumn
+                  Header = #26102#38388
+                  Position.X = 160.000000000000000000
+                  Size.Width = 170.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                end
+                object FlowTaskLogOperationColumn: TStringColumn
+                  Header = #25805#20316
+                  Position.X = 330.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                end
+                object FlowTaskLogUserNameColumn: TStringColumn
+                  Header = #29992#25143
+                  Position.X = 430.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                end
+                object FlowTaskLogInfoColumn: TStringColumn
+                  Header = #20449#24687
+                  Position.X = 530.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                end
+              end
+            end
+            object tabTaskflow: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 12.000000000000000000
+              Size.Height = 49.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = #27969#31243#22270
+              object FlowScrollBox: TScrollBox
+                Align = Top
+                Size.Width = 50.000000000000000000
+                Size.Height = 244.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object FlowLayout: TLayout
+                  Touch.GestureManager = DetailGestureManager
+                  Touch.InteractiveGestures = [Zoom]
+                  OnGesture = FlowLayoutGesture
+                  Align = Top
+                  ClipParent = True
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 244.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  object WorkflowImage: TImage
+                    MultiResBitmap = <
+                      item
+                      end>
+                    Align = Center
+                    Size.Width = 321.000000000000000000
+                    Size.Height = 225.000000000000000000
+                    Size.PlatformDefault = False
+                    WrapMode = Stretch
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  object DetailActionList: TActionList
+    Left = 336
+    Top = 8
+    object NetTabAction: TChangeTabAction
+      Category = 'Tab'
+      CustomText = #21069#36827
+    end
+    object BackTabAction: TChangeTabAction
+      Category = 'Tab'
+      CustomText = ' '#36820#22238
+    end
+    object SaveDetailAction: TAction
+      Category = 'Button'
+      Text = #20445#23384
+      OnExecute = SaveDetailActionExecute
+      OnUpdate = SaveDetailActionUpdate
+    end
+    object OACheckAction: TAction
+      Category = 'Button'
+      Text = #23457#25209
+      OnExecute = OACheckActionExecute
+    end
+    object OACloseAction: TAction
+      Category = 'Button'
+      Text = #20851#38381#27969#31243
+    end
+    object MainNextTabAction: TNextTabAction
+      Category = 'Tab'
+      TabControl = tcMainControl
+      CustomText = #26126#32454#34892
+    end
+    object ItemPreviousTabAction: TPreviousTabAction
+      Category = 'Tab'
+      TabControl = tcMainControl
+      CustomText = #21333#22836
+    end
+    object ShowflowChartAction: TAction
+      Category = 'Button'
+      Text = #26174#31034#27969#31243#22270
+      OnExecute = ShowflowChartActionExecute
+    end
+    object OAStareAction: TAction
+      Category = 'Button'
+      Text = #25552#20132#23457#25209
+      OnExecute = OAStareActionExecute
+    end
+    object CloseFormAction: TAction
+      Category = 'Button'
+      Text = #36820#22238
+      OnExecute = CloseFormActionExecute
+    end
+    object DetailEditAction: TAction
+      Category = 'Button'
+      Text = #32534#36753
+      OnExecute = DetailEditActionExecute
+      OnUpdate = DetailEditActionUpdate
+    end
+    object AddItemAction: TAction
+      Category = 'Button'
+      Text = #26032#22686#26126#32454
+      OnExecute = AddItemActionExecute
+    end
+    object DeleteItemAction: TAction
+      Category = 'Button'
+      Text = #21024#38500#26126#32454
+      OnExecute = DeleteItemActionExecute
+    end
+    object BrowseItemAction: TAction
+      Category = 'Button'
+      Text = #26597#30475#26126#32454
+      OnExecute = BrowseItemActionExecute
+    end
+    object MoveNextAction: TAction
+      Text = 'MoveNextAction'
+      OnExecute = MoveNextActionExecute
+    end
+    object MovePriorAction: TAction
+      Text = 'MovePriorAction'
+      OnExecute = MovePriorActionExecute
+    end
+  end
+  object DetailBindingsList: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 336
+    Top = 209
+    object TaskBindGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = TaskStringGrid
+      SourceComponent = TaskBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'FlowMnDtlNum'
+          ColumnIndex = 0
+          SourceMemberName = 'FlowMnDtlNum'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlName'
+          ColumnIndex = 1
+          SourceMemberName = 'FlowMnDtlName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlState'
+          ColumnIndex = 2
+          SourceMemberName = 'FlowMnDtlState'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'IfThen(AsInteger=0," '#24453#21150'","'#24050#21150'")'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlSenderName'
+          ColumnIndex = 3
+          SourceMemberName = 'FlowMnDtlSenderName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlSendTime'
+          ColumnIndex = 4
+          SourceMemberName = 'FlowMnDtlSendTime'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlReceiverName'
+          ColumnIndex = 5
+          SourceMemberName = 'FlowMnDtlReceiverName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlResults'
+          ColumnIndex = 6
+          SourceMemberName = 'FlowMnDtlResults'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[6]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlChkTime'
+          ColumnIndex = 7
+          SourceMemberName = 'FlowMnDtlChkTime'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[7]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlStep'
+          ColumnIndex = 8
+          SourceMemberName = 'FlowMnDtlStep'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[8]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+    object FlowMnDtlCommentsBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlComments'
+      ControlComponent = edFlowMnDtlComments
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object FlowMnDtlRemarkBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlRemark'
+      ControlComponent = mmFlowMnDtlRemark
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+      OnAssignedValue = FlowMnDtlRemarkBindLinkAssignedValue
+    end
+    object FlowMnDtlResultsBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlResults'
+      ControlComponent = cbFlowMnDtlResults
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'SelectedText(Self)'
+          SourceExpression = 'Value'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'SelectedText(Self)'
+          SourceExpression = 'Value'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'SelectedText(Self)'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object TaskLogBindGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = TaskLogStringGrid
+      SourceComponent = TaskLogBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'FlowTaskLogID'
+          ColumnIndex = 0
+          SourceMemberName = 'FlowTaskLogID'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogTaskName'
+          ColumnIndex = 1
+          SourceMemberName = 'FlowTaskLogTaskName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogDate'
+          ColumnIndex = 2
+          SourceMemberName = 'FlowTaskLogDate'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogOperationName'
+          ColumnIndex = 3
+          SourceMemberName = 'FlowTaskLogOperation'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'IfThen(AsString="C","'#21019#24314'","'#29366#24577#25913#21464'")'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogUserName'
+          ColumnIndex = 4
+          SourceMemberName = 'FlowTaskLogUserName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'Info'
+          ColumnIndex = 5
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 
+                'IfThen(FieldByName("FlowTaskLogInfo").AsString="","",FieldByName' +
+                '("FlowTaskLogInfo").AsString + "->" + FieldByName("FlowTaskLogIn' +
+                'fo2").AsString)'
+            end>
+          FormatColumnExpressions = <>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+    object WorkflowTitleBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnSubject'
+      ControlComponent = edWorkflowTitle
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object WorkflowContentBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnContent'
+      ControlComponent = mmWorkflowContent
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object WorkflowLeveBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnRank'
+      ControlComponent = cbWorkflowLeve
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = '0'
+        end>
+      Track = False
+    end
+    object WorkflowStatusBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnState'
+      ControlComponent = cbWorkflowStatus
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = '0'
+        end>
+      Track = False
+    end
+    object CreatorNameBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnCreatorName'
+      ControlComponent = lbCreatorName
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object TaskTileTextBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlName'
+      ControlComponent = lbTaskTitleText
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+  end
+  object TaskBindSourceDB: TBindSourceDB
+    ScopeMappings = <>
+    Left = 336
+    Top = 145
+  end
+  object TaskLogBindSourceDB: TBindSourceDB
+    ScopeMappings = <>
+    Left = 336
+    Top = 72
+  end
+  object DetailGestureManager: TGestureManager
+    Left = 136
+    Top = 113
+  end
+end

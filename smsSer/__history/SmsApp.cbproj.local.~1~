@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.856,=E:\PMXE2\smsSer\sms.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.984,E:\PMXE2\WorkFlowSer\wfApp.cbproj=E:\PMXE2\WorkFlowSer\FSDSApp.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.092,E:\PMXE2\baselib\DSClientProxy.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.377,E:\PMXE2\smsSer\wfApp.cbproj=E:\PMXE2\smsSer\SmsApp.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.120,=D:\Embarcadero\RAD Studio\9.0\lib\win32\release\soaprtl.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.298,E:\PMXE2\baselib\SerLib.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.729,=E:\PMXE2\baselib\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.827,=E:\PMXE2\baselib\BaseLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.038,E:\PMXE2\baselib\BaseLib.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.931,=E:\PMXE2\smsSer\ModeInter.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.304,=E:\PMXE2\WorkFlowSer\wfClientBroker.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.246,=E:\PMXE2\baselib\DSClientProxy.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.186,=E:\PMXE2\baselib\DSClientProxy.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.292,=E:\PMXE2\WorkFlowSer\wfCallback.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.306,D:\Embarcadero\RAD Studio\9.0\lib\win32\release\soaprtl.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.851,=E:\PMXE2\smsSer\Info.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.623,=E:\PMXE6\baselibXE\DSClientProxy.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.466,E:\PMXE2\smsSer\Unit3.cpp=E:\PMXE2\smsSer\SmsClientBroker.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.714,E:\PMXE2\VCLCOM\TMS_Workflow\lib\XZWorkflowXE2.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.048,=E:\PMXE2\WorkFlowSer\FSDSApp.res</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.946,E:\PMXE2\WorkFlowSer\FSDSApp.res=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.059,=E:\PMXE2\smsSer\smsMain.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.337,=E:\PMXE2\WorkFlowSer\wfMain.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.377,E:\PMXE2\smsSer\Unit3.h=E:\PMXE2\smsSer\SmsCallback.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.466,E:\PMXE2\smsSer\Unit3.h=E:\PMXE2\smsSer\SmsClientBroker.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.120,=E:\PMXE2\smsSer\Unit3.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.673,=E:\PMXE2\smsSer\Unit3.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.377,E:\PMXE2\smsSer\Unit3.cpp=E:\PMXE2\smsSer\SmsCallback.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.044,=E:\PMXE2\smsSer\Unit3.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

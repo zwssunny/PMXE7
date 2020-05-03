@@ -1,0 +1,43 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ShowBizForm.h"
+#include "APIbase.h"
+#include "CurrencyData.h"
+#include "StuffStockIn.h"
+#include "OAChecker.h"
+#include "Customer.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TForm* __fastcall ShowBizForm(TComponent* Owner,int modulecode)
+{
+ switch(modulecode)
+ {
+  case 1170104:
+  {
+	TfrmCurrencyData *p=new TfrmCurrencyData(Owner,GClientBroker,modulecode,"");
+	return p;
+  }
+	break;
+  case 1050208:
+  {
+	TfrmStuffStockIn *p=new TfrmStuffStockIn(Owner,GClientBroker,modulecode,"",1);
+   return p;
+  }
+  break;
+  case 1240302:
+  {
+	TfrmOAChecker *p=new TfrmOAChecker(Owner,GClientBroker,modulecode,"");
+	return p;
+  }
+  break;
+  case 1200802:
+  {
+	 TfrmCustomer *p=new TfrmCustomer(Owner,GClientBroker,modulecode,"");
+	 return p;
+  }
+  break;
+  default: 	return NULL;
+ }
+}

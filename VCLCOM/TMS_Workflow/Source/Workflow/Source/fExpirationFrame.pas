@@ -1,0 +1,401 @@
+unit fExpirationFrame;
+
+{$I wsdefs.inc}
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, wsClasses, ComCtrls;
+
+type
+  TfrExpirationFrame = class(TFrame)
+    rbExpNever: TRadioButton;
+    rbExpTerm: TRadioButton;
+    rbExpDate: TRadioButton;
+    rbExpCustom: TRadioButton;
+    edTerm: TEdit;
+    cbTermType: TComboBox;
+    edDate: TDateTimePicker;
+    edTime: TDateTimePicker;
+    edExpression: TEdit;
+    lbStatus: TLabel;
+    cbStatus: TComboBox;
+    procedure PropertyChanged(Sender: TObject);
+    procedure rbExpCustomClick(Sender: TObject);
+    procedure edTermChange(Sender: TObject);
+  private
+    FUpdatingControls: boolean;
+    FOnPropertyChanged: TNotifyEvent;
+    procedure BeginUpdateControls;
+    procedure EndUpdateControls;
+    procedure SetControlsEnabled(AEnabled: boolean);
+    procedure Localize;
+    function GetDateTimeExpression: string;
+    procedure SetDateTimeExpression(const Value: string);
+    function GetExpTerm(AExp: string; var ATerm: double; var AType: integer): boolean;
+    function GetExpDateTime(AExp: string; var ADate: TDateTime; var ATime: TDateTime): boolean;
+    function BuildExpression: string;
+  protected
+    procedure Loaded; override;
+    property DateTimeExpression: string read GetDateTimeExpression write SetDateTimeExpression;
+  public
+    constructor Create(Owner: TComponent); override;
+    procedure ClearEditors;
+    procedure LoadTaskInEditors(ATask: TTaskDefinition);
+    procedure SaveEditorsInTask(ATask: TTaskDefinition);
+    property OnPropertyChanged: TNotifyEvent read FOnPropertyChanged write FOnPropertyChanged;
+  end;
+
+implementation
+
+uses 
+  wsRes;
+
+{$R *.DFM}
+
+const
+  ENCODEDATEFUNC = 'EncodeDate';
+  ENCODETIMEFUNC = 'EncodeTime';
+  INCMONTHFUNC = 'IncMonth';
+  TASKCREATIONDATE = '_Task.CreatedOn';
+  TERM_DAYS = 0;
+  TERM_WEEKS = 1;
+  TERM_MONTHS = 2;
+
+{ TfrExpirationFrame }
+
+procedure TfrExpirationFrame.BeginUpdateControls;
+begin
+  Inc(FUpdatingControls);
+end;
+
+procedure TfrExpirationFrame.ClearEditors;
+begin
+  BeginUpdateControls;
+  try
+    rbExpNever.Checked := false;
+    rbExpTerm.Checked := false;
+    rbExpDate.Checked := false;
+    rbExpCustom.Checked := false;
+    edTerm.Clear;
+    cbTermType.ItemIndex := 0;
+    edDate.DateTime := Date;
+    edTime.DateTime := Date;
+    edExpression.Clear;
+    cbStatus.Clear;
+    SetControlsEnabled(false);
+  finally
+    EndUpdateControls;
+  end;
+end;
+
+procedure TfrExpirationFrame.EndUpdateControls;
+begin
+  Dec(FUpdatingControls);
+end;
+
+procedure TfrExpirationFrame.LoadTaskInEditors(ATask: TTaskDefinition);
+var
+  i: integer;
+begin
+  if ATask <> nil then
+  begin
+    BeginUpdateControls;
+    try
+      DateTimeExpression := ATask.ExpirationDateTime;
+      cbStatus.Text := ATask.ExpirationStatus;
+      cbStatus.Items.Clear;
+      for i := 0 to ATask.StatusCount-1 do
+        if ATask.StatusCompletion[i] then
+          cbStatus.Items.Add(ATask.StatusName[i]);
+      SetControlsEnabled(true);
+    finally
+      EndUpdateControls;
+    end;
+  end;
+end;
+
+procedure TfrExpirationFrame.SaveEditorsInTask(ATask: TTaskDefinition);
+begin
+  if ATask <> nil then
+  begin
+    ATask.ExpirationDateTime := DateTimeExpression;
+    ATask.ExpirationStatus := cbStatus.Text;
+  end;
+end;
+
+procedure TfrExpirationFrame.SetControlsEnabled(AEnabled: boolean);
+begin
+  rbExpNever.Enabled := AEnabled;
+  rbExpTerm.Enabled := AEnabled;
+  rbExpDate.Enabled := AEnabled;
+  rbExpCustom.Enabled := AEnabled;
+  edTerm.Enabled := AEnabled and rbExpTerm.Checked;
+  cbTermType.Enabled := AEnabled and rbExpTerm.Checked;
+  edDate.Enabled := AEnabled and rbExpDate.Checked;
+  edTime.Enabled := AEnabled and rbExpDate.Checked;
+  edExpression.Enabled := AEnabled and rbExpCustom.Checked;
+  cbStatus.Enabled := AEnabled and not rbExpNever.Checked;
+end;
+
+procedure TfrExpirationFrame.PropertyChanged(Sender: TObject);
+begin
+  if Assigned(FOnPropertyChanged) then
+    FOnPropertyChanged(Sender);
+end;
+
+procedure TfrExpirationFrame.Localize;
+begin
+  rbExpNever.Caption := _str('frExpirationFrame.rbExpNever.Caption');
+  rbExpTerm.Caption := _str('frExpirationFrame.rbExpTerm.Caption');
+  cbTermType.Items[0] := _str('frExpirationFrame.cbTermType.Items0');
+  cbTermType.Items[1] := _str('frExpirationFrame.cbTermType.Items1');
+  cbTermType.Items[2] := _str('frExpirationFrame.cbTermType.Items2');
+  rbExpDate.Caption := _str('frExpirationFrame.rbExpDate.Caption');
+  rbExpCustom.Caption := _str('frExpirationFrame.rbExpCustom.Caption');
+  lbStatus.Caption := _str('frExpirationFrame.lbStatus.Caption');
+end;
+
+procedure TfrExpirationFrame.Loaded;
+begin
+  inherited;
+  Localize;
+end;
+
+function TfrExpirationFrame.GetDateTimeExpression: string;
+begin
+  result := edExpression.Text;
+end;
+
+procedure TfrExpirationFrame.SetDateTimeExpression(const Value: string);
+var
+  term: double;
+  termType: integer;
+  expDate, expTime: TDateTime;
+begin
+  BeginUpdateControls;
+  try
+    if Trim(Value) = '' then
+      rbExpNever.Checked := True
+    else if GetExpTerm(Value, term, termType) then
+    begin
+      rbExpTerm.Checked := True;
+      edTerm.Text := FloatToStr(term);
+      cbTermType.ItemIndex := termType;
+    end
+    else if GetExpDateTime(Value, expDate, expTime) then
+    begin
+      rbExpDate.Checked := True;
+      edDate.DateTime := expDate;
+      edTime.DateTime := expTime;
+    end
+    else
+      rbExpCustom.Checked := True;
+
+    edExpression.Text := Value;
+  finally
+    EndUpdateControls;
+  end;
+end;
+
+procedure TfrExpirationFrame.rbExpCustomClick(Sender: TObject);
+begin
+  if not FUpdatingControls then
+  begin
+    if Sender <> rbExpCustom then
+      edExpression.Text := BuildExpression;
+    SetControlsEnabled(true);
+    PropertyChanged(Sender);
+  end;
+end;
+
+procedure TfrExpirationFrame.edTermChange(Sender: TObject);
+begin
+  if not FUpdatingControls then
+  begin
+    edExpression.Text := BuildExpression;
+    PropertyChanged(Sender);
+  end;
+end;
+
+function GetFloatValue(s: string; var f: double): boolean;
+var
+  dc: char;
+begin
+  if s > '' then
+  begin
+    dc := {$IFDEF DELPHI2011_LVL}FormatSettings.{$ENDIF}DecimalSeparator;
+    {$IFDEF DELPHI2011_LVL}FormatSettings.{$ENDIF}DecimalSeparator := '.';
+    try
+      try
+        f := StrToFloat(s);
+        result := true;
+      except
+        result := false;
+      end;
+    finally
+      {$IFDEF DELPHI2011_LVL}FormatSettings.{$ENDIF}DecimalSeparator := dc;
+    end;
+  end
+  else
+    result := false;
+end;
+
+function GetIntValue(s: string; var i: integer): boolean;
+begin
+  i := StrToIntDef(s, -1);
+  result := i >= 0;
+end;
+
+function GetTermType(d: integer; var t: integer): boolean;
+begin
+  result := true;
+  case d of
+     1: t := TERM_DAYS;
+     7: t := TERM_WEEKS;
+    else
+      result := false;
+  end;
+end;
+
+function ExpFloatToStr(s: string): string;
+var
+  f: double;
+begin
+  s := StringReplace(Trim(s), ',', '.', [rfReplaceAll]);
+  if GetFloatValue(s, f) then
+    result := s
+  else
+    result := '0';
+end;
+
+function TfrExpirationFrame.GetExpTerm(AExp: string; var ATerm: double; var AType: integer): boolean;
+var
+  p, days, months: integer;
+  sl: TStringList;
+begin
+  // format: "_Task.CreatedOn + N [ * 7 ]" or "IncMonth(_Task.CreatedOn, N)"
+  result := false;
+  AExp := StringReplace(AExp, ' ', '', [rfReplaceAll]);
+  if Pos(TASKCREATIONDATE + '+', AExp) = 1 then
+  begin
+    Delete(AExp, 1, Length(TASKCREATIONDATE + '+'));
+    p := Pos('*', AExp);
+    if p > 0 then
+      result := GetFloatValue(Copy(AExp, 1, p-1), ATerm) and GetIntValue(Copy(AExp, p+1, Length(AExp)), days) and GetTermType(days, AType)
+    else
+    begin
+      result := GetFloatValue(AExp, ATerm);
+      AType := TERM_DAYS;
+    end;
+  end
+  else if Pos(INCMONTHFUNC + '(', AExp) = 1 then
+  begin
+    Delete(AExp, 1, Length(INCMONTHFUNC + '('));
+    p := Pos(')', AExp);
+    if p = Length(AExp) then
+    begin
+      sl := TStringList.Create;
+      try
+        sl.CommaText := Copy(AExp, 1, p-1);
+        if (sl.Count = 2) and SameText(TASKCREATIONDATE, sl[0]) and GetIntValue(sl[1], months) then
+        begin
+          ATerm := months;
+          result := true;
+          AType := TERM_MONTHS;
+        end;
+      finally
+        sl.Free;
+      end;
+    end;
+  end;
+end;
+
+function TfrExpirationFrame.GetExpDateTime(AExp: string; var ADate, ATime: TDateTime): boolean;
+var
+  p, y, m, d, h, s, ms: integer;
+  sl: TStringList;
+begin
+  // format: "EncodeDate(year, month, day) [ + EncodeTime(hour, min, sec, ms) ]"
+  result := false;
+  AExp := StringReplace(AExp, ' ', '', [rfReplaceAll]);
+  if Pos(ENCODEDATEFUNC + '(', AExp) = 1 then
+  begin
+    Delete(AExp, 1, Length(ENCODEDATEFUNC + '('));
+    p := Pos(')', AExp);
+    if p > 0 then
+    begin
+      sl := TStringList.Create;
+      try
+        sl.CommaText := Copy(AExp, 1, p-1);
+        if (sl.Count = 3) and GetIntValue(sl[0], y) and GetIntValue(sl[1], m) and GetIntValue(sl[2], d) then
+        begin
+          try
+            ADate := EncodeDate(y, m, d);
+            ATime := 0;
+            Delete(AExp, 1, p);
+            if AExp = '' then
+              result := true
+            else if Pos('+' + ENCODETIMEFUNC + '(', AExp) = 1 then
+            begin
+              Delete(AExp, 1, Length('+' + ENCODETIMEFUNC + '('));
+              p := Pos(')', AExp);
+              if p = Length(AExp) then
+              begin
+                sl.CommaText := Copy(AExp, 1, p-1);
+                if (sl.Count = 4) and GetIntValue(sl[0], h) and GetIntValue(sl[1], m) and GetIntValue(sl[2], s) and GetIntValue(sl[3], ms) then
+                begin
+                  ATime := EncodeTime(h, m, s, ms);
+                  result := true;
+                end;
+              end;
+            end;
+          except
+            result := false;
+          end;
+        end;
+      finally
+        sl.Free;
+      end;
+    end;
+  end;
+end;
+
+function TfrExpirationFrame.BuildExpression: string;
+var
+  y, m, d, h, s, ms: word;
+begin
+  if rbExpTerm.Checked then
+  begin
+    if cbTermType.ItemIndex = TERM_MONTHS then
+      result := Format('IncMonth(%s, %d)', [TASKCREATIONDATE, StrToIntDef(edTerm.Text, 0)])
+    else
+    begin
+      result := Format('%s + %s', [TASKCREATIONDATE, ExpFloatToStr(edTerm.Text)]);
+      if cbTermType.ItemIndex = TERM_WEEKS then
+        result := result + ' * 7';
+    end;
+  end
+  else if rbExpDate.Checked then
+  begin
+    DecodeDate(edDate.DateTime, y, m, d);
+    result := Format('%s(%d, %d, %d)', [ENCODEDATEFUNC, y, m, d]);
+    DecodeTime(edTime.DateTime, h, m, s, ms);
+    if (h > 0) or (m > 0) or (s > 0) or (ms > 0) then
+      result := Format('%s + EncodeTime(%d, %d, %d, %d)', [result, h, m, s, ms]);
+  end;
+end;
+
+constructor TfrExpirationFrame.Create(Owner: TComponent);
+begin
+  inherited;
+ // DateSeparator := '-';
+  //ShortDateFormat :='yyyy-mm-dd';
+  cbTermType.ItemIndex := 0;
+  edDate.DateTime := Date;
+  edTime.DateTime := Date;
+end;
+
+end.
+

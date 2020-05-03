@@ -1,0 +1,120 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5DF23B11-088A-40EC-BED7-46E93AFFE43B}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="bigint\BigIntlib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ZxingCommon.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="zxing\aztec\Azteclib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="zxing\datamatrix\Datamatrixlib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="zxing\qrcode\QRCodelib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="zxing\multi\Multilib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="zxing\oned\Onedlib.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="zxing\pdf417\Pdf417lib.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="BigIntlib">
+        <MSBuild Projects="bigint\BigIntlib.cbproj"/>
+    </Target>
+    <Target Name="BigIntlib:Clean">
+        <MSBuild Projects="bigint\BigIntlib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BigIntlib:Make">
+        <MSBuild Projects="bigint\BigIntlib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="ZxingCommon">
+        <MSBuild Projects="ZxingCommon.cbproj"/>
+    </Target>
+    <Target Name="ZxingCommon:Clean">
+        <MSBuild Projects="ZxingCommon.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ZxingCommon:Make">
+        <MSBuild Projects="ZxingCommon.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Azteclib">
+        <MSBuild Projects="zxing\aztec\Azteclib.cbproj"/>
+    </Target>
+    <Target Name="Azteclib:Clean">
+        <MSBuild Projects="zxing\aztec\Azteclib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Azteclib:Make">
+        <MSBuild Projects="zxing\aztec\Azteclib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Datamatrixlib">
+        <MSBuild Projects="zxing\datamatrix\Datamatrixlib.cbproj"/>
+    </Target>
+    <Target Name="Datamatrixlib:Clean">
+        <MSBuild Projects="zxing\datamatrix\Datamatrixlib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Datamatrixlib:Make">
+        <MSBuild Projects="zxing\datamatrix\Datamatrixlib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="QRCodelib">
+        <MSBuild Projects="zxing\qrcode\QRCodelib.cbproj"/>
+    </Target>
+    <Target Name="QRCodelib:Clean">
+        <MSBuild Projects="zxing\qrcode\QRCodelib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="QRCodelib:Make">
+        <MSBuild Projects="zxing\qrcode\QRCodelib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Multilib">
+        <MSBuild Projects="zxing\multi\Multilib.cbproj"/>
+    </Target>
+    <Target Name="Multilib:Clean">
+        <MSBuild Projects="zxing\multi\Multilib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Multilib:Make">
+        <MSBuild Projects="zxing\multi\Multilib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Onedlib">
+        <MSBuild Projects="zxing\oned\Onedlib.cbproj"/>
+    </Target>
+    <Target Name="Onedlib:Clean">
+        <MSBuild Projects="zxing\oned\Onedlib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Onedlib:Make">
+        <MSBuild Projects="zxing\oned\Onedlib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Pdf417lib">
+        <MSBuild Projects="zxing\pdf417\Pdf417lib.cbproj"/>
+    </Target>
+    <Target Name="Pdf417lib:Clean">
+        <MSBuild Projects="zxing\pdf417\Pdf417lib.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Pdf417lib:Make">
+        <MSBuild Projects="zxing\pdf417\Pdf417lib.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="BigIntlib;ZxingCommon;Azteclib;Datamatrixlib;QRCodelib;Multilib;Onedlib;Pdf417lib"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="BigIntlib:Clean;ZxingCommon:Clean;Azteclib:Clean;Datamatrixlib:Clean;QRCodelib:Clean;Multilib:Clean;Onedlib:Clean;Pdf417lib:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="BigIntlib:Make;ZxingCommon:Make;Azteclib:Make;Datamatrixlib:Make;QRCodelib:Make;Multilib:Make;Onedlib:Make;Pdf417lib:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

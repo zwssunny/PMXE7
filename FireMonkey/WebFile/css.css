@@ -1,0 +1,80 @@
+*{margin:0;padding:0;}
+body {
+	font-size: 14px;
+	margin:0;
+	padding:0;
+}
+#top{
+	width:100%;
+	background-image:url(images/top_bg.jpg);
+	height:88px;
+	}
+#top img{ float:left;}
+#box{
+	background-image:url(images/box_bg.jpg);
+	background-color:#4583bc;
+	background-repeat: repeat-x;
+	background-position: left top;
+	width:100%;
+}
+#left {
+	float: left;
+	width: 150px;
+	text-align:center;
+	height:500px;
+	background-image:url(images/box_bg.jpg);
+	background-color:#4583bc;
+	background-repeat: repeat-x;
+	background-position: left top;
+	}
+#left ul{padding:0;margin:0;}
+#left li{list-style-type: none;line-height:26px;}
+#left li.nav{background-image: url(images/nav.jpg);width:120px;line-height:24px;font-weight:bold;color:#fff;}
+#tagContent{
+	margin:10px 10px 10px 0px;
+	overflow: auto;
+	border-right:1px solid #4483bc;
+	border-top:1px solid #4483bc;
+	border-left:1px solid #4483bc;
+	border-bottom:1px solid #4483bc;
+	background:#fff;
+	background-image:url(images/main_bg.jpg);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	padding:10px;
+	overflow:hidden;
+	}
+.clear{clear:both;}
+/*left tab*/
+#tags {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px;  PADDING-TOP: 0px; HEIGHT: 26px}
+
+#tags LI {
+	list-style-type: none;line-height:26px;
+}
+#tags LI A {
+	BACKGROUND: url(images/nenu_h.gif) no-repeat right bottom; FLOAT: left; COLOR: #000; LINE-HEIGHT: 26px; PADDING-TOP: 0px; HEIGHT: 26px; TEXT-DECORATION: none;width:150px;
+}
+#tags LI.selectTag {
+	 background:url(tabselect.png) no-repeat; POSITION: relative; HEIGHT: 26px
+}
+#tags LI.selectTag A {
+	BACKGROUND-POSITION: right top; COLOR: #115599; LINE-HEIGHT: 26px;font-weight:bold;
+}
+/*list*/
+.main_left{width:75%;float:left;padding-top:50px;}
+.main_right{border-left:1px solid #b2cde2;width:19%;float:right;height:500px;}
+.right_menu{
+	background-image: url(images/nav_right.jpg);
+	background-repeat: no-repeat;
+	width:132px;
+	height:28px;
+	padding-top:15px;
+	padding-left:30px;
+	font-weight:bold;
+	color:#115599;
+}
+.menu_list ul{
+	margin:0;
+	}
+.menu_list li{list-style-type:none;line-height:250%;padding-left:10px;}

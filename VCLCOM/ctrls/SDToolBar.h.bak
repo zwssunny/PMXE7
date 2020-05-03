@@ -1,0 +1,22 @@
+//---------------------------------------------------------------------------
+
+#ifndef SDToolBarH
+#define SDToolBarH
+//---------------------------------------------------------------------------
+#include <SysUtils.hpp>
+#include <Controls.hpp>
+#include <Classes.hpp>
+#include <Forms.hpp>
+#include <ComCtrls.hpp>
+#include <ToolWin.hpp>
+//---------------------------------------------------------------------------
+class PACKAGE TSDToolBar : public TToolBar
+{
+private:
+protected:
+public:
+  __fastcall TSDToolBar(TComponent* Owner);
+__published:
+};
+//---------------------------------------------------------------------------
+#endif

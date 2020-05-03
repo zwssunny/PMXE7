@@ -1,0 +1,61 @@
+object frmPhotoViewer: TfrmPhotoViewer
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 640
+  ClientWidth = 360
+  Visible = True
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  Touch.InteractiveGestures = [Zoom]
+  DesignerMasterStyle = 3
+  object Panel1: TPanel
+    Touch.InteractiveGestures = [Zoom]
+    Align = Client
+    Size.Width = 360.000000000000000000
+    Size.Height = 640.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object ToolBar2: TToolBar
+      Align = Bottom
+      Position.Y = 592.000000000000000000
+      Size.Width = 360.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object btClose: TButton
+        Align = MostLeft
+        Size.Width = 65.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'backtoolbutton'
+        TabOrder = 1
+        Text = #36820#22238
+        OnClick = btCloseClick
+      end
+    end
+    object ImageTabCtr: TTabControl
+      Align = Client
+      FullSize = True
+      Size.Width = 360.000000000000000000
+      Size.Height = 591.000000000000000000
+      Size.PlatformDefault = False
+      TabHeight = 49.000000000000000000
+      TabOrder = 1
+      TabPosition = Dots
+      OnMouseLeave = ImageTabCtrMouseLeave
+    end
+    object Panel2: TPanel
+      Align = Top
+      Size.Width = 360.000000000000000000
+      Size.Height = 1.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+    end
+  end
+  object ImageGesMng: TGestureManager
+    Left = 136
+    Top = 184
+  end
+end

@@ -1,0 +1,380 @@
+// ---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "ServerCtl.h"
+
+// ---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+
+int SCCreateService(Char *lpComputerName, Char *lpServiceName,
+	Char *lpDisplayName, Char *lpFileName) {
+	bool bRetVal;
+	SERVICE_STATUS ss;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_CREATE_SERVICE);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService != NULL) {
+		bRetVal = QueryServiceStatus(shOpenService, &ss);
+		if (bRetVal == 0) {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 2;
+		}
+		else {
+			if (ss.dwCurrentState != SERVICE_STOPPED && ss.dwCurrentState !=
+				SERVICE_STOP_PENDING) {
+				ControlService(shOpenService, SERVICE_CONTROL_STOP, &ss);
+			}
+		}
+		bRetVal = DeleteService(shOpenService);
+		if (bRetVal == 0) {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 3;
+		}
+		CloseServiceHandle(shOpenService);
+	}
+	CloseServiceHandle(shOpenSCManager);
+	shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_CREATE_SERVICE);
+	SC_HANDLE shCreateService = CreateService(shOpenSCManager, lpServiceName,
+		lpDisplayName, SERVICE_ALL_ACCESS, SERVICE_WIN32_OWN_PROCESS,
+		SERVICE_AUTO_START, SERVICE_ERROR_IGNORE, lpFileName, NULL, NULL, NULL,
+		NULL, NULL);
+	if (shCreateService == NULL) {
+		return 4;
+	}
+	CloseServiceHandle(shCreateService);
+	CloseServiceHandle(shOpenSCManager);
+	return 0;
+}
+
+// ---------------------------------------------------------------------------
+int SCDeleteService(Char *lpComputerName, Char *lpServiceName) {
+	bool bRetVal;
+	SERVICE_STATUS ssStatus;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_CREATE_SERVICE);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService != NULL) {
+		bRetVal = QueryServiceStatus(shOpenService, &ssStatus);
+		if (bRetVal == 0) {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 2;
+		}
+		else {
+			if (ssStatus.dwCurrentState != SERVICE_STOPPED &&
+				ssStatus.dwCurrentState != SERVICE_STOP_PENDING) {
+				ControlService(shOpenService, SERVICE_CONTROL_STOP, &ssStatus);
+			}
+		}
+		bRetVal = DeleteService(shOpenService);
+		if (bRetVal == 0) {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 3;
+		}
+	}
+	CloseServiceHandle(shOpenService);
+	CloseServiceHandle(shOpenSCManager);
+	return 0;
+}
+
+// ---------------------------------------------------------------------------
+int SCStartService(Char *lpComputerName, Char *lpServiceName) {
+	bool bRetVal;
+	DWORD dwOldCheckPoint;
+	DWORD dwStartTickCount;
+	DWORD dwWaitTime;
+	DWORD dwStatus;
+
+	SERVICE_STATUS ssStatus;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_ALL_ACCESS);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService == NULL) {
+		CloseServiceHandle(shOpenSCManager);
+		return 2;
+	}
+	bRetVal = QueryServiceStatus(shOpenService, &ssStatus);
+	if (bRetVal == 0) {
+		CloseServiceHandle(shOpenService);
+		CloseServiceHandle(shOpenSCManager);
+		return 3;
+	}
+	else {
+		if (ssStatus.dwCurrentState != SERVICE_RUNNING) {
+			bRetVal = StartService(shOpenService, NULL, NULL);
+
+			if (bRetVal == 0) {
+				CloseServiceHandle(shOpenService);
+				CloseServiceHandle(shOpenSCManager);
+				return 4;
+			}
+			else {
+				QueryServiceStatus(shOpenService, &ssStatus);
+				dwStartTickCount = GetTickCount();
+				dwOldCheckPoint = ssStatus.dwCheckPoint;
+
+				while (ssStatus.dwCurrentState == SERVICE_START_PENDING) {
+					// Do not wait longer than the wait hint. A good interval is
+					// one tenth the wait hint, but no less than 1 second and no
+					// more than 10 seconds.
+
+					dwWaitTime = ssStatus.dwWaitHint / 10;
+
+					if (dwWaitTime < 1000)
+						dwWaitTime = 1000;
+					else if (dwWaitTime > 10000)
+						dwWaitTime = 10000;
+
+					Sleep(dwWaitTime);
+
+					// Check the status again.
+
+					if (!QueryServiceStatus(shOpenService, // handle to service
+						&ssStatus)) // address of structure
+							break;
+
+					if (ssStatus.dwCheckPoint > dwOldCheckPoint) {
+						// The service is making progress.
+
+						dwStartTickCount = GetTickCount();
+						dwOldCheckPoint = ssStatus.dwCheckPoint;
+					}
+					else {
+						if (GetTickCount() - dwStartTickCount >
+							ssStatus.dwWaitHint) {
+							// No progress made within the wait hint
+							break;
+						}
+					}
+				}
+				CloseServiceHandle(shOpenService);
+				CloseServiceHandle(shOpenSCManager);
+				if (ssStatus.dwCurrentState == SERVICE_RUNNING)
+					return 0;
+			}
+
+		}
+		else {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 0;
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------
+int SCStopService(Char *lpComputerName, Char *lpServiceName) {
+	bool bRetVal;
+	DWORD dwBytesNeeded;
+	SERVICE_STATUS_PROCESS ssp;
+	DWORD dwWaitTime;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_ALL_ACCESS);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService == NULL) {
+		CloseServiceHandle(shOpenSCManager);
+		return 2;
+	}
+	bRetVal = QueryServiceStatusEx(shOpenService,SC_STATUS_PROCESS_INFO, (LPBYTE)&ssp,sizeof(SERVICE_STATUS_PROCESS), &dwBytesNeeded);
+	if (bRetVal == 0) {  //执行失败
+		CloseServiceHandle(shOpenService);
+		CloseServiceHandle(shOpenSCManager);
+		return 3;
+	}
+	else {
+		if (ssp.dwCurrentState != SERVICE_STOPPED) {
+			bRetVal = ControlService(shOpenService, SERVICE_CONTROL_STOP, (LPSERVICE_STATUS)&ssp);
+			Sleep(ssp.dwWaitHint ); //等待
+			bRetVal = QueryServiceStatusEx(shOpenService,SC_STATUS_PROCESS_INFO, (LPBYTE)&ssp,sizeof(SERVICE_STATUS_PROCESS), &dwBytesNeeded);
+			if(ssp.dwCurrentState != SERVICE_STOPPED) //杀进程
+			{
+					HANDLE ps = OpenProcess(PROCESS_ALL_ACCESS,false,ssp.dwProcessId);
+					if(ps)
+					 TerminateProcess(ps,-9);
+			}
+			//再查询一下状态
+			  QueryServiceStatusEx(shOpenService,SC_STATUS_PROCESS_INFO, (LPBYTE)&ssp,sizeof(SERVICE_STATUS_PROCESS), &dwBytesNeeded);
+			  CloseServiceHandle(shOpenService);
+			  CloseServiceHandle(shOpenSCManager);
+			  if(ssp.dwCurrentState == SERVICE_STOPPED)
+				return 0;
+			   else
+			    return 4;//没办法，进程都杀不死！
+
+		}
+		else {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 0;
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------
+int SCPauseService(Char *lpComputerName, Char *lpServiceName) {
+	bool bRetVal;
+	SERVICE_STATUS ss;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_ALL_ACCESS);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService == NULL) {
+		CloseServiceHandle(shOpenSCManager);
+		return 2;
+	}
+	bRetVal = QueryServiceStatus(shOpenService, &ss);
+	if (bRetVal == 0) {
+		CloseServiceHandle(shOpenService);
+		CloseServiceHandle(shOpenSCManager);
+		return 3;
+	}
+	else {
+		if (ss.dwCurrentState != SERVICE_PAUSED) {
+			bRetVal = ControlService(shOpenService, SERVICE_CONTROL_PAUSE, &ss);
+			if (bRetVal == 0) {
+				CloseServiceHandle(shOpenService);
+				CloseServiceHandle(shOpenSCManager);
+				return 4;
+			}
+			else {
+				CloseServiceHandle(shOpenService);
+				CloseServiceHandle(shOpenSCManager);
+				return 0;
+			}
+		}
+		else {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 0;
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------
+int SCResumeService(Char *lpComputerName, Char *lpServiceName) {
+	bool bRetVal;
+	SERVICE_STATUS ss;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_ALL_ACCESS);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService == NULL) {
+		CloseServiceHandle(shOpenSCManager);
+		return 2;
+	}
+	bRetVal = QueryServiceStatus(shOpenService, &ss);
+	if (bRetVal == 0) {
+		CloseServiceHandle(shOpenService);
+		CloseServiceHandle(shOpenSCManager);
+		return 3;
+	}
+	else {
+		if (ss.dwCurrentState == SERVICE_PAUSED) {
+			bRetVal = ControlService(shOpenService,
+				SERVICE_CONTROL_CONTINUE, &ss);
+			if (bRetVal == 0) {
+				CloseServiceHandle(shOpenService);
+				CloseServiceHandle(shOpenSCManager);
+				return 4;
+			}
+			else {
+				CloseServiceHandle(shOpenService);
+				CloseServiceHandle(shOpenSCManager);
+				return 0;
+			}
+		}
+		else {
+			CloseServiceHandle(shOpenService);
+			CloseServiceHandle(shOpenSCManager);
+			return 0;
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------
+int SCQueryServiceStatus(Char *lpComputerName, Char *lpServiceName,
+	int &lpServiceStatus) {
+	bool bRetVal;
+	SERVICE_STATUS ss;
+	SC_HANDLE shOpenSCManager = OpenSCManager(lpComputerName, NULL,
+		SC_MANAGER_ALL_ACCESS);
+	if (shOpenSCManager == NULL) {
+		return 1;
+	}
+	SC_HANDLE shOpenService = OpenService(shOpenSCManager, lpServiceName,
+		SERVICE_ALL_ACCESS);
+	if (shOpenService == NULL) {
+		CloseServiceHandle(shOpenSCManager);
+		return 2;
+	}
+	bRetVal = QueryServiceStatus(shOpenService, &ss);
+	if (bRetVal == 0) {
+		CloseServiceHandle(shOpenService);
+		CloseServiceHandle(shOpenSCManager);
+		return 3;
+	}
+	lpServiceStatus = ss.dwCurrentState;
+	CloseServiceHandle(shOpenService);
+	CloseServiceHandle(shOpenSCManager);
+	return 0;
+}
+
+// ---------------------------------------------------------------------------
+/*
+ switch(ss.dwCurrentState)
+ {
+ case SERVICE_STOPPED:
+ Memo->Lines->Add("       Service Type: SERVICE_STOPPED");
+ break;
+ case SERVICE_START_PENDING:
+ Memo->Lines->Add("       Service Type: SERVICE_START_PENDING");
+ break;
+ case SERVICE_STOP_PENDING:
+ Memo->Lines->Add("       Service Type: SERVICE_STOP_PENDING");
+ break;
+ case SERVICE_RUNNING:
+ Memo->Lines->Add("       Service Type: SERVICE_RUNNING");
+ break;
+ case SERVICE_CONTINUE_PENDING:
+ Memo->Lines->Add("       Service Type: SERVICE_CONTINUE_PENDING");
+ break;
+ case SERVICE_PAUSE_PENDING:
+ Memo->Lines->Add("       Service Type: SERVICE_PAUSE_PENDING");
+ break;
+ case SERVICE_PAUSED:
+ Memo->Lines->Add("       Service Type: SERVICE_PAUSED");
+ break;
+ default:
+ Memo->Lines->Add("       Service Type: UNKNOWN STATUS");
+ break;
+ }
+ */

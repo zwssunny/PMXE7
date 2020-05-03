@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.841,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj=E:\PMXE6\tethering\Zxing\zxing\datamatrix\Datamatrixlib.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.682,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\DataMatrixReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.613,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\decoder\DecodedBitStreamParser.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.825,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\detector\CornerPoint.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.844,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\detector\DetectorException.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.754,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\Version.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.601,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\decoder\DataBlock.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.557,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\decoder\BitMatrixParser.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.987,=E:\PMXE6\tethering\Zxing\win32\Debug\ZxingCommon.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.837,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\detector\Detector.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.619,=E:\PMXE6\tethering\Zxing\zxing\datamatrix\decoder\Decoder.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

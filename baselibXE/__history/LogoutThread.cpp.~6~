@@ -1,0 +1,34 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "LogoutThread.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TLogOutThread::TLogOutThread(TSQLConnection *ADSConnection,TLoginUserClient *ALoginUserClient)
+{
+  FDSConnection= ADSConnection;
+  FLoginUserClient=ALoginUserClient;
+}
+void __fastcall TLogOutThread::Execute()
+{
+   FreeOnTerminate=true;
+   try{
+	   try{
+		   if(FDSConnection->Connected)
+		   {
+			  FLoginUserClient->Logout();
+			  FDSConnection->Close();
+		   }
+	   }
+	   catch(...) /*Exception &e*/
+	   {
+		 // throw Exception(L"×¢ÏúÊ±±¨´í:"+e.Message);
+	   }
+   }
+   __finally
+   {
+	delete FLoginUserClient;
+	FLoginUserClient=NULL;
+   }
+ }

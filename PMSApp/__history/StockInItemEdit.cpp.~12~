@@ -1,0 +1,93 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "StockInItemEdit.h"
+#include "CommFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "ItemBaseForm"
+#pragma resource "*.fmx"
+TfrmStockInItemEdit *frmStockInItemEdit;
+//---------------------------------------------------------------------------
+__fastcall TfrmStockInItemEdit::TfrmStockInItemEdit(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet *FDataSet,int DataSetStatus)
+	: TfrmItemBaseForm(Owner, clBroker,FDataSet, DataSetStatus)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmStockInItemEdit::FormInitControl()   //初始化数据控件
+{
+	FCheckFlag=GetMasterValue("StuSkInChkState");
+	FGuidBillID=GetMasterValue("StuSkInPKID");
+}
+void __fastcall TfrmStockInItemEdit::FormClearControl(int Section)   //清空控件数据,Section=2
+{
+	edStuSkInDtlFKID_Stu->Text="";
+	edStuDefName->Text="";
+	edStuDefSpecModel->Text="";
+	edStuSkInDtlFKID_Unit->Text="";
+	edStuSkInDtlFKID_Unit->TagString="";
+	edStuSkInDtlCovFactor->Text="1";
+	edStuSkInDtlQty->Text="0";
+	edStuSkInDtlPrice->Text="0";
+	edStuSkInDtlAmt->Text="0";
+	edStuSkInDtlCostPrice->Text="0";
+	edStuSpyNtDtlQty->Text="0";
+	edStuSpyNtDtlHaveInQty->Text="0";
+}
+void __fastcall TfrmStockInItemEdit::SendDataToDataSet(int Section)  //控件数据存入数据集,Section=2
+{
+	SetDetailValue("StuSkInDtlFKID_Stu",edStuSkInDtlFKID_Stu->Text);
+	SetDetailValue("StuDefName",edStuDefName->Text);
+	SetDetailValue("StuDefSpecModel",edStuDefSpecModel->Text);
+	SetDetailValue("MUName",edStuSkInDtlFKID_Unit->Text);
+	SetDetailValue("StuSkInDtlFKID_Unit",edStuSkInDtlFKID_Unit->TagString);
+	SetDetailValue("StuSkInDtlCovFactor",edStuSkInDtlCovFactor->Text);
+	SetDetailValue("StuSkInDtlQty",edStuSkInDtlQty->Text);
+	SetDetailValue("StuSkInDtlPrice",edStuSkInDtlPrice->Text);
+	SetDetailValue("StuSkInDtlAmt",edStuSkInDtlAmt->Text);
+	SetDetailValue("StuSkInDtlCostPrice",edStuSkInDtlCostPrice->Text);
+	SetDetailValue("StuSpyNtDtlQty",edStuSpyNtDtlQty->Text);
+	SetDetailValue("StuSpyNtDtlHaveInQty",edStuSpyNtDtlHaveInQty->Text);
+}
+void __fastcall TfrmStockInItemEdit::GetDataFromDataSet(int Section) //数据集数据显示在控件中,Section=2
+{
+	edStuSkInDtlFKID_Stu->Text=GetDetailValue("StuSkInDtlFKID_Stu");
+	edStuDefName->Text=GetDetailValue("StuDefName");
+	edStuDefSpecModel->Text=GetDetailValue("StuDefSpecModel");
+	edStuSkInDtlFKID_Unit->Text=GetDetailValue("MUName");
+	edStuSkInDtlFKID_Unit->TagString=GetDetailValue("StuSkInDtlFKID_Unit");
+	edStuSkInDtlCovFactor->Text=GetDetailValue("StuSkInDtlCovFactor");
+	edStuSkInDtlQty->Text=GetDetailValue("StuSkInDtlQty");
+	edStuSkInDtlPrice->Text=GetDetailValue("StuSkInDtlPrice");
+	edStuSkInDtlAmt->Text=GetDetailValue("StuSkInDtlAmt");
+	edStuSkInDtlCostPrice->Text=GetDetailValue("StuSkInDtlCostPrice");
+	edStuSpyNtDtlQty->Text=GetDetailValue("StuSpyNtDtlQty");
+	edStuSpyNtDtlHaveInQty->Text=GetDetailValue("StuSpyNtDtlHaveInQty");
+}
+void __fastcall TfrmStockInItemEdit::VerifyFieldData(int Section,int status) //保存前校验数据,Section=2，status：3-新增，4-修改
+{
+
+}
+void __fastcall TfrmStockInItemEdit::SetUserCtrlStatus()//设置用户构件状态
+{
+  bool bChecked= FCheckFlag>0;
+  bool bWriteRight=OperateRight.Pos(FR_SYSTEMWRITE)>0;
+  bool bCheckRight=FormDefRight.Pos(FR_FRMSTUFFSTOCKINLIST_CHECKRIGHT) > 0;
+  bool bPriceCheck=FormDefRight.Pos(FR_FRMSTUFFSTOCKINLIST_CHECKPRICE) > 0;
+  bool bBrowse= DetailStatus==dsBrowse;
+  ItemEditAction->Enabled= bWriteRight && !bChecked && bBrowse;
+  ItemSaveAction->Enabled=bWriteRight && !bChecked && !bBrowse;
+}
+void __fastcall TfrmStockInItemEdit::DetailDataSetBeforePost(TDataSet* DataSet)
+{
+  if(DataSet->FieldByName("StuSkInDtlFKID")->AsString == "")
+	DataSet->FieldByName("StuSkInDtlFKID")->AsString = FGuidBillID;
+  if(DataSet->FieldByName("StuSkInDtlPKID")->AsString == "")
+	DataSet->FieldByName("StuSkInDtlPKID")->AsString = GetGUIDString();
+  DataSet->FieldByName("StuSkInDtlAmt")->AsFloat =
+	DataSet->FieldByName("StuSkInDtlQty")->AsFloat*DataSet->FieldByName("StuSkInDtlPrice")->AsFloat;
+  if(FCheckFlag==0)
+	DataSet->FieldByName("StuSkInDtlCostPrice")->AsFloat = DataSet->FieldByName("StuSkInDtlPrice")->AsFloat;
+}

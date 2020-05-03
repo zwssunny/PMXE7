@@ -1,0 +1,48 @@
+inherited frmStuffStockIn_iPad: TfrmStuffStockIn_iPad
+  ClientHeight = 1004
+  ClientWidth = 768
+  DesignerMasterStyle = 2
+  inherited ListToolBar: TToolBar
+    Size.Width = 768.000000000000000000
+    inherited btAdd: TButton
+      Position.X = 680.000000000000000000
+    end
+    inherited btDelete: TButton
+      Position.X = 636.000000000000000000
+    end
+    inherited btQuery: TButton
+      Position.X = 724.000000000000000000
+    end
+    inherited btLook: TButton
+      Position.X = 592.000000000000000000
+    end
+  end
+  inherited ListBottomToolBar: TToolBar
+    Position.Y = 960.000000000000000000
+    Size.Width = 768.000000000000000000
+  end
+  inherited ListStringGrid: TStringGrid
+    Size.Width = 768.000000000000000000
+    Size.Height = 916.000000000000000000
+    inherited StringColumn2: TStringColumn
+      Size.Width = 120.000000000000000000
+    end
+    inherited StringColumn3: TStringColumn
+      Position.X = 120.000000000000000000
+    end
+    inherited StringColumn4: TStringColumn
+      Position.X = 220.000000000000000000
+    end
+    inherited StringColumn5: TStringColumn
+      Position.X = 320.000000000000000000
+      Size.Width = 120.000000000000000000
+    end
+    inherited StringColumn6: TStringColumn
+      Position.X = 440.000000000000000000
+      Size.Width = 120.000000000000000000
+    end
+    inherited StringColumn7: TStringColumn
+      Position.X = 560.000000000000000000
+    end
+  end
+end

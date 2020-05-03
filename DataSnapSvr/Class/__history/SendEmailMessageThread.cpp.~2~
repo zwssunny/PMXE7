@@ -1,0 +1,43 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "SendEmailMessageThread.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TSendEmailMessageThread::TSendEmailMessageThread(TADOConnection *AConnection,String AEmailID)
+{
+	m_Connection=AConnection;
+	AccQuery = new TADOQuery(NULL);
+	AccQuery->ParamCheck = false;
+	AccQuery->EnableBCD = false;
+	AccQuery->CommandTimeout = 60;
+	AccQuery->Connection = m_Connection;
+
+	Query = new TADOQuery(NULL);
+	Query->ParamCheck = false;
+	Query->EnableBCD = false;
+	Query->CommandTimeout = 60;
+	Query->Connection = m_Connection;
+	FEmailID= AEmailID;
+	FFMessageManage = new TMessageManage(NULL);
+}
+//---------------------------------------------------------------------------
+void __fastcall TSendEmailMessageThread::Execute()
+{
+   Query->Close();
+   Query->SQL->Text="Select * from tbMessege where MsgPKID="+QuotedStr(FEmailID);
+   Query->Open();
+   if(Query->RecordCount>0)
+	EmailTitle=Query->FieldByName("MsgSubject")->AsString;
+   EmailTitle=L"内部邮件通知:"+EmailTitle;
+   AccQuery->Close();
+   AccQuery->SQL->Text="select * from tbMessageRecSend where MRSMsgPK_FKID="+QuotedStr(FEmailID);
+   AccQuery->Open();
+   AccQuery->First();
+   while(!AccQuery->Eof)
+   {
+	   String ToUser= AccQuery->FieldByName("MRSRecFKID")->AsString;
+   }
+}
+//---------------------------------------------------------------------------

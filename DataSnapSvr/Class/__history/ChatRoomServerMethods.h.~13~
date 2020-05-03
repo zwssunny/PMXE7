@@ -1,0 +1,31 @@
+//---------------------------------------------------------------------------
+
+#ifndef ChatRoomServerMethodsH
+#define ChatRoomServerMethodsH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <DBXJSON.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TChatRoomServerMethods: public TDMBaseServerClass
+{
+private:
+	TADOQuery *EmpQuery;
+	void __fastcall SaveMessage(String MsgID,String MsgUserID,int MsgRecType,String MsgReceiver,String MsgContent);
+	void __fastcall SaveMsgNotReceiver(String MsgID,String UserID);
+public:
+	__fastcall TChatRoomServerMethods(TComponent* Owner);
+	__fastcall ~TChatRoomServerMethods();
+	TJSONArray* __fastcall GetUserList();
+	String __fastcall GetHTMLEscapedString(String const Value);
+	bool __fastcall UpdateCurUserCallbackClientID(String const Value);
+	bool __fastcall SendMessageToAll(String const Msg);
+	bool __fastcall SendMessageToUser(String const Msg, String const UserID);
+	bool __fastcall SendMessageToDepartment(String const Msg, String const DepartmentID);
+	bool __fastcall SendMessageToGroup(String const Msg, String const GroupID);
+	bool __fastcall SendMessageToFollow(String const Msg);
+};
+#endif

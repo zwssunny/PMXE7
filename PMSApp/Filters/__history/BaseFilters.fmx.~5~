@@ -1,0 +1,67 @@
+object BaseFiltersForm: TBaseFiltersForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object ItemVertScrollBox: TVertScrollBox
+    Align = Client
+    Height = 519.000000000000000000
+    ShowScrollBars = False
+    TabOrder = 1
+    Width = 384.000000000000000000
+    object EditLayout: TLayout
+      Align = Client
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      TabOrder = 0
+    end
+  end
+  object tbarBaseFilter: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    TabOrder = 3
+    Width = 384.000000000000000000
+    object btQuery: TButton
+      Align = Left
+      Height = 48.000000000000000000
+      ModalResult = 1
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 1
+      Text = #30830#23450
+      Width = 73.000000000000000000
+      OnClick = btQueryClick
+    end
+    object btCancel: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      ModalResult = 2
+      Position.X = 311.000000000000000000
+      StyleLookup = 'deletetoolbutton'
+      TabOrder = 2
+      Text = #21462#28040
+      Width = 73.000000000000000000
+      OnClick = btCancelClick
+    end
+    object WaitAniIndicator: TAniIndicator
+      Align = Center
+      Height = 30.000000000000000000
+      StyleLookup = 'Android Lightaniindicator.png'
+      Style = Circular
+      Width = 30.000000000000000000
+    end
+  end
+end

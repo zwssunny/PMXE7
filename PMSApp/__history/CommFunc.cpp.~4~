@@ -1,0 +1,304 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "CommFunc.h"
+#include "BaseGlobeVars.h"
+#include "APIbase.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//取合同，文档权限时 函数自动取对应权限 和对应 目录的权限  的最大权限
+
+int __fastcall GetDataRight(TZClientQuery *Query,const String &businessCode,TBusinessType businessType,String userGUID)
+{
+	int returnValue = 0;
+
+	if(userGUID.IsEmpty())
+		userGUID = GetGlobeVarValue("UserCode").UpperCase(); //员工编码
+
+	switch (businessType)
+	{
+		case BtProject: // 项目权限
+			Query->Close();
+			Query->SQL->Text = "select 1 from tbProject where PrjPKID='"+businessCode+"' and PrjCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+				return 2;
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+			break;
+		case BtInviteProject: // 招标项目权限
+			Query->Close();
+			Query->SQL->Text = "select 1 from tbBidProject where BidPrjPKID='"+businessCode+"' and BidPrjCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+				return 2;
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+			break;
+		case BtContractMenu: // 合同目录权限
+			Query->Close();
+			Query->SQL->Text = "select 1 from tbContType where CTypePKID='"+businessCode+"' and CTypeCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+				return 2;
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+			break;
+		case BtContract: // 合同权限
+		{
+			String contractMenu;
+			Query->Close();
+			Query->SQL->Text = "select ContType from tbContract where ContPKID='"+businessCode+"' and ContCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+			{
+				contractMenu = Query->FieldByName("ContType")->AsString;
+				return 2;
+			}
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+
+			if(returnValue < 2)
+			{
+				int tempValue = 0;
+				Query->Close();
+				Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+													 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+contractMenu+"' and SysDROrigin="+IntToStr(BtContractMenu)+
+													 " order by SysDROpteType Desc";
+				Query->Open();
+				Query->First();
+				if(!Query->Eof)
+					tempValue = Query->FieldByName("SysDROpteType")->AsInteger;
+				Query->Close();
+				tempValue > returnValue ? returnValue = tempValue : returnValue;
+      }
+			break;
+		}
+		case BtdocumentMenu: // 文档目录权限
+			Query->Close();
+			Query->SQL->Text = "select 1 from tbDocContent where DocCttPKID='"+businessCode+"' and DocCttCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+				return 2;
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+			break;
+		case Btdocument: // 文档权限
+		{
+			String documentMenu;
+			Query->Close();
+			Query->SQL->Text = "select DocFileFKID_Cls from tbDocFile where DocFilePKID='"+businessCode+"' and DocFileCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+			{
+				documentMenu = Query->FieldByName("DocFileFKID_Cls")->AsString;
+				return 2;
+			}
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+
+			if(returnValue < 2)
+			{
+				int tempValue = 0;
+				Query->Close();
+				Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+													 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+documentMenu+"' and SysDROrigin="+IntToStr(BtdocumentMenu)+
+													 " order by SysDROpteType Desc";
+				Query->Open();
+				Query->First();
+				if(!Query->Eof)
+					tempValue = Query->FieldByName("SysDROpteType")->AsInteger;
+				Query->Close();
+				tempValue > returnValue ? returnValue = tempValue : returnValue;
+      }
+			break;
+		}
+		case BtSign: // 电子印章权限
+		{
+			String SignPKID;
+			Query->Close();
+			Query->SQL->Text = "select SignPKID from tbSign where SignPKID='"+businessCode+"' and SignCreator='"+userGUID+"'";
+			Query->Open();
+			if(Query->RecordCount > 0)
+			{
+				SignPKID = Query->FieldByName("SignPKID")->AsString;
+				return 2;
+			}
+
+			Query->Close();
+			Query->SQL->Clear();
+			Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+												 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+businessCode+"' and SysDROrigin="+IntToStr(businessType)+
+												 " order by SysDROpteType Desc";
+			Query->Open();
+			if(!Query->Eof)
+				returnValue = Query->FieldByName("SysDROpteType")->AsInteger;
+			Query->Close();
+
+			if(returnValue < 2)
+			{
+				int tempValue = 0;
+				Query->Close();
+				Query->SQL->Text = " select SysDROpteType from vi_GetDataRight"
+													 " where REEmpPK_FKID='"+userGUID+"' and SysDRDataID='"+SignPKID+"' and SysDROrigin="+IntToStr(BtSign)+
+													 " order by SysDROpteType Desc";
+				Query->Open();
+				Query->First();
+				if(!Query->Eof)
+					tempValue = Query->FieldByName("SysDROpteType")->AsInteger;
+				Query->Close();
+				tempValue > returnValue ? returnValue = tempValue : returnValue;
+      }
+			break;
+		}
+		default:
+			break;
+	}
+	return  returnValue;
+}
+
+//--------------------------------------------------------------------------
+String __fastcall GetDataRightString(TZClientQuery *Query,TBusinessType businessType,String userGUID)
+{
+	String returnValue;
+	if(userGUID.IsEmpty())
+	userGUID = GClientBroker->UserEmpID;// GetGlobeVarValue("UserCode"); //员工编码
+
+	switch(businessType)
+	{
+		case BtProject:  // 项目
+			returnValue = "PrjCreator='"+userGUID+"' or PrjPKID";
+			break;
+		case BtContract:  //合同
+			returnValue = "ContCreator='"+userGUID+"' or ContPKID";
+			break;
+		case Btdocument:  //文档
+			returnValue = "DocFileCreator='"+userGUID+"' or DocFilePKID";
+			break;
+		case BtContractMenu: //合同目录
+			returnValue = "CTypeCreator='"+userGUID+"' or CTypePKID";
+			break;
+		case BtdocumentMenu: //文档目录
+			returnValue = "DocCttCreator='"+userGUID+"' or DocCttPKID";
+			break;
+		case BtInviteProject: //招标项目
+			returnValue = "BidPrjCreator='"+userGUID+"' or BidPrjMtnPKID";
+			break;
+		case BtBalance: //核算项目
+			returnValue = "CalSubCreator='"+userGUID+"' or CalSubPKID";
+			break;
+		case BtSign:  // 电子印章
+			returnValue = "signCreator='"+userGUID+"' or SignPKID";
+			break;
+		default: //默认 项目
+			returnValue = "PrjPKID";
+			break;
+	}
+
+	returnValue += " in (select SysDRDataID from vi_GetDataRight where REEmpPK_FKID='"+userGUID+"' and (SysDROrigin="+IntToStr(businessType)+"))";
+	if(businessType == BtContract)
+		returnValue += " or ContType  in (select SysDRDataID from vi_GetDataRight where REEmpPK_FKID='"+userGUID+"' and (SysDROrigin= 4))";
+	else if(businessType == Btdocument)
+		returnValue += " or DocFileFKID_Cls  in (select SysDRDataID from vi_GetDataRight where REEmpPK_FKID='"+userGUID+"' and (SysDROrigin=5))";
+	return returnValue;
+}
+//--------------------------------------------------------------------------
+String __fastcall GetGlobeVarValue(String VarName)
+{
+  static String sysGlobeVarStr="";
+  static String sysQtyPrecision;
+  static String sysPricePrecision;
+  static String sysAmtPrecision;
+  static String sysRatePrecision;
+  static String sysFloatFormatStyle;
+  try
+  {
+	if(GlobeVarSet == NULL)
+      GlobeVarSet = new TCZDataSet;
+    if(sysGlobeVarStr != gGlobeVarsStr)
+    {
+      GlobeVarSet->LoadFromString(gGlobeVarsStr); //重新装载全局变量
+      sysGlobeVarStr = gGlobeVarsStr;
+      if(GlobeVarSet->RecordCount < 1)
+		throw Exception(L"未定义系统全局变量");
+      GlobeVarSet->First();
+      //缓存系统浮点精度参数，提高转换效率
+      sysQtyPrecision = GlobeVarSet->FieldValues["QtyPrecision"];
+      sysPricePrecision = GlobeVarSet->FieldValues["PricePrecision"];
+      sysAmtPrecision = GlobeVarSet->FieldValues["AmtPrecision"];
+      sysRatePrecision = GlobeVarSet->FieldValues["RatePrecision"];
+      sysFloatFormatStyle = GlobeVarSet->FieldValues["FloatFormatStyle"];
+    }
+    if(GlobeVarSet->RecordCount < 1)
+	  throw Exception(L"未定义系统全局变量");
+    else if(UpperCase(VarName) == UpperCase("QtyPrecision"))
+      return sysQtyPrecision;
+    else if(UpperCase(VarName) == UpperCase("PricePrecision"))
+      return sysPricePrecision;
+    else if(UpperCase(VarName) == UpperCase("AmtPrecision"))
+      return sysAmtPrecision;
+    else if(UpperCase(VarName) == UpperCase("RatePrecision"))
+      return sysRatePrecision;
+    else if(UpperCase(VarName) == UpperCase("FloatFormatStyle"))
+      return sysFloatFormatStyle;
+    else if(UpperCase(VarName)=="CURDATE")
+      return FormatDateTime("YYYY-MM-DD",Date());
+    else if (UpperCase(VarName)==UpperCase("CurDateTime"))
+      return FormatDateTime("YYYY-MM-DD HH:MM:SS",Now());
+    else
+      return GlobeVarSet->FieldValues[VarName];
+  }
+  catch(Exception &e)
+  {
+	throw Exception(L"读取系统全局变量错误，"+e.Message);
+  }
+}

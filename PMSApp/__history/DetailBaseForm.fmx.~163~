@@ -1,0 +1,991 @@
+inherited frmDetailBaseForm: TfrmDetailBaseForm
+  Caption = 'frmDetailBaseForm'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object tcDetailControl: TTabControl
+    Align = Client
+    FullSize = True
+    Height = 567.000000000000000000
+    TabHeight = 49.000000000000000000
+    TabIndex = 0
+    TabOrder = 0
+    Width = 384.000000000000000000
+    OnChange = tcDetailControlChange
+    object tabDetail: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = True
+      TabOrder = 0
+      Text = #21333#25454#35814#24773
+      Width = 128.000000000000000000
+      object tcMainControl: TTabControl
+        Align = Client
+        FullSize = True
+        Height = 518.000000000000000000
+        TabHeight = 49.000000000000000000
+        TabIndex = 1
+        TabOrder = 0
+        TabPosition = Dots
+        Width = 384.000000000000000000
+        object TabDetailMain: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 8.000000000000000000
+          IsSelected = False
+          StyleLookup = 'tabdotstyle'
+          TabOrder = 0
+          Text = 'TabDetailMain'
+          Width = 8.000000000000000000
+          object DetailMainToolBar: TToolBar
+            Align = Bottom
+            Height = 48.000000000000000000
+            Position.Y = 470.000000000000000000
+            TabOrder = 0
+            Width = 384.000000000000000000
+            object btSave: TButton
+              Action = SaveDetailAction
+              Align = Center
+              Height = 48.000000000000000000
+              StyleLookup = 'donetoolbutton'
+              TabOrder = 0
+              Width = 79.636367797851560000
+            end
+            object btMainNext: TButton
+              Action = MainNextTabAction
+              Align = MostRight
+              Height = 48.000000000000000000
+              Position.X = 336.000000000000000000
+              StyleLookup = 'arrowrighttoolbutton'
+              TabOrder = 2
+              Width = 48.000000000000000000
+            end
+            object btBaseClose: TButton
+              Action = CloseFormAction
+              Align = Left
+              Height = 48.000000000000000000
+              StyleLookup = 'arrowlefttoolbutton'
+              TabOrder = 3
+              Width = 48.000000000000000000
+            end
+            object btEdit: TButton
+              Action = DetailEditAction
+              Align = Center
+              Height = 48.000000000000000000
+              StyleLookup = 'composetoolbutton'
+              TabOrder = 4
+              Width = 48.000000000000000000
+            end
+          end
+        end
+        object TabDetailItem: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 8.000000000000000000
+          IsSelected = True
+          StyleLookup = 'tabdotstyle'
+          TabOrder = 0
+          Text = 'TabDetailItem'
+          Width = 8.000000000000000000
+          object ItemToolBar: TToolBar
+            Align = Bottom
+            Height = 48.000000000000000000
+            Position.Y = 470.000000000000000000
+            TabOrder = 0
+            Width = 384.000000000000000000
+            object btItemBack: TButton
+              Action = ItemPreviousTabAction
+              Align = MostLeft
+              Height = 48.000000000000000000
+              StyleLookup = 'backtoolbutton'
+              TabOrder = 2
+              Width = 81.000000000000000000
+            end
+            object btDeleteItem: TButton
+              Action = DeleteItemAction
+              Align = Right
+              Height = 48.000000000000000000
+              Position.X = 288.000000000000000000
+              StyleLookup = 'trashtoolbutton'
+              TabOrder = 3
+              Width = 48.000000000000000000
+            end
+            object btAddItem: TButton
+              Action = AddItemAction
+              Align = Right
+              Height = 48.000000000000000000
+              Position.X = 336.000000000000000000
+              StyleLookup = 'addtoolbutton'
+              TabOrder = 1
+              Width = 48.000000000000000000
+            end
+            object btBrowsItem: TButton
+              Action = BrowseItemAction
+              Align = Right
+              Height = 48.000000000000000000
+              Position.X = 240.000000000000000000
+              StyleLookup = 'infotoolbutton'
+              TabOrder = 4
+              Width = 48.000000000000000000
+            end
+          end
+        end
+      end
+    end
+    object tabOA: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = False
+      TabOrder = 0
+      Text = #23457#25209#20219#21153
+      Width = 128.000000000000000000
+      object TaskStringGrid: TStringGrid
+        Align = Top
+        Height = 225.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        Options = [ColumnResize, ColumnMove, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick]
+        RowCount = 0
+        RowHeight = 40.000000000000000000
+        object wtNoColumn: TStringColumn
+          Header = #24207#21495
+          Height = 0.000000000000000000
+          TabOrder = 0
+          Width = 60.000000000000000000
+        end
+        object wtNameColumn: TStringColumn
+          Header = #20219#21153#26631#39064
+          Height = 0.000000000000000000
+          Position.X = 60.000000000000000000
+          TabOrder = 1
+          Width = 100.000000000000000000
+        end
+        object wtStatusColumn: TStringColumn
+          Header = #29366#24577
+          Height = 0.000000000000000000
+          Position.X = 160.000000000000000000
+          TabOrder = 2
+          Width = 60.000000000000000000
+        end
+        object wtReceiverColumn: TStringColumn
+          Header = #25509#25910#32773
+          Height = 0.000000000000000000
+          Position.X = 220.000000000000000000
+          TabOrder = 3
+          Width = 80.000000000000000000
+        end
+        object wtCreateTimeColumn: TStringColumn
+          Header = #29983#25104#26102#38388
+          Height = 0.000000000000000000
+          Position.X = 300.000000000000000000
+          TabOrder = 4
+          Width = 160.000000000000000000
+        end
+        object wtOperaterColumn: TStringColumn
+          Header = #25805#20316#32773
+          Height = 0.000000000000000000
+          Position.X = 460.000000000000000000
+          TabOrder = 5
+          Width = 80.000000000000000000
+        end
+        object wtResultsColumn: TStringColumn
+          Header = #32467#26524
+          Height = 0.000000000000000000
+          Position.X = 540.000000000000000000
+          TabOrder = 6
+          Width = 100.000000000000000000
+        end
+        object wtFinishTimeColumn: TStringColumn
+          Header = #23436#25104#26102#38388
+          Height = 0.000000000000000000
+          Position.X = 640.000000000000000000
+          TabOrder = 7
+          Width = 160.000000000000000000
+        end
+        object wtStepColumn: TStringColumn
+          Header = #27969#31243#27493#39588
+          Height = 0.000000000000000000
+          Position.X = 800.000000000000000000
+          TabOrder = 8
+          Width = 60.000000000000000000
+        end
+      end
+      object tcWorkflowControl: TTabControl
+        Align = Client
+        FullSize = True
+        Height = 293.000000000000000000
+        TabHeight = 49.000000000000000000
+        TabIndex = 1
+        TabOrder = 1
+        TabPosition = Bottom
+        Width = 384.000000000000000000
+        object TabCheckExec: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 49.000000000000000000
+          IsSelected = False
+          TabOrder = 0
+          Text = #20219#21153#20449#24687
+          Width = 192.000000000000000000
+          object lbTaskDes: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 12.000000000000000000
+            Position.Y = 23.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #25551#36848#65306
+            Width = 54.000000000000000000
+          end
+          object mmFlowMnDtlRemark: TMemo
+            Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+            Height = 65.000000000000000000
+            Position.X = 68.000000000000000000
+            Position.Y = 27.000000000000000000
+            TabOrder = 7
+            Width = 273.000000000000000000
+            ReadOnly = True
+          end
+          object lbTaskComment: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 12.000000000000000000
+            Position.Y = 109.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #24847#35265#65306
+            Width = 54.000000000000000000
+          end
+          object edFlowMnDtlComments: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 3
+            Position.X = 68.000000000000000000
+            Position.Y = 100.000000000000000000
+            Width = 273.000000000000000000
+            Height = 32.000000000000000000
+            Enabled = False
+          end
+          object lbTastResult: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 12.000000000000000000
+            Position.Y = 157.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #27969#36716#65306
+            Width = 54.000000000000000000
+          end
+          object cbFlowMnDtlResults: TComboBox
+            DisableFocusEffect = False
+            Enabled = False
+            Height = 32.000000000000000000
+            Position.X = 68.000000000000000000
+            Position.Y = 148.000000000000000000
+            TabOrder = 6
+            Width = 153.000000000000000000
+            OnClosePopup = cbFlowMnDtlResultsClosePopup
+          end
+          object btCheck: TButton
+            Action = OACheckAction
+            Height = 48.000000000000000000
+            Position.X = 272.000000000000000000
+            Position.Y = 144.000000000000000000
+            StyleLookup = 'donetoolbutton'
+            TabOrder = 10
+            Width = 73.000000000000000000
+          end
+        end
+        object TabCheckStare: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 49.000000000000000000
+          IsSelected = True
+          TabOrder = 0
+          Text = #27969#31243#20449#24687
+          Width = 192.000000000000000000
+          object lbWorkflowTitle: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 16.000000000000000000
+            Position.Y = 14.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #26631#39064':'
+            Width = 41.000000000000000000
+          end
+          object lbWorkflowContent: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 16.000000000000000000
+            Position.Y = 71.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #20869#23481#65306
+            Width = 54.000000000000000000
+          end
+          object lbWorkflowLeve: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 16.000000000000000000
+            Position.Y = 142.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #32423#21035#65306
+            Width = 54.000000000000000000
+          end
+          object edWorkflowTitle: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 3
+            Position.X = 72.000000000000000000
+            Position.Y = 9.000000000000000000
+            Width = 273.000000000000000000
+            Height = 32.000000000000000000
+            TextPrompt = #35831#36755#20837#21457#36215#23457#25209#30340#26631#39064
+          end
+          object mmWorkflowContent: TMemo
+            Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+            Height = 73.000000000000000000
+            Position.X = 72.000000000000000000
+            Position.Y = 55.000000000000000000
+            TabOrder = 4
+            Width = 273.000000000000000000
+          end
+          object cbWorkflowLeve: TComboBox
+            DisableFocusEffect = False
+            Height = 32.000000000000000000
+            Items.Strings = (
+              #26222#36890
+              #21152#24613
+              #32039#24613)
+            ItemIndex = 0
+            Position.X = 72.000000000000000000
+            Position.Y = 134.000000000000000000
+            TabOrder = 5
+            Width = 97.000000000000000000
+          end
+          object cbWorkflowStatus: TComboBox
+            DisableFocusEffect = False
+            Enabled = False
+            Height = 32.000000000000000000
+            Items.Strings = (
+              #26410#24320#22987
+              #25191#34892#20013
+              #24050#32467#26463
+              #21462#28040#25110#20986#38169)
+            ItemIndex = 0
+            Position.X = 248.000000000000000000
+            Position.Y = 134.000000000000000000
+            TabOrder = 6
+            Width = 97.000000000000000000
+          end
+          object lbWorkflowStatus: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 192.000000000000000000
+            Position.Y = 143.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #29366#24577#65306
+            Width = 54.000000000000000000
+          end
+          object lbCreator: TLabel
+            AutoSize = True
+            Height = 23.000000000000000000
+            Position.X = 13.000000000000000000
+            Position.Y = 187.000000000000000000
+            TextSettings.WordWrap = False
+            Text = #21457#36215#20154':'
+            Width = 59.000000000000000000
+          end
+          object lbCreatorName: TLabel
+            AutoSize = True
+            Height = 22.000000000000000000
+            Position.X = 80.000000000000000000
+            Position.Y = 187.000000000000000000
+            TextSettings.WordWrap = False
+            Text = 'lbCreatorName'
+            Width = 123.000000000000000000
+          end
+          object btOAStare: TButton
+            Action = OAStareAction
+            Height = 48.000000000000000000
+            Position.X = 264.000000000000000000
+            Position.Y = 176.000000000000000000
+            TabOrder = 10
+            Width = 81.000000000000000000
+          end
+        end
+      end
+    end
+    object tabFlow: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = False
+      TabOrder = 0
+      Text = #27969#31243#26085#24535
+      Width = 128.000000000000000000
+      object tcflowLogControl: TTabControl
+        Align = Client
+        FullSize = True
+        Height = 518.000000000000000000
+        TabHeight = 49.000000000000000000
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = Bottom
+        Width = 384.000000000000000000
+        OnChange = tcflowLogControlChange
+        object tabTaskLog: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 49.000000000000000000
+          IsSelected = True
+          TabOrder = 0
+          Text = #26085#24535
+          Width = 192.000000000000000000
+          object TaskLogStringGrid: TStringGrid
+            Align = Client
+            Height = 469.000000000000000000
+            TabOrder = 0
+            Width = 384.000000000000000000
+            Options = [ColumnResize, ColumnMove, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick]
+            RowCount = 0
+            RowHeight = 30.000000000000000000
+            object TaskLogNum: TStringColumn
+              Header = #24207#21495
+              Height = 0.000000000000000000
+              TabOrder = 0
+              Width = 60.000000000000000000
+            end
+            object FlowTaskLogTaskNameColumn: TStringColumn
+              Header = #20219#21153#26631#39064
+              Height = 0.000000000000000000
+              Position.X = 60.000000000000000000
+              TabOrder = 1
+              Width = 100.000000000000000000
+            end
+            object FlowTaskLogDateColumn: TStringColumn
+              Header = #26102#38388
+              Height = 0.000000000000000000
+              Position.X = 160.000000000000000000
+              TabOrder = 2
+              Width = 160.000000000000000000
+            end
+            object FlowTaskLogOperationColumn: TStringColumn
+              Header = #25805#20316
+              Height = 0.000000000000000000
+              Position.X = 320.000000000000000000
+              TabOrder = 3
+              Width = 100.000000000000000000
+            end
+            object FlowTaskLogUserNameColumn: TStringColumn
+              Header = #29992#25143
+              Height = 0.000000000000000000
+              Position.X = 420.000000000000000000
+              TabOrder = 5
+              Width = 100.000000000000000000
+            end
+            object FlowTaskLogInfoColumn: TStringColumn
+              Header = #20449#24687
+              Height = 0.000000000000000000
+              Position.X = 520.000000000000000000
+              TabOrder = 4
+              Width = 100.000000000000000000
+            end
+          end
+        end
+        object tabTaskflow: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 49.000000000000000000
+          IsSelected = False
+          TabOrder = 0
+          Text = #27969#31243#22270
+          Width = 192.000000000000000000
+          object WorkflowImage: TImage
+            MultiResBitmap = <
+              item
+              end>
+            Align = Client
+            Height = 469.000000000000000000
+            Width = 384.000000000000000000
+            WrapMode = Stretch
+          end
+        end
+      end
+    end
+  end
+  object DetailActionList: TActionList
+    Left = 336
+    Top = 8
+    object NetTabAction: TChangeTabAction
+      Category = 'Tab'
+      CustomText = #21069#36827
+    end
+    object BackTabAction: TChangeTabAction
+      Category = 'Tab'
+      CustomText = ' '#36820#22238
+    end
+    object SaveDetailAction: TAction
+      Category = 'Button'
+      Text = #20445#23384
+      OnExecute = SaveDetailActionExecute
+      OnUpdate = SaveDetailActionUpdate
+    end
+    object OACheckAction: TAction
+      Category = 'Button'
+      Text = #23457#25209
+      OnExecute = OACheckActionExecute
+    end
+    object OACloseAction: TAction
+      Category = 'Button'
+      Text = #20851#38381#27969#31243
+    end
+    object MainNextTabAction: TNextTabAction
+      Category = 'Tab'
+      TabControl = tcMainControl
+      CustomText = #26126#32454
+    end
+    object ItemPreviousTabAction: TPreviousTabAction
+      Category = 'Tab'
+      TabControl = tcMainControl
+      CustomText = #20869#23481
+    end
+    object ShowflowChartAction: TAction
+      Category = 'Button'
+      Text = #26174#31034#27969#31243#22270
+      OnExecute = ShowflowChartActionExecute
+    end
+    object OAStareAction: TAction
+      Category = 'Button'
+      Text = #21457#36215#27969#31243
+      OnExecute = OAStareActionExecute
+    end
+    object CloseFormAction: TAction
+      Category = 'Button'
+      Text = #36820#22238
+      OnExecute = CloseFormActionExecute
+    end
+    object DetailEditAction: TAction
+      Category = 'Button'
+      Text = #32534#36753
+      OnExecute = DetailEditActionExecute
+      OnUpdate = DetailEditActionUpdate
+    end
+    object AddItemAction: TAction
+      Category = 'Button'
+      Text = #26032#22686#26126#32454
+      OnExecute = AddItemActionExecute
+    end
+    object DeleteItemAction: TAction
+      Category = 'Button'
+      Text = #21024#38500#26126#32454
+      OnExecute = DeleteItemActionExecute
+    end
+    object BrowseItemAction: TAction
+      Category = 'Button'
+      Text = #26597#30475#26126#32454
+      OnExecute = BrowseItemActionExecute
+    end
+  end
+  object DetailBindingsList: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 336
+    Top = 209
+    object TaskBindGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = TaskStringGrid
+      SourceComponent = TaskBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'FlowMnDtlNum'
+          ColumnIndex = 0
+          SourceMemberName = 'FlowMnDtlNum'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlName'
+          ColumnIndex = 1
+          SourceMemberName = 'FlowMnDtlName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlState'
+          ColumnIndex = 2
+          SourceMemberName = 'FlowMnDtlState'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'IfThen(AsInteger=0," '#24453#21150'","'#24050#21150'")'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlSenderName'
+          ColumnIndex = 3
+          SourceMemberName = 'FlowMnDtlSenderName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlSendTime'
+          ColumnIndex = 4
+          SourceMemberName = 'FlowMnDtlSendTime'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlReceiverName'
+          ColumnIndex = 5
+          SourceMemberName = 'FlowMnDtlReceiverName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlResults'
+          ColumnIndex = 6
+          SourceMemberName = 'FlowMnDtlResults'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[6]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlChkTime'
+          ColumnIndex = 7
+          SourceMemberName = 'FlowMnDtlChkTime'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[7]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowMnDtlStep'
+          ColumnIndex = 8
+          SourceMemberName = 'FlowMnDtlStep'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[8]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+    object FlowMnDtlCommentsBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlComments'
+      ControlComponent = edFlowMnDtlComments
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <>
+      Track = False
+    end
+    object FlowMnDtlRemarkBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlRemark'
+      ControlComponent = mmFlowMnDtlRemark
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <>
+      Track = False
+      OnAssignedValue = FlowMnDtlRemarkBindLinkAssignedValue
+    end
+    object FlowMnDtlResultsBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnDtlResults'
+      ControlComponent = cbFlowMnDtlResults
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'SelectedText(Self)'
+          SourceExpression = 'Value'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'SelectedText(Self)'
+          SourceExpression = 'Value'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'SelectedText(Self)'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object TaskLogBindGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = TaskLogStringGrid
+      SourceComponent = TaskLogBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'FlowTaskLogID'
+          ColumnIndex = 0
+          SourceMemberName = 'FlowTaskLogID'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogTaskName'
+          ColumnIndex = 1
+          SourceMemberName = 'FlowTaskLogTaskName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogDate'
+          ColumnIndex = 2
+          SourceMemberName = 'FlowTaskLogDate'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogOperationName'
+          ColumnIndex = 3
+          SourceMemberName = 'FlowTaskLogOperation'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'IfThen(AsString="C","'#21019#24314'","'#29366#24577#25913#21464'")'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'FlowTaskLogUserName'
+          ColumnIndex = 4
+          SourceMemberName = 'FlowTaskLogUserName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'Info'
+          ColumnIndex = 5
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 
+                'IfThen(FieldByName("FlowTaskLogInfo").AsString="","",FieldByName' +
+                '("FlowTaskLogInfo").AsString + "->" + FieldByName("FlowTaskLogIn' +
+                'fo2").AsString)'
+            end>
+          FormatColumnExpressions = <>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+    object WorkflowTitleBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnSubject'
+      ControlComponent = edWorkflowTitle
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object WorkflowContentBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnContent'
+      ControlComponent = mmWorkflowContent
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+    object WorkflowLeveBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnRank'
+      ControlComponent = cbWorkflowLeve
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      ClearExpressions = <>
+      Track = False
+    end
+    object WorkflowStatusBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnState'
+      ControlComponent = cbWorkflowStatus
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      FormatExpressions = <
+        item
+          ControlExpression = 'ItemIndex'
+          SourceExpression = 'AsInteger'
+        end>
+      ClearExpressions = <>
+      Track = False
+    end
+    object CreatorNameBindLink: TBindLink
+      Category = 'Links'
+      SourceMemberName = 'FlowMnCreatorName'
+      ControlComponent = lbCreatorName
+      SourceComponent = TaskBindSourceDB
+      ParseExpressions = <>
+      FormatExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'AsString'
+        end>
+      ClearExpressions = <
+        item
+          ControlExpression = 'Text'
+          SourceExpression = 'nil'
+        end>
+      Track = False
+    end
+  end
+  object TaskBindSourceDB: TBindSourceDB
+    ScopeMappings = <>
+    Left = 336
+    Top = 145
+  end
+  object TaskLogBindSourceDB: TBindSourceDB
+    ScopeMappings = <>
+    Left = 336
+    Top = 72
+  end
+end

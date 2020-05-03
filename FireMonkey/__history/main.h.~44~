@@ -1,0 +1,91 @@
+//---------------------------------------------------------------------------
+
+#ifndef mainH
+#define mainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.Menus.hpp>
+#include <FMX.Types.hpp>
+#include "ClientBroker.h"
+#include "QQMain.h"
+#include <FMX.StdCtrls.hpp>
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+#include "ZClientQuery.h"
+#include <Soap.InvokeRegistry.hpp>
+#include <Soap.Rio.hpp>
+#include <Soap.SOAPHTTPClient.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.DateTimeCtrls.hpp>
+//---------------------------------------------------------------------------
+class TfrmMain : public TForm
+{
+__published:	// IDE-managed Components
+	TMenuItem *muFile;
+	TMenuItem *muHelp;
+	TMenuItem *miLogin;
+	TMenuItem *miLogout;
+	TMenuItem *miSetting;
+	TMenuItem *miAbout;
+	TMenuItem *miQQ;
+	TMenuItem *miExit;
+	TStatusBar *pmStateBar;
+	TMainMenu *MainMenu;
+	TMenuItem *miForesight;
+	TPopupMenu *ModuleMenu;
+	TMenuItem *miTest;
+	void __fastcall miLogoutClick(TObject *Sender);
+	void __fastcall miAboutClick(TObject *Sender);
+	void __fastcall miLoginClick(TObject *Sender);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall miQQClick(TObject *Sender);
+	void __fastcall miExitClick(TObject *Sender);
+	void __fastcall miSettingClick(TObject *Sender);
+	void __fastcall miForesightClick(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
+	void __fastcall miTestClick(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
+private:	// User declarations
+	TClientBroker *FClientBroker;
+	TZClientQuery* MsgQuery;
+	TfrmQQMain *qqMain;
+	bool blogin;
+	String FAgentAddress;
+	int FAgentPort;
+	String FCommunicationProtocol;
+	void __fastcall ChangeControlState();
+	void __fastcall LoadConnectSetting();
+	void __fastcall MenuItemClick(TObject* Sender);
+	void __fastcall LoadStudioPane();
+	void __fastcall ShowClientForm(int id);
+	void __fastcall CreateMsgDataSet();
+	void __fastcall CreateLeftWeb(TStringList *MenuList,
+	TStringList *MenuNameList);
+public:		// User declarations
+	__fastcall TfrmMain(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmMain *frmMain;
+
+extern const String szGlobalClassName;
+extern const String szKeyUserFmt;
+//---------------------------------------------------------------------------
+extern const String szNavMyStudio;
+extern const String szNavFlowStudio;
+extern const String szNavStudioSetup;
+extern const String szNavHelpIndex;
+extern const String szNavWebSite;
+extern const String szNavSwitchUser;
+extern const String szNavSave;
+extern const String szNavDiscard;
+extern const String szNavAgentSetup;
+extern const String szNavOtherStuff;
+extern const String szNavModule;
+extern const String szMenuMainWindow;
+extern const String szMenuWindowList;
+
+//---------------------------------------------------------------------------
+#endif

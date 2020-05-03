@@ -1,0 +1,101 @@
+// ---------------------------------------------------------------------------
+
+#ifndef MsgStreamH
+#define MsgStreamH
+#include <DB.hpp>
+#include <DBClient.hpp>
+// ---------------------------------------------------------------------------
+class PACKAGE TMsgStream
+{
+private:
+	int FOperate;
+	String FClassID;
+	String FClientID;
+	String FQueryID;
+	String FServerID;
+	TClientDataSet* FOptValue;
+	TClientDataSet* FOptItem;
+	TMemoryStream* FMasterDataSet;
+	String FMasterLinkData;
+	TMemoryStream* FDetailDataSet;
+	String FDetailLinkData;
+	TClientDataSet *MsgClientDataSet;
+//	TADODataSetStream *ADODSStream;
+
+	int __fastcall get_XmlOperate();
+	String __fastcall get_XmlClassID();
+	String __fastcall get_XmlClientID();
+	String __fastcall get_XmlQueryID();
+	String __fastcall get_XmlServerID();
+	String __fastcall get_XmlOptValue(String Attribute);
+	String __fastcall get_XmlOptItem(String Attribute);
+	TStream* __fastcall get_MasterDataSet();
+	String __fastcall get_MasterLinkData();
+	TStream* __fastcall get_DetailDataSet();
+	String __fastcall get_DetailLinkData();
+	String __fastcall get_XmlString();
+
+	void __fastcall set_XmlOperate(int value);
+	void __fastcall set_XmlClassID(String value);
+	void __fastcall set_XmlClientID(String value);
+	void __fastcall set_XmlQueryID(String value);
+	void __fastcall set_XmlServerID(String value);
+	void __fastcall set_XmlOptValue(String Attribute, String value);
+	void __fastcall set_XmlOptItem(String Attribute, String value);
+	void __fastcall set_MasterDataSet(TStream* value);
+	void __fastcall set_MasterLinkData(String value);
+	void __fastcall set_DetailDataSet(TStream* value);
+	void __fastcall set_DetailLinkData(String value);
+	void __fastcall set_XmlString(String value);
+	void __fastcall CreateClientDataSet();
+	void __fastcall DecClientMsg();
+	TStream * __fastcall GetDataSnapStream(TStream *dsStream);
+
+public:
+	__fastcall TMsgStream();
+	__fastcall TMsgStream(String XMLstr);
+	__fastcall TMsgStream(TStream *xfs);
+//	__fastcall TMsgStream(_di_IDataBlock dataBlock);
+	__fastcall ~TMsgStream();
+	void __fastcall BuildClientMsg();
+	void __fastcall SaveToFile(String fn);
+	void __fastcall SaveToStream(TStream *fs);
+	void __fastcall LoadFromFile(String fn);
+	void __fastcall LoadFromStream(TStream *fs);
+//	void __fastcall LoadFromDataBlock(_di_IDataBlock datablock);
+//	void __fastcall SaveToDataBlock(_di_IDataBlock dataBlock);
+
+	void __fastcall SaveMasterToFile(String fn);
+	void __fastcall SaveMasterToStream(TStream *fs);
+	void __fastcall LoadMasterFromFile(String fn);
+	void __fastcall LoadMasterFromStream(TStream *fs);
+	void __fastcall SaveMasterToString(String &ToStr);
+	void __fastcall LoadMasterFromString(String FromStr);
+	void __fastcall LoadMasterFromDataSet(TCustomClientDataSet *DataSet);
+	void __fastcall SaveMasterToDataSet(TCustomClientDataSet *DataSet);
+
+	void __fastcall SaveDetailToFile(String fn);
+	void __fastcall SaveDetailToStream(TStream *fs);
+	void __fastcall LoadDetailFromFile(String fn);
+	void __fastcall LoadDetailFromStream(TStream *fs);
+	void __fastcall SaveDetailToString(String &ToStr);
+	void __fastcall LoadDetailFromString(String FromStr);
+	void __fastcall LoadDetailFromDataSet(TCustomClientDataSet *DataSet);
+	void __fastcall SaveDetailToDataSet(TCustomClientDataSet *DataSet);
+
+
+	__property int Operate = {read = get_XmlOperate, write = set_XmlOperate};
+	__property String ClassID = {read = get_XmlClassID, write = set_XmlClassID};
+	__property String ClientID = {read = get_XmlClientID, write = set_XmlClientID};
+	__property String QueryID = {read = get_XmlQueryID, write = set_XmlQueryID};
+	__property String ServerID = {read = get_XmlServerID, write = set_XmlServerID};
+	__property String ValueAttribute[String Attribute] = {read = get_XmlOptValue, write = set_XmlOptValue};
+	__property String ItemAttribute[String Attribute] = {read = get_XmlOptItem, write = set_XmlOptItem};
+	__property TStream* MasterDataSet = {read = get_MasterDataSet, write = set_MasterDataSet};
+	__property String MasterLinkData = {read = get_MasterLinkData, write = set_MasterLinkData};
+	__property TStream* DetailDataSet = {read = get_DetailDataSet, write = set_DetailDataSet};
+	__property String DetailLinkData = {read = get_DetailLinkData, write = set_DetailLinkData};
+	__property String XmlString = {read = get_XmlString};
+};
+
+#endif

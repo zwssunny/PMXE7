@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="page-enter" content="revealtrans(duration=0.4,transition=3)"> 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>项目管理系统--销售管理</title>
+<link href="css.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="js/height.js"></script>
+<script src="js/img.js" language="javascript"></script>
+        <link rel="stylesheet" href="ui.tabs.css" type="text/css" >
+        <script src="jquery-1.2.4b.js" type="text/javascript"></script>
+        <script src="ui.core.js" type="text/javascript"></script>
+        <script src="ui.tabs.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#rotate > ul').tabs({ fx: { opacity: 'toggle' } }).tabs('rotate', 2000);
+            });
+        </script>
+
+<style type="text/css">
+<!--
+a:link {color:#3773ab;
+	text-decoration: none;
+}
+a:visited {color:#3773ab;
+	text-decoration: none;
+}
+a:hover {color:#ff0000;
+	text-decoration: none;
+}
+a:active {color:#ff0000;
+	text-decoration: none;
+}
+.STYLE1 {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 14px;
+}
+.STYLE2 {font-size: 14px}
+-->
+</style>
+<script type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+
+    <body onload="MM_preloadImages('image/1200/fy_003.gif','image/1200/fy_010.gif','image/1200/fy_012.gif','image/1200/fy_016.gif','image/1200/fy_034.gif','image/1203/xs_003.gif','image/1203/xs_005.gif','image/1203/xs_007.gif','image/1203/xs_031.gif','image/1203/xs_006.gif','image/1203/xs_029.gif')">
+    <div id="rotate">
+            <ul >
+                <li><a href="#fragment-1"><span style="color:#fff;">房源资料</span></a></li>
+                <li><a href="#fragment-2"><span style="color:#fff;">客户管理</span></a></li>
+                <li><a href="#fragment-3"><span style="color:#fff;">销售策划</span></a></li>
+                <li><a href="#fragment-4"><span style="color:#fff;">销售业务</span></a></li>
+                <li><a href="#fragment-5"><span style="color:#fff;">销售报表</span></a></li>
+            </ul>
+            <div id="fragment-1">
+<div style="float:left;width:80%;text-align:center;padding-top:40px;">
+  <table width="400"  border="0" align="center" cellpadding="0" cellspacing="0" class="tt">
+    <tr>
+      <td width="20%">&nbsp;</td>
+      <td width="20%">&nbsp;</td>
+      <td width="20%">&nbsp;</td>
+      <td width="20%">&nbsp;</td>
+      <td width="20%"><div align="center">
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><div align="center"><a href="?1200203&amp;定价方案" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image13','','image/1200/fy_003.gif',1)"><img src="image/1200/fy_03.gif" name="Image13" width="62" height="42" border="0" id="Image13" /></a></div></td>
+            </tr>
+            <tr>
+              <td height="20"><div align="center" class="style1"><a href="?1200203&amp;定价方案">定价方案</a></div></td>
+            </tr>
+          </table>
+      </div></td>
+    </tr>
+    <tr>
+      <td height="58">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><div align="center"><img src="image/Arrow/Aw_Green_Top.gif" width="15" height="48" /></div></td>
+    </tr>
+    <tr>
+      <td><div align="center">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><div align="center"><a href="?1200101&amp;楼盘资料" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image9','','image/1200/fy_010.gif',1)"><img src="image/1200/fy_10.gif" name="Image9" width="56" height="50" border="0" id="Image9" /></a></div></td>
+            </tr>
+            <tr>
+              <td height="20"><div align="center" class="style1"><a href="?1200101&amp;楼盘资料">楼盘资料</a></div></td>
+            </tr>
+          </table>
+      </div></td>
+      <td><div align="center"><img src="image/Arrow/Aw_Blue_Right.gif" width="52" height="18" /></div></td>
+      <td><div align="center">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><div align="center"><a href="?1200102&amp;楼阁资料" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image10','','image/1200/fy_012.gif',1)"><img src="image/1200/fy_12.gif" name="Image10" width="48" height="50" border="0" id="Image10" /></a></div></td>
+            </tr>
+            <tr>
+              <td height="20"><div align="center" class="style1"><a href="?1200102&amp;楼阁资料">楼阁资料</a></div></td>
+            </tr>
+          </table>
+      </div></td>
+      <td><div align="center"><img src="image/Arrow/Aw_Blue_Right.gif" width="52" height="18" /></div></td>
+      <td><div align="center">
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><div align="center"><a href="?1200104&amp;房间资料" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image11','','image/1200/fy_016.gif',1)"><img src="image/1200/fy_16.gif" name="Image11" width="56" height="50" border="0" id="Image11" /></a></div></td>
+            </tr>
+            <tr>
+              <td height="20"><div align="center" class="style1"><a href="?1200104&amp;房间资料">房间资料</a></div></td>
+            </tr>
+          </table>
+      </div></td>
+    </tr>
+    <tr>
+      <td height="58">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><div align="center"><img src="image/Arrow/Aw_Green_Down.gif" width="15" height="48" /></div></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td><div align="center">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><div align="center"><a href="?1200204&amp;房间调价" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image12','','image/1200/fy_034.gif',1)"><img src="image/1200/fy_34.gif" name="Image12" width="65" height="57" border="0" id="Image12" /></a></div></td>
+            </tr>
+            <tr>
+              <td height="20"><div align="center" class="style1"><a href="?1200204&amp;房间调价">房间调价</a></div></td>
+            </tr>
+          </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+			<div class="main_right">
+			<ul class="right_menu">销售管理</ul>
+				<ul class="menu_list">
+								<li class="style1"><a href="?1200103&amp;房间基础资料">房间基础资料</a></li>
+								<li><a href="?1200111&amp;附属资产维护">附属资产维护</a></li>
+								<li><a href="?1200120&amp;销售参数设置">销售参数设置</a></li>
+								<li><a href="?1200117&amp;贷款利率定义">贷款利率定义</a></li>
+								<li><a href="?1200118&amp;费用项定义">费用项定义</a></li>
+							    <li><a href="?1200119&amp;折扣权限设置">折扣权限设置</a></li>
+				</ul>
+			</div>
+			</div>
+            <div id="fragment-2">
+<table width="700"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">客户资料</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr align="left">
+            <td height="25"><a href="?1200807&amp;客户访问登记表">·客户访问登记表</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200802&amp;客户资料">·客户资料</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200803&amp;客户跟踪">·客户跟踪</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><span class="style3">·短信服务</span></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">客户服务</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr align="left">
+            <td height="25"><a href="?1200305&amp;多媒体演示">·多媒体演示</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200307&amp;销控表">·销控表</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1201101&amp;客户中心查询">·客户中心查询</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1201102&amp;房源线索查询">·房源线索查询</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">客户分析</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr align="left">
+            <td height="25"><a href="?1200804&amp;客户资料分析">·客户资料分析</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200805&amp;客户交易统计">·客户交易统计</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200806&amp;客户意向分析">·客户意向分析</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200807&amp;客户访问统计">·客户访问统计</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">售后服务</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr align="left">
+            <td height="25"><a href="?1200405&amp;入住登记">·入住登记</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200401&amp;违约管理">·违约管理</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200403&amp;过户登记">·过户登记</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200406&amp;客户退房">·客户退房</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200404&amp;楼房面积补差">·楼房面积补差</a><a href="?1200406&amp;客户退房"></a></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+            </div>
+            <div id="fragment-3">
+<table width="600"  border="0" align="center" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td width="50%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">销售策划</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="25" align="left"><a href="">·销售预测</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="">·销售计划</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="">·销售计划分析</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="">·内部销控表</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="50%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">销售推广</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="25" align="left"><a href="">·广告管理</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="">·周边楼盘信息</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="">·楼盘电子地图</a></td>
+          </tr>
+          <tr>
+            <td height="25">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>            </div>
+            <div id="fragment-4">
+<div style="float:left;width:80%;text-align:center;padding-top:40px;">
+  <table width="460"  border="0" align="center" cellpadding="0" cellspacing="0" class="tt">
+    <tr>
+      <td width="20%"><table width="90"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><div align="center"><a href="?1200302&amp;房间预订" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image9','','image/1203/xs_003.gif',1)"><img src="image/1203/xs_03.gif" name="Image9" width="51" height="43" border="0" id="Image9" /></a></div></td>
+          </tr>
+          <tr>
+            <td height="20"><div align="center" class="style1"><a href="?1200302&amp;房间预订">房间预订</a></div></td>
+          </tr>
+      </table></td>
+      <td width="20%"><div align="center"><img src="image/Arrow/Aw_Blue_Right.gif" width="52" height="18" /></div></td>
+      <td width="20%"><table width="90"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><div align="center"><a href="?1200303&amp;销售认购" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image101','','image/1203/xs_005.gif',1)"><img src="image/1203/xs_05.gif" name="Image101" width="63" height="47" border="0" id="Image101" /></a></div></td>
+          </tr>
+          <tr>
+            <td height="20"><div align="center" class="style1"><a href="?1200303&amp;销售认购">销售认购</a></div></td>
+          </tr>
+      </table></td>
+      <td width="20%"><div align="center"><img src="image/Arrow/Aw_Blue_Right.gif" width="52" height="18" /></div></td>
+      <td width="20%"><table width="90"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><div align="center"><a href="?1200501&amp;收款单" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image11','','image/1203/xs_007.gif',1)"><img src="image/1203/xs_07.gif" name="Image11" width="60" height="44" border="0" id="Image11" /></a></div></td>
+          </tr>
+          <tr>
+            <td height="20"><div align="center" class="style1"><a href="?1200501&amp;收款单">收款单</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td height="76"><div align="center"><img src="image/Arrow/Aw_Green_Down.gif" width="15" height="48" /></div></td>
+      <td>&nbsp;</td>
+      <td><div align="center"><img src="image/Arrow/Aw_Green_Down.gif" width="15" height="48" /></div></td>
+      <td>&nbsp;</td>
+      <td><div align="center"><img src="image/Arrow/Aw_Green_Down.gif" width="15" height="48" /></div></td>
+    </tr>
+    <tr>
+      <td><table width="90"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><div align="center"><a href="?1200304&amp;房间退订" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image12','','image/1203/xs_031.gif',1)"><img src="image/1203/xs_31.gif" name="Image12" width="53" height="50" border="0" id="Image12" /></a></div></td>
+          </tr>
+          <tr>
+            <td height="20"><div align="center" class="style1"><a href="?1200304&amp;房间退订">房间退订</a></div></td>
+          </tr>
+      </table></td>
+      <td>&nbsp;</td>
+      <td width="20%"><table width="90"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><div align="center"><a href="?1200406&amp;客户退房" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image10','','image/1203/xs_006.gif',1)"><img src="image/1203/xs_06.gif" name="Image10" width="63" height="47" border="0" id="Image10" /></a></div></td>
+          </tr>
+          <tr>
+            <td height="20"><div align="center" class="style1"><a href="?1200406&amp;客户退房">客户退房</a></div></td>
+          </tr>
+      </table></td>
+      <td>&nbsp;</td>
+      <td><table width="90"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><div align="center"><a href="?1200502&amp;发票登记" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image13','','image/1203/xs_029.gif',1)"><img src="image/1203/xs_29.gif" name="Image13" width="43" height="53" border="0" id="Image13" /></a></div></td>
+          </tr>
+          <tr>
+            <td height="20"><div align="center" class="style1"><a href="?1200502&amp;发票登记">发票登记</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</div>
+			<div class="main_right">
+			<ul class="right_menu">文档管理</ul>
+				<ul class="menu_list">
+								<li><a href="?1200313&amp;房间排号">房间排号</a></li>
+								<li><a href="?1200306&amp;签约管理">签约管理</a></li>
+							    <li><a href="?1200503&amp;催款单">催款单</a></li>
+								<li><a href="?1200703&amp;客户付款查询">客户付款查询</a></li>
+								<li><a href="?1200704&amp;房间跟踪查询">房间跟踪查询</a></li>
+								<li><a href="?1200505&amp;应收汇总表">应收汇总表</a></li>
+								<li><a href="?1200506&amp;应收明细表">应收明细表</a></li>
+				</ul>
+			</div>
+             	 </div>
+            <div id="fragment-5">
+<table width="700"  border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">按揭收款情况</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="25" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200507&amp;收款汇总表">·收款汇总表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200505&amp;应收汇总表">·应收汇总表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200506&amp;应收明细表">·应收明细表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="25" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="25" align="left">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">按揭统计分析</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200702&amp;银行按揭统计">·银行按揭统计</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200508&amp;贷款到帐统计表">·贷款到帐统计表</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">销售业绩统计分析</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200604&amp;销售进度报表">·销售进度报表</a><a href="?1200605&amp;销售员业绩汇总报表"></a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200605&amp;销售员业绩汇总报表">·销售员业绩汇总报表</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200606&amp;销售员业绩月报表">·销售员业绩月报表</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25"><a href="?1200607&amp;销售员业绩明细报表">·销售员业绩明细报表</a></td>
+          </tr>
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+          <tr align="left">
+            <td height="25">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+    <td width="25%"><table width="163"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="32" background="image/124/title_top_bg.jpg" class="STYLE2"><div align="center" class="STYLE1">销售分析</div></td>
+      </tr>
+      <tr>
+        <td height="130" background="image/124/bg.jpg"><table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="25" align="left"><a href="?1200603&amp;楼盘销售报表">·楼盘销售报表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200608&amp;销售汇总表">·销售汇总表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200609&amp;销售明细表">·销售明细表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200610&amp;户型销售分析表">·户型销售分析表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200611&amp;销售综合月报表">·销售综合月报表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200612&amp;销售回款统计表">·销售回款统计表</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="left"><a href="?1200613&amp;认购汇总表">·认购汇总表</a></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><img src="image/124/bottom.jpg" width="163" height="14" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>            </div>
+    </div>
+    </body>
+</html>

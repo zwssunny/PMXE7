@@ -1,0 +1,26 @@
+//---------------------------------------------------------------------------
+
+#ifndef ContractProjectH
+#define ContractProjectH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TContractProject : public TDMBaseServerClass
+{
+private:
+	TADOQuery *AccQuery;
+public:
+	__fastcall TContractProject(TComponent* Owner);
+	__fastcall ~TContractProject();
+	TJSONArray* __fastcall GetContype();
+	TJSONArray* __fastcall GetContlist(String userid,String ctypeid);
+	TJSONArray* __fastcall GetContdata(String contid);
+	TJSONArray* __fastcall GetProtype();
+	TJSONArray* __fastcall GetProlist(String userid,String ProTypeid);
+	TJSONArray* __fastcall GetProdata(String Projectid);
+};
+#endif

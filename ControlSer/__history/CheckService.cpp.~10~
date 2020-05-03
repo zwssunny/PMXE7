@@ -1,0 +1,47 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "CheckService.h"
+#include "ServerCtl.h"
+#include "SHConst.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TCheckServiceProc::TCheckServiceProc(TDSServer *AServer,String AServerName,String AComputerIP)
+{
+   FServer=AServer;
+   FServerName=AServerName;
+   FComputerIP=AComputerIP;
+}
+void __fastcall TCheckServiceProc::Execute()   //服务不正常才发送消息
+{
+   FreeOnTerminate=true;
+   int ServiceStatus;
+   int retval=SCQueryServiceStatus(NULL,FServerName.c_str(),ServiceStatus);
+   String status="";
+   if(retval==2)
+	  status=FServerName+L"服务未安装" ;
+   else if(retval==0)
+   {
+	  switch(ServiceStatus)
+	  {
+			case SERVICE_STOPPED:
+			case SERVICE_STOP_PENDING:
+			case SERVICE_PAUSE_PENDING:
+			case SERVICE_PAUSED:
+				 status=FServerName+L"已停止或即将停止";
+	  }
+
+   }
+   if(status>"")
+   {
+		TJSONObject *JSONMsg = new  TJSONObject();
+		JSONMsg->AddPair(new TJSONPair("messageType", "servercontrol"));
+		JSONMsg->AddPair(new TJSONPair("Computerip", FComputerIP));
+		JSONMsg->AddPair(new TJSONPair("servername", FServerName));
+		JSONMsg->AddPair(new TJSONPair("datetime", Now().FormatString("YYYY-MM-DD HH:MM:SS")));
+		JSONMsg->AddPair(new TJSONPair("msg", status));
+	   FServer->BroadcastMessage(SMessageChannel, SMsgCallback, JSONMsg);
+   }
+
+}

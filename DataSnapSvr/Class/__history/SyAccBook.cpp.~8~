@@ -1,0 +1,39 @@
+//---------------------------------------------------------------------------
+#include <vcl.h>
+#pragma hdrstop
+
+#include "SyAccBook.h"
+#include "FSServerContainer.h"
+#include "ADODataSetStream.h"
+//---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+__fastcall TSyAccBook::TSyAccBook(TComponent* Owner)
+	:TDMBaseServerClass(Owner)
+{
+	b_Query->Connection = SysConnection;
+}
+//---------------------------------------------------------------------------
+TStream * __fastcall TSyAccBook::GetAllAccBook()
+{
+  SysQuery->Close();
+  SysQuery->SQL->Text="select * from SyAccBook" ;
+  SysQuery->Open();
+  TADODataSetStream *ADOStream=new TADODataSetStream(SysQuery);
+  SysQuery->Close();
+  ADOStream->Position=0;
+  return ADOStream;
+}
+//---------------------------------------------------------------------------
+TStream * __fastcall TSyAccBook::GetActiveAccBook()
+{
+   SysQuery->Close();
+   SysQuery->SQL->Text="select * from SyAccBook where SyAccBookStatue=1" ;
+   SysQuery->Open();
+   TADODataSetStream *ADOStream=new TADODataSetStream(SysQuery);
+   SysQuery->Close();
+   ADOStream->Position=0;
+   return ADOStream;
+}
+//---------------------------------------------------------------------------

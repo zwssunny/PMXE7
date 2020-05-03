@@ -1,0 +1,138 @@
+//---------------------------------------------------------------------------
+
+#ifndef SaleSubscribeCancelDetailH
+#define SaleSubscribeCancelDetailH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "WorkFlowDetailForm.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Controls.Presentation.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.ListBox.hpp>
+#include <FMX.Memo.hpp>
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+//---------------------------------------------------------------------------
+class TfrmSaleSubscribeCancelDetail : public TfrmWorkFlowDetailForm
+{
+__published:	// IDE-managed Components
+	TExpander *expBaseInfo;
+	TFlowLayout *FlowLayout1;
+	TExpander *expSaleInfo;
+	TFlowLayout *FlowLayout2;
+	TExpander *expRoomInfo;
+	TFlowLayout *FlowLayout3;
+	TPanel *Panel9;
+	TLabel *Label9;
+	TEdit *edHouseTypeName;
+	TPanel *Panel30;
+	TLabel *Label30;
+	TEdit *edPresellAmt;
+	TPanel *Panel6;
+	TLabel *Label6;
+	TEdit *edStatus;
+	TPanel *Panel14;
+	TLabel *Label14;
+	TEdit *edSellType;
+	TPanel *Panel28;
+	TLabel *Label28;
+	TEdit *edFloorAreaPrice;
+	TPanel *Panel15;
+	TLabel *Label15;
+	TEdit *edFloorArea;
+	TPanel *Panel29;
+	TLabel *Label29;
+	TEdit *edInnerAreaPrice;
+	TPanel *Panel16;
+	TLabel *Label16;
+	TEdit *edInnerArea;
+	TPanel *Panel21;
+	TLabel *Label21;
+	TComboBox *cbAreaType;
+	TPanel *Panel12;
+	TLabel *Label12;
+	TEdit *edSignDate;
+	TPanel *Panel13;
+	TLabel *Label13;
+	TEdit *edSalesName;
+	TPanel *Panel11;
+	TLabel *Label11;
+	TPanel *Panel10;
+	TLabel *Label10;
+	TEdit *edFloorPrice;
+	TPanel *Panel7;
+	TLabel *Label7;
+	TEdit *edInnerPrice;
+	TPanel *Panel8;
+	TLabel *Label8;
+	TEdit *edDealFloorPrice;
+	TPanel *Panel17;
+	TLabel *Label17;
+	TEdit *edDealInnerPrice;
+	TPanel *Panel18;
+	TLabel *Label18;
+	TEdit *edAmt;
+	TPanel *Panel19;
+	TLabel *Label19;
+	TEdit *edDiscount;
+	TPanel *Panel20;
+	TLabel *Label20;
+	TEdit *edDisAmt;
+	TPanel *Panel22;
+	TLabel *Label22;
+	TEdit *edDealAmt;
+	TPanel *Panel23;
+	TLabel *Label23;
+	TEdit *edSubscribeID;
+	TPanel *Panel24;
+	TLabel *Label24;
+	TEdit *edClientIDName;
+	TPanel *Panel3;
+	TLabel *Label3;
+	TEdit *edEstateIDName;
+	TPanel *Panel2;
+	TLabel *Label2;
+	TEdit *edBuildingIDName;
+	TPanel *Panel1;
+	TLabel *Label1;
+	TEdit *edRoomIDName;
+	TPanel *Panel4;
+	TLabel *Label4;
+	TEdit *edDate;
+	TPanel *Panel5;
+	TLabel *Label5;
+	TEdit *edChargeAmt;
+	TPanel *Panel25;
+	TLabel *Label25;
+	TEdit *edFactReturnAmt;
+	TPanel *Panel26;
+	TLabel *Label26;
+	TMemo *mmReason;
+	TClientDataSet *Query;
+	TComboBox *cbPayMode;
+private:	// User declarations
+	TStringList *Dictionary;
+	TJSONArray *DocumentFields,*CanNotPassWfs;
+	String FWfsID;
+	void __fastcall LoadConfig();
+	void __fastcall GetDictionary();
+	String __fastcall GetTextFromDict(String id);
+	void __fastcall InitPayMode();
+	void __fastcall SetUserCtrlStatus();
+	TRESTRequestParameterList* __fastcall GetCommitParam();
+	TRESTRequestParameterList* __fastcall GetNotPassParam(String reason);
+	void __fastcall AfterCommit(TClientDataSet *Result);
+	void __fastcall AfterNotPass(TClientDataSet *Result);
+public:		// User declarations
+	__fastcall TfrmSaleSubscribeCancelDetail(TComponent* Owner,TClientBroker *clBroker,int modulecode,TClientDataSet *m_DataSet,String param);
+	__fastcall ~TfrmSaleSubscribeCancelDetail();
+	void __fastcall FillData();
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmSaleSubscribeCancelDetail *frmSaleSubscribeCancelDetail;
+//---------------------------------------------------------------------------
+#endif

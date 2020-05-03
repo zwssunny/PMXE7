@@ -1,0 +1,75 @@
+inherited SelectPeopleForm: TSelectPeopleForm
+  Caption = 'BaseFiltersForm1'
+  DesignerMasterStyle = 3
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      object FilterExpander: TExpander
+        Align = Top
+        ShowCheck = False
+        Size.Width = 384.000000000000000000
+        Size.Height = 129.000000000000000000
+        Size.PlatformDefault = False
+        Text = #36807#28388#22120
+        TabOrder = 2
+        ContentSize = '104'
+        object Label2: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 56.000000000000000000
+          Size.Width = 82.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #26597#35810#20540#65306
+        end
+        object Label1: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 16.000000000000000000
+          Size.Width = 82.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #26597#35810#39033#65306
+        end
+        object cboxFilterType: TComboBox
+          DisableFocusEffect = False
+          Position.X = 88.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 209.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+        end
+        object edFilterValue: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 3
+          Position.X = 88.000000000000000000
+          Position.Y = 48.000000000000000000
+          Size.Width = 209.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          object SearchEditButton1: TSearchEditButton
+            CanFocus = False
+            Cursor = crArrow
+            Size.Width = 32.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            OnClick = SearchEditButton1Click
+          end
+        end
+      end
+      object lvPeopleList: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 384.000000000000000000
+        Size.Height = 390.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ItemAppearanceObjects.ItemObjects.Accessory.Visible = False
+        ItemAppearanceObjects.ItemObjects.Image.Visible = False
+        CanSwipeDelete = False
+      end
+    end
+  end
+end

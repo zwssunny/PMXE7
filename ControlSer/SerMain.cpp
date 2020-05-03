@@ -1,0 +1,181 @@
+//---------------------------------------------------------------------------
+#include "SerMain.h"
+#include "ServerContainerModule.h"
+#include <registry.hpp>
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+
+//多实例注册服务采用 FSControlSer -install -instance=InstName;
+//这样一个应用程序可以注册多个服务器名称，注意服务器开放端口不要冲突
+//一般采用备份到不同目录，修改端口参数，然后才进行服务注册
+TFSControlService *FSControlService;
+
+//---------------------------------------------------------------------------
+__fastcall TFSControlService::TFSControlService(TComponent* Owner)
+	: TService(Owner)
+{
+	FInstanceName="";
+	DisplayName="Foresight Control Server";
+}
+//---------------------------------------------------------------------------
+TServiceController __fastcall TFSControlService::GetServiceController(void)
+{
+	return (TServiceController) ServiceController;
+}
+//---------------------------------------------------------------------------
+void __stdcall ServiceController(unsigned CtrlCode)
+{
+	FSControlService->Controller(CtrlCode);
+}
+//---------------------------------------------------------------------------
+ bool __fastcall TFSControlService::DoContinue(void)
+{
+	bool doContinue = TService::DoContinue();
+	CoInitialize(NULL);
+	ServerControlModule->StartServer();
+	CoUninitialize();
+	return doContinue;
+}
+//---------------------------------------------------------------------------
+void __fastcall TFSControlService::DoInterrogate(void)
+{
+	TService::DoInterrogate();
+}
+//---------------------------------------------------------------------------
+bool __fastcall TFSControlService::DoPause(void)
+{
+	ServerControlModule->StopServer();
+	return TService::DoPause();
+}
+//---------------------------------------------------------------------------
+bool __fastcall TFSControlService::DoStop(void)
+{
+	ServerControlModule->StopServer();
+	return TService::DoStop();
+}
+//---------------------------------------------------------------------------
+void __fastcall TFSControlService::ServiceStart(TService* Sender, bool &Started)
+{
+  CoInitialize(NULL);
+  ServerControlModule->StartServer();
+  Started=true;
+  CoUninitialize();
+}
+//---------------------------------------------------------------------------
+void __fastcall TFSControlService::ServiceAfterInstall(TService *Sender)
+{
+  if(FInstanceName!="")
+ 		  ChangeServiceConfiguration();
+	TRegistry *reg;
+	reg = new TRegistry();
+	reg->RootKey = HKEY_LOCAL_MACHINE;
+	try
+	{
+		reg->OpenKey("SYSTEM",false);
+		reg->OpenKey("CurrentControlSet",false);
+		reg->OpenKey("Services",false);
+		reg->OpenKey(Name,true);
+		reg->WriteString("DisplayName",DisplayName);
+		reg->WriteString("Description","先智监控服务器,实例为"+Name);
+		reg->CloseKey();
+	}
+	__finally
+	{
+		reg->Free();
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TFSControlService::ChangeServiceConfiguration()
+{
+  SC_HANDLE mngr;
+  SC_HANDLE svc;
+  String newpath;
+  // 打开服务控制器
+  mngr = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+  if (mngr == 0)
+	RaiseLastOSError();
+  try
+  {
+	// 打开服务
+	svc = OpenService(mngr, Name.c_str(), SERVICE_CHANGE_CONFIG);
+	if (svc == 0)
+	  RaiseLastOSError();
+	try
+	{
+	  // 改变它的执行参数
+	  newpath = ParamStr(0) + " " + INSTANCE_SWITCH+FInstanceName; // + any other cmd line params you fancy
+	  ChangeServiceConfig(svc, SERVICE_NO_CHANGE, //  dwServiceType
+                               SERVICE_NO_CHANGE, //  dwStartType
+                               SERVICE_NO_CHANGE, //  dwErrorControl
+							   newpath.c_str(),    //  <-- 只要改变执行路径和参数
+							   NULL,               //  lpLoadOrderGroup
+							   NULL,               //  lpdwTagId
+							   NULL,               //  lpDependencies
+							   NULL,               //  lpServiceStartName
+							   NULL,               //  lpPassword
+							   DisplayName.c_str());              //  lpDisplayName
+	}
+	__finally
+	{
+	  CloseServiceHandle(svc);
+	}
+  }
+  __finally
+  {
+    CloseServiceHandle(mngr);
+  }
+}
+void __fastcall TFSControlService::SetInstanceName(String Value)
+{
+   if (FInstanceName != Value)
+  {
+	FInstanceName = Value;
+	if (FInstanceName != "")
+	{
+	  Name = FInstanceName;
+	  DisplayName = "Foresight Control Server("+FInstanceName+")";
+	}
+  }
+}
+void __fastcall TFSControlService::ServiceBeforeInstall(TService *Sender)
+{
+  String inst=GetInstanceName();
+  if(inst>"")
+	 InstanceName=inst;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFSControlService::ServiceBeforeUninstall(TService *Sender)
+{
+  String inst=GetInstanceName();
+  if(inst>"")
+	 InstanceName=inst;
+}
+//---------------------------------------------------------------------------
+String __fastcall TFSControlService::GetInstanceName()
+{
+  String result = "";
+  int PaCount=System::ParamCount();
+  for(int index = 1; index<=PaCount; index++)
+  {
+	String paramString=ParamStr(index);
+	if (SameText(INSTANCE_SWITCH, paramString.SubString(1,INSTANCE_SWITCH.Length())))
+	{
+	  result =paramString.SubString(INSTANCE_SWITCH.Length() + 1, MaxInt);
+	  break;
+	}
+  }
+ return result;
+}
+
+void __fastcall TFSControlService::ServiceCreate(TObject *Sender)
+{
+  String inst=GetInstanceName();
+  if(inst>"")
+	 InstanceName=inst;
+}
+//---------------------------------------------------------------------------
+
+
+

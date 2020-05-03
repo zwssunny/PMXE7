@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="MailServer" value="127.0.0.1"/>
+	<Setting Name="SendEMail" value="Support@xzepm.com"/>
+	<Setting Name="UserName" value="support@xzepm.com"/>
+	<Setting Name="Password" value="305252492F4B5A44517847417553336B6359674A46513D3D"/>
+	<Setting Name="Port" value="25"/>
+</DefaultSettings>

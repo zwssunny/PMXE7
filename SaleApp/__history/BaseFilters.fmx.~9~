@@ -1,0 +1,72 @@
+object BaseFiltersForm: TBaseFiltersForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object tbarBaseFilter: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    TabOrder = 1
+    Width = 384.000000000000000000
+    object btQuery: TButton
+      Align = Left
+      Height = 48.000000000000000000
+      ModalResult = 1
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 1
+      Text = #26597#35810
+      Width = 73.000000000000000000
+      OnClick = btQueryClick
+    end
+    object btCancel: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      ModalResult = 2
+      Position.X = 311.000000000000000000
+      StyleLookup = 'deletetoolbutton'
+      TabOrder = 2
+      Text = #21462#28040
+      Width = 73.000000000000000000
+      OnClick = btCancelClick
+    end
+  end
+  object Label1: TLabel
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 24.000000000000000000
+    Text = #23458#25143#21517#31216#65306
+    Width = 82.000000000000000000
+  end
+  object Label2: TLabel
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 72.000000000000000000
+    Text = #23458#25143#32534#21495
+    Width = 82.000000000000000000
+  end
+  object Label3: TLabel
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 120.000000000000000000
+    Text = #31227#21160#30005#35805#65306
+    Width = 82.000000000000000000
+  end
+  object Label4: TLabel
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 168.000000000000000000
+    Text = #20250#21592#21345#21495#65306
+    Width = 82.000000000000000000
+  end
+end

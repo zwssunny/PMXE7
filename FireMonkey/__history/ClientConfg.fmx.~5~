@@ -1,0 +1,108 @@
+object frmConfgForm: TfrmConfgForm
+  Left = 0
+  Top = 0
+  Caption = #23458#25143#31471#35774#32622#31243#24207
+  ClientHeight = 226
+  ClientWidth = 560
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
+  DesignerMobile = False
+  DesignerWidth = 0
+  DesignerHeight = 0
+  DesignerDeviceName = ''
+  DesignerOrientation = 0
+  object Panel3: TPanel
+    Align = alLeft
+    Height = 226.000000000000000000
+    Width = 441.000000000000000000
+    TabOrder = 0
+    object GroupBox1: TGroupBox
+      StyledSettings = [ssFamily, ssSize, ssStyle, ssFontColor, ssOther]
+      Height = 185.000000000000000000
+      Position.X = 24.000000000000000000
+      Position.Y = 13.000000000000000000
+      Text = #36830#25509#26381#21153#22120#21442#25968
+      Width = 393.000000000000000000
+      TabOrder = 0
+      object edAgentIP: TEdit
+        TabOrder = 0
+        Position.X = 128.000000000000000000
+        Position.Y = 56.000000000000000000
+        Width = 233.000000000000000000
+        Height = 22.000000000000000000
+        KillFocusByReturn = False
+      end
+      object Edit2: TEdit
+        TabOrder = 1
+        Position.X = 128.000000000000000000
+        Position.Y = 96.000000000000000000
+        Width = 100.000000000000000000
+        Height = 22.000000000000000000
+        KillFocusByReturn = False
+      end
+      object Edit3: TEdit
+        TabOrder = 2
+        Position.X = 128.000000000000000000
+        Position.Y = 136.000000000000000000
+        Width = 100.000000000000000000
+        Height = 22.000000000000000000
+        KillFocusByReturn = False
+      end
+      object Label1: TLabel
+        Height = 17.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 56.000000000000000000
+        Text = #26381#21153#22120#21517#31216#25110'IP'#65306
+        Width = 120.000000000000000000
+      end
+      object edAgentPort: TLabel
+        Height = 17.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 96.000000000000000000
+        Text = #26381#21153#31471#21475#65306
+        Width = 120.000000000000000000
+        OnKeyDown = edAgentPortKeyDown
+      end
+      object cbProtocol: TLabel
+        Height = 17.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 136.000000000000000000
+        Text = #36890#20449#21327#35758#65306
+        Width = 120.000000000000000000
+      end
+    end
+  end
+  object bbEdit: TButton
+    Height = 22.000000000000000000
+    Position.X = 464.000000000000000000
+    Position.Y = 40.000000000000000000
+    TabOrder = 1
+    Text = #32534#36753
+    Width = 80.000000000000000000
+    OnClick = bbEditClick
+  end
+  object bbSave: TButton
+    Height = 22.000000000000000000
+    Position.X = 464.000000000000000000
+    Position.Y = 96.000000000000000000
+    TabOrder = 2
+    Text = #20445#23384
+    Width = 80.000000000000000000
+    OnClick = bbSaveClick
+  end
+  object bbCancel: TButton
+    Height = 22.000000000000000000
+    Position.X = 464.000000000000000000
+    Position.Y = 152.000000000000000000
+    TabOrder = 3
+    Text = #21462#28040
+    Width = 80.000000000000000000
+    OnClick = bbCancelClick
+  end
+  object XMLDocument1: TXMLDocument
+    Left = 328
+    Top = 24
+    DOMVendorDesc = 'MSXML'
+  end
+end

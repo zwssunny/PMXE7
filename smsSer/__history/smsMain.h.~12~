@@ -1,0 +1,30 @@
+//---------------------------------------------------------------------------
+
+#ifndef smsMainH
+#define smsMainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include "SmsClientBroker.h"
+#include <Vcl.ExtCtrls.hpp>
+
+//---------------------------------------------------------------------------
+class TfrmSmsMain : public TForm
+{
+__published:	// IDE-managed Components
+	TTimer *Timer1;
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall Timer1Timer(TObject *Sender);
+private:	// User declarations
+		TSmsClientBroker *smsClient;
+		void __fastcall ServiceStart();
+		void __fastcall ServiceStop();
+public:		// User declarations
+	__fastcall TfrmSmsMain(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmSmsMain *frmSmsMain;
+//---------------------------------------------------------------------------
+#endif

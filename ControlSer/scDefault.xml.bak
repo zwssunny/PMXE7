@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="ServerName" value="FSService"/>
+	<setting Name="HTTP" value="7070"/>
+	<Setting Name="TCPIP" value="411"/>
+	<Setting Name="HTTPS" value="7071"/>
+	<Setting Name="Admin" value="Admin"/>
+	<Setting Name="PassWord" value=""/>
+	<ServerList>
+ 	<Server Name="FSService" FileName="FSDSServer.exe" Display="Rest主服务器"/>
+ 	<Server Name="XZWorkflowXE" FileName="WorkFlowSer.exe" Display="工作流服务器"/>
+ 	<Server Name="XZSmsServerXE" FileName="SmsSer.exe" Display="短信服务器"/>
+	</ServerList>	
+</DefaultSettings>

@@ -1,0 +1,18 @@
+//---------------------------------------------------------------------------
+
+#ifndef CheckServiceH
+#define CheckServiceH
+#include "Classes.hpp"
+#include "SysUtils.hpp"
+#include <DSServer.hpp>
+//---------------------------------------------------------------------------
+class TCheckServiceProc : public  TThread
+{
+private:
+	TDSServer *FServer;
+	String FServerName;
+public:
+	virtual TCheckServiceProc(TDSServer *AServer,String AServerName);
+	void __fastcall Execute();
+};
+#endif

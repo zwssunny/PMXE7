@@ -1,0 +1,57 @@
+//---------------------------------------------------------------------------
+
+#ifndef RoomH
+#define RoomH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseForm.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.MultiView.hpp>
+#include <FMX.ListBox.hpp>
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.Grid.hpp>
+#include <System.Rtti.hpp>
+#include <FMX.Colors.hpp>
+#include "RoomEdit.h"
+#include <FMX.Controls.Presentation.hpp>
+//---------------------------------------------------------------------------
+class TfrmRoom : public TfrmBaseForm
+{
+__published:	// IDE-managed Components
+	TMultiView *QueryView;
+	TPanel *Panel1;
+	TComboBox *cbEstateFilter;
+	TLabel *Label1;
+	TClientDataSet *DataSet;
+	TComboBox *cbBuildingFilter;
+	TLabel *Label2;
+	TScrollBox *ScrollBox1;
+	TClientDataSet *Query;
+	TFlowLayout *BuildingLayout;
+	TFlowLayout *StatusLayout;
+	THorzScrollBox *HorzScrollBox1;
+	TSplitter *Splitter1;
+	TButton *btnQuery;
+	TButton *BtnSearch;
+	void __fastcall cbEstateFilterChange(TObject *Sender);
+	void __fastcall btnQueryClick(TObject *Sender);
+
+private:	// User declarations
+	TStringList *FDict;
+	TfrmRoomEditForm *EditForm;
+	TButton *FCurBtn;
+	void __fastcall GetDictionary();
+	void __fastcall FillRoomsData(int FloorQty,int FloorRoomQty);
+	void __fastcall RoomClick(TObject *Sender);
+public:		// User declarations
+	__fastcall TfrmRoom(TComponent* Owner,TClientBroker *clBroker,int modulecode,String param);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmRoom *frmRoom;
+//---------------------------------------------------------------------------
+#endif

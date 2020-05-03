@@ -1,0 +1,129 @@
+object frmMessageForm: TfrmMessageForm
+  Left = 0
+  Top = 0
+  Caption = #32842#22825#31383#21475
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnClose = FormClose
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object MsgTimer: TTimer
+    Enabled = False
+    OnTimer = MsgTimerTimer
+    Left = 112
+    Top = 64
+  end
+  object MediaPlayer: TMediaPlayer
+    Left = 40
+    Top = 64
+  end
+  object VertScrollBox1: TVertScrollBox
+    Align = Contents
+    Height = 567.000000000000000000
+    TabOrder = 8
+    Width = 384.000000000000000000
+    object MainLayout1: TLayout
+      Align = Client
+      Height = 567.000000000000000000
+      Width = 384.000000000000000000
+      TabOrder = 0
+      object memMsg: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Align = Client
+        Height = 424.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        ReadOnly = True
+      end
+      object MsgBottomToolBar: TToolBar
+        Align = Bottom
+        Height = 48.000000000000000000
+        Position.Y = 519.000000000000000000
+        TabOrder = 1
+        Width = 384.000000000000000000
+        object sbViration: TSpeedButton
+          Align = Right
+          Height = 48.000000000000000000
+          Position.X = 278.000000000000000000
+          Text = #38663#21160
+          Width = 49.000000000000000000
+          OnClick = sbVirationClick
+        end
+        object sbRing: TSpeedButton
+          Align = Right
+          Height = 48.000000000000000000
+          Position.X = 327.000000000000000000
+          Text = #21709#38083
+          Width = 57.000000000000000000
+          OnClick = sbRingClick
+        end
+        object btClose: TButton
+          Align = Left
+          Height = 48.000000000000000000
+          StyleLookup = 'backtoolbutton'
+          TabOrder = 4
+          Text = #36820#22238
+          Width = 48.000000000000000000
+          OnClick = btCloseClick
+        end
+      end
+      object MsgTopToolBar: TToolBar
+        Height = 48.000000000000000000
+        TabOrder = 2
+        Width = 384.000000000000000000
+        object UserLabel: TLabel
+          Align = Left
+          AutoSize = True
+          Height = 48.000000000000000000
+          TextSettings.WordWrap = False
+          Text = 'UserLabel'
+          Width = 82.000000000000000000
+        end
+        object btLateMsg: TButton
+          Align = Right
+          Height = 48.000000000000000000
+          Position.X = 336.000000000000000000
+          StyleLookup = 'arrowuptoolbutton'
+          TabOrder = 2
+          Text = #21382#21490#28040#24687
+          Width = 48.000000000000000000
+          OnClick = btLateMsgClick
+        end
+      end
+      object SendPanel: TPanel
+        Align = Bottom
+        Height = 47.000000000000000000
+        Position.Y = 472.000000000000000000
+        Width = 384.000000000000000000
+        TabOrder = 3
+        object memMsgEdit: TMemo
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          Align = Client
+          Height = 47.000000000000000000
+          TabOrder = 0
+          Width = 320.000000000000000000
+        end
+        object btSend: TButton
+          Align = Right
+          Height = 48.000000000000000000
+          Position.X = 320.000000000000000000
+          StyleLookup = 'speedbuttonstyle'
+          TabOrder = 1
+          Text = #21457#36865
+          Width = 64.000000000000000000
+          OnClick = btSendClick
+        end
+      end
+    end
+  end
+end

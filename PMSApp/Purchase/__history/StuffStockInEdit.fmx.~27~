@@ -1,0 +1,776 @@
+inherited frmStuffStockInEdit: TfrmStuffStockInEdit
+  Caption = #20837#24211#21333
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 2
+  DesignerOSVersion = ''
+  inherited MainVertScrollBox: TVertScrollBox
+    inherited MainLayout: TLayout
+      Height = 567.000000000000000000
+      Width = 384.000000000000000000
+      inherited tcDetailControl: TTabControl
+        Height = 567.000000000000000000
+        Width = 384.000000000000000000
+        inherited tabDetail: TTabItem
+          Width = 192.000000000000000000
+          inherited tcMainControl: TTabControl
+            Height = 518.000000000000000000
+            Width = 384.000000000000000000
+            inherited TabDetailMain: TTabItem
+              inherited DetailMainToolBar: TToolBar
+                Position.Y = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited btMainNext: TButton
+                  Position.X = 336.000000000000000000
+                end
+                inherited btNextRecord: TButton
+                  Position.X = 288.000000000000000000
+                end
+                inherited btPriorRecord: TButton
+                  Position.X = 240.000000000000000000
+                end
+              end
+              inherited EditVertScrollBox: TVertScrollBox
+                Height = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited EditLayout: TLayout
+                  Height = 700.000000000000000000
+                  Width = 379.000000000000000000
+                  object cbCheckState: TComboBox
+                    DisableFocusEffect = False
+                    Height = 32.000000000000000000
+                    Items.Strings = (
+                      #26410#23457#26680
+                      #25968#37327#24050#23457
+                      #21333#20215#24050#23457)
+                    Position.X = 97.000000000000000000
+                    Position.Y = 357.000000000000000000
+                    TabOrder = 0
+                    Width = 216.000000000000000000
+                  end
+                  object deStuSkInDate: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 1
+                    Position.X = 97.000000000000000000
+                    Position.Y = 489.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    Enabled = False
+                  end
+                  object dtStuSkInInvDate: TDateEdit
+                    ShowClearButton = True
+                    Date = 41763.000000000000000000
+                    Height = 32.000000000000000000
+                    Position.X = 97.000000000000000000
+                    Position.Y = 314.000000000000000000
+                    TabOrder = 2
+                    Width = 216.000000000000000000
+                  end
+                  object Label1: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 16.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #21333#25454#32534#21495':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label10: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 492.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #20837#24211#26085#26399':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label11: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 406.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #23457#26680#26085#26399':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label12: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 26.000000000000000000
+                    Position.Y = 449.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #23457#26680#20154':'
+                    Width = 59.000000000000000000
+                  end
+                  object Label13: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 26.000000000000000000
+                    Position.Y = 536.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #22635#21333#20154':'
+                    Width = 59.000000000000000000
+                  end
+                  object Label14: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 362.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #21333#25454#29366#24577':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label15: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 666.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #20837#24211#20179#24211':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label16: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 622.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #39033#30446#21517#31216':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label2: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 59.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #20379#36135#21333#21495':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label3: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 102.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #37319#36141#21512#21516':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label4: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 26.000000000000000000
+                    Position.Y = 146.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #20379#24212#21830':'
+                    Width = 59.000000000000000000
+                  end
+                  object Label5: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 189.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #37319#36141#21333#20301':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label6: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 232.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #36816#26009#21333#21495':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label7: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 26.000000000000000000
+                    Position.Y = 276.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #21457#31080#21495':'
+                    Width = 59.000000000000000000
+                  end
+                  object Label8: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 319.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #21457#31080#26085#26399':'
+                    Width = 77.000000000000000000
+                  end
+                  object Label9: TLabel
+                    AutoSize = True
+                    Height = 23.000000000000000000
+                    Position.X = 8.000000000000000000
+                    Position.Y = 579.000000000000000000
+                    TextSettings.WordWrap = False
+                    Text = #36130#21153#26376#20221':'
+                    Width = 77.000000000000000000
+                  end
+                  object sdCheckDate: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 21
+                    Position.X = 97.000000000000000000
+                    Position.Y = 401.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    Enabled = False
+                  end
+                  object seStuSkInChecker: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 22
+                    Position.X = 97.000000000000000000
+                    Position.Y = 445.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    Enabled = False
+                  end
+                  object seStuSkInCreator: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 23
+                    Position.X = 97.000000000000000000
+                    Position.Y = 532.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    Enabled = False
+                  end
+                  object seStuSkInFKID_Cont: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 24
+                    Position.X = 97.000000000000000000
+                    Position.Y = 95.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    object ebStuSkInFKID_Cont: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                      OnClick = ebStuSkInFKID_ContClick
+                    end
+                  end
+                  object seStuSkInFKID_Rep: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 25
+                    Position.X = 97.000000000000000000
+                    Position.Y = 51.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    object ebStuSkInFKID_Rep: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                      OnClick = ebStuSkInFKID_RepClick
+                    end
+                  end
+                  object seStuSkInFKID_Unit: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 26
+                    Position.X = 97.000000000000000000
+                    Position.Y = 182.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    object ebStuSkInFKID_Unit: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                      OnClick = ebStuSkInFKID_UnitClick
+                    end
+                  end
+                  object seStuSkInInvNum: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 27
+                    Position.X = 97.000000000000000000
+                    Position.Y = 270.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                  end
+                  object seStuSkInMonth: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 28
+                    Position.X = 97.000000000000000000
+                    Position.Y = 576.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    object ebStuSkInMonth: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                      OnClick = ebStuSkInMonthClick
+                    end
+                  end
+                  object seStuSkInNum: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 29
+                    Position.X = 97.000000000000000000
+                    Position.Y = 8.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                  end
+                  object seStuSkInSupplier: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 30
+                    Position.X = 97.000000000000000000
+                    Position.Y = 139.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                    object ebStuSkInSupplier: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                      OnClick = ebStuSkInSupplierClick
+                    end
+                  end
+                  object seStuSkInTranNum: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 31
+                    Position.X = 97.000000000000000000
+                    Position.Y = 226.000000000000000000
+                    Width = 216.000000000000000000
+                    Height = 32.000000000000000000
+                  end
+                  object edProjectName: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 32
+                    Position.X = 96.000000000000000000
+                    Position.Y = 616.000000000000000000
+                    Width = 217.000000000000000000
+                    Height = 32.000000000000000000
+                    object EditButton1: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                    end
+                  end
+                  object edDepotName: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    TabOrder = 33
+                    Position.X = 96.000000000000000000
+                    Position.Y = 656.000000000000000000
+                    Width = 217.000000000000000000
+                    Height = 32.000000000000000000
+                    object DepotNameButton: TEditButton
+                      CanFocus = False
+                      Cursor = crArrow
+                      Height = 28.000000000000000000
+                      TabOrder = 0
+                      Text = '...'
+                      Width = 28.000000000000000000
+                      OnClick = DepotNameButtonClick
+                    end
+                  end
+                end
+              end
+            end
+            inherited TabDetailItem: TTabItem
+              inherited ItemToolBar: TToolBar
+                Position.Y = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited btDeleteItem: TButton
+                  Position.X = 288.000000000000000000
+                  TabOrder = 4
+                end
+                inherited btAddItem: TButton
+                  Position.X = 336.000000000000000000
+                end
+                inherited btBrowsItem: TButton
+                  Position.X = 240.000000000000000000
+                  TabOrder = 3
+                end
+              end
+              object ItemStringGrid: TStringGrid
+                Align = Client
+                Height = 470.000000000000000000
+                TabOrder = 1
+                Width = 384.000000000000000000
+                Options = [ColumnResize, ColLines, RowLines, RowSelect, AlwaysShowSelection, Tabs, Header, HeaderClick]
+                RowCount = 0
+                RowHeight = 30.000000000000000000
+                object StringColumn1: TStringColumn
+                  Header = #26126#32454'ID'
+                  Height = 441.000000000000000000
+                  TabOrder = 0
+                  Visible = False
+                  Width = 100.000000000000000000
+                end
+                object StringColumn2: TStringColumn
+                  Header = #29289#36164#32534#30721
+                  Height = 0.000000000000000000
+                  TabOrder = 1
+                  Width = 100.000000000000000000
+                end
+                object StringColumn3: TStringColumn
+                  Header = #29289#36164#21517#31216
+                  Height = 0.000000000000000000
+                  Position.X = 100.000000000000000000
+                  TabOrder = 2
+                  Width = 100.000000000000000000
+                end
+                object StringColumn4: TStringColumn
+                  Header = #35268#26684#22411#21495
+                  Height = 0.000000000000000000
+                  Position.X = 200.000000000000000000
+                  TabOrder = 3
+                  Width = 100.000000000000000000
+                end
+                object StringColumn5: TStringColumn
+                  Header = #21333#20301'ID'
+                  Height = 441.000000000000000000
+                  Position.X = 300.000000000000000000
+                  TabOrder = 4
+                  Visible = False
+                  Width = 100.000000000000000000
+                end
+                object StringColumn6: TStringColumn
+                  Header = #21333#20301#21517#31216
+                  Height = 0.000000000000000000
+                  Position.X = 300.000000000000000000
+                  TabOrder = 8
+                  Width = 100.000000000000000000
+                end
+                object StringColumn7: TStringColumn
+                  Header = #25442#31639#31995#25968
+                  Height = 0.000000000000000000
+                  Position.X = 400.000000000000000000
+                  TabOrder = 5
+                  Width = 100.000000000000000000
+                end
+                object StringColumn8: TStringColumn
+                  Header = #25968#37327
+                  Height = 0.000000000000000000
+                  Position.X = 500.000000000000000000
+                  TabOrder = 6
+                  Width = 100.000000000000000000
+                end
+                object StringColumn9: TStringColumn
+                  Header = #20837#24211#21333#20215
+                  Height = 0.000000000000000000
+                  Position.X = 600.000000000000000000
+                  TabOrder = 7
+                  Width = 100.000000000000000000
+                end
+                object StringColumn10: TStringColumn
+                  Header = #37329#39069
+                  Height = 0.000000000000000000
+                  Position.X = 700.000000000000000000
+                  TabOrder = 9
+                  Width = 100.000000000000000000
+                end
+                object StringColumn11: TStringColumn
+                  Header = #21457#31080#20215
+                  Height = 0.000000000000000000
+                  Position.X = 800.000000000000000000
+                  TabOrder = 10
+                  Width = 100.000000000000000000
+                end
+                object StringColumn12: TStringColumn
+                  Header = #36890#30693#25968#37327
+                  Height = 0.000000000000000000
+                  Position.X = 900.000000000000000000
+                  TabOrder = 11
+                  Width = 100.000000000000000000
+                end
+                object StringColumn13: TStringColumn
+                  Header = #24050#20837#24211#25968#37327
+                  Height = 0.000000000000000000
+                  Position.X = 1000.000000000000000000
+                  TabOrder = 12
+                  Width = 100.000000000000000000
+                end
+              end
+            end
+          end
+        end
+        inherited tabOA: TTabItem
+          Width = 192.000000000000000000
+          inherited TaskStringGrid: TStringGrid
+            Width = 384.000000000000000000
+          end
+          inherited tcWorkflowControl: TTabControl
+            Height = 293.000000000000000000
+            Width = 384.000000000000000000
+            inherited TabCheckExec: TTabItem
+              Width = 96.000000000000000000
+              inherited TaskListBox: TListBox
+                Height = 244.000000000000000000
+                Width = 384.000000000000000000
+              end
+            end
+            inherited TabCheckStare: TTabItem
+              Width = 96.000000000000000000
+              inherited FlowMainListBox: TListBox
+                Height = 244.000000000000000000
+                Width = 384.000000000000000000
+                inherited TaskListBoxItem5: TListBoxItem
+                  inherited edWorkflowTitle: TEdit
+                    OnEnter = edWorkflowTitleEnter
+                  end
+                end
+              end
+            end
+            inherited tabTaskLog: TTabItem
+              Width = 96.000000000000000000
+              inherited TaskLogStringGrid: TStringGrid
+                Height = 244.000000000000000000
+                Width = 384.000000000000000000
+              end
+            end
+            inherited tabTaskflow: TTabItem
+              Width = 94.000000000000000000
+              inherited FlowScrollBox: TScrollBox
+                Width = 384.000000000000000000
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  inherited DetailActionList: TActionList
+    Left = 352
+    Top = 0
+  end
+  inherited DetailBindingsList: TBindingsList
+    object ItemBindGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = ItemStringGrid
+      SourceComponent = ItemBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'StuSkInDtlPKID'
+          ColumnIndex = 0
+          SourceMemberName = 'StuSkInDtlPKID'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[0].Header'
+              SourceExpression = '"'#26126#32454'ID"'
+            end>
+        end
+        item
+          ColumnName = 'StuSkInDtlFKID_Stu'
+          ColumnIndex = 1
+          SourceMemberName = 'StuSkInDtlFKID_Stu'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[1].Header'
+              SourceExpression = '"'#29289#36164#32534#30721'"'
+            end>
+        end
+        item
+          ColumnName = 'StuDefName'
+          ColumnIndex = 2
+          SourceMemberName = 'StuDefName'
+          ParseCellExpressions = <
+            item
+              ControlExpression = 'SelectedText(Self)'
+              SourceExpression = 'AsString'
+            end>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuDefSpecModel'
+          ColumnIndex = 3
+          SourceMemberName = 'StuDefSpecModel'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSkInDtlFKID_Unit'
+          ColumnIndex = 4
+          SourceMemberName = 'StuSkInDtlFKID_Unit'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'MUName'
+          ColumnIndex = 5
+          SourceMemberName = 'MUName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSkInDtlCovFactor'
+          ColumnIndex = 6
+          SourceMemberName = 'StuSkInDtlCovFactor'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[6]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSkInDtlQty'
+          ColumnIndex = 7
+          SourceMemberName = 'StuSkInDtlQty'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[7]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSkInDtlPrice'
+          ColumnIndex = 8
+          SourceMemberName = 'StuSkInDtlPrice'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[8]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSkInDtlAmt'
+          ColumnIndex = 9
+          SourceMemberName = 'StuSkInDtlAmt'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[9]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSkInDtlCostPrice'
+          ColumnIndex = 10
+          SourceMemberName = 'StuSkInDtlCostPrice'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[10]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSpyNtDtlQty'
+          ColumnIndex = 11
+          SourceMemberName = 'StuSpyNtDtlQty'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[11]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end
+        item
+          ColumnName = 'StuSpyNtDtlHaveInQty'
+          ColumnIndex = 12
+          SourceMemberName = 'StuSpyNtDtlHaveInQty'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[12]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <
+        item
+          ControlExpression = 'RowCount'
+          SourceExpression = 'RecordCount'
+        end>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+  end
+  inherited TaskBindSourceDB: TBindSourceDB
+    Left = 328
+    Top = 129
+  end
+  inherited DetailGestureManager: TGestureManager
+    GestureData = <
+      item
+        Control = EditLayout
+        Collection = <
+          item
+            Action = MovePriorAction
+            GestureID = sgiLeft
+          end
+          item
+            Action = MoveNextAction
+            GestureID = sgiRight
+          end>
+      end
+      item
+        Control = FlowLayout
+        Collection = <>
+      end>
+  end
+  object ItemBindSourceDB: TBindSourceDB
+    ScopeMappings = <>
+    Left = 120
+    Top = 1
+  end
+end

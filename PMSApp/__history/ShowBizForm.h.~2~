@@ -1,0 +1,7 @@
+//---------------------------------------------------------------------------
+
+#ifndef ShowBizFormH
+#define ShowBizFormH
+//---------------------------------------------------------------------------
+void __fastcall ShowBizForm(TComponent* Owner,int modulecode);
+#endif

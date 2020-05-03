@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.924,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.853,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.pas=E:\PMXE7\testApp\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.324,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.dproj=E:\PMXE7\testApp\Project1.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.853,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.fmx=E:\PMXE7\testApp\Unit1.fmx</Transaction>
+  </Transactions>  <MobileDevice>%iosdevice%c7a04760b9f8152af24f7cb33eaece8fdd5a2f2a</MobileDevice>
+</BorlandProject>

@@ -1,0 +1,159 @@
+inherited frmWorkReportItemEdit: TfrmWorkReportItemEdit
+  Caption = #20837#24211#21333#26126#32454#34892
+  DesignerMasterStyle = 3
+  inherited ItemVertScrollBox: TVertScrollBox
+    TabOrder = 3
+    inherited EditLayout: TLayout
+      Size.Width = 384.000000000000000000
+      Size.Height = 567.000000000000000000
+      object Label1: TLabel
+        AutoSize = True
+        Position.X = 43.000000000000000000
+        Position.Y = 24.000000000000000000
+        Size.Width = 53.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #24207#21495#65306
+      end
+      object Label2: TLabel
+        AutoSize = True
+        Position.X = 8.000000000000000000
+        Position.Y = 65.000000000000000000
+        Size.Width = 89.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #24037#20316#20869#23481#65306
+      end
+      object Label5: TLabel
+        AutoSize = True
+        Position.X = 8.000000000000000000
+        Position.Y = 190.000000000000000000
+        Size.Width = 89.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #26102#38388#23433#25490#65306
+      end
+      object Label6: TLabel
+        AutoSize = True
+        Position.X = 8.000000000000000000
+        Position.Y = 232.000000000000000000
+        Size.Width = 89.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #23436#25104#24773#20917#65306
+      end
+      object Label7: TLabel
+        AutoSize = True
+        Position.X = 8.000000000000000000
+        Position.Y = 273.000000000000000000
+        Size.Width = 89.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #19979#21608#35745#21010#65306
+      end
+      object Label8: TLabel
+        AutoSize = True
+        Position.X = 44.000000000000000000
+        Position.Y = 307.000000000000000000
+        Size.Width = 54.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #20998#25968#65306
+        Visible = False
+      end
+      object Label9: TLabel
+        AutoSize = True
+        Position.X = 44.000000000000000000
+        Position.Y = 348.000000000000000000
+        Size.Width = 54.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.WordWrap = False
+        Text = #26435#37325#65306
+        Visible = False
+      end
+      object edWorkDetailDataTime: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 11
+        Position.X = 112.000000000000000000
+        Position.Y = 182.000000000000000000
+        Enabled = False
+        Size.Width = 201.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edWorkDetailNextContent: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 12
+        Position.X = 112.000000000000000000
+        Position.Y = 265.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object edWorkDetailProssState: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 13
+        Position.X = 112.000000000000000000
+        Position.Y = 224.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object mmWorkDetailContent: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Position.X = 112.000000000000000000
+        Position.Y = 64.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 113.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 14
+      end
+      object spWorkDetailScore: TSpinBox
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 15
+        Cursor = crIBeam
+        Position.X = 112.000000000000000000
+        Position.Y = 304.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        Visible = False
+      end
+      object spWorkDetailRate: TSpinBox
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 17
+        Cursor = crIBeam
+        Position.X = 112.000000000000000000
+        Position.Y = 344.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        Visible = False
+      end
+      object spWorkDetailIndex: TSpinBox
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 16
+        Cursor = crIBeam
+        Position.X = 104.000000000000000000
+        Position.Y = 16.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+      end
+    end
+  end
+  inherited ItemMainToolBar: TToolBar
+    TabOrder = 2
+  end
+  inherited ItemActionList: TActionList
+    Left = 328
+    Top = 16
+  end
+end

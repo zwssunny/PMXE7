@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.446,=E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\Source\wsWorkflowReg.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.611,E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\source\wsDbx.dcr=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.212,E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE.dproj=E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\Packages\workflowstudioxe2.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.049,=E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\Source\wsado.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.917,E:\PMXE7\VCLCOM\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE7.dproj=E:\PMXE7\VCLCOM\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE6.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.964,=designide.dcp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.260,=vclimg.dcp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.288,D:\VclCom_XE2\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE.dproj=D:\VclCom_XE2\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE2.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.972,E:\PMXE6\VCLCOM\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE2.dproj=E:\PMXE6\VCLCOM\TMS_Workflow\Source\Workflow\Packages\XZWorkflowXE6.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.815,E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\source\wsADO.dcr=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.912,E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\source\wsWorkflowReg.dcr=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.223,=E:\PMXE2\VCLCOM\TMS_Workflow\Source\Workflow\Source\wsdbx.pas</Transaction>
+  </Transactions>
+</BorlandProject>

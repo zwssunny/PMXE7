@@ -1,0 +1,99 @@
+object frmQQMessage: TfrmQQMessage
+  Left = 0
+  Top = 0
+  Caption = #28040#24687#31383#20307
+  ClientHeight = 400
+  ClientWidth = 654
+  Visible = False
+  OnClose = FormClose
+  StyleLookup = 'backgroundstyle'
+  object plRight: TPanel
+    Align = alRight
+    Position.Point = '(502,0)'
+    Width = 152.000000000000000000
+    Height = 400.000000000000000000
+    TabOrder = 0
+    object lbvirate: TLabel
+      Position.Point = '(64,280)'
+      Width = 120.000000000000000000
+      Height = 15.000000000000000000
+      Visible = False
+      TabOrder = 1
+      Text = #38663#21160
+    end
+    object lbRing: TLabel
+      Position.Point = '(64,328)'
+      Width = 120.000000000000000000
+      Height = 15.000000000000000000
+      Visible = False
+      TabOrder = 2
+      Text = #21709#38083
+    end
+  end
+  object plMain: TPanel
+    Align = alClient
+    Width = 502.000000000000000000
+    Height = 400.000000000000000000
+    TabOrder = 1
+    object plBottom: TPanel
+      Align = alBottom
+      Position.Point = '(0,300)'
+      Width = 502.000000000000000000
+      Height = 100.000000000000000000
+      TabOrder = 0
+      object Panel1: TPanel
+        Align = alRight
+        Position.Point = '(336,0)'
+        Width = 166.000000000000000000
+        Height = 100.000000000000000000
+        TabOrder = 0
+        object sbViration: TSpeedButton
+          Position.Point = '(8,8)'
+          Width = 49.000000000000000000
+          Height = 22.000000000000000000
+          OnClick = sbVirationClick
+          TabOrder = 0
+          Text = #38663#21160
+        end
+        object sbRing: TSpeedButton
+          Position.Point = '(80,8)'
+          Width = 57.000000000000000000
+          Height = 22.000000000000000000
+          OnClick = sbRingClick
+          TabOrder = 1
+          Text = #21709#38083
+        end
+        object bbtSend: TButton
+          Position.Point = '(24,48)'
+          Width = 105.000000000000000000
+          Height = 30.000000000000000000
+          OnClick = bbtSendClick
+          TabOrder = 2
+          Text = #21457#36865'(Ctl+Enter)'
+        end
+      end
+      object memMsgEdit: TMemo
+        Align = alClient
+        Width = 336.000000000000000000
+        Height = 100.000000000000000000
+        OnKeyDown = memMsgEditKeyDown
+        TabOrder = 1
+        KeyboardType = vktDefault
+      end
+    end
+    object memMsg: TMemo
+      Align = alClient
+      Width = 502.000000000000000000
+      Height = 300.000000000000000000
+      TabOrder = 1
+      ReadOnly = True
+      KeyboardType = vktDefault
+    end
+    object Timer1: TTimer
+      Enabled = False
+      OnTimer = Timer1Timer
+      Left = 32
+      Top = 8
+    end
+  end
+end

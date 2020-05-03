@@ -1,0 +1,256 @@
+{
+   Google ZXing Embedded Demo
+
+   Delphi Version: Delphi XE5 Version 19.0.13476.4176
+
+   By: flcop(zylove619@hotmail.com)
+
+   xe5 up2 / xe6   by： black   4950356@qq.com
+}
+
+unit UMain;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Layouts, FMX.Memo, FMX.Edit, FMX.ActnList, System.Actions, FMX.StdActns,
+  FMX.MediaLibrary.Actions, IPPeerClient, IPPeerServer, System.Tether.Manager,
+  System.Tether.AppProfile, FMX.Objects, FMX.ListBox, ZXingNative;
+
+type
+  TfrmMain = class(TForm)
+    ToolBar1: TToolBar;
+    btFind: TButton;
+    btSN: TButton;
+    ActionList1: TActionList;
+    TakePhotoFromCameraAction1: TTakePhotoFromCameraAction;
+    acReadSN: TAction;
+    ToolBar2: TToolBar;
+    btTake: TButton;
+    Panel1: TPanel;
+    cbBoxProfile: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    edDeviceSN: TEdit;
+    ImageContainer: TImage;
+    CommandManager: TTetheringManager;
+    CommandApp: TTetheringAppProfile;
+    EditButton1: TEditButton;
+    acLocateRecord: TAction;
+    cbCodeType: TComboBox;
+    Label3: TLabel;
+    lbDeviceName: TLabel;
+    Label5: TLabel;
+    lbDeciceMode: TLabel;
+    btClose: TButton;
+    acClose: TAction;
+    procedure acReadSNExecute(Sender: TObject);
+    procedure CommandManagerEndManagersDiscovery(const Sender: TObject;
+      const RemoteManagers: TTetheringManagerInfoList);
+    procedure CommandManagerEndProfilesDiscovery(const Sender: TObject;
+      const RemoteProfiles: TTetheringProfileInfoList);
+    procedure btFindClick(Sender: TObject);
+    procedure cbBoxProfileClosePopup(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure acLocateRecordExecute(Sender: TObject);
+    procedure TakePhotoFromCameraAction1DidFinishTaking(Image: TBitmap);
+    procedure CommandManagerRequestManagerPassword(const Sender: TObject;
+      const RemoteIdentifier: string; var Password: string);
+    procedure FormDestroy(Sender: TObject);
+    procedure CommandAppResources0ResourceReceived(const Sender: TObject;
+      const AResource: TRemoteResource);
+    procedure CommandAppResources1ResourceReceived(const Sender: TObject;
+      const AResource: TRemoteResource);
+    procedure CommandAppResources2ResourceReceived(const Sender: TObject;
+      const AResource: TRemoteResource);
+    procedure CommandAppResources3ResourceReceived(const Sender: TObject;
+      const AResource: TRemoteResource);
+    procedure CommandManagerRemoteManagerShutdown(const Sender: TObject;
+      const ManagerIdentifier: string);
+    procedure acCloseExecute(Sender: TObject);
+  private
+    { Private declarations }
+    IsLocate: Boolean;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+   FZXing: IZXing;
+implementation
+
+{uses
+  ZXingNative;}
+
+{$R *.fmx}
+
+procedure TfrmMain.acCloseExecute(Sender: TObject);
+begin
+Close();
+end;
+
+procedure TfrmMain.acLocateRecordExecute(Sender: TObject);
+begin
+  if edDeviceSN.Text>'' then
+  begin
+//     CommandApp.SendString(CommandManager.RemoteProfiles[cbBoxProfile.ItemIndex],'DeviceSN',edDeviceSN.Text)
+     CommandApp.SendString(CommandManager.RemoteProfiles[cbBoxProfile.ItemIndex],'DeviceID',edDeviceSN.Text);
+     ImageContainer.Bitmap.Assign(nil);
+     lbDeviceName.Text:='';
+     lbDeciceMode.Text:='';
+     IsLocate :=False;
+  end
+   else
+   ShowMessage('先扫描设备编码！');
+end;
+
+procedure TfrmMain.acReadSNExecute(Sender: TObject);
+begin
+  FZXing.DoCapture(
+    procedure(AExecute: Boolean; AResultText: string; ABarcodeFormat: string)
+    begin
+      if AExecute then
+      begin
+       // EditBarcodeFormat.Text := ABarcodeFormat;
+        edDeviceSN.Text := AResultText;
+      end else
+      begin
+        //EditBarcodeFormat.Text := '';
+        edDeviceSN.Text := '';
+      end;
+    end,
+    TZXingScanMode(cbCodeType.Index)
+  );
+end;
+
+procedure TfrmMain.btFindClick(Sender: TObject);
+var
+ I: integer;
+begin
+  for I := CommandManager.RemoteManagers.Count-1  downto 0 do
+      CommandManager.UnPairManager(CommandManager.RemoteManagers[I]);
+   cbBoxProfile.Clear;
+   CommandManager.DiscoverManagers();
+end;
+
+procedure TfrmMain.cbBoxProfileClosePopup(Sender: TObject);
+begin
+if cbBoxProfile.ItemIndex>-1 then
+  begin
+    edDeviceSN.Enabled:=False;
+    TakePhotoFromCameraAction1.Enabled:=False;
+    if CommandApp.Connect(CommandManager.RemoteProfiles[cbBoxProfile.ItemIndex]) then
+    begin
+      edDeviceSN.Enabled:=True;
+      TakePhotoFromCameraAction1.Enabled:=True;
+    end;
+  end;
+
+end;
+
+procedure TfrmMain.CommandAppResources0ResourceReceived(const Sender: TObject;
+  const AResource: TRemoteResource);
+begin
+  AResource.Value.AsStream.Position:=0;
+   ImageContainer.Bitmap.LoadFromStream(AResource.Value.AsStream);
+end;
+
+procedure TfrmMain.CommandAppResources1ResourceReceived(const Sender: TObject;
+  const AResource: TRemoteResource);
+begin
+    IsLocate := AResource.Value.AsBoolean;
+    TakePhotoFromCameraAction1.Enabled :=IsLocate;
+    if Not IsLocate then
+     lbDeciceMode.Text:='';
+end;
+
+procedure TfrmMain.CommandAppResources2ResourceReceived(const Sender: TObject;
+  const AResource: TRemoteResource);
+begin
+       lbDeviceName.Text:=AResource.Value.AsString;
+
+end;
+
+procedure TfrmMain.CommandAppResources3ResourceReceived(const Sender: TObject;
+  const AResource: TRemoteResource);
+begin
+        lbDeciceMode.Text:=AResource.Value.AsString;
+end;
+
+procedure TfrmMain.CommandManagerEndManagersDiscovery(const Sender: TObject;
+  const RemoteManagers: TTetheringManagerInfoList);
+var
+  I: Integer;
+begin
+  for I := 0 to RemoteManagers.Count - 1 do
+      CommandManager.PairManager(RemoteManagers[I]);
+end;
+
+procedure TfrmMain.CommandManagerEndProfilesDiscovery(const Sender: TObject;
+  const RemoteProfiles: TTetheringProfileInfoList);
+var
+  I: Integer;
+begin
+  edDeviceSN.Enabled:=False;
+  TakePhotoFromCameraAction1.Enabled:=False;
+  cbBoxProfile.Clear;
+  for I := 0 to CommandManager.RemoteProfiles.Count - 1 do
+      cbBoxProfile.Items.Add(CommandManager.RemoteProfiles[I].ProfileText);
+  if cbBoxProfile.Count > 0 then
+  begin
+    cbBoxProfile.ItemIndex := 0;
+    cbBoxProfileClosePopup(nil);
+  end;
+  // Connect to the first one
+
+end;
+
+procedure TfrmMain.CommandManagerRemoteManagerShutdown(const Sender: TObject;
+  const ManagerIdentifier: string);
+begin
+    btFindClick(nil);
+end;
+
+procedure TfrmMain.CommandManagerRequestManagerPassword(const Sender: TObject;
+  const RemoteIdentifier: string; var Password: string);
+begin
+   Password:='1314';
+end;
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  FZXing:=ZXing;//先注册一下
+  edDeviceSN.Enabled:=False;
+  TakePhotoFromCameraAction1.Enabled:=False;
+end;
+
+procedure TfrmMain.FormDestroy(Sender: TObject);
+begin
+if Assigned(FZXing) then
+begin
+  UnRegisterOnActivityResult;
+  FreeAndNil(FZXing);
+end;
+end;
+
+procedure TfrmMain.TakePhotoFromCameraAction1DidFinishTaking(Image: TBitmap);
+var
+ ScaleFactor: Single;
+ imageStream: TMemoryStream;
+begin
+	if (Image.Width > 1024) then
+  begin
+		ScaleFactor := Image.Width / 1024;
+		Image.Resize(Round(Image.Width / ScaleFactor),Round(Image.Height / ScaleFactor));
+	end;
+	ImageContainer.Bitmap.Assign(Image);
+	imageStream:=TMemoryStream.Create;
+	Image.SaveToStream(imageStream);
+  imageStream.Position:=0;
+	CommandApp.SendStream(CommandManager.RemoteProfiles[cbBoxProfile.ItemIndex],'Image',imageStream);
+end;
+
+end.

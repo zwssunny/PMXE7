@@ -1,0 +1,33 @@
+//---------------------------------------------------------------------------
+
+#ifndef CustomerH
+#define CustomerH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseListShow.h"
+#include <Data.Bind.Components.hpp>
+#include <Data.Bind.DBScope.hpp>
+#include <Data.Bind.EngExt.hpp>
+#include <FMX.ActnList.hpp>
+#include <Fmx.Bind.DBEngExt.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <System.Actions.hpp>
+//---------------------------------------------------------------------------
+class TfrmCustomer : public TfrmBaseListShow
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+		TForm * __fastcall NewEditForm(TZClientDataSet *FDataSet,int status);
+		void __fastcall FormFillData();
+		bool __fastcall BeforeUpdateData(int OptType);
+public:		// User declarations
+	__fastcall TfrmCustomer(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,
+							 String WhereStr);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmCustomer *frmCustomer;
+//---------------------------------------------------------------------------
+#endif

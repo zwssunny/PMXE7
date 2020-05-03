@@ -1,0 +1,87 @@
+//---------------------------------------------------------------------------
+
+#ifndef DBMainH
+#define DBMainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Vcl.DBGrids.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Grids.hpp>
+#include <Vcl.ToolWin.hpp>
+#include <Data.Bind.Components.hpp>
+#include <Data.Bind.DBScope.hpp>
+#include <Data.Bind.EngExt.hpp>
+#include <Data.DB.hpp>
+#include <Data.Win.ADODB.hpp>
+#include <IPPeerClient.hpp>
+#include <IPPeerServer.hpp>
+#include <System.Actions.hpp>
+#include <System.Bindings.Outputs.hpp>
+#include <System.Rtti.hpp>
+#include <System.Tether.AppProfile.hpp>
+#include <System.Tether.Manager.hpp>
+#include <Vcl.ActnList.hpp>
+#include <Vcl.Bind.DBEngExt.hpp>
+#include <Vcl.Bind.Editors.hpp>
+#include <Vcl.Imaging.jpeg.hpp>
+#include <PNGImage.hpp>
+//---------------------------------------------------------------------------
+class TfrmDBMain : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TADOConnection *ADOConnection1;
+	TADOTable *ADOTable1;
+	TTetheringManager *FSTManager;
+	TTetheringAppProfile *FSTAppProfile;
+	TBindSourceDB *BindSourceDB1;
+	TBindingsList *BindingsList2;
+	TBindLink *BindLink1;
+	TPanel *Panel2;
+	TButton *btConfig;
+	TButton *btRefresh;
+	TImage *Image1;
+	TActionList *ActionList1;
+	TAction *acLocateRecord;
+	TAction *acUpdatePhoto;
+	TAction *acConnDB;
+	TAction *acRefresh;
+	TLabel *Label1;
+	TLabel *lbPhotoFile;
+	TLabel *lbDevice;
+	TDBGrid *DBGrid1;
+	TButton *btSetup;
+	TDataSource *DataSource1;
+	TEdit *edAccDbStr;
+	TButton *Button1;
+	void __fastcall FSTManagerRequestManagerPassword(const TObject *Sender, const UnicodeString RemoteIdentifier,
+          UnicodeString &Password);
+	void __fastcall acUpdatePhotoExecute(TObject *Sender);
+	void __fastcall FSTAppProfileResourceReceived(const TObject *Sender, const TRemoteResource *AResource);
+	void __fastcall acConnDBUpdate(TObject *Sender);
+	void __fastcall acConnDBExecute(TObject *Sender);
+	void __fastcall BindLink1AssignedValue(TObject *Sender, TBindingAssignValueRec &AssignValueRec,
+          const TValue &Value);
+	void __fastcall acRefreshExecute(TObject *Sender);
+	void __fastcall btSetupClick(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
+	void __fastcall FormDestroy(TObject *Sender);
+
+private:	// User declarations
+	String CurDeviceID;
+	String CurDeviceSN;
+	String AppPath;
+	bool IsLocate;
+	TJPEGImage *jpgImage;
+	void __fastcall LocateRecord(String Key,String Value);
+public:		// User declarations
+	__fastcall TfrmDBMain(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmDBMain *frmDBMain;
+//---------------------------------------------------------------------------
+#endif

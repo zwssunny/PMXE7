@@ -1,0 +1,225 @@
+object fmApprovalEditor: TfmApprovalEditor
+  Left = 384
+  Top = 172
+  Width = 408
+  Height = 367
+  Caption = 'Approval'
+  Color = clBtnFace
+  Constraints.MinHeight = 340
+  Constraints.MinWidth = 300
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PageControl1: TPageControl
+    Left = 5
+    Top = 5
+    Width = 380
+    Height = 290
+    ActivePage = tsGeneral
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    TabOrder = 0
+    object tsGeneral: TTabSheet
+      Caption = 'General'
+      object lbSubject: TLabel
+        Left = 5
+        Top = 5
+        Width = 36
+        Height = 13
+        Caption = 'Subject'
+      end
+      object lbDescription: TLabel
+        Left = 5
+        Top = 45
+        Width = 53
+        Height = 13
+        Caption = 'Description'
+      end
+      object lbAssignment: TLabel
+        Left = 5
+        Top = 175
+        Width = 55
+        Height = 13
+        Caption = 'Assignment'
+      end
+      object edSubject: TEdit
+        Left = 5
+        Top = 20
+        Width = 362
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 0
+        OnChange = PropertyChanged
+      end
+      object mmComments: TMemo
+        Left = 5
+        Top = 60
+        Width = 362
+        Height = 110
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 1
+        OnChange = PropertyChanged
+      end
+      object edAssignment: TComboBox
+        Left = 5
+        Top = 190
+        Width = 362
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        ItemHeight = 13
+        TabOrder = 2
+        OnChange = PropertyChanged
+      end
+      object cbMailNotification: TCheckBox
+        Left = 5
+        Top = 215
+        Width = 250
+        Height = 17
+        Caption = 'Send mail notification'
+        TabOrder = 3
+      end
+    end
+    object tsStatus: TTabSheet
+      Caption = 'Status'
+      ImageIndex = 1
+      inline frStatus: TfrStatusFrame
+        Width = 372
+        Height = 262
+        Align = alClient
+        inherited Splitter1: TSplitter
+          Width = 372
+        end
+        inherited Panel1: TPanel
+          Width = 372
+          inherited lvStatus: TListView
+            Width = 362
+          end
+        end
+        inherited Panel2: TPanel
+          Width = 372
+          Height = 104
+          inherited lbStatusName: TLabel
+            Width = 64
+          end
+          inherited edStatusName: TEdit
+            Width = 277
+          end
+        end
+        inherited Panel3: TPanel
+          Width = 372
+        end
+      end
+    end
+    object tsAttachments: TTabSheet
+      Caption = 'Attachments'
+      ImageIndex = 2
+      inline frPermissions: TfrAttachPermissions
+        Width = 372
+        Height = 262
+        Align = alClient
+        inherited cbShowAttachments: TCheckBox
+          Width = 220
+        end
+        inherited cbDelAttachment: TCheckBox
+          Width = 220
+        end
+        inherited cbInsAttachment: TCheckBox
+          Width = 220
+        end
+        inherited cbEditAttachment: TCheckBox
+          Width = 220
+        end
+      end
+    end
+    object tsFields: TTabSheet
+      Caption = 'Fields'
+      ImageIndex = 3
+      inline frFields: TfrFieldFrame
+        Width = 372
+        Height = 262
+        Align = alClient
+        inherited Splitter1: TSplitter
+          Top = 151
+          Width = 372
+        end
+        inherited Panel1: TPanel
+          Top = 30
+          Width = 372
+          inherited lvVars: TListView
+            Width = 362
+          end
+        end
+        inherited Panel2: TPanel
+          Top = 154
+          Width = 372
+          Height = 108
+          inherited Label1: TLabel
+            Width = 64
+          end
+          inherited Label2: TLabel
+            Width = 90
+          end
+          inherited edCaption: TEdit
+            Width = 267
+          end
+          inherited cbReadOnly: TCheckBox
+            Width = 85
+          end
+          inherited cbRequired: TCheckBox
+            Width = 85
+          end
+        end
+        inherited Panel3: TPanel
+          Width = 372
+          Height = 30
+        end
+      end
+    end
+    object tsExpiration: TTabSheet
+      Caption = 'Expiration'
+      ImageIndex = 4
+      inline frExpiration: TfrExpirationFrame
+        Width = 372
+        Height = 262
+        Align = alClient
+        inherited lbStatus: TLabel
+          Width = 85
+        end
+        inherited edExpression: TEdit
+          Width = 342
+        end
+        inherited cbStatus: TComboBox
+          Width = 362
+        end
+      end
+    end
+  end
+  object btCancel: TButton
+    Left = 310
+    Top = 300
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Cancel'
+    TabOrder = 2
+    OnClick = btCancelClick
+  end
+  object btOk: TButton
+    Left = 230
+    Top = 300
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Caption = '&Ok'
+    TabOrder = 1
+    OnClick = btOkClick
+  end
+end

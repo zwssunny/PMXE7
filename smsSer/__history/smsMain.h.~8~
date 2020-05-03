@@ -1,0 +1,30 @@
+//---------------------------------------------------------------------------
+
+#ifndef smsMainH
+#define smsMainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Xml.Win.msxmldom.hpp>
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+#include "SmsClientBroker.h"
+//---------------------------------------------------------------------------
+class TfrmSmsMain : public TForm
+{
+__published:	// IDE-managed Components
+	TXMLDocument *XMLDocument1;
+private:	// User declarations
+		TSmsClientBroker *smsClient;
+		void __fastcall ServiceStart();
+		void __fastcall ServiceStop();
+public:		// User declarations
+	__fastcall TfrmSmsMain(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmSmsMain *frmSmsMain;
+//---------------------------------------------------------------------------
+#endif

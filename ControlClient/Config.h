@@ -1,0 +1,50 @@
+//---------------------------------------------------------------------------
+
+#ifndef ConfigH
+#define ConfigH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.MobilePreview.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.ListBox.hpp>
+#include <FMX.Controls.Presentation.hpp>
+#include <Xml.adomxmldom.hpp>
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+#include <FMX.Layouts.hpp>
+//---------------------------------------------------------------------------
+class TConfigForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *Header;
+	TToolBar *Footer;
+	TLabel *HeaderLabel;
+	TLabel *Label1;
+	TEdit *edAgentIP;
+	TLabel *lableport;
+	TEdit *edAgentPort;
+	TLabel *lbProtocol;
+	TComboBox *cbProtocol;
+	TButton *btSave;
+	TButton *btCancel;
+	TXMLDocument *XMLDocument1;
+	TLayout *Layout1;
+	void __fastcall btSaveClick(TObject *Sender);
+	void __fastcall btCancelClick(TObject *Sender);
+private:	// User declarations
+  void __fastcall ReadOption();
+  void __fastcall WriteOption();
+  String settingfile;
+  String AppPath;
+public:		// User declarations
+	__fastcall TConfigForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TConfigForm *ConfigForm;
+//---------------------------------------------------------------------------
+#endif

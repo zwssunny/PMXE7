@@ -1,0 +1,26 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "LogQueueProc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+TLogQueueProc::TLogQueueProc(TWriteUserLog& AWriteUserLog,String AUserID,
+	String AIPAddress, String AAcckBook,String AClassCode, int Atype, String ADesc)
+{
+	FWriteUserLog=AWriteUserLog;
+	FUserID=AUserID;
+	FIPAddress=AIPAddress;
+	FAcckBook=AAcckBook;
+	FClassCode=AClassCode;
+	Ftype=Atype;
+	FDesc=ADesc;
+}
+//---------------------------------------------------------------------------
+void __fastcall TLogQueueProc::Execute()
+{
+  FreeOnTerminate=true;
+  FWriteUserLog(FUserID,FIPAddress,FClassCode,FAcckBook,Ftype,FDesc);
+}
+//---------------------------------------------------------------------------

@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{26AC07E7-9EC6-46BC-91CB-EF93E6F29F41}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="XZWorkflowXE7.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\..\Demos\main\WorkflowDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="XZWorkflowXE7">
+        <MSBuild Projects="XZWorkflowXE7.dproj"/>
+    </Target>
+    <Target Name="XZWorkflowXE7:Clean">
+        <MSBuild Projects="XZWorkflowXE7.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="XZWorkflowXE7:Make">
+        <MSBuild Projects="XZWorkflowXE7.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="WorkflowDemo">
+        <MSBuild Projects="..\..\..\Demos\main\WorkflowDemo.dproj"/>
+    </Target>
+    <Target Name="WorkflowDemo:Clean">
+        <MSBuild Projects="..\..\..\Demos\main\WorkflowDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="WorkflowDemo:Make">
+        <MSBuild Projects="..\..\..\Demos\main\WorkflowDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="XZWorkflowXE7;WorkflowDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="XZWorkflowXE7:Clean;WorkflowDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="XZWorkflowXE7:Make;WorkflowDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

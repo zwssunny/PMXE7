@@ -1,0 +1,45 @@
+//---------------------------------------------------------------------------
+
+#ifndef ChatRoomServerMethodsH
+#define ChatRoomServerMethodsH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <DBXJSON.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TChatRoomServerMethods: public TDMBaseServerClass
+{
+private:
+	TADOQuery *EmpQuery;
+	TADOQuery *m_Query;
+	TADOQuery *b_Query;
+	TADOQuery *LogQuery;
+	TADOConnection *m_Connection;
+	TADOConnection *m_BuildConn;
+	void  SaveMessage(String MsgID,String MsgUserID,int MsgRecType,String MsgReceiver,String MsgContent);
+	void  SaveMsgNotReceiver(String MsgID,String UserID);
+public:
+	__fastcall TChatRoomServerMethods(TComponent* Owner);
+	__fastcall ~TChatRoomServerMethods();
+public:
+	TJSONArray*  GetUserList();
+	String  GetHTMLEscapedString(String const Value);
+	bool  UpdateCurUserCallbackClientID(String const Value);
+
+	bool  SendMessageToAll(String const Msg);
+	bool  SendMessageToUser(String const Msg, String const UserID);
+	bool  SendMessageToDepartment(String const Msg, String const DepartmentID);
+	bool  SendMessageToGroup(String const Msg, String const GroupID);
+	bool  SendMessageToFollow(String const Msg);
+	bool  SendCMDToFollow(String const cmdStr);
+	bool  SendCMDToAll(String const cmdStr);
+	bool  SendCMDToUser(String const cmdStr, String const UserID);
+	bool  SendCMDToDepartment(String const cmdStr, String const DepartmentID);
+	bool  SendCMDToGroup(String const cmdStr, String const GroupID);
+
+
+};
+#endif

@@ -1,0 +1,25 @@
+//---------------------------------------------------------------------------
+
+#ifndef CustomerFiltersH
+#define CustomerFiltersH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseFilters.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+//---------------------------------------------------------------------------
+class TCustomerFiltersForm : public TBaseFiltersForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+protected:
+	virtual String __fastcall BuildFilters();
+public:		// User declarations
+	__fastcall TCustomerFiltersForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TCustomerFiltersForm *CustomerFiltersForm;
+//---------------------------------------------------------------------------
+#endif

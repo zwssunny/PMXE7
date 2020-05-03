@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------
+
+#ifndef wfMainH
+#define wfMainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Xml.Win.msxmldom.hpp>
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+#include "wfClientBroker.h"
+#include <Data.DB.hpp>
+#include <Data.SqlExpr.hpp>
+
+//---------------------------------------------------------------------------
+class TfrmWFmain : public TForm
+{
+__published:	// IDE-managed Components
+	TXMLDocument *XMLDocument1;
+	TSQLConnection *SQLConnection1;
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+private:	// User declarations
+	String FAgentIP;
+	int FAgentPort;
+	String FProtocol;
+	TwfClientBroker * FClientBroker ;
+	void __fastcall ReadOption();
+	void __fastcall RunWFServer();
+public:		// User declarations
+	__fastcall TfrmWFmain(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmWFmain *frmWFmain;
+//---------------------------------------------------------------------------
+#endif

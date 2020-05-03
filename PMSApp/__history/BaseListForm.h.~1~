@@ -1,0 +1,21 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseListFormH
+#define BaseListFormH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseForm.h"
+//---------------------------------------------------------------------------
+class TfrmBaseForm1 : public TfrmBaseForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmBaseForm1(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmBaseForm1 *frmBaseForm1;
+//---------------------------------------------------------------------------
+#endif

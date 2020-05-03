@@ -1,0 +1,41 @@
+object ServerMethods1: TServerMethods1
+  OldCreateOrder = False
+  Height = 150
+  Width = 215
+  object SysADOConnection: TADOConnection
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=sql2005!@#;Persist Security Info=Tr' +
+      'ue;User ID=sa;Initial Catalog=SF_System;Data Source=192.168.1.10'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 40
+    Top = 8
+  end
+  object ACCADOConnection: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=sql2005!@#;Persist Security Info=Tr' +
+      'ue;User ID=sa;Initial Catalog=SF_DEMO;Data Source=192.168.1.10'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 144
+    Top = 8
+  end
+  object AccAndSysDB: TWorkflowAccAndSysDB
+    AccConnection = ACCADOConnection
+    SysConnection = SysADOConnection
+    Left = 32
+    Top = 72
+  end
+  object FWorkflowStudioSvr: TWorkflowStudio
+    WorkflowDB = AccAndSysDB
+    Left = 136
+    Top = 72
+  end
+  object FQuery: TADOQuery
+    Connection = ACCADOConnection
+    Parameters = <>
+    Left = 88
+    Top = 56
+  end
+end

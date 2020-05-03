@@ -1,0 +1,290 @@
+unit fDgrLayerManager;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, {$IFDEF DELPHI6_LVL}Variants,{$ENDIF}
+  Classes, Graphics, Controls, Forms, Commctrl,
+  Dialogs, ComCtrls, ToolWin, atDiagram, ActnList, ImgList, Menus;
+
+type
+  TDgrLayerManager = class(TForm)
+    ToolBar1: TToolBar;
+    btAdd: TToolButton;
+    btRemove: TToolButton;
+    ToolButton3: TToolButton;
+    btMoveUp: TToolButton;
+    btMoveDown: TToolButton;
+    lvLayers: TListView;
+    ActionList1: TActionList;
+    acRemove: TAction;
+    acMoveUp: TAction;
+    acMoveDown: TAction;
+    ilActions: TImageList;
+    acAdd: TAction;
+    acVisible: TAction;
+    acEditable: TAction;
+    PopupMenu1: TPopupMenu;
+    Visible1: TMenuItem;
+    Editable1: TMenuItem;
+    ilVisible: TImageList;
+    ilEditable: TImageList;
+    N1: TMenuItem;
+    acRename: TAction;
+    Rename1: TMenuItem;
+    btDeleteControls: TToolButton;
+    acDeleteControls: TAction;
+    procedure acAddExecute(Sender: TObject);
+    procedure lvLayersEdited(Sender: TObject; Item: TListItem; var S: string);
+    procedure acRemoveExecute(Sender: TObject);
+    procedure acVisibleExecute(Sender: TObject);
+    procedure acEditableExecute(Sender: TObject);
+    procedure acMoveUpExecute(Sender: TObject);
+    procedure acRenameExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lvLayersMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure acDeleteControlsExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure lvLayersCustomDrawItem(Sender: TCustomListView;
+      Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+  private
+    FDiagram: TatDiagram;
+    FLayerList: TStringList;
+    procedure AddLayerToList(ALayer: TDiagramLayer);
+    function DiagramLayersChanged: boolean;
+    function GetSelectedLayer: TDiagramLayer;
+    procedure LoadLayers;
+    procedure SetDiagram(const Value: TatDiagram);
+  public
+    procedure Execute;
+    procedure InitiateAction; override;
+    property Diagram: TatDiagram read FDiagram write SetDiagram;
+    property SelectedLayer: TDiagramLayer read GetSelectedLayer;
+  end;
+
+implementation
+
+{$R *.dfm}
+
+{ TDgrLayerManager }
+
+procedure TDgrLayerManager.acAddExecute(Sender: TObject);
+begin
+  AddLayerToList(Diagram.Layers.Add);
+  lvLayers.Selected.EditCaption;
+end;
+
+procedure TDgrLayerManager.acRemoveExecute(Sender: TObject);
+begin
+  if MessageDlg('Remove layer "' + SelectedLayer.LayerName + '"?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    SelectedLayer.Free;
+    LoadLayers;
+  end;
+end;
+
+procedure TDgrLayerManager.acEditableExecute(Sender: TObject);
+begin
+  SelectedLayer.Editable := not SelectedLayer.Editable;
+  lvLayers.Selected.ImageIndex := integer(SelectedLayer.Editable);
+end;
+
+procedure TDgrLayerManager.acMoveUpExecute(Sender: TObject);
+var
+  i: integer;
+begin
+  SelectedLayer.Index := SelectedLayer.Index + TComponent(Sender).Tag;
+  i := SelectedLayer.Index;
+  LoadLayers;
+  lvLayers.Items[i].Selected := True;
+end;
+
+procedure TDgrLayerManager.acRenameExecute(Sender: TObject);
+begin
+  lvLayers.Selected.EditCaption;
+end;
+
+procedure TDgrLayerManager.acVisibleExecute(Sender: TObject);
+begin
+  SelectedLayer.Visible := not SelectedLayer.Visible;
+  lvLayers.Selected.StateIndex := integer(SelectedLayer.Visible);
+end;
+
+procedure TDgrLayerManager.AddLayerToList(ALayer: TDiagramLayer);
+begin
+  with lvLayers.Items.Add do
+  begin
+    Caption := ALayer.LayerName;
+    Data := ALayer;
+    StateIndex := integer(ALayer.Visible);
+    ImageIndex := integer(ALayer.Editable);
+    Selected := True;
+  end;
+end;
+
+procedure TDgrLayerManager.Execute;
+begin
+  if Diagram <> nil then
+  begin
+    LoadLayers;
+    Show;
+  end
+  else
+    raise Exception.Create('Diagram not specified.');
+end;
+
+function TDgrLayerManager.GetSelectedLayer: TDiagramLayer;
+begin
+  if lvLayers.Selected <> nil then
+  begin
+    result := Diagram.Layers.FindByName(lvLayers.Selected.Caption);
+    if result = nil then
+      result := lvLayers.Selected.Data;
+  end
+  else
+    result := nil;
+end;
+
+procedure TDgrLayerManager.LoadLayers;
+var
+  i: integer;
+begin
+  lvLayers.Items.BeginUpdate;
+  try
+    FLayerList.Clear;
+    lvLayers.Items.Clear;
+    for i := 0 to Diagram.Layers.Count - 1 do
+    begin
+      FLayerList.Values[IntToStr(Diagram.Layers[i].ID)] := Diagram.Layers[i].LayerName;
+      AddLayerToList(Diagram.Layers[i]);
+    end;
+    FLayerList.Sort;
+    lvLayers.Selected := nil;
+  finally
+    lvLayers.Items.EndUpdate;
+  end;
+end;
+
+procedure TDgrLayerManager.lvLayersEdited(Sender: TObject; Item: TListItem; var S: string);
+begin
+  if (Trim(S) > '') and (Diagram.Layers.FindByName(S) = nil) then
+    TDiagramLayer(Item.Data).LayerName := S
+  else
+    S := TDiagramLayer(Item.Data).LayerName;
+end;
+
+procedure TDgrLayerManager.SetDiagram(const Value: TatDiagram);
+begin
+  FDiagram := Value;
+end;
+
+procedure TDgrLayerManager.FormShow(Sender: TObject);
+begin
+  LoadLayers;
+end;
+
+procedure TDgrLayerManager.lvLayersMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  item: TListItem;
+  hits: THitTests;
+begin
+  if (Button = mbLeft) and (Shift = [ssLeft]) then
+  begin
+    item := lvLayers.GetItemAt(X, Y);
+    hits := lvLayers.GetHitTestInfoAt(X, Y);
+
+    if (item <> nil) and (hits * [htOnStateIcon, htOnIcon] <> []) then
+    begin
+      item.Selected := True;
+      lvLayers.ItemFocused := item;
+      if htOnStateIcon in hits then
+        acVisible.Execute;
+      if htOnIcon in hits then
+        acEditable.Execute;
+    end;
+  end;
+end;
+
+procedure TDgrLayerManager.acDeleteControlsExecute(Sender: TObject);
+begin
+  if MessageDlg('Delete layer "' + SelectedLayer.LayerName + '" and all its controls from diagram?', mtWarning, [mbYes, mbNo], 0) = mrYes then
+  begin
+    Diagram.DeleteLayerControls(SelectedLayer);
+    SelectedLayer.Free;
+    LoadLayers;
+  end;
+end;
+
+procedure TDgrLayerManager.InitiateAction;
+begin
+  inherited;
+
+  // reload layer list if there are changes in diagram layers
+  if (Diagram <> nil) and DiagramLayersChanged then
+    LoadLayers;
+
+  // enable/check actions
+  acAdd.Enabled := true;
+  acRemove.Enabled := (SelectedLayer <> nil) and not lvLayers.IsEditing;
+  acMoveUp.Enabled := (SelectedLayer <> nil) and (SelectedLayer.Index > 0);
+  acMoveDown.Enabled := (SelectedLayer <> nil) and (SelectedLayer.Index < Diagram.Layers.Count-1);
+  acVisible.Enabled := SelectedLayer <> nil;
+  acVisible.Checked := acVisible.Enabled and SelectedLayer.Visible;
+  acEditable.Enabled := SelectedLayer <> nil;
+  acEditable.Checked := acEditable.Enabled and SelectedLayer.Editable;
+  acRename.Enabled := SelectedLayer <> nil;
+  acDeleteControls.Enabled := (SelectedLayer <> nil) and not lvLayers.IsEditing;
+end;
+
+function TDgrLayerManager.DiagramLayersChanged: boolean;
+var
+  sl: TStringList;
+  i: integer;
+begin
+  sl := TStringList.Create;
+  try
+    // check for changes in content and also in IDs of collection items (same layers but different instances)
+    for i:=0 to Diagram.Layers.Count-1 do
+      sl.Values[IntToStr(Diagram.Layers[i].ID)] := Diagram.Layers[i].LayerName;
+    sl.Sort;
+    result := sl.Text <> FLayerList.Text;
+  finally
+    sl.Free;
+  end;
+end;
+
+procedure TDgrLayerManager.FormCreate(Sender: TObject);
+begin
+  FLayerList := TStringList.Create;
+end;
+
+procedure TDgrLayerManager.FormDestroy(Sender: TObject);
+begin
+  FLayerList.Free;
+end;
+
+procedure TDgrLayerManager.lvLayersCustomDrawItem(Sender: TCustomListView;
+  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+var
+  R: TRect;
+begin
+  DefaultDraw := True;
+  if Item.Selected and (cdsFocused in State) and not Sender.IsEditing then
+  begin
+    DefaultDraw := False;
+    R := Item.DisplayRect(drLabel);
+    Sender.Canvas.Brush.Color := clHighlight;
+    Sender.Canvas.FillRect(R);
+    Sender.Canvas.Font.Color := clHighlightText;
+    Sender.Canvas.TextRect(R, R.Left+2, R.Top+2, Item.Caption);
+    Sender.Canvas.DrawFocusRect(R);
+    R := Item.DisplayRect(drIcon);
+    ilEditable.Draw(Sender.Canvas, R.Left, R.Top, Item.ImageIndex);
+    ilVisible.Draw(Sender.Canvas, R.Left-ilEditable.Width, R.Top, Item.StateIndex);
+  end;
+end;
+
+end.
+

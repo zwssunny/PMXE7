@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="AgentServer" value=""/>
+	<Setting Name="AgentAddress" value="192.168.1.23"/>
+	<Setting Name="AgentPort" value="211"/>
+	<Setting Name="Protocol" value="TCP/IP"/>
+</DefaultSettings>

@@ -1,0 +1,6 @@
+inherited frmBaseBillForm: TfrmBaseBillForm
+  Caption = 'frmBaseForm1'
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  DesignerMasterStyle = 3
+end

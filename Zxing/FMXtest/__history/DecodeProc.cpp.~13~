@@ -1,0 +1,133 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "DecodeProc.h"
+#include "UnicodeAndStdstring.h"
+#include "ImageReaderSource.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TDecodeQueueProc::TDecodeQueueProc(TOnDecodeResults &AOnDecodeResults,TBitmap *FImage,TRectF BarRect,bool Ahybrid)
+{
+  FOnDecodeResults=AOnDecodeResults;
+  Fhybrid= Ahybrid;
+  BarBitmap=new TBitmap(BarRect.Width(),BarRect.Height());
+ // BarBitmap->SetSize(BarRect.Width(),BarRect.Height());
+  BarBitmap->Canvas->BeginScene();
+  BarBitmap->Canvas->DrawBitmap(FImage,BarRect,TRectF(0,0,BarRect.Width(),BarRect.Height()),1);
+  BarBitmap->Canvas->EndScene();
+  HasInputBitmap=true;
+}
+TDecodeQueueProc::TDecodeQueueProc(TOnDecodeResults &AOnDecodeResults,TBitmap *FImage,bool Ahybrid)
+{
+  FOnDecodeResults=AOnDecodeResults;
+  Fhybrid= Ahybrid;
+  BarBitmap=new TBitmap(FImage->Width,FImage->Height);
+  BarBitmap->Assign(FImage);
+  HasInputBitmap=true;
+}
+
+TDecodeQueueProc::TDecodeQueueProc(TOnDecodeResults &AOnDecodeResults,UnicodeString filename,bool Ahybrid)
+{
+  FOnDecodeResults=AOnDecodeResults;
+  Fhybrid= Ahybrid;
+  FFileName= filename;
+  HasInputBitmap=false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TDecodeQueueProc::Execute()
+{
+   FreeOnTerminate=true;
+   if(HasInputBitmap)
+	   Source=ImageToLuminanceSource(BarBitmap);
+   else
+	   Source=BarcodePicToLuminanceSource(FFileName);
+   read_image(Source,Fhybrid);
+}
+//---------------------------------------------------------------------------
+Ref<LuminanceSource> TDecodeQueueProc::BarcodePicToLuminanceSource(UnicodeString filename)
+{
+   Ref<LuminanceSource> source;
+   try {
+	  source = ImageReaderSource::create(UnicodeStringTostdString(filename));
+	} catch (const zxing::IllegalArgumentException &e) {
+	  throw zxing::Exception(e.what());
+	}
+  return source;
+}
+Ref<LuminanceSource> TDecodeQueueProc::ImageToLuminanceSource(TBitmap *Image)
+{
+	Ref<LuminanceSource> source;
+	int bufferSize;
+	TMemoryStream *ms=new TMemoryStream();
+   try {
+	  Image->SaveToStream(ms);
+	  bufferSize=ms->Size;
+	  unsigned char* inBuffer=new unsigned char[bufferSize+1];
+	  ms->Position=0;
+	  ms->Read(inBuffer,bufferSize);
+	  inBuffer[bufferSize]=0;
+	  delete ms;
+	  source= ImageReaderSource::create(inBuffer,bufferSize);
+	} catch (const zxing::IllegalArgumentException &e) {
+	  throw zxing::Exception(e.what());
+	}
+  return source;
+}
+//---------------------------------------------------------------------------
+void __fastcall  TDecodeQueueProc::read_image(Ref<LuminanceSource> source, bool hybrid)
+{
+  vector<Ref<Result> > results;
+  string cell_result;
+  AnsiString Ansi_result;
+  int res = -1;
+  try {
+    Ref<Binarizer> binarizer;
+    if (hybrid) {
+      binarizer = new HybridBinarizer(source);
+    } else {
+      binarizer = new GlobalHistogramBinarizer(source);
+    }
+	DecodeHints hints(DecodeHints::DEFAULT_HINT);
+	hints.setTryHarder(true);
+    Ref<BinaryBitmap> binary(new BinaryBitmap(binarizer));
+//	if (search_multi) {
+//	  results = decode_multi(binary, hints);
+//	} else {
+	  results = decode(binary, hints);
+//	}
+	res = 0;
+  } catch (const ReaderException& e) {
+	cell_result = "zxing::ReaderException: " + string(e.what());
+    res = -2;
+  } catch (const zxing::IllegalArgumentException& e) {
+	cell_result = "zxing::IllegalArgumentException: " + string(e.what());
+    res = -3;
+  } catch (const zxing::Exception& e) {
+    cell_result = "zxing::Exception: " + string(e.what());
+    res = -4;
+  } catch (const std::exception& e) {
+	cell_result = "std::exception: " + string(e.what());
+    res = -5;
+  }
+  if (results.size() > 0) {
+	 std::string result= results[0]->getText()->getText();
+	 UnicodeString strResults=stdStringToUnicodeString(result);
+	 std::string formatresult=BarcodeFormat::barcodeFormatNames[results[0]->getBarcodeFormat()];
+	 UnicodeString strbarFormat=stdStringToUnicodeString(formatresult) ;
+	 res = -6;
+	 if(FOnDecodeResults)
+		FOnDecodeResults(strResults,strbarFormat);
+  }
+}
+//---------------------------------------------------------------------------
+vector<Ref<Result> > TDecodeQueueProc::decode(Ref<BinaryBitmap> image, DecodeHints hints) {
+  Ref<Reader> reader(new MultiFormatReader);
+  return vector<Ref<Result> >(1, reader->decode(image, hints));
+}
+
+vector<Ref<Result> > TDecodeQueueProc::decode_multi(Ref<BinaryBitmap> image, DecodeHints hints) {
+  MultiFormatReader delegate;
+  GenericMultipleBarcodeReader reader(delegate);
+  return reader.decodeMultiple(image, hints);
+}

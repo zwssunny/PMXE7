@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.011,=E:\PMXE6\tethering\Zxing\zxing\ResultPoint.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.609,=E:\PMXE6\tethering\Zxing\zxing\DecodeHints.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.596,=E:\PMXE6\tethering\Zxing\zxing\BinaryBitmap.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.980,=E:\PMXE6\tethering\Zxing\zxing\LuminanceSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.016,=E:\PMXE6\tethering\Zxing\zxing\ResultPointCallback.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.597,=E:\PMXE6\tethering\Zxing\zxing\common\HybridBinarizer.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.507,=E:\PMXE6\tethering\Zxing\zxing\common\DecoderResult.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.481,=E:\PMXE6\tethering\Zxing\zxing\common\BitArrayIO.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.620,=E:\PMXE6\tethering\Zxing\zxing\common\Str.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.477,=E:\PMXE6\tethering\Zxing\zxing\common\BitArray.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.523,=E:\PMXE6\tethering\Zxing\zxing\common\GlobalHistogramBinarizer.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.999,=E:\PMXE6\tethering\Zxing\zxing\Result.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.613,=E:\PMXE6\tethering\Zxing\zxing\common\PerspectiveTransform.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.944,=E:\PMXE6\tethering\Zxing\zxing\Exception.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.587,=E:\PMXE6\tethering\Zxing\zxing\common\GridSampler.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.564,=E:\PMXE6\tethering\Zxing\zxing\BarcodeFormat.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.991,=E:\PMXE6\tethering\Zxing\zxing\Reader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.124,=E:\PMXE6\tethering\Zxing\zxing\common\reedsolomon\GenericGF.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.601,=E:\PMXE6\tethering\Zxing\zxing\ChecksumException.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.130,=E:\PMXE6\tethering\Zxing\zxing\common\reedsolomon\GenericGFPoly.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.495,=E:\PMXE6\tethering\Zxing\zxing\common\BitSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.986,=E:\PMXE6\tethering\Zxing\zxing\MultiFormatReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.604,=E:\PMXE6\tethering\Zxing\zxing\common\IllegalArgumentException.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.581,=E:\PMXE6\tethering\Zxing\zxing\common\GreyscaleRotatedLuminanceSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.002,E:\PMXE6\tethering\Zxing\ZxingCommon.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.501,=E:\PMXE6\tethering\Zxing\zxing\common\CharacterSetECI.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.975,=E:\PMXE6\tethering\Zxing\zxing\InvertedLuminanceSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.575,=E:\PMXE6\tethering\Zxing\zxing\common\GreyscaleLuminanceSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.175,=E:\PMXE6\tethering\Zxing\zxing\common\reedsolomon\ReedSolomonException.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.569,=E:\PMXE6\tethering\Zxing\zxing\Binarizer.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.968,=E:\PMXE6\tethering\Zxing\zxing\FormatException.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.515,=E:\PMXE6\tethering\Zxing\zxing\common\DetectorResult.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.153,=E:\PMXE6\tethering\Zxing\zxing\common\reedsolomon\ReedSolomonDecoder.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.627,=E:\PMXE6\tethering\Zxing\zxing\common\StringUtils.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.423,=E:\PMXE6\tethering\Zxing\zxing\common\detector\MonochromeRectangleDetector.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.004,=E:\PMXE6\tethering\Zxing\zxing\ResultIO.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.432,=E:\PMXE6\tethering\Zxing\zxing\common\detector\WhiteRectangleDetector.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.487,=E:\PMXE6\tethering\Zxing\zxing\common\BitMatrix.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

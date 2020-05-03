@@ -1,0 +1,42 @@
+object BaseFiltersForm: TBaseFiltersForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 567
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object tbarBaseFilter: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    TabOrder = 1
+    Width = 384.000000000000000000
+    object btQuery: TButton
+      Align = Left
+      Height = 48.000000000000000000
+      ModalResult = 1
+      TabOrder = 1
+      Text = #26597#35810
+      Width = 73.000000000000000000
+      OnClick = btQueryClick
+    end
+    object btCancel: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      ModalResult = 2
+      Position.X = 311.000000000000000000
+      TabOrder = 2
+      Text = #21462#28040
+      Width = 73.000000000000000000
+      OnClick = btCancelClick
+    end
+  end
+end

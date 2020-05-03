@@ -1,0 +1,263 @@
+inherited frmEstateTotalReport: TfrmEstateTotalReport
+  Caption = #39033#30446#36164#37329#27719#24635
+  DesignerMasterStyle = 3
+  inherited MainPanel: TPanel
+    inherited ToolBarTop: TToolBar
+      inherited lbTitle: TLabel
+        Text = #39033#30446#36164#37329#27719#24635
+      end
+      object btnQueryForm: TButton
+        Align = Right
+        Position.X = 328.000000000000000000
+        Position.Y = 8.000000000000000000
+        Size.Width = 32.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'searcheditbutton'
+        TabOrder = 0
+      end
+    end
+    inherited ClientVertScrollBox: TVertScrollBox
+      object ChartTabCtr: TTabControl
+        Touch.GestureManager = GestureManager1
+        OnGesture = ChartTabCtrGesture
+        Align = Client
+        FullSize = True
+        Size.Width = 360.000000000000000000
+        Size.Height = 544.000000000000000000
+        Size.PlatformDefault = False
+        TabHeight = 49.000000000000000000
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = Dots
+        object TabItem1: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 8.000000000000000000
+          Size.Height = 8.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'tabdotstyle'
+          TabOrder = 0
+          Text = #38144#21806#25968#37327#20998#24067#22270
+          object QtyChart: TChart
+            LeftWall.Dark3D = False
+            Legend.Alignment = laLeft
+            Legend.CurrentPage = False
+            Legend.DrawBehind = True
+            Legend.LegendStyle = lsValues
+            Legend.ResizeChart = False
+            Legend.Symbol.Squared = False
+            Legend.TextStyle = ltsRightValue
+            Title.Text.Strings = (
+              #38144#21806#25968#37327#20998#24067#22270)
+            Pages.ScaleLastPage = False
+            Panning.MouseWheel = pmwNone
+            View3D = False
+            View3DOptions.Elevation = 315
+            View3DOptions.Orthogonal = False
+            View3DOptions.Perspective = 0
+            View3DOptions.Rotation = 360
+            Zoom.Brush.Kind = None
+            Zoom.Pen.Fill.Color = claSilver
+            ZoomWheel = pmwNormal
+            Align = Client
+            TabOrder = 0
+            Size.Width = 360.000000000000000000
+            Size.Height = 544.000000000000000000
+            Size.PlatformDefault = False
+            ColorPaletteIndex = 13
+            object QtySeries: TPieSeries
+              Marks.Style = smsPercent
+              XValues.Order = loNone
+              YValues.Name = 'Pie'
+              YValues.Order = loNone
+              Frame.InnerBrush.Kind = Gradient
+              Frame.InnerBrush.Gradient.EndColor = claGray
+              Frame.InnerBrush.Gradient.MidColor = claWhite
+              Frame.InnerBrush.Gradient.StartColor = xFF404040
+              Frame.InnerBrush.Gradient.Visible = True
+              Frame.InnerBrush.BackColor = claRed
+              Frame.MiddleBrush.Kind = Gradient
+              Frame.MiddleBrush.Gradient.EndColor = xFF828282
+              Frame.MiddleBrush.Gradient.MidColor = claWhite
+              Frame.MiddleBrush.Gradient.StartColor = claGray
+              Frame.MiddleBrush.Gradient.Visible = True
+              Frame.MiddleBrush.BackColor = claYellow
+              Frame.OuterBrush.Kind = Gradient
+              Frame.OuterBrush.Gradient.EndColor = xFF404040
+              Frame.OuterBrush.Gradient.MidColor = claWhite
+              Frame.OuterBrush.Gradient.StartColor = claSilver
+              Frame.OuterBrush.Gradient.Visible = True
+              Frame.OuterBrush.BackColor = claGreen
+              Frame.Width = 4
+              OtherSlice.Legend.Visible = False
+              Data = {0000000000}
+            end
+          end
+        end
+        object TabItem2: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 8.000000000000000000
+          Size.Height = 8.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'tabdotstyle'
+          TabOrder = 0
+          Text = #38144#21806#37329#39069#20998#24067#22270
+          object AmtChart: TChart
+            LeftWall.Dark3D = False
+            Legend.Alignment = laLeft
+            Legend.CurrentPage = False
+            Legend.DrawBehind = True
+            Legend.LegendStyle = lsValues
+            Legend.ResizeChart = False
+            Legend.Symbol.Squared = False
+            Legend.TextStyle = ltsRightValue
+            Title.Text.Strings = (
+              #38144#21806#37329#39069#20998#24067#22270)
+            Pages.ScaleLastPage = False
+            Panning.MouseWheel = pmwNone
+            View3D = False
+            View3DOptions.Elevation = 315
+            View3DOptions.Orthogonal = False
+            View3DOptions.Perspective = 0
+            View3DOptions.Rotation = 360
+            Zoom.Brush.Kind = None
+            Zoom.Pen.Fill.Color = claSilver
+            ZoomWheel = pmwNormal
+            Align = Client
+            TabOrder = 0
+            Size.Width = 360.000000000000000000
+            Size.Height = 544.000000000000000000
+            Size.PlatformDefault = False
+            ColorPaletteIndex = 13
+            object AmtSeries: TPieSeries
+              Marks.Style = smsPercent
+              XValues.Order = loNone
+              YValues.Name = 'Pie'
+              YValues.Order = loNone
+              Frame.InnerBrush.Kind = Gradient
+              Frame.InnerBrush.Gradient.EndColor = claGray
+              Frame.InnerBrush.Gradient.MidColor = claWhite
+              Frame.InnerBrush.Gradient.StartColor = xFF404040
+              Frame.InnerBrush.Gradient.Visible = True
+              Frame.InnerBrush.BackColor = claRed
+              Frame.MiddleBrush.Kind = Gradient
+              Frame.MiddleBrush.Gradient.EndColor = xFF828282
+              Frame.MiddleBrush.Gradient.MidColor = claWhite
+              Frame.MiddleBrush.Gradient.StartColor = claGray
+              Frame.MiddleBrush.Gradient.Visible = True
+              Frame.MiddleBrush.BackColor = claYellow
+              Frame.OuterBrush.Kind = Gradient
+              Frame.OuterBrush.Gradient.EndColor = xFF404040
+              Frame.OuterBrush.Gradient.MidColor = claWhite
+              Frame.OuterBrush.Gradient.StartColor = claSilver
+              Frame.OuterBrush.Gradient.Visible = True
+              Frame.OuterBrush.BackColor = claGreen
+              Frame.Width = 4
+              OtherSlice.Legend.Visible = False
+              Data = {0000000000}
+            end
+          end
+        end
+      end
+    end
+    object QueryView: TMultiView
+      MasterButton = btnQueryForm
+      Mode = Popover
+      Size.Width = 250.000000000000000000
+      Size.Height = 640.000000000000000000
+      Size.PlatformDefault = False
+      Visible = False
+      TabOrder = 3
+      inline StartAndEndDateFrame: TStartAndEndDateFrame
+        Align = Top
+        Size.Width = 250.000000000000000000
+        Size.Height = 110.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        inherited lbBegEndScope: TLabel
+          Size.Width = 82.000000000000000000
+          Size.Height = 24.000000000000000000
+        end
+        inherited cbDateRange: TComboBox
+          Position.X = 88.000000000000000000
+          Size.Width = 145.000000000000000000
+          Size.Height = 32.000000000000000000
+        end
+        inherited lbBeginDate: TLabel
+          Size.Width = 83.000000000000000000
+          Size.Height = 27.000000000000000000
+        end
+        inherited lbEndDate: TLabel
+          Size.Width = 82.000000000000000000
+          Size.Height = 24.000000000000000000
+        end
+        inherited deStart: TDateEdit
+          Date = 42041.000000000000000000
+          Format = 'YYYY-MM'
+          TodayDefault = True
+          Position.X = 88.000000000000000000
+          Size.Width = 145.000000000000000000
+          Size.Height = 32.000000000000000000
+        end
+        inherited deEnd: TDateEdit
+          Date = 42041.000000000000000000
+          Format = 'YYYY-MM'
+          TodayDefault = True
+          Position.X = 88.000000000000000000
+          Size.Width = 145.000000000000000000
+          Size.Height = 32.000000000000000000
+        end
+      end
+      object BuildingTree: TTreeView
+        Align = Client
+        Size.Width = 250.000000000000000000
+        Size.Height = 482.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        ShowCheckboxes = True
+        OnChangeCheck = BuildingTreeChangeCheck
+      end
+      object Panel1: TPanel
+        Align = Bottom
+        Position.Y = 592.000000000000000000
+        Size.Width = 250.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        object BtnQuery: TButton
+          Align = Center
+          TabOrder = 0
+          Text = #26597#35810
+          OnClick = BtnQueryClick
+        end
+      end
+    end
+  end
+  object Query: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 288
+    Top = 120
+  end
+  object GestureManager1: TGestureManager
+    Left = 144
+    Top = 296
+    GestureData = <
+      item
+        Control = ChartTabCtr
+        Collection = <
+          item
+            GestureID = sgiLeft
+          end
+          item
+            GestureID = sgiRight
+          end>
+      end>
+  end
+end

@@ -1,0 +1,337 @@
+[strings]
+SAttachment=Attachment         
+SConfirmDeleteItems=Are you sure you want to delete selected item(s)?
+SConfirmDeleteAttachments=Are you sure you want to remove the selected attachments?
+SConfirmOpenMoreThanOneFile=You request to open more than one file at the same time. Are you sure?
+SCurrentWorkflow=Current workflow
+SFileName=File name
+SEnterStatusName=Enter status name
+SEnterVariableCaption=Enter variable caption
+SExpiration=Expiration
+SStatusList=Status list
+SVariables=Variables
+STask=Task
+SVariable=Variable
+SColumnKey=Key
+SColumnName=Name
+SColumnWorkflow=Workflow
+SColumnSubject=Subject
+SColumnStatus=Status
+SColumnUser=User
+STabFields=Fields
+STabTask=Task
+STabWorkflow=Workflow
+STabLog=Log
+SConfirmDeleteWorkDef=Are you sure you want to delete the selected workflow definition?
+SConfirmCloseAndDiscard=Close form and discard changes?
+SModified=Modified
+SAllObjects=All Objects
+SConfirmNewDiagramAndDiscard=Create new diagram and discard changes?
+SConfirmOpenDiagramAndDiscard=Open new diagram and discard current changes?
+SWorkflowCorrect=Workflow diagram is correct.
+SWorkflowDefinition=Workflow definition
+STypeWorkDefName=Type the name of the workflow definition
+SErrorParamNotFound=Cannot find param "%s" when opening workflow query.
+STrueOutput=yes
+SFalseOutput=no
+SBlockStart=START
+SBlockEnd=END
+SBlockTask=Task block
+SBlockApproval=Approval block
+SBlockScript=Script block
+STaskApprovalName=Approval
+STaskApprovalSubject=Approval
+STaskApprovalDescription=Please approve or reject this.
+STaskApprovalStatusOpened=opened
+STaskApprovalStatusApproved=approved
+STaskApprovalStatusRejected=rejected
+SToolbarStart=Start
+SToolbarEnd=End
+SToolbarError=Error handler
+SToolbarSourceConnect=Source connector
+SToolbarTargetConnect=Target connector
+SToolbarLineJoin=Line jointer
+SToolbarTransition=Transition
+SToolbarSideTransition=Side transition
+SToolbarArcTransition=Arc transition
+SToolbarFork=Fork
+SToolbarJoin=Join
+SToolbarTask=Task
+SToolbarApproval=Approval
+SToolbarDecision=Decision
+SToolbarWorkflowCategory=Workflow
+SToolbarRunWorkflow=Run workflow
+SToolbarScript=Script
+SErrorFileAlreadyOpen=File is already open.
+SConfirmUpdateModifiedAttachment=The file "%s" was modified. Do you want to update it in attachments?
+SWarningFieldValueRequired=Value of "%s" is required.
+SErrorInsertCannotGetKey=Error in %s insert. Cannot retrieve key.
+SErrorRecordNotFoundKey=%s not found in database. Key: %s
+SErrorUpdateEmptyKey=Cannot update %s in database. Empty key.
+SErrorDeleteEmptyKey=Cannot delete %s from database. Empty key.
+SErrorUndefinedVariable=Variable "%s" does not exist.
+SErrorScriptBlockCompile=Error while compiling script block.
+SLogColOperation=Operation
+SLogColDate=Date
+SLogColTime=Time
+SLogColUserId=User id
+SLogColInfo=Information
+STaskExpiredOn=Task expired on %s
+STaskLogCreate=Create
+STaskLogInfo=Info
+STaskLogUpdate=Update
+STaskLogStatusChange=Status change
+SStatusChangeInfo=from "%s" to "%s"
+SWorkInsExecutionError1=Error during workflow execution. Workflow instance finished.\#13#10\#13#10Error message: "%s"
+SWorkInsExecutionError2=%s\#13#10\#13#10Information about the block which caused the error:\#13#10Type: %s\#13#10Name: %s\#13#10Description: \#13#10"%s"
+SNextBlockUndefined=Next block undefined. Cannot continue execution.
+STaskNotCreatedUserNotFound=A task instance could not be created because user/group "%s" does not exist.
+
+[fApprovalEditor]
+fmApprovalEditor.Self.Caption=Approval
+fmApprovalEditor.tsGeneral.Caption=General
+fmApprovalEditor.lbSubject.Caption=Subject
+fmApprovalEditor.lbDescription.Caption=Description
+fmApprovalEditor.lbAssignment.Caption=Assignment
+fmApprovalEditor.cbMailNotification.Caption=Send mail notification
+fmApprovalEditor.tsStatus.Caption=Status
+fmApprovalEditor.lbStatusList.Caption=Status list (start completion status with "*")
+fmApprovalEditor.tsAttachments.Caption=Attachments
+fmApprovalEditor.tsFields.Caption=Fields
+fmApprovalEditor.btCancel.Caption=Cancel
+fmApprovalEditor.btOk.Caption=&Ok
+fmApprovalEditor.tsExpiration.Caption=Expiration
+
+[fAttachmentEditor]
+fmAttachmentEditor.Self.Caption=Attachments
+fmAttachmentEditor.tsAttachments.Caption=General
+fmAttachmentEditor.btAdd.Caption=&Add
+fmAttachmentEditor.btDelete.Caption=&Delete
+fmAttachmentEditor.btCancel.Caption=Cancel
+fmAttachmentEditor.btOk.Caption=Ok
+
+[fAttachmentFrame]
+frAttachmentFrame.OpenDialog1.Filter=Todos os arquivos (*.*)|*.*
+frAttachmentFrame.OpenDialog1.Title=Insert attachment
+frAttachmentFrame.miOpen.Caption=&Open attachment...
+frAttachmentFrame.miInsert.Caption=&Insert attachment...
+frAttachmentFrame.miRemove.Caption=&Remove attachment
+frAttachmentFrame.acInsert.Hint=Insert attachment
+frAttachmentFrame.acRemove.Hint=Remove attachment
+frAttachmentFrame.acOpen.Hint=Open attachment
+frAttachmentFrame.acLargeIcons.Caption=Large icons
+frAttachmentFrame.acLargeIcons.Hint=Large icons
+frAttachmentFrame.acSmallIcons.Caption=Small icons
+frAttachmentFrame.acSmallIcons.Hint=Small icons
+frAttachmentFrame.acList.Caption=List
+frAttachmentFrame.acList.Hint=List
+frAttachmentFrame.acReport.Caption=Report
+frAttachmentFrame.acReport.Hint=Report
+
+[fAttachPermissions]
+frAttachPermissions.cbShowAttachments.Caption=Show attachments
+frAttachPermissions.cbDelAttachment.Caption=Allow remove attachments
+frAttachPermissions.cbInsAttachment.Caption=Allow insert attachments
+frAttachPermissions.cbEditAttachment.Caption=Allow edit attachments
+
+[fDecisionEditor]
+fmDecisionEditor.Self.Caption=Decision
+fmDecisionEditor.TabSheet1.Caption=General
+fmDecisionEditor.Label1.Caption=Condition expression
+fmDecisionEditor.btCancel.Caption=Cancel
+fmDecisionEditor.btOk.Caption=Ok
+
+[fExpirationFrame]
+frExpirationFrame.rbExpNever.Caption=Task does &not expire
+frExpirationFrame.rbExpTerm.Caption=Expiration &term:
+frExpirationFrame.cbTermType.Items0=days
+frExpirationFrame.cbTermType.Items1=weeks
+frExpirationFrame.cbTermType.Items2=months
+frExpirationFrame.rbExpDate.Caption=Expiration dat&e/time:
+frExpirationFrame.rbExpCustom.Caption=&Custom date/time expression:
+frExpirationFrame.lbStatus.Caption=Expiration &status:
+
+[fFieldFrame]
+frFieldFrame.Label1.Caption=Text caption:
+frFieldFrame.Label2.Caption=Workflow variable:
+frFieldFrame.cbReadOnly.Caption=Read only
+frFieldFrame.cbRequired.Caption=Required
+frFieldFrame.btAdd.Caption=Add
+frFieldFrame.btDelete.Caption=Delete
+
+[fStatusFrame]
+frStatusFrame.lbStatusName.Caption=Status name:
+frStatusFrame.chCompletion.Caption=Completion
+frStatusFrame.chHidden.Caption=Hidden
+frStatusFrame.btAdd.Caption=Add
+frStatusFrame.btDelete.Caption=Delete
+
+[fscripteditor]
+fmScriptEditor.Self.Caption=Script
+fmScriptEditor.tsScript.Caption=Script source
+fmScriptEditor.btCancel.Caption=Cancel
+fmScriptEditor.btOk.Caption=Ok
+
+[fTaskEditor]
+fmTaskEditor.Self.Caption=Tasks
+fmTaskEditor.tsGeneral.Caption=General
+fmTaskEditor.Label1.Caption=Subject
+fmTaskEditor.Label2.Caption=Description
+fmTaskEditor.Label3.Caption=Assignment
+fmTaskEditor.cbMailNotification.Caption=Send mail notification
+fmTaskEditor.TabSheet2.Caption=Status
+fmTaskEditor.Label4.Caption=Status list (start completion status with "*")
+fmTaskEditor.tsAttachment.Caption=Attachments
+fmTaskEditor.tsFields.Caption=Fields
+fmTaskEditor.btAdd.Caption=&Add
+fmTaskEditor.btDelete.Caption=&Delete
+fmTaskEditor.btCancel.Caption=Cancel
+fmTaskEditor.btOk.Caption=&Ok
+fmTaskEditor.tsExpiration.Caption=Expiration
+
+[fTaskInstanceView]
+frTaskInstanceView.Label1.Caption=Subject:
+frTaskInstanceView.Label2.Caption=Status:
+
+[ftasklist]
+fmTaskList.Self.Caption=Task list
+fmTaskList.btSaveChanges.Caption=&Save changes
+fmTaskList.acShowOnlyOpen.Caption=Show only open tasks
+fmTaskList.acShowAllTasks.Caption=Show all tasks
+fmTaskList.miView.Caption=&View
+
+[fTransitionEditor]
+fmTransitionEditor.Self.Caption=Transition
+fmTransitionEditor.TabSheet1.Caption=General
+fmTransitionEditor.Label1.Caption=Condition expression
+fmTransitionEditor.btCancel.Caption=Cancel
+fmTransitionEditor.btOk.Caption=Ok
+
+[fvariableeditor]
+fmVariableEditor.Self.Caption=Variables
+fmVariableEditor.TabSheet1.Caption=General
+fmVariableEditor.Label1.Caption=Value
+fmVariableEditor.btAdd.Caption=&Add
+fmVariableEditor.btDelete.Caption=&Delete
+fmVariableEditor.btCancel.Caption=Cancel
+fmVariableEditor.btOk.Caption=&Ok
+
+[fWorkDefManager]
+fmWorkDefManager.Self.Caption=Workflow definitions
+fmWorkDefManager.btAdd.Caption=&Add
+fmWorkDefManager.btEdit.Caption=&Edit
+fmWorkDefManager.btDelete.Caption=&Delete
+fmWorkDefManager.btRefresh.Caption=&Refresh
+fmWorkDefManager.btRunNew.Caption=Run &new
+fmWorkDefManager.acImport.Caption=&Import definition...
+fmWorkDefManager.acExport.Caption=E&xport selected definition...
+fmWorkDefManager.OpenDialog1.Filter=Workflow definitions (*.wfd)|*.wfd
+fmWorkDefManager.OpenDialog1.Title=Import workflow definition
+fmWorkDefManager.SaveDialog1.Filter=Workflow definitions (*.wfd)|*.wfd
+fmWorkDefManager.SaveDialog1.Title=Export workflow definition
+
+[fWorkflowEditor]
+fmWorkflowEditor.Self.Caption=Diagram Editor
+fmWorkflowEditor.ToolBar1.Caption=ToolBar1
+fmWorkflowEditor.btCheck.Caption=Check workflow
+fmWorkflowEditor.ToolBar2.Caption=ToolBar2
+fmWorkflowEditor.DgrColorSelector1.Hint=Shape color
+fmWorkflowEditor.DgrGradientDirectionSelector1.Hint=Gradient
+fmWorkflowEditor.DgrBrushStyleSelector1.Hint=Brush style
+fmWorkflowEditor.DgrShadowSelector1.Hint=Shadow
+fmWorkflowEditor.DgrPenStyleSelector1.Hint=Line style
+fmWorkflowEditor.DgrPenColorSelector1.Hint=Line color
+fmWorkflowEditor.DgrPenWidthSelector1.Hint=Line width
+fmWorkflowEditor.DgrTextColorSelector1.Hint=Text color
+fmWorkflowEditor.DiagramToolBar2.Category=Workflow
+fmWorkflowEditor.File1.Caption=&File
+fmWorkflowEditor.Edit2.Caption=&Edit
+fmWorkflowEditor.Copyasimage1.Caption=Cop&y as image
+fmWorkflowEditor.View1.Caption=&View
+fmWorkflowEditor.Zoom1.Caption=&Zoom
+fmWorkflowEditor.Edittext1.Caption=&Object
+fmWorkflowEditor.Sourcearrow2.Caption=Source arro&w
+fmWorkflowEditor.Targetarrow2.Caption=&Target arrow
+fmWorkflowEditor.Workflow1.Caption=&Workflow
+fmWorkflowEditor.Variables1.Caption=&Variables...
+fmWorkflowEditor.Attachments1.Caption=&Attachments...
+fmWorkflowEditor.DiagramCut1.Caption=Cu&t
+fmWorkflowEditor.DiagramCut1.Hint=Cut|Cut to clipboard
+fmWorkflowEditor.DiagramCopy1.Caption=&Copy
+fmWorkflowEditor.DiagramCopy1.Hint=Copy|Copy to clipboard
+fmWorkflowEditor.DiagramPaste1.Caption=&Paste
+fmWorkflowEditor.DiagramPaste1.Hint=Paste|Paste from clipboard
+fmWorkflowEditor.DiagramSelectAll1.Caption=Se&lect all
+fmWorkflowEditor.DiagramSelectAll1.Hint=Select all|Select all objects
+fmWorkflowEditor.DiagramDelete1.Caption=&Delete
+fmWorkflowEditor.DiagramDelete1.Hint=Delete objects|Delete selected objects
+fmWorkflowEditor.DiagramEditText1.Caption=Edit &text
+fmWorkflowEditor.DiagramEditText1.Hint=Edit text
+fmWorkflowEditor.DiagramViewLeftRuler1.Caption=&Left ruler
+fmWorkflowEditor.DiagramViewLeftRuler1.Hint=Show/hide left ruler
+fmWorkflowEditor.DiagramViewTopRuler1.Caption=&Top ruler
+fmWorkflowEditor.DiagramViewTopRuler1.Hint=Show/hide top ruler
+fmWorkflowEditor.DiagramShapeColor1.Caption=Shape color...
+fmWorkflowEditor.DiagramShapeColor1.Hint=Shape color
+fmWorkflowEditor.DiagramLineColor1.Caption=Line color...
+fmWorkflowEditor.DiagramLineColor1.Hint=Line color
+fmWorkflowEditor.DiagramBlockPicture1.Caption=Picture...
+fmWorkflowEditor.DiagramBlockPicture1.Hint=Block picture
+fmWorkflowEditor.DiagramArrowShape1.Caption=None
+fmWorkflowEditor.DiagramArrowShape2.Caption=Solid arrow
+fmWorkflowEditor.DiagramArrowShape3.Caption=Line arrow
+fmWorkflowEditor.DiagramArrowShape4.Caption=Ellipse
+fmWorkflowEditor.DiagramArrowShape5.Caption=Rectangle
+fmWorkflowEditor.DiagramArrowShape6.Caption=Diamond
+fmWorkflowEditor.DiagramArrowShape7.Caption=None
+fmWorkflowEditor.DiagramArrowShape8.Caption=Solid arrow
+fmWorkflowEditor.DiagramArrowShape9.Caption=Line arrow
+fmWorkflowEditor.DiagramArrowShape10.Caption=Ellipse
+fmWorkflowEditor.DiagramArrowShape11.Caption=Rectangle
+fmWorkflowEditor.DiagramArrowShape12.Caption=Diamond
+fmWorkflowEditor.DiagramBringToFront1.Caption=Bring to front
+fmWorkflowEditor.DiagramBringToFront1.Hint=Bring to front
+fmWorkflowEditor.acNewDiagram.Caption=&New diagram...
+fmWorkflowEditor.acNewDiagram.Hint=New diagram|Creates a new diagram
+fmWorkflowEditor.acOpenDiagram.Caption=&Open diagram...
+fmWorkflowEditor.acOpenDiagram.Hint=Open diagram|Open an existing diagram
+fmWorkflowEditor.acSaveDiagram.Caption=&Save diagram...
+fmWorkflowEditor.acSaveDiagram.Hint=Save diagram|Save current diagram
+fmWorkflowEditor.acPrintDiagram.Caption=&Print...
+fmWorkflowEditor.acPrintDiagram.Hint=Print diagram|Print current diagram
+fmWorkflowEditor.acPreviewDiagram.Caption=Print Pre&view...
+fmWorkflowEditor.acPreviewDiagram.Hint=Print preview|Print preview of current diagram
+fmWorkflowEditor.DiagramSendToBack1.Caption=Send to back
+fmWorkflowEditor.DiagramSendToBack1.Hint=Send to back
+fmWorkflowEditor.DiagramControlFont1.Caption=Font...
+fmWorkflowEditor.DiagramControlFont1.Hint=Change text font
+fmWorkflowEditor.DiagramGrid1.Caption=Grid
+fmWorkflowEditor.DiagramGrid1.Hint=Show/hide grid
+fmWorkflowEditor.DiagramGradientSetting1.Caption=Gradient setting ...
+fmWorkflowEditor.DiagramGradientSetting1.Hint=Select gradient
+fmWorkflowEditor.DiagramShadow1.Caption=Shadow settings ...
+fmWorkflowEditor.DiagramShadow1.Hint=Shadow settings
+fmWorkflowEditor.DiagramUndoAction1.Caption=Undo
+fmWorkflowEditor.DiagramRedoAction1.Caption=Redo
+fmWorkflowEditor.acAutomaticNodes.Caption=&Automatic nodes
+fmWorkflowEditor.DiagramConnectionId1.Caption=Transition
+fmWorkflowEditor.DiagramConnectionId1.Hint=Transition
+fmWorkflowEditor.DiagramConnectionId2.Caption=Side transition
+fmWorkflowEditor.DiagramConnectionId2.Hint=Side transition
+fmWorkflowEditor.DiagramConnectionId3.Caption=Arc transition
+fmWorkflowEditor.DiagramConnectionId3.Hint=Arc transition
+fmWorkflowEditor.OpenDialog1.Filter=Diagram files (*.dgr)|*.dgr|All files (*.*)|*.*
+fmWorkflowEditor.OpenDialog1.Title=Select diagram file
+fmWorkflowEditor.SaveDialog1.Filter=Diagram files (*.dgr)|*.dgr|All files (*.*)|*.*
+fmWorkflowEditor.SaveDialog1.Title=Select diagram file
+fmWorkflowEditor.Sourcearrow1.Caption=Source arrow
+fmWorkflowEditor.Targetarrow1.Caption=Target arrow
+
+[fWorkflowEditor]
+fmRunWorkflowEditor.Self.Caption=Run workflow
+fmRunWorkflowEditor.tsGeneral.Caption=General
+fmRunWorkflowEditor.lbWorkflowDefinition.Caption=Workflow definition
+fmRunWorkflowEditor.lbVariableMapping.Caption=Variable mapping
+fmRunWorkflowEditor.chWaitExecution.Caption=Wait until finished
+fmRunWorkflowEditor.btCancel.Caption=Cancel
+fmRunWorkflowEditor.btOk.Caption=Ok

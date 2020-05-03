@@ -1,0 +1,43 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "BaseServerClass.h"
+#include "FSServerContainer.h"
+#include "BaseFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TDMBaseServerClass *DMBaseServerClass;
+//---------------------------------------------------------------------------
+__fastcall TDMBaseServerClass::TDMBaseServerClass(TComponent* Owner)
+	: TDSServerModule(Owner)
+{
+}
+//---------------------------------------------------------------------------
+__fastcall TDMBaseServerClass::~TDMBaseServerClass()
+{
+
+}
+TADOConnection *__fastcall TDMBaseServerClass::GetSysConnection()
+{
+   return DMServerContainer->SysADOConnection;
+}
+//---------------------------------------------------------------------------
+TADOConnection *__fastcall TDMBaseServerClass::GetAccConnection()
+{
+   return DMServerContainer->GetConnection();
+}
+//---------------------------------------------------------------------------
+int __fastcall TDMBaseServerClass::GetSysDbType()
+{
+	 return DMServerContainer->DbType;
+}
+//---------------------------------------------------------------------------
+TLoginUserRecord * __fastcall TDMBaseServerClass::GetCurLoginUser()
+{
+	return DMServerContainer->CurLoginUser;
+}
+//---------------------------------------------------------------------------
+

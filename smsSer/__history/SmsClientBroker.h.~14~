@@ -1,0 +1,134 @@
+//---------------------------------------------------------------------------
+
+#ifndef SmsClientBrokerH
+#define SmsClientBrokerH
+#include <Classes.hpp>
+#include "CZDataSet.h"
+#include <IndyPeerImpl.hpp>
+#include "SmsCallback.h"
+#include <SqlExpr.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "Info.h"
+class TLoginUserClient;
+//---------------------------------------------------------------------------
+class TSmsClientBroker
+{
+private:
+		String FAgentAddress;
+		int FAgentPort;
+		String FAdmin;
+		String FPassword;
+		String FProtocol;
+		bool FAppConnected;
+
+		String FSmsCordId;
+		String FSmsUserName;
+		String FSmsPassword;
+		int    FSMSType;
+		TTime  FBeginTime ;//开始时间
+		TTime  FEndTime; //结束时间
+		int    FWaitLong;//消息处理间隔时间 秒为单位
+		int    FRepeatCount;//发送错误时，需要重复次数
+		int    FMonType;
+		int    FPortNum;
+		TShortInfo *ShortInfo;
+
+		String FftpInteranetIP;
+		String FftpInternetIP;
+		String FftpUserName;
+		String FftpPassword;
+		int FftpPort;
+		bool FftpNeedFTP;
+		bool FftpPassive;
+		String FUpdateURL;
+
+		// mail
+		String FMailServer;
+		String FSendEMail;
+		String FMailUserName;
+		String FMailPassword;
+		int FMailPort;
+
+		int FSysDbType;
+		int FcurrAcckIndex;
+
+		String FLocalMachineName; //
+		String FLocalIP; //
+		String ClientPath; //
+		//////////////////////////////////////////////////
+		bool 		FRecvAccBook;
+		TCZDataSet  *FAccBooks;    // 保存当前系统可提供的账套信息
+		String FPreAccBookID;
+		String FSysConnectiongString;
+		TADOConnection * SysConnection;
+		TADOConnection * AccConnection;
+		TADOQuery * SysQuery;
+		TADOQuery * m_Query;
+		// ----------------------------------------------------------------
+		int ClientBrokerStatus;
+		// ----------------------------------------------------------------
+		TSQLConnection *DSConnection;
+		TLoginUserClient *LoginUserClient;
+		TDSClientCallbackChannelManager* LChannelManager;
+		TSmsCallbackClient * SmsCallBack;
+		TRTLCriticalSection *SmsCriticalSection;
+		// ----------------------------------------------------------------
+		void __fastcall LoadSetting();
+		void __fastcall GetAccInforJSON();
+		void __fastcall GetAccInforJSONBack(TJSONObject *fdata); // 初始化账套数据
+
+		void __fastcall SmsCallBackHook(TJSONObject* Arg,TJSONObject* Ret); // 接收消息
+
+		TDBXConnection* __fastcall GetDBXConnection();
+		void __fastcall AppOnConnect(TObject * Sender);
+		void __fastcall AppOnDisConnect(TObject * Sender);
+
+
+protected:
+		void __fastcall ClientCommTerminate(TObject *Sender);
+		void __fastcall SetHookCallBack(THookSmsCallback Value);
+		THookSmsCallback __fastcall GetHookCallBack();
+		//返回当前工作流ID
+		String  ServerWorkFlowStart(TJSONObject* Arg);
+		//返回是否调用成功
+		bool  ServerWorkFlowExec(TJSONObject* Arg);
+public:
+		__fastcall TSmsClientBroker();
+		__fastcall virtual ~TSmsClientBroker();
+
+		bool __fastcall InitClientComm(); // 初始化ClientComm
+		bool __fastcall RegCallBack();          // 登录
+		void __fastcall UnRegCallBack();         // 注销
+		void __fastcall WritLog(String ErrorLong);
+		void __fastcall ServiceStart();
+		void __fastcall ServiceStop();
+		//
+		__property TDBXConnection* DBXConnection = {read=GetDBXConnection};
+		__property int SysDbType = {read = FSysDbType, write = FSysDbType};
+		__property String AgentAddress = {read = FAgentAddress, write = FAgentAddress};
+		__property int AgentPort = {read = FAgentPort, write = FAgentPort};
+		__property bool Connected = {read = FAppConnected};
+		__property String Protocol ={read = FProtocol, write = FProtocol};
+
+		// ftp
+		__property String ftpInteranetIP = {read = FftpInteranetIP, write = FftpInteranetIP};
+		__property String ftpInternetIP = {read = FftpInternetIP, write = FftpInternetIP};
+		__property String ftpUserName = {read = FftpUserName, write = FftpUserName};
+		__property String ftpPassword = {read = FftpPassword, write = FftpPassword};
+		__property int ftpPort = {read = FftpPort, write = FftpPort};
+		__property bool ftpNeedFTP = {read = FftpNeedFTP, write = FftpNeedFTP};
+		__property bool ftpPassive = {read = FftpPassive, write = FftpPassive};
+		//UpdateURL
+		__property String UpdateURL = {read = FUpdateURL, write = FUpdateURL};
+		// 邮件发送服务
+		__property String MailServer = {read = FMailServer, write = FMailServer};
+		__property String ESendMail = {read = FSendEMail, write = FSendEMail};
+		__property String MailUserName = {read = FMailUserName, write = FMailUserName};
+		__property String MailPassword = {read = FMailPassword, write = FMailPassword};
+		__property int MailPort = {read = FMailPort, write = FMailPort};
+
+		//消息处理钩子
+		__property THookSmsCallback HookCallBack = {read = GetHookCallBack,write = SetHookCallBack};
+};
+#endif

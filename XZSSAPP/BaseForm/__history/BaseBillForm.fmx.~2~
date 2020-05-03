@@ -1,0 +1,10 @@
+inherited frmBaseBillForm: TfrmBaseBillForm
+  Caption = 'frmBaseForm1'
+  DesignerMasterStyle = 3
+  inherited MainPanel: TPanel
+    inherited ClientVertScrollBox: TVertScrollBox
+      Viewport.Width = 360.000000000000000000
+      Viewport.Height = 544.000000000000000000
+    end
+  end
+end

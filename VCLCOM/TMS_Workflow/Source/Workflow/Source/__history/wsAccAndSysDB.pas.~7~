@@ -1,0 +1,243 @@
+unit wsAccAndSysDB;
+
+{$I wsdefs.inc}
+
+interface
+uses SysUtils, Classes, Dialogs,
+  {$IFDEF DELPHI6_LVL} Variants, {$ENDIF}
+  wsDB, DB, ADODB;
+
+type
+  TWorkflowAccAndSysDB = class(TCustomWorkflowDB)
+  private
+    FAccConnection: TADOConnection;
+    FSysConnection: TADOConnection;
+    procedure SetAccConnection(const Value: TADOConnection);
+    procedure SetSysConnection(const Value: TADOConnection);
+  protected
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+    function DoCreateQuery(SQL: string): TDataset; override;
+    procedure DoExecuteQuery(Dataset: TDataset); override;
+    procedure DoOpenQuery(Dataset: TDataset);override;
+    procedure DoOpenSysQuery(Dataset: TDataset);override;
+    procedure DoExecuteSysQuery(Dataset: TDataset); override;    
+    procedure DoAssignSQLParams(Dataset: TDataset; AParams: TParams); override;
+    function BlobFieldToString(AField: TField): string; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+  published
+    property AccConnection: TADOConnection read FAccConnection write SetAccConnection; 
+    property SysConnection: TADOConnection read FSysConnection write SetSysConnection; 
+  end;
+
+procedure Register;
+
+implementation
+uses wsRes;
+
+function Max(A, B: Integer): Integer;
+begin
+  if A > B then
+    Result := A
+  else
+    Result := B;
+end;
+
+{ TWorkflowAccAndSysDB }
+
+constructor TWorkflowAccAndSysDB.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  DestroyQueries := true;
+end;
+
+function TWorkflowAccAndSysDB.BlobFieldToString(AField: TField): string;
+var
+  BlobField: TBlobField;
+  StrStream: TStringStream;
+  c: integer;
+  IsOleStr: boolean;
+  s: string;
+begin
+  if AField is TBlobField then
+  begin
+    BlobField := TBlobField(AField);
+    StrStream := TStringStream.Create('');
+    try
+      BlobField.SaveToStream(StrStream);
+      StrStream.Position := 0;
+      s := StrStream.ReadString(StrStream.Size);
+    finally
+      StrStream.Free;
+    end;
+  end
+  else
+    s := AField.AsString;
+
+  {workaround to "tell" if the string is an Ole string}
+  IsOleStr := true;
+  c := 2;
+  while c < length(s) do
+  begin
+    if s[c] <> chr(0) then
+    begin
+      IsOleStr := false;
+      break;
+    end;
+    c := c + 2;
+  end;
+
+  {remove #0 characters}
+  if IsOleStr then
+  begin
+    result := '';
+    for c := 1 to Length(s) do
+      if Odd(c) then
+        result := result + s[c];
+  end
+  else
+    result := s;
+end;
+
+procedure TWorkflowAccAndSysDB.DoExecuteQuery(Dataset: TDataset);
+var
+	Q: TADOQuery;
+  times: integer;
+begin
+  Q := TADOQuery(Dataset);
+  Q.Connection := FAccConnection;
+  times:=0;
+  while ((FAccConnection.InTransaction=True)  and (times <10)) do
+  begin
+   Sleep(10);
+   inc(times);
+  end;
+  Q.ExecSQL;
+end;
+procedure TWorkflowAccAndSysDB.DoOpenQuery(Dataset: TDataset);
+var
+	Q: TADOQuery;
+  times: integer;
+begin
+  Q := TADOQuery(Dataset);
+  Q.Connection := FAccConnection;
+  times:=0;
+  while ((FAccConnection.InTransaction=True)  and (times <10)) do
+  begin
+   Sleep(10);
+   inc(times);
+  end;
+  Q.Open;
+end;
+
+procedure TWorkflowAccAndSysDB.DoExecuteSysQuery(Dataset: TDataset);
+var
+	Q: TADOQuery;
+  times: integer;
+begin
+  Q := TADOQuery(Dataset);
+  Q.Connection := FSysConnection;
+  times:=0;
+  while ((FAccConnection.InTransaction=True)  and (times <10)) do
+  begin
+   Sleep(10);
+   inc(times);
+  end;
+  Q.ExecSQL;
+end;
+
+procedure TWorkflowAccAndSysDB.DoOpenSysQuery(Dataset: TDataset);
+var
+	Q: TADOQuery;
+  times: integer;
+begin
+  Q := TADOQuery(Dataset);
+  Q.Connection := FSysConnection;
+  times:=0;
+  while ((FAccConnection.InTransaction=True)  and (times <10)) do
+  begin
+   Sleep(10);
+   inc(times);
+  end;
+  Q.Open;
+end;
+
+
+function TWorkflowAccAndSysDB.DoCreateQuery(SQL: string): TDataset;
+var
+  Q: TADOQuery;
+begin
+  Q := TADOQuery.Create(nil);
+//  Q.Connection := FAccConnection;{根据调用方法，设定是系统库还是账套库}
+  Q.Parameters.Clear;
+  Q.SQL.Text := SQL;
+  result := Q;
+end;
+
+procedure TWorkflowAccAndSysDB.DoAssignSQLParams(Dataset: TDataset; AParams: TParams);
+var
+  Q: TADOQuery;
+  c: integer;
+  AParam: TParam;
+begin
+  Q := TADOQuery(Dataset);
+  Q.Parameters.ParseSQL(Q.SQL.Text, true);
+
+  //Q.Parameters.Assign(Params);
+  for c := 0 to Q.Parameters.Count - 1 do
+  begin
+    AParam := AParams.FindParam(Q.Parameters[c].Name);
+    if AParam = nil then
+    begin
+      wsDBError(Format(_str(SErrorParamNotFound),
+        [Q.Parameters[c].Name]));
+    end;
+
+    Q.Parameters[c].DataType := AParam.DataType;
+    Q.Parameters[c].Direction := pdInput;
+    Q.Parameters[c].Value := AParam.Value;
+    if Q.Parameters[c].DataType in [ftString] then
+      Q.Parameters[c].Size := Max(1, Length(VarToSTr(Q.Parameters[c].Value)));
+  end;
+end;
+
+procedure TWorkflowAccAndSysDB.Notification(AComponent: TComponent;
+  Operation: TOperation);
+begin
+  if (Operation = opRemove) then
+  begin 
+  if (AComponent = FAccConnection) then
+    FAccConnection := nil
+  else
+    if (AComponent = FSysConnection) then
+    	FSysConnection :=nil;  
+  end;  
+  inherited Notification(AComponent, Operation);
+end;
+
+procedure TWorkflowAccAndSysDB.SetAccConnection(const Value: TADOConnection);
+begin
+  if (FAccConnection <> Value) then
+  begin
+    FAccConnection := Value;
+    if Value <> nil then
+      Value.FreeNotification(Self);
+  end;
+end;
+
+procedure TWorkflowAccAndSysDB.SetSysConnection(const Value: TADOConnection);
+begin
+  if (FSysConnection <> Value) then
+  begin
+    FSysConnection := Value;
+    if Value <> nil then
+      Value.FreeNotification(Self);
+  end;
+end;
+
+procedure Register;
+begin
+  RegisterComponents('Workflow Studio', [TWorkflowAccAndSysDB]);
+end;
+
+end.

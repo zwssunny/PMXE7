@@ -1,0 +1,104 @@
+object LoginForm: TLoginForm
+  Left = 0
+  Top = 0
+  Caption = #20808#26234#39033#30446#31649#29702#31995#32479
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 2
+  object Header: TToolBar
+    Size.Width = 384.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object HeaderLabel: TLabel
+      Align = Contents
+      Size.Width = 384.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = #30331#24405#20808#26234#39033#30446#31649#29702#31995#32479
+    end
+  end
+  object Footer: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'bottomtoolbar'
+    TabOrder = 1
+    object btOk: TButton
+      Align = MostLeft
+      Size.Width = 80.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 0
+      Text = #30830#23450
+      OnClick = btOkClick
+    end
+    object btCancel: TButton
+      Align = MostRight
+      Cancel = True
+      ModalResult = 2
+      Position.X = 304.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'deletetoolbutton'
+      TabOrder = 1
+      Text = #21462#28040
+    end
+  end
+  object LoginPanel: TPanel
+    Align = Center
+    Size.Width = 305.000000000000000000
+    Size.Height = 176.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object edPassword: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 0
+      Password = True
+      Position.X = 96.000000000000000000
+      Position.Y = 90.000000000000000000
+      Size.Width = 161.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edUserLoginCode: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 1
+      Text = '1001'
+      Position.X = 96.000000000000000000
+      Position.Y = 48.000000000000000000
+      Size.Width = 161.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label1: TLabel
+      AutoSize = True
+      Position.X = 24.000000000000000000
+      Position.Y = 56.000000000000000000
+      Size.Width = 60.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #30331#24405#21517':'
+    end
+    object Label2: TLabel
+      AutoSize = True
+      Position.X = 42.000000000000000000
+      Position.Y = 97.000000000000000000
+      Size.Width = 43.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #21475#20196':'
+    end
+  end
+end

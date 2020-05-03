@@ -1,0 +1,201 @@
+inherited frmCustomer: TfrmCustomer
+  Caption = #23458#25143#36164#26009
+  DesignerMasterStyle = 3
+  inherited ListToolBar: TToolBar
+    inherited lbListTitle: TLabel
+      Text = #23458#25143#36164#26009
+    end
+  end
+  object CustomerStringGrid: TStringGrid [2]
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 471.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 17
+    Options = [ColumnResize, ColLines, RowLines, RowSelect, AlwaysShowSelection, Tabs, Header, HeaderClick]
+    RowCount = 0
+    RowHeight = 30.000000000000000000
+    object StringColumn1: TStringColumn
+      Header = #23458#25143#32534#21495
+      Size.Width = 100.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+    object StringColumn2: TStringColumn
+      Header = #23458#25143#21517#31216
+      Position.X = 100.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+    end
+    object StringColumn3: TStringColumn
+      Header = #24615#21035
+      Position.X = 200.000000000000000000
+      Size.Width = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+    end
+    object StringColumn4: TStringColumn
+      Header = #31227#21160#30005#35805
+      Position.X = 250.000000000000000000
+      Size.Width = 120.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+    end
+    object StringColumn5: TStringColumn
+      Header = #36523#20221#35777#21495
+      Position.X = 370.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+    end
+    object StringColumn6: TStringColumn
+      Header = #20250#21592#21495
+      Position.X = 530.000000000000000000
+      Size.Width = 160.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+    end
+    object StringColumn7: TStringColumn
+      Position.X = 690.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+    end
+  end
+  inherited ListFormBindingsList: TBindingsList
+    object BindStringGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = CustomerStringGrid
+      SourceComponent = GridBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'ClientNum'
+          ColumnIndex = 0
+          SourceMemberName = 'ClientNum'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[0].Header'
+              SourceExpression = '"'#23458#25143#32534#21495'"'
+            end>
+        end
+        item
+          ColumnName = 'ClientTheName'
+          ColumnIndex = 1
+          SourceMemberName = 'ClientTheName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[1].Header'
+              SourceExpression = '"'#23458#25143#21517#31216'"'
+            end>
+        end
+        item
+          ColumnName = 'ClientSex'
+          ColumnIndex = 2
+          SourceMemberName = 'ClientSex'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'IfThen(AsInteger=1,"'#30007'","'#22899'")'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[2].Header'
+              SourceExpression = '"'#24615#21035'"'
+            end>
+        end
+        item
+          ColumnName = 'ClientMobilePhoneNum'
+          ColumnIndex = 3
+          SourceMemberName = 'ClientMobilePhoneNum'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[3].Header'
+              SourceExpression = '"'#31227#21160#30005#35805'"'
+            end>
+        end
+        item
+          ColumnName = 'ClientPaperName'
+          ColumnIndex = 4
+          SourceMemberName = 'ClientPaperName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[4].Header'
+              SourceExpression = '"'#35777#20214#21495'"'
+            end>
+        end
+        item
+          ColumnName = 'ClientCardNum'
+          ColumnIndex = 5
+          SourceMemberName = 'ClientCardNum'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[5].Header'
+              SourceExpression = '"'#20250#21592#21345#21495'"'
+            end>
+        end
+        item
+          ColumnName = 'ClientType'
+          ColumnIndex = 6
+          SourceMemberName = 'ClientType'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[6]'
+              SourceExpression = 
+                'IfThen(AsInteger=0,"'#30331#35760#23458#25143'",(IfThen(AsInteger=1,"'#19994#20027'",(IfThen(AsInt' +
+                'eger=2,"'#39044#23450#23458#25143'","'#31614#32422#23458#25143'")))))'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[6].Header'
+              SourceExpression = '"'#23458#25143#31867#22411'"'
+            end>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+  end
+end

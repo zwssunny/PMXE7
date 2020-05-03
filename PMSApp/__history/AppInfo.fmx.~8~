@@ -1,0 +1,199 @@
+object AppInfoForm: TAppInfoForm
+  Left = 0
+  Top = 0
+  Caption = 'TabbedwithNavigation'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object TabControl1: TTabControl
+    OnGesture = TabControl1Gesture
+    Align = Client
+    FullSize = True
+    Height = 567.000000000000000000
+    TabHeight = 49.000000000000000000
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = Bottom
+    Width = 384.000000000000000000
+    object TabItem1: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = True
+      StyleLookup = 'tabitemfavorites'
+      TabOrder = 0
+      Text = #20027#26381#21153#22120
+      Width = 96.000000000000000000
+      object TabControl2: TTabControl
+        Align = Client
+        FullSize = True
+        Height = 518.000000000000000000
+        TabHeight = 49.000000000000000000
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = None
+        Width = 384.000000000000000000
+        object TabItem5: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 8.000000000000000000
+          IsSelected = True
+          TabOrder = 0
+          Text = 'TabItem5'
+          Width = 8.000000000000000000
+          object ToolBar1: TToolBar
+            Height = 48.000000000000000000
+            TabOrder = 0
+            Width = 384.000000000000000000
+            object lblTitle1: TLabel
+              Align = Contents
+              Height = 48.000000000000000000
+              StyleLookup = 'toollabel'
+              TextSettings.HorzAlign = Center
+              Text = #20027#26381#21153#22120#21442#25968
+              Width = 384.000000000000000000
+            end
+            object btnNext: TSpeedButton
+              Action = ChangeTabAction1
+              Align = Right
+              Height = 48.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Position.X = 319.000000000000000000
+              Text = #21069#36827
+              Width = 60.000000000000000000
+            end
+          end
+        end
+        object TabItem6: TTabItem
+          CustomIcon = <
+            item
+            end>
+          Height = 8.000000000000000000
+          IsSelected = False
+          TabOrder = 0
+          Text = 'TabItem6'
+          Width = 8.000000000000000000
+          object ToolBar2: TToolBar
+            Height = 48.000000000000000000
+            TabOrder = 0
+            Width = 384.000000000000000000
+            object lblTitle2: TLabel
+              Align = Contents
+              Height = 48.000000000000000000
+              StyleLookup = 'toollabel'
+              TextSettings.HorzAlign = Center
+              Text = 'FTP'#26381#21153#22120#21442#25968
+              Width = 384.000000000000000000
+            end
+            object btnBack: TSpeedButton
+              Action = ChangeTabAction2
+              Align = Left
+              Height = 48.000000000000000000
+              Margins.Left = 5.000000000000000000
+              Position.X = 5.000000000000000000
+              StyleLookup = 'backtoolbutton'
+              Text = #36820#22238
+              Width = 67.000000000000000000
+            end
+          end
+        end
+      end
+    end
+    object TabItem2: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = False
+      StyleLookup = 'tabitemcontacts'
+      TabOrder = 0
+      Text = #22312#32447#29992#25143
+      Width = 96.000000000000000000
+      object ToolBar3: TToolBar
+        Height = 48.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        object lblTitle3: TLabel
+          Align = Contents
+          Height = 48.000000000000000000
+          StyleLookup = 'toollabel'
+          TextSettings.HorzAlign = Center
+          Text = #22312#32447#29992#25143#25968
+          Width = 384.000000000000000000
+        end
+      end
+    end
+    object TabItem3: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = False
+      StyleLookup = 'tabitemsearch'
+      TabOrder = 0
+      Text = #23457#25209#26381#21153#22120
+      Width = 96.000000000000000000
+      object ToolBar4: TToolBar
+        Height = 48.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        object lblTitle4: TLabel
+          Align = Contents
+          Height = 48.000000000000000000
+          StyleLookup = 'toollabel'
+          TextSettings.HorzAlign = Center
+          Text = #23457#25209#26381#21153#22120#29366#24577
+          Width = 384.000000000000000000
+        end
+      end
+    end
+    object TabItem4: TTabItem
+      CustomIcon = <
+        item
+        end>
+      Height = 49.000000000000000000
+      IsSelected = False
+      StyleLookup = 'tabitembookmarks'
+      TabOrder = 0
+      Text = #28040#24687#26381#21153#22120
+      Width = 96.000000000000000000
+      object ToolBar5: TToolBar
+        Height = 48.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        object lblTitle5: TLabel
+          Align = Contents
+          Height = 48.000000000000000000
+          StyleLookup = 'toollabel'
+          TextSettings.HorzAlign = Center
+          Text = #28040#24687#26381#21153#22120
+          Width = 384.000000000000000000
+        end
+      end
+    end
+  end
+  object ActionList1: TActionList
+    Left = 64
+    Top = 120
+    object ChangeTabAction1: TChangeTabAction
+      CustomText = 'Next'
+      Tab = TabItem6
+    end
+    object ChangeTabAction2: TChangeTabAction
+      CustomText = ' Back'
+      Tab = TabItem5
+    end
+  end
+end

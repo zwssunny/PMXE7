@@ -1,0 +1,460 @@
+unit fWorkflowEditor;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Menus,
+  {$IFNDEF VER130}
+  Variants,
+  {$ENDIF}
+  Classes, Controls, Forms, Dialogs, atDiagram, DiagramEditor, fDiagramEditor,
+  wsClasses, wsBlocks, LiveFlowChart, LiveDiagram, wsMain, wsDiagram;
+
+type
+  TfmDummyWorkflowEditor = class(TForm)
+  private
+    FLastUnlinkedLine: TCustomDiagramLine;
+    FLastUnlinkedBlock: TDiagramControl;
+
+    procedure EditorCreateDesigner(Sender: TObject);
+    procedure EditorShowDesigner(Sender: TObject);
+
+    procedure WorkDefEditorSaveDiagram(Sender: TObject);
+    procedure WorkDefEditorCreateDesigner(Sender: TObject);
+
+    procedure WorkInsEditorCreateDesigner(Sender: TObject);
+    procedure WorkInsEditorSaveDiagram(Sender: TObject);
+
+    procedure EditTransition(ALine: TCustomDiagramLine);
+    procedure Localize(F: TfmDiagramEditor);
+
+    procedure DiagramDControlDblClick(Sender: TObject; ADControl: TDiagramControl);
+    procedure DiagramLinkAdded(Sender: TObject; ADControl: TDiagramControl;
+      ALink: TCustomDiagramLine; ALinkPoint: TLinkPoint);
+    procedure DiagramLinkRemoved(Sender: TObject;
+      ADControl: TDiagramControl; ALink: TCustomDiagramLine;
+      ALinkPoint: TLinkPoint);
+    procedure MenuCheckClick(Sender: TObject);
+    procedure MenuAttachmentsClick(Sender: TObject);
+    procedure MenuVariablesClick(Sender: TObject);
+  private                     
+    FDiagram: TWorkflowDiagram;
+    FEditor: TDiagramEditor;
+    FWorkDef: TWorkflowDefinition;
+    FWorkIns: TWorkflowInstance;
+    FWorkflowStudio: TCustomWorkflowStudio;
+    procedure EditWorkDef(AWorkDef: TWorkflowDefinition);
+    procedure EditWorkIns(AWorkIns: TWorkflowInstance);
+  public
+    constructor Create(AOwner: TComponent; AWorkflowStudio: TCustomWorkflowStudio); reintroduce;
+  end;
+
+procedure EditWorkflowDefDiagram(AWorkDef: TWorkflowDefinition);
+procedure EditWorkflowInsDiagram(AWorkIns: TWorkflowInstance);
+
+implementation
+
+uses
+  ActnList, wsRes, fVariableEditor, fTransitionEditor, fAttachmentEditor;
+
+{$R *.dfm}
+
+procedure EditWorkflowDefDiagram(AWorkDef: TWorkflowDefinition);
+var
+  AForm: TfmDummyWorkflowEditor;
+begin
+  AForm := TfmDummyWorkflowEditor.Create(nil, AWorkDef.WorkflowStudio);
+  try
+    AForm.EditWorkDef(AWorkDef);
+  finally
+    AForm.Free;
+  end;
+end;
+
+procedure EditWorkflowInsDiagram(AWorkIns: TWorkflowInstance);
+var
+  AForm: TfmDummyWorkflowEditor;
+begin
+  AForm := TfmDummyWorkflowEditor.Create(nil, AWorkIns.WorkflowStudio);
+  try
+    AForm.EditWorkIns(AWorkIns);
+  finally
+    AForm.Free;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.EditWorkDef(AWorkDef: TWorkflowDefinition);
+{var
+  c: integer;}
+begin
+  {Remove base live diagram blocks}
+{  c := 0;
+  while c < RegDControlList.Count do
+  begin
+    if Pos(_str('SToolbarWorkflowCategory'), lowercase(RegDControlList[c].Category)) = 0 then
+      RegDControlList[c].Free
+    else
+      inc(c);
+  end;  }
+
+  FWorkDef := AWorkDef;
+  FEditor := TDiagramEditor.Create(nil);
+  try
+    FEditor.DiagramClass := TWorkflowDiagram;
+    FEditor.OnCreateDesigner := WorkDefEditorCreateDesigner;
+    FEditor.OnShowDesigner := EditorShowDesigner;
+    FEditor.OnSaveDiagram := WorkDefEditorSaveDiagram;
+    FEditor.Execute;
+  finally
+    FEditor.Free;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.EditWorkIns(AWorkIns: TWorkflowInstance);
+{var
+  c: integer;}
+begin
+  {Remove base live diagram blocks}
+ { c := 0;
+  while c < RegDControlList.Count do
+  begin
+    if Pos(_str('SToolbarWorkflowCategory'), lowercase(RegDControlList[c].Category)) = 0 then
+      RegDControlList[c].Free
+    else
+      inc(c);
+  end;   }
+
+  FWorkIns := AWorkIns;
+  FEditor := TDiagramEditor.Create(nil);
+  try
+    FEditor.DiagramClass := TWorkflowDiagram;
+    FEditor.OnCreateDesigner := WorkInsEditorCreateDesigner;
+    FEditor.OnShowDesigner := EditorShowDesigner;
+    FEditor.OnSaveDiagram := WorkInsEditorSaveDiagram;
+    FEditor.Execute;
+  finally
+    FEditor.Free;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.EditorCreateDesigner(Sender: TObject);
+var
+  F: TfmDiagramEditor;
+  WorkMenu: TMenuItem;
+  NewMenu: TMenuItem;
+begin
+  F := TfmDiagramEditor(Sender);
+  FDiagram := TWorkflowDiagram(F.Diagram);
+//  FWorkDef.AssignToDiagram(FDiagram);
+
+  TAction(F.NewDiagram1.Action).Visible := false;
+  TAction(F.OpenDiagram1.Action).Visible := false;
+
+  with FDiagram do
+  begin
+    WorkflowStudio := FWorkflowStudio;
+    AutoPage := true;
+    PageLines.Visible := true;
+    ConnectionLineId := 'TWorkflowTransition';
+    MouseWheelMode := mwVertical;
+    HorzScrollBar.Increment := 35;
+    VertScrollBar.Increment := 35;
+
+    OnDControlDblClick := DiagramDControlDblClick;
+    OnLinkAdded := DiagramLinkAdded;
+    OnLinkRemoved := DiagramLinkRemoved;
+  end;
+
+  {Create menu items}
+  WorkMenu := TMenuItem.Create(Self);
+  WorkMenu.Caption := _str('fmWorkflowEditor.Workflow1.Caption');
+  F.Menu.Items.Add(WorkMenu);
+
+  NewMenu := TMenuItem.Create(Self);
+  NewMenu.Caption := _str('fmWorkflowEditor.btCheck.Caption');
+  NewMenu.ShortCut := TextToShortCut('Ctrl+F9');
+  NewMenu.OnClick := MenuCheckClick;
+  WorkMenu.Add(NewMenu);
+
+  NewMenu := TMenuItem.Create(Self);
+  NewMenu.Caption := '-';
+  WorkMenu.Add(NewMenu);
+
+  NewMenu := TMenuItem.Create(Self);
+  NewMenu.Caption := _str('fmWorkflowEditor.Variables1.Caption');
+  NewMenu.OnClick := MenuVariablesClick;
+  WorkMenu.Add(NewMenu);
+
+  NewMenu := TMenuItem.Create(Self);
+  NewMenu.Caption := _str('fmWorkflowEditor.Attachments1.Caption');
+  NewMenu.OnClick := MenuAttachmentsClick;
+  WorkMenu.Add(NewMenu);
+end;
+
+procedure TfmDummyWorkflowEditor.WorkDefEditorCreateDesigner(Sender: TObject);
+var
+  F: TfmDiagramEditor;
+begin
+  F := TfmDiagramEditor(Sender);
+  FDiagram := TWorkflowDiagram(F.Diagram);
+  FWorkDef.AssignToDiagram(FDiagram);
+  EditorCreateDesigner(F);
+end;
+
+procedure TfmDummyWorkflowEditor.WorkInsEditorCreateDesigner(Sender: TObject);
+var
+  F: TfmDiagramEditor;
+begin
+  F := TfmDiagramEditor(Sender);
+  FDiagram.WorkflowStudio := FWorkflowStudio;
+  FDiagram := TWorkflowDiagram(F.Diagram);
+  FWorkIns.AssignToDiagram(FDiagram,true);
+  EditorCreateDesigner(F);
+end;
+
+procedure TfmDummyWorkflowEditor.MenuCheckClick(Sender: TObject);
+begin
+  if FDiagram.Link then
+    ShowMessage(_str(SWorkflowCorrect));
+end;
+
+procedure TfmDummyWorkflowEditor.WorkDefEditorSaveDiagram(Sender: TObject);
+var
+  AName: string;
+begin
+  {Requires a name for the workflow}
+  while Trim(FWorkDef.Name) = '' do
+  begin
+    AName := FWorkDef.Name;
+    if not InputQuery(_str(SWorkflowDefinition), _str(STypeWorkdefName), AName) then
+      Abort;
+    FWorkDef.Name := AName;
+  end;
+
+  {update the workdef object with the edited diagram}
+  FWorkDef.AssignFromDiagram(FDiagram);
+
+  {Save the workdef object in database}
+  FWorkflowStudio.WorkflowManager.SaveWorkflowDefinition(FWorkDef);
+end;
+
+procedure TfmDummyWorkflowEditor.WorkInsEditorSaveDiagram(Sender: TObject);
+{var
+  AName: string;  }
+begin
+{
+  while Trim(FWorkIns.Name) = '' do
+  begin
+    AName := FWorkIns.Name;
+    if not InputQuery(_str(SWorkflowDefinition), _str(STypeWorkdefName), AName) then
+      Abort;
+    FWorkIns.Name := AName;
+  end; }
+
+  {update the workdef object with the edited diagram}
+  FWorkIns.AssignFromDiagram(FDiagram,true);
+
+  {Don't Save the workins object in database}
+  //FWorkflowStudio.WorkflowManager.SaveWorkflowDefinition(FWorkDef);
+end;
+
+procedure TfmDummyWorkflowEditor.DiagramDControlDblClick(Sender: TObject;
+  ADControl: TDiagramControl);
+begin
+  if (ADControl is TCustomWorkflowBlock) and (TCustomWorkflowBlock(ADControl).EditorClass <> nil) then
+    TCustomWorkflowBlock(ADControl).EditorClass.Create.EditBlock(TCustomWorkflowBlock(ADControl));
+  if (ADControl is TCustomDiagramLine) then
+    EditTransition(TCustomDiagramLine(ADControl));
+end;
+
+procedure TfmDummyWorkflowEditor.MenuVariablesClick(Sender: TObject);
+var
+  VarEditForm: TfmVariableEditor;
+begin
+  VarEditForm := TfmVariableEditor.Create(Self);
+  try
+    if VarEditForm.EditVariables(FDiagram.Variables) then
+      FDiagram.Modified
+  finally
+    VarEditForm.Free;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.EditTransition(ALine: TCustomDiagramLine);
+var
+  TransitionForm: TfmTransitionEditor;
+begin
+  {pass the owner of the block as the owner of the editor. The owner of the block
+   is the workflow editor. Since Position is poOwnerFormCenter, the
+   Editor form will be centered according to the workflow editor form}
+  TransitionForm := TfmTransitionEditor.Create(ALine.Owner);
+  try
+    if TransitionForm.EditTransition(ALine) then
+      if Assigned(ALine.Diagram) then
+        ALine.Diagram.Modified;
+  finally
+    TransitionForm.Free;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.DiagramLinkAdded(Sender: TObject;
+  ADControl: TDiagramControl; ALink: TCustomDiagramLine;
+  ALinkPoint: TLinkPoint);
+begin
+  if ALinkPoint = ALink.SourceLinkPoint then
+  begin
+    if (ALink <> FLastUnlinkedLine) or (ADControl <> FLastUnlinkedBlock) then
+    begin
+      if Assigned(FDiagram) and Assigned(ALink) then
+        if not (csLoading in FDiagram.ComponentState) and (FDiagram.InternalUpdating = 0) then
+          EditTransition(ALink);
+    end;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.DiagramLinkRemoved(Sender: TObject;
+  ADControl: TDiagramControl; ALink: TCustomDiagramLine;
+  ALinkPoint: TLinkPoint);
+begin
+  if ALinkPoint = ALink.SourceLinkPoint then
+  begin                                      
+    FLastUnlinkedLine := ALink;
+    FLastUnlinkedBlock := ADControl;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.MenuAttachmentsClick(Sender: TObject);
+var
+  AttachEditForm: TfmAttachmentEditor;
+begin
+  AttachEditForm := TfmAttachmentEditor.Create(Self, FWorkflowStudio);
+  try
+    if AttachEditForm.EditAttachments(FDiagram.Attachments) then
+      FDiagram.Modified;
+  finally
+    AttachEditForm.Free;
+  end;
+end;
+
+procedure TfmDummyWorkflowEditor.Localize(F: TfmDiagramEditor);
+begin
+  Self.Caption := _str('fmWorkflowEditor.Self.Caption');
+
+  F.DgrColorSelector2.Hint := _str('fmWorkflowEditor.DgrColorSelector1.Hint');
+  F.DgrGradientDirectionSelector2.Hint := _str('fmWorkflowEditor.DgrGradientDirectionSelector1.Hint');
+  F.DgrBrushStyleSelector2.Hint := _str('fmWorkflowEditor.DgrBrushStyleSelector1.Hint');
+  F.DgrShadowSelector2.Hint := _str('fmWorkflowEditor.DgrShadowSelector1.Hint');
+  F.DgrPenStyleSelector2.Hint := _str('fmWorkflowEditor.DgrPenStyleSelector1.Hint');
+  F.DgrPenColorSelector2.Hint := _str('fmWorkflowEditor.DgrPenColorSelector1.Hint');
+  F.DgrPenWidthSelector2.Hint := _str('fmWorkflowEditor.DgrPenWidthSelector1.Hint');
+  F.DgrTextColorSelector2.Hint := _str('fmWorkflowEditor.DgrTextColorSelector1.Hint');
+//  F.DiagramToolBar2.Category := _str('fmWorkflowEditor.DiagramToolBar2.Category');
+  F.File1.Caption := _str('fmWorkflowEditor.File1.Caption');
+  F.Edit2.Caption := _str('fmWorkflowEditor.Edit2.Caption');
+  F.Copyasimage1.Caption := _str('fmWorkflowEditor.Copyasimage1.Caption');
+  F.View1.Caption := _str('fmWorkflowEditor.View1.Caption');
+  F.Zoom1.Caption := _str('fmWorkflowEditor.Zoom1.Caption');
+  F.Edittext1.Caption := _str('fmWorkflowEditor.Edittext1.Caption');
+  F.Sourcearrow2.Caption := _str('fmWorkflowEditor.Sourcearrow2.Caption');
+  F.argetarrow2.Caption := _str('fmWorkflowEditor.Targetarrow2.Caption');
+  F.Actions.DiagramCut1.Caption := _str('fmWorkflowEditor.DiagramCut1.Caption');
+  F.Actions.DiagramCut1.Hint := _str('fmWorkflowEditor.DiagramCut1.Hint');
+  F.Actions.DiagramCopy1.Caption := _str('fmWorkflowEditor.DiagramCopy1.Caption');
+  F.Actions.DiagramCopy1.Hint := _str('fmWorkflowEditor.DiagramCopy1.Hint');
+  F.Actions.DiagramPaste1.Caption := _str('fmWorkflowEditor.DiagramPaste1.Caption');
+  F.Actions.DiagramPaste1.Hint := _str('fmWorkflowEditor.DiagramPaste1.Hint');
+  F.Actions.DiagramSelectAll1.Caption := _str('fmWorkflowEditor.DiagramSelectAll1.Caption');
+  F.Actions.DiagramSelectAll1.Hint := _str('fmWorkflowEditor.DiagramSelectAll1.Hint');
+  F.Actions.DiagramDelete1.Caption := _str('fmWorkflowEditor.DiagramDelete1.Caption');
+  F.Actions.DiagramDelete1.Hint := _str('fmWorkflowEditor.DiagramDelete1.Hint');
+  F.Actions.DiagramEditText1.Caption := _str('fmWorkflowEditor.DiagramEditText1.Caption');
+  F.Actions.DiagramEditText1.Hint := _str('fmWorkflowEditor.DiagramEditText1.Hint');
+  F.Actions.DiagramViewLeftRuler1.Caption := _str('fmWorkflowEditor.DiagramViewLeftRuler1.Caption');
+  F.Actions.DiagramViewLeftRuler1.Hint := _str('fmWorkflowEditor.DiagramViewLeftRuler1.Hint');
+  F.Actions.DiagramViewTopRuler1.Caption := _str('fmWorkflowEditor.DiagramViewTopRuler1.Caption');
+  F.Actions.DiagramViewTopRuler1.Hint := _str('fmWorkflowEditor.DiagramViewTopRuler1.Hint');
+  F.Actions.DiagramShapeColor1.Caption := _str('fmWorkflowEditor.DiagramShapeColor1.Caption');
+  F.Actions.DiagramShapeColor1.Hint := _str('fmWorkflowEditor.DiagramShapeColor1.Hint');
+  F.Actions.DiagramLineColor1.Caption := _str('fmWorkflowEditor.DiagramLineColor1.Caption');
+  F.Actions.DiagramLineColor1.Hint := _str('fmWorkflowEditor.DiagramLineColor1.Hint');
+  F.Actions.DiagramBlockPicture1.Caption := _str('fmWorkflowEditor.DiagramBlockPicture1.Caption');
+  F.Actions.DiagramBlockPicture1.Hint := _str('fmWorkflowEditor.DiagramBlockPicture1.Hint');
+  F.Actions.DiagramArrowShape1.Caption := _str('fmWorkflowEditor.DiagramArrowShape1.Caption');
+  F.Actions.DiagramArrowShape2.Caption := _str('fmWorkflowEditor.DiagramArrowShape2.Caption');
+  F.Actions.DiagramArrowShape3.Caption := _str('fmWorkflowEditor.DiagramArrowShape3.Caption');
+  F.Actions.DiagramArrowShape4.Caption := _str('fmWorkflowEditor.DiagramArrowShape4.Caption');
+  F.Actions.DiagramArrowShape5.Caption := _str('fmWorkflowEditor.DiagramArrowShape5.Caption');
+  F.Actions.DiagramArrowShape6.Caption := _str('fmWorkflowEditor.DiagramArrowShape6.Caption');
+  F.Actions.DiagramArrowShape7.Caption := _str('fmWorkflowEditor.DiagramArrowShape7.Caption');
+  F.Actions.DiagramArrowShape8.Caption := _str('fmWorkflowEditor.DiagramArrowShape8.Caption');
+  F.Actions.DiagramArrowShape9.Caption := _str('fmWorkflowEditor.DiagramArrowShape9.Caption');
+  F.Actions.DiagramArrowShape10.Caption := _str('fmWorkflowEditor.DiagramArrowShape10.Caption');
+  F.Actions.DiagramArrowShape11.Caption := _str('fmWorkflowEditor.DiagramArrowShape11.Caption');
+  F.Actions.DiagramArrowShape12.Caption := _str('fmWorkflowEditor.DiagramArrowShape12.Caption');
+  F.Actions.DiagramBringToFront1.Caption := _str('fmWorkflowEditor.DiagramBringToFront1.Caption');
+  F.Actions.DiagramBringToFront1.Hint := _str('fmWorkflowEditor.DiagramBringToFront1.Hint');
+  F.Actions.acNewDiagram.Caption := _str('fmWorkflowEditor.acNewDiagram.Caption');
+  F.Actions.acNewDiagram.Hint := _str('fmWorkflowEditor.acNewDiagram.Hint');
+  F.Actions.acOpenDiagram.Caption := _str('fmWorkflowEditor.acOpenDiagram.Caption');
+  F.Actions.acOpenDiagram.Hint := _str('fmWorkflowEditor.acOpenDiagram.Hint');
+  F.Actions.acSaveDiagram.Caption := _str('fmWorkflowEditor.acSaveDiagram.Caption');
+  F.Actions.acSaveDiagram.Hint := _str('fmWorkflowEditor.acSaveDiagram.Hint');
+  F.Actions.acPrintDiagram.Caption := _str('fmWorkflowEditor.acPrintDiagram.Caption');
+  F.Actions.acPrintDiagram.Hint := _str('fmWorkflowEditor.acPrintDiagram.Hint');
+  F.Actions.acPreviewDiagram.Caption := _str('fmWorkflowEditor.acPreviewDiagram.Caption');
+  F.Actions.acPreviewDiagram.Hint := _str('fmWorkflowEditor.acPreviewDiagram.Hint');
+  F.Actions.DiagramSendToBack1.Caption := _str('fmWorkflowEditor.DiagramSendToBack1.Caption');
+  F.Actions.DiagramSendToBack1.Hint := _str('fmWorkflowEditor.DiagramSendToBack1.Hint');
+  F.Actions.DiagramControlFont1.Caption := _str('fmWorkflowEditor.DiagramControlFont1.Caption');
+  F.Actions.DiagramControlFont1.Hint := _str('fmWorkflowEditor.DiagramControlFont1.Hint');
+  F.Actions.DiagramGrid1.Caption := _str('fmWorkflowEditor.DiagramGrid1.Caption');
+  F.Actions.DiagramGrid1.Hint := _str('fmWorkflowEditor.DiagramGrid1.Hint');
+  F.Actions.DiagramGradientSetting1.Caption := _str('fmWorkflowEditor.DiagramGradientSetting1.Caption');
+  F.Actions.DiagramGradientSetting1.Hint := _str('fmWorkflowEditor.DiagramGradientSetting1.Hint');
+  F.Actions.DiagramShadow1.Caption := _str('fmWorkflowEditor.DiagramShadow1.Caption');
+  F.Actions.DiagramShadow1.Hint := _str('fmWorkflowEditor.DiagramShadow1.Hint');
+  F.Actions.DiagramUndoAction1.Caption := _str('fmWorkflowEditor.DiagramUndoAction1.Caption');
+  F.Actions.DiagramRedoAction1.Caption := _str('fmWorkflowEditor.DiagramRedoAction1.Caption');
+  F.Actions.acAutomaticNodes.Caption := _str('fmWorkflowEditor.acAutomaticNodes.Caption');
+  {F.DiagramConnectionId1.Caption := _str('fmWorkflowEditor.DiagramConnectionId1.Caption');
+  F.Actions.DiagramConnectionId1.Hint := _str('fmWorkflowEditor.DiagramConnectionId1.Hint');
+  F.Actions.DiagramConnectionId2.Caption := _str('fmWorkflowEditor.DiagramConnectionId2.Caption');
+  F.Actions.DiagramConnectionId2.Hint := _str('fmWorkflowEditor.DiagramConnectionId2.Hint');
+  F.Actions.DiagramConnectionId3.Caption := _str('fmWorkflowEditor.DiagramConnectionId3.Caption');
+  F.Actions.DiagramConnectionId3.Hint := _str('fmWorkflowEditor.DiagramConnectionId3.Hint');}
+  F.Actions.OpenDialog1.Filter := _str('fmWorkflowEditor.OpenDialog1.Filter');
+  F.Actions.OpenDialog1.Title := _str('fmWorkflowEditor.OpenDialog1.Title');
+  F.Actions.SaveDialog1.Filter := _str('fmWorkflowEditor.SaveDialog1.Filter');
+  F.Actions.SaveDialog1.Title := _str('fmWorkflowEditor.SaveDialog1.Title');
+  F.Sourcearrow1.Caption := _str('fmWorkflowEditor.Sourcearrow1.Caption');
+  F.argetarrow1.Caption := _str('fmWorkflowEditor.Targetarrow1.Caption');
+end;
+
+procedure TfmDummyWorkflowEditor.EditorShowDesigner(Sender: TObject);
+begin
+  Localize(TfmDiagramEditor(Sender));
+end;
+
+constructor TfmDummyWorkflowEditor.Create(AOwner: TComponent; AWorkflowStudio: TCustomWorkflowStudio);
+var
+  c: integer;
+begin
+  inherited Create(AOwner);
+  if AWorkflowStudio <> nil then
+    FWorkflowStudio := AWorkflowStudio
+  else
+    raise Exception.CreateFmt('WorkflowStudio parameter not specified in %s.Create.', [ClassName]);
+  {Remove base live diagram blocks}
+  c := 0;
+  while c < RegDControlList.Count do
+  begin
+    if Pos(_str('SToolbarWorkflowCategory'), lowercase(RegDControlList[c].Category)) = 0 then
+      RegDControlList[c].Free
+    else
+      inc(c);
+  end;
+
+end;
+
+end.
+

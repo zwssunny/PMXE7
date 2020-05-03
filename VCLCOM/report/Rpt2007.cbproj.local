@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2008/01/27 17:04:33.307.cbproj,C:\Users\zws\Documents\RAD Studio\Projects\Package1.cbproj=D:\Prj2008\sdlib\report\Sdrpt.cbproj</Transaction>
+    <Transaction>2008-06-05 17:27:16.275.cbproj,D:\sdlib\report\Sdrpt.cbproj=D:\sdlib\report\Rpt2007.cbproj</Transaction>
+    <Transaction>2008-12-01 13:25:15.542.pas,D:\FastReports4\LibD11\frxExportImage.pas=</Transaction>
+    <Transaction>2008-12-01 13:25:15.542.dfm,D:\FastReports4\LibD11\frxExportImage.dfm=</Transaction>
+    <Transaction>2009-09-19 14:40:05.359.cpp,E:\PM2009\VclCom\report\Function.cpp=</Transaction>
+    <Transaction>2009-09-19 14:41:04.406.cpp,E:\PM2009\VclCom\report\GenSql.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

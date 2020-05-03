@@ -1,0 +1,23 @@
+//---------------------------------------------------------------------------
+
+#ifndef GetScanResultH
+#define GetScanResultH
+#include "Classes.hpp"
+#include "SysUtils.hpp"
+#if  defined(__ANDROID__)
+#include "ZXingNative.hpp"
+#endif
+//---------------------------------------------------------------------------
+typedef void __fastcall (__closure *TOnGetScanResult)(bool AExecute, System::UnicodeString AResultText, System::UnicodeString ABarcodeFormat);
+class TGetScanResult :public TOnGetResult
+{
+private:
+	TOnGetScanResult FOnGetScanResult;
+public:
+	virtual TGetScanResult(TOnGetScanResult &FOnGetScanResult)
+	virtual void __fastcall Invoke(bool AExecute, System::UnicodeString AResultText, System::UnicodeString ABarcodeFormat)
+	{
+	   FOnGetScanResult(AExecute,AResultText,ABarcodeFormat);
+    }
+};
+#endif

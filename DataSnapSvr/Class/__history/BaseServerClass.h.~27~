@@ -1,0 +1,56 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseServerClassH
+#define BaseServerClassH
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include <DSServer.hpp>
+#include "LoginUserRecord.h"
+#include <Data.SqlExpr.hpp>
+#include <IndyPeerImpl.hpp>
+//---------------------------------------------------------------------------
+class TDMBaseServerClass : public TDSServerModule
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+		TADOConnection *__fastcall GetSysConnection();
+		TADOConnection *__fastcall GetAccConnection();
+		int __fastcall GetSysDbType();
+protected:
+		TLoginUserRecord * __fastcall GetCurLoginUser();
+		__property TADOConnection * SysConnection = { read = GetSysConnection };
+		__property TADOConnection * AccConnection = { read = GetAccConnection };
+		__property int SysDbType ={read = GetSysDbType};
+
+		/*********************************************************************
+		//返回的JSON字符串格式由数据(Data)和列信息(Cols)组成：
+		//{MasterData:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+    // MasterCols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]
+    // DetailData:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+    // DetailCols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]
+    //业务类信息
+    // ClassInfo:[{Status:},{DataSetType:},{MasterKeyFields:},{DetailKeyFields:},{MasterDisplayName:},
+    // {DetailDisplayName:},{MasterDisplayField:},{DetailDisplayField:},{MasterFilterFields:},
+    // {DetailFilterFields:},{MasterFieldAttr:},{DetailFieldAttr:},{MasterAttrType:},{DetailAttrType:},
+    // {MasterFieldExpr:},{DetailFieldExpr:},{MasterSqlString:},{MasterFixedWhere:},{MasterFixedOrder:},
+    // {MasterFixedGroup:},{MasterLinkFields:},{DetailLinkFields:},{DetailSqlString:},{DetailFixedWhere:},
+    // {DetailFixedOrder:},{DetailFixedGroup}]}
+		**********************************************************************/
+		String __fastcall QueryToJson(String SQLText);
+		TJSONObject* __fastcall QueryToJsonObject(String SQLText);
+		String __fastcall QuerySysToJson(String SQLText);
+		TJSONObject* __fastcall QuerySysToJsonObject(String SQLText);
+public:		// User declarations
+		__fastcall TDMBaseServerClass(TComponent* Owner);
+		__fastcall virtual ~TDMBaseServerClass();
+
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TDMBaseServerClass *DMBaseServerClass;
+//---------------------------------------------------------------------------
+#endif

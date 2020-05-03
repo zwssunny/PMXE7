@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="ServerName" value="FSService"/>
+	<Setting Name="DbConStr" value="6D694373576E6E33443666784933766A70532F453872723254434E6B666A774B6B7430696D4966386A38634F6C794D7451317543312B62456D4A43473535716B4A4F444F5A5342756B7868550D0A41764162355A38636A694D62534E4B746A494C49764D676B675A626C4D4D6B7844616634695A3433344D595431664D62577A78655850375051347254724B4178706D777532564F3339396E560D0A647365646B41657538564358636547303074733D"/>
+	<setting Name="DbType" value="1"/>
+	<Setting Name="ClientPort" value="211"/>
+	<Setting Name="HttpPort" value="8080"/>
+	<Setting Name="Admin" value="Admin"/>
+	<Setting Name="PassWord" value=""/>
+	<Setting Name="UniqueLog" value="1"/>
+	<Setting Name="SMSType" value="0"/>
+	<Setting Name="SmsServerName" value="SmsServer"/>
+	<Setting Name="BeginTime" value="2008-6-13 8:00:00"/>
+	<Setting Name="EndTime" value="2008-6-13 22:00:00"/>
+	<Setting Name="WaitLong" value="5"/>
+	<Setting Name="RepeatCount" value="3"/>
+	<Setting Name="GateCordId" value=""/>
+	<Setting Name="GateUserName" value=""/>
+	<Setting Name="GatePassWord" value=""/>
+	<Setting Name="MonType" value="0"/>
+	<Setting Name="PortNum" value="0"/>
+	<Setting Name="WFServerName" value="WorkFlowServer"/>
+</DefaultSettings>

@@ -1,0 +1,464 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "StuffStockInEdit.h"
+#include "CommFunc.h"
+#include "SelectStuSupplyNote.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "DetailBaseForm"
+#pragma resource "*.fmx"
+TfrmStuffStockInEdit *frmStuffStockInEdit;
+//---------------------------------------------------------------------------
+__fastcall TfrmStuffStockInEdit::TfrmStuffStockInEdit(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,TZClientDataSet *m_DataSet,
+			 int DataSetStatus,int Flag)
+	: TfrmDetailBaseForm(Owner,clBroker,ModuleCode,m_DataSet,DataSetStatus)
+{
+	InitForm();
+}
+__fastcall TfrmStuffStockInEdit::TfrmStuffStockInEdit(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,String Param,int Flag)
+	: TfrmDetailBaseForm(Owner,clBroker,ModuleCode,Param)
+{
+   InitForm();
+   if(Flag==3) //专门为OA调用设置,Param=BillID;
+   {
+	  this->MasterWhereString="StuSkInPKID="+QuotedStr(Param);
+	  SetFormStatus(0);//浏览状态
+	  GetWorkflowDefine();  //为了显示流程
+   }
+   this->RefreshData();
+}
+//---------------------------------------------------------------------------
+__fastcall TfrmStuffStockInEdit::~TfrmStuffStockInEdit()
+{
+
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::InitForm()
+{
+	 StockInItemEdit=NULL;
+	 SelectStuSupplyNoteForm=NULL;
+	 InMonthFilter=NULL;
+	 InStoreFilter=NULL;
+	 SupplierSelectForm=NULL;
+	 TabDetailItem->Visible=true;
+	 btMainNext->Visible=true;
+	 ItemBindSourceDB->DataSet=this->DataSet->DetailDataSet;
+	 ItemBindSourceDB->DataSource=this->DetailDataSource;
+	 //给审批业务流程关联事件。
+	 OnBeforWorkFlowStart=BeforWorkFlowStart;
+	 OnBeforWorkFlowExec=BeforWorkFlowExec;
+}
+void __fastcall TfrmStuffStockInEdit::FormInitControl()
+{
+	LockControl(1,seStuSkInNum,false,true,false);
+	LockControl(1,deStuSkInDate,false,true,true);
+	LockControl(1,seStuSkInSupplier,false,true,false);
+	LockControl(1,seStuSkInFKID_Cont,false,true,false);
+	LockControl(1,dtStuSkInInvDate,false,false,false);
+	LockControl(1,seStuSkInInvNum,false,false,false);
+	LockControl(1,seStuSkInFKID_Unit,false,true,true);
+	LockControl(1,seStuSkInFKID_Rep,false,true,false);
+	LockControl(1,seStuSkInTranNum,false,true,true);
+	LockControl(1,seStuSkInMonth,false,true,true);
+	LockControl(1,cbCheckState,false,false,false);
+	LockControl(1,sdCheckDate,false,true,true);
+	LockControl(1,edProjectName,false,true,false);
+	LockControl(1,edDepotName,false,true,false);
+	WaitInputControl(1,seStuSkInNum);
+	  //	FlowDefinID="cf04a83f-82d7-4453-97ec-c61b8246e9be";//测试用
+	GetWorkflowDefine();
+ }
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::FormClearControl(int Section)
+{
+	if(Section==1)
+	{
+		FGuidBillID=GetGUIDString();
+		seStuSkInNum->Text = "";
+		deStuSkInDate->Text = Now().FormatString("YYYY-MM-DD");
+		edProjectName->Text = "";
+		edProjectName->TagString = "";
+		seStuSkInSupplier->Text = "";
+		seStuSkInSupplier->TagString="";
+		seStuSkInFKID_Cont->Text = "";
+		seStuSkInFKID_Cont->TagString="";
+		dtStuSkInInvDate->IsEmpty=true;
+		seStuSkInInvNum->Text = "";
+		seStuSkInCreator->Text= ClientBroker->UserCode;
+		seStuSkInFKID_Unit->TagString="";
+		seStuSkInFKID_Unit->Text = "";
+		seStuSkInFKID_Rep->TagString="";
+		seStuSkInFKID_Rep->Text = "";
+		sdCheckDate->Text = "";
+		seStuSkInChecker->Text = "";
+		seStuSkInTranNum->Text = "";
+		seStuSkInMonth->Text = "";
+		cbCheckState->ItemIndex=0;
+		edDepotName->Text="";
+		edDepotName->TagString="";
+		FCheckFlag=0;
+	}
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::SendDataToDataSet(int Section)
+{
+	if(Section == 1)
+	{
+		if(MasterStatus==dsInsert)
+		{
+			SetMasterValue("StuSkInPKID",FGuidBillID);
+			SetMasterValue("StuSkInFKID_Prj",edProjectName->TagString);
+			SetMasterValue("StuSkInCreator",ClientBroker->UserCode);
+			SetMasterValue("StuSkInCreateDate",Now().FormatString("YYYY-MM-DD"));
+		}
+		SetMasterValue("StuSkInDate",deStuSkInDate->Text);
+		SetMasterValue("StuSkInNum",seStuSkInNum->Text);
+		SetMasterValue("PrjPrjName",edProjectName->Text);
+
+		SetMasterValue("StuSkInSupplier",seStuSkInSupplier->TagString);
+		SetMasterValue("CorpName",seStuSkInSupplier->Text);
+		SetMasterValue("StuSkInFKID_Dep",edDepotName->TagString);
+		SetMasterValue("StuDepName",edDepotName->Text);
+
+		SetMasterValue("StuSkInFKID_Cont",seStuSkInFKID_Cont->TagString);
+		SetMasterValue("ContName",seStuSkInFKID_Cont->Text);
+		if(!dtStuSkInInvDate->IsEmpty)
+ 		  SetMasterValue("StuSkInInvDate",dtStuSkInInvDate->Text);
+		SetMasterValue("StuSkInInvNum",seStuSkInInvNum->Text);
+		SetMasterValue("StuSkInFKID_Unit",seStuSkInFKID_Unit->TagString);
+		SetMasterValue("UnitName",seStuSkInFKID_Unit->Text);
+		if (FFlag == 1 && seStuSkInFKID_Rep->TagString.IsEmpty())
+		{
+			SetMasterValue("StuSkInFKID_Rep","instoreBillnothiskey");
+		}
+		else
+		{
+			SetMasterValue("StuSkInFKID_Rep",seStuSkInFKID_Rep->TagString);
+		}
+		SetMasterValue("StuSpyNtNum",seStuSkInFKID_Rep->Text);
+
+		SetMasterValue("StuSkInTranNum",seStuSkInTranNum->Text);
+		SetMasterValue("StuSkInChkState",FCheckFlag);
+		SetMasterValue("StuSkInMonth",seStuSkInMonth->Text);
+	}
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::GetDataFromDataSet(int Section)
+{
+	if(Section == 1)
+	{
+		FGuidBillID=GetMasterValue("StuSkInPKID");
+		seStuSkInNum->Text = GetMasterValue("StuSkInNum");
+		deStuSkInDate->Text = GetMasterValue("StuSkInDate");
+		edProjectName->Text = GetMasterValue("PrjPrjName");
+		edProjectName->TagString =GetMasterValue("StuSkInFKID_Prj");
+	//	FPrjID=GetMasterValue("StuSkInFKID_Prj");
+		FCheckFlag=GetMasterValue("StuSkInChkState");
+		cbCheckState->ItemIndex=FCheckFlag;
+
+		seStuSkInSupplier->TagString=GetMasterValue("StuSkInSupplier");
+		seStuSkInSupplier->Text=GetMasterValue("CorpName");
+		edDepotName->Text=GetMasterValue("StuDepName");
+		edDepotName->TagString = GetMasterValue("StuSkInFKID_Dep");
+
+		seStuSkInFKID_Cont->TagString=GetMasterValue("StuSkInFKID_Cont");
+		seStuSkInFKID_Cont->Text=GetMasterValue("ContName");
+
+		dtStuSkInInvDate->Text = GetMasterValue("StuSkInInvDate");
+		seStuSkInInvNum->Text = GetMasterValue("StuSkInInvNum");
+		seStuSkInCreator->Text = GetMasterValue("StuSkInCreator");
+//		seStuSkInCreator->Text = GetUserNameFromCode(GetMasterValue("StuSkInCreator"));
+
+		seStuSkInFKID_Unit->TagString=GetMasterValue("StuSkInFKID_Unit");
+		seStuSkInFKID_Unit->Text=GetMasterValue("UnitName");
+
+		seStuSkInFKID_Rep->TagString=GetMasterValue("StuSkInFKID_Rep");
+		seStuSkInFKID_Rep->Text=GetMasterValue("StuSpyNtNum");
+
+		sdCheckDate->Text = GetMasterValue("StuSkInCheckDate");
+		seStuSkInChecker->Text = GetMasterValue("StuSkInChecker");
+//		seStuSkInChecker->Text = GetUserNameFromCode(GetMasterValue("StuSkInChecker"));
+		seStuSkInTranNum->Text = GetMasterValue("StuSkInTranNum");
+		seStuSkInMonth->Text = GetMasterValue("StuSkInMonth");
+
+		//WorkflowID="803EDFEC-6EE3-4EA3-89E0-82AEF157C37A";//测试用
+		GetWorkflowRunID(FGuidBillID);
+	}
+
+//	FillAttachData();
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::VerifyFieldData(int Section,int status)
+{
+	if(Section==1)
+	{
+		if((!seStuSkInNum->Text.IsEmpty())&&((this->MasterStatus == Data::Db::dsInsert) ||
+				((this->MasterStatus == Data::Db::dsEdit)&&(seStuSkInNum->Text != VarToStr(GetFieldValue("StuSkInNum"))))))
+		{
+			Query->Close() ;
+			Query->SQL->Text = "select StuSkInNum from tbStuffStockIn where StuSkInNum="+QuotedStr(seStuSkInNum->Text);
+			Query->Open();
+			if (Query->RecordCount != 0)
+			{
+				Query->Close();
+				seStuSkInNum->SetFocus();
+				throw Exception (L"编号重复,请重新输入");
+			}
+			Query->Close();
+		}
+		if(seStuSkInMonth->Text.Trim().IsEmpty())
+		{
+			if(seStuSkInMonth->CanFocus)
+			 seStuSkInMonth->SetFocus();
+			throw Exception(L"请选择财务月份");
+		}
+	}
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmStuffStockInEdit::BeforeUpdateData(int OptType)
+{
+  String FProjectCode=GetMasterValue("StuSkInFKID_Prj");
+  FPrjRight=GetDataRight(Query,FProjectCode,BtProject);
+  switch(OptType)
+  {
+    case 0:
+	  if(FPrjRight<1)
+      {
+		ShowMessag(_D("您没有与该仓库关联的项目的读权限"));
+        return false;
+      }
+      return true;
+    case 2:   //Update
+    case 1:   //Add
+    case 3:   //Del
+      if(FPrjRight<2)
+	  {
+		ShowMessag(_D("您没有该仓库关联的项目的写权限"));
+		return false;
+      }
+      return true;
+    default:
+       return true;
+  }
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::SetUserCtrlStatus()
+{
+  bool bChecked= FCheckFlag>0;
+  bool bWriteRight=OperateRight.Pos(FR_SYSTEMWRITE)>0;
+  bool bCheckRight=FormDefRight.Pos(FR_FRMSTUFFSTOCKINLIST_CHECKRIGHT) > 0;
+  bool bPriceCheck=FormDefRight.Pos(FR_FRMSTUFFSTOCKINLIST_CHECKPRICE) > 0;
+  bool bBrowse=MasterStatus == dsBrowse;
+  AddItemAction->Enabled= bWriteRight && !bChecked && bBrowse;
+  DeleteItemAction->Enabled=bWriteRight && !bChecked && bBrowse;
+  DetailEditAction->Enabled=bWriteRight && !bChecked && bBrowse;
+  SaveDetailAction->Enabled=bWriteRight && !bChecked && !bBrowse;
+  bool benabled=btBrowsItem->Enabled;
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::FormFillData()
+{
+  ItemBindGridLink->Active=false;
+  ItemBindGridLink->Active=true;
+
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::AfterDataSetOperate(TOperateType OptType)
+{
+  if (IsBalance && OptType == otUpdate)
+  {
+		CheckData(1,2);
+		if (IsBalance)//单价审核生成采购结算单
+		{
+			if (ShowMessageBox(L"是否自动生成采购结算单"))
+			{
+					Query->Close();
+					Query->SQL->Text = "exec tbStuffStockIn_BalanceGen '" +VarToStr(GetFieldValue("StuSkInPKID"))
+													 + "','" + GlobeVarValue["curdate"]
+													 + "','" + GlobeVarValue["usercode"] + "'";
+					Query->ExecSQL();
+			}
+		}
+		IsBalance = false;
+		if(ShowMessageBox(L"是否根据差价自动生成入库调整单，出库调整单？"))
+		{
+			try
+			{
+				Query->Close();
+				String SQLStr = " exec tbStuffStockIn_GenAdjBill '" + VarToStr(GetMasterValue("StuSkInPKID"))+ "','"+GlobeVarValue["usercode"]+"'";
+				Query->SQL->Text = SQLStr;
+				Query->ExecSQL();
+			}
+			catch(...)
+			{
+				throw Exception(L"自动生成入库调整单，出库调整单失败!");
+			}
+		}
+	}
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::CheckData(int oldstatus,int newstatus)
+{
+  Query->Close();
+  Query->SQL->Text = " exec tbStuffStockIn_Check '"+ VarToStr(GetFieldValue("StuSkInPKID"))+"',"+ oldstatus +","+ newstatus;
+  Query->ExecSQL();
+}
+//--------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::ebStuSkInFKID_RepClick(TObject *Sender)
+{
+  if(SelectStuSupplyNoteForm==NULL)
+	 SelectStuSupplyNoteForm=new TSelectStuSupplyNoteForm(this,&SetStuSupplyNote,ClientBroker);
+   SelectStuSupplyNoteForm->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmStuffStockInEdit::ebStuSkInFKID_ContClick(TObject *Sender)
+{
+ ShowMessage(L"未实现");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmStuffStockInEdit::ebStuSkInSupplierClick(TObject *Sender)
+{
+ ShowMessage(L"未实现");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmStuffStockInEdit::ebStuSkInFKID_UnitClick(TObject *Sender)
+{
+ if(SupplierSelectForm==NULL)
+ {
+  String FTitle=L"采购单位";
+  String FSQL="SELECT CorpPKID,CorpName FROM tbCorporation order by CorpName" ;
+  SupplierSelectForm=new TQueryFilterForm(this,ClientBroker,seStuSkInFKID_Unit,FTitle,FSQL);
+ }
+  SupplierSelectForm->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmStuffStockInEdit::ebStuSkInMonthClick(TObject *Sender)
+{
+ if(InMonthFilter==NULL)
+ {
+  String FTitle=L"财务月份";
+  String FSQL="SELECT FinCycMonth,FinCycMonth as FinCycName FROM tbFinanceCycle where FinCycFlag = 1 "
+				 " and FinCycMonth>=isnull((select SysPtrValue from tbSysParameter where SysPtrPKID='SysCurrentMonth'),'') "
+				 " ORDER BY FinCycMonth";
+  InMonthFilter=new TQueryFilterForm(this,ClientBroker,seStuSkInMonth,FTitle,FSQL);
+ }
+  InMonthFilter->Show();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::DetailDataSetBeforePost(TDataSet* DataSet)
+{
+  if(DataSet->FieldByName("StuSkInDtlFKID")->AsString == "")
+	DataSet->FieldByName("StuSkInDtlFKID")->AsString = FGuidBillID;
+  if(DataSet->FieldByName("StuSkInDtlPKID")->AsString == "")
+	DataSet->FieldByName("StuSkInDtlPKID")->AsString = GetGUIDString();
+  DataSet->FieldByName("StuSkInDtlAmt")->AsFloat =
+	DataSet->FieldByName("StuSkInDtlQty")->AsFloat*DataSet->FieldByName("StuSkInDtlPrice")->AsFloat;
+  if(FCheckFlag==0)
+	DataSet->FieldByName("StuSkInDtlCostPrice")->AsFloat = DataSet->FieldByName("StuSkInDtlPrice")->AsFloat;
+}
+void __fastcall TfrmStuffStockInEdit::BeforWorkFlowStart(TWorkFlowStartData *AWorkFlowStartData)
+{
+//初始化一些业务相关的值，传给流程。
+   AWorkFlowStartData->BusWindow=FormID;
+   AWorkFlowStartData->BusCode=FGuidBillID;
+   AWorkFlowStartData->ProjectID=GetMasterValue("StuSkInFKID_Prj");
+
+}
+void __fastcall TfrmStuffStockInEdit::BeforWorkFlowExec(TWorkFlowExecData *AWorkFlowExecData,TClientDataSet *varDataSet)
+{
+  //传递一些流程的变量值到业务单据，或者业务单据的值传递给流程varDataSet。
+}
+
+
+void __fastcall TfrmStuffStockInEdit::edWorkflowTitleEnter(TObject *Sender)
+{
+	if(edWorkflowTitle->Text.IsEmpty())
+   {
+	  edWorkflowTitle->Text=L"入库单号："+ seStuSkInNum->Text;
+	  mmWorkflowContent->Lines->Add(edWorkflowTitle->Text);
+   }
+
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmStuffStockInEdit::NewItemEditForm(TZClientDataSet *m_DataSet, int status)//创建并返回明细窗体
+{
+  if(StockInItemEdit==NULL)
+	StockInItemEdit=new TfrmStockInItemEdit(this,ClientBroker,this->FormModuleCode,m_DataSet,status);
+   return StockInItemEdit;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::DoDeleteDetail(System::Uitypes::TModalResult AResult)
+{
+ if(AResult==mrYes)
+ {
+  DataSet->DetailFirst();
+  while(!DataSet->DetailEof)
+  {
+	DataSet->DeleteDetail();
+  }
+  String 	SQLStr = " select StuSpyNtPKID,StuSpyNtFKID_Prj,StuSpyNtNum,StuSpyNtFKID_BuyCont,"
+					 " StuSpyNtCreateDate,StuSpyNtCreator,StuSpyNtRemark,ContName=isnull(ContName,''),"
+					 " ContSecondPty_FKID=isnull(ContSecondPty_FKID,''),CorpName=isnull(CorpName,''),"
+					 " PrjPrjName=isnull(PrjPrjName,'') from tbStuSupplyNote "
+					 " left join tbContract on ContPKID=StuSpyNtFKID_BuyCont"
+					 " left join tbProject on StuSpyNtFKID_Prj=PrjPKID"
+					 " left join tbCorporation on ContSecondPty_FKID=CorpPKID"
+					 " where StuSpyNtPKID="+QuotedStr(StuSupplyNoteID);
+  Query->Close();
+  Query->SQL->Text=SQLStr;
+  Query->Open();
+  if(Query->RecordCount>0)
+  {
+	//供货单号
+	seStuSkInFKID_Rep->Text=Query->FieldByName("StuSpyNtNum")->AsString;
+	seStuSkInFKID_Rep->TagString=Query->FieldByName("StuSpyNtPKID")->AsString;
+	//合同
+	seStuSkInFKID_Cont->Text=Query->FieldByName("ContName")->AsString;
+	seStuSkInFKID_Cont->TagString=Query->FieldByName("StuSpyNtFKID_BuyCont")->AsString;
+	//供应商
+	seStuSkInSupplier->Text=Query->FieldByName("CorpName")->AsString;
+	seStuSkInSupplier->TagString=Query->FieldByName("ContSecondPty_FKID")->AsString;
+	//项目
+	edProjectName->Text=Query->FieldByName("PrjPrjName")->AsString;
+	edProjectName->TagString=Query->FieldByName("StuSpyNtFKID_Prj")->AsString;
+  }
+ }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::SetStuSupplyNote(String StuSupplyNoteID)
+{
+  if((seStuSkInFKID_Rep->TagString>"")&&(seStuSkInFKID_Rep->TagString!=StuSupplyNoteID))
+  {
+   TMessageDialogEventProc msgDialogCloseProc=&DoDeleteDetail;
+   ShowMessageBox(L"更改供货单号，将删除所有明细行，确认吗?",msgDialogCloseProc);
+  }
+
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmStuffStockInEdit::DepotNameButtonClick(TObject *Sender)
+{
+ if(InStoreFilter==NULL)
+ {
+  String FTitle=L"入库仓库";
+  String tDataString = GetDataRightString(Query,BtProject);
+  String FSQL=" select StuDepPKID,StuDepName,StuDepFKID_Prj,StuDepFKID_Cont,PrjAmender=isnull(PrjAmender,''),PrjFKID_StartCyc=isnull(PrjFKID_StartCyc,''),\
+  ContCreator=isnull(ContCreator,''),PrjPKID,ContPKID,ContStmtChangeNum=isnull(ContStmtChangeNum,'') from tbStuffDepot \
+  left join tbContract on StuDepFKID_Cont=ContPKID \
+  left join tbProject on StuDepFKID_Prj=PrjPKID \
+  join tbContType on CTypePKID = ContType\
+  where " + tDataString;
+  FSQL+=" order by StuDepName";
+  InStoreFilter=new TQueryFilterForm(this,ClientBroker,edDepotName,FTitle,FSQL);
+ }
+  InStoreFilter->Show();
+}
+//---------------------------------------------------------------------------
+

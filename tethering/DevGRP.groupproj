@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7106D90D-9D96-4F89-8BE5-60FBAA317BF2}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="DeviceDestop\DeviceDestop.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="App\TakePic.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DevAPP\DevApp.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="DeviceDestop">
+        <MSBuild Projects="DeviceDestop\DeviceDestop.cbproj"/>
+    </Target>
+    <Target Name="DeviceDestop:Clean">
+        <MSBuild Projects="DeviceDestop\DeviceDestop.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DeviceDestop:Make">
+        <MSBuild Projects="DeviceDestop\DeviceDestop.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="TakePic">
+        <MSBuild Projects="App\TakePic.cbproj"/>
+    </Target>
+    <Target Name="TakePic:Clean">
+        <MSBuild Projects="App\TakePic.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TakePic:Make">
+        <MSBuild Projects="App\TakePic.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="DevApp">
+        <MSBuild Projects="DevAPP\DevApp.cbproj"/>
+    </Target>
+    <Target Name="DevApp:Clean">
+        <MSBuild Projects="DevAPP\DevApp.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DevApp:Make">
+        <MSBuild Projects="DevAPP\DevApp.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="DeviceDestop;TakePic;DevApp"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="DeviceDestop:Clean;TakePic:Clean;DevApp:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="DeviceDestop:Make;TakePic:Make;DevApp:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

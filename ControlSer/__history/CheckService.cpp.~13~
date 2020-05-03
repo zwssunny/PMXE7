@@ -1,0 +1,87 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "CheckService.h"
+#include "ServerCtl.h"
+#include "SHConst.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TCheckServiceProc::TCheckServiceProc(TDSServer *AServer,TJSONArray *AServerList,String AComputerIP,int AIndex)
+{
+   FServer=AServer;
+   FServerList=AServerList;
+   FComputerIP=AComputerIP;
+   SIndex=AIndex;
+}
+void __fastcall TCheckServiceProc::Execute()   //服务不正常才发送消息
+{
+
+   FreeOnTerminate=true;
+
+  System::TMonitor::Enter(FServerList);
+   try
+   {
+	   TJSONObject *jNode=(TJSONObject *)(FServerList->Items[SIndex]);
+	   String FServerName=jNode->GetValue("Name")->Value();
+	   int PreServiceStatus=jNode->GetValue("ServiceStatus")->Value().ToInt();
+	   int ServiceStatus;
+	   String status="权限不够";
+	   int retval=SCQueryServiceStatus(NULL,FServerName.c_str(),ServiceStatus);
+	   if(retval!=0)
+	   {
+		  ServiceStatus=-1;
+		  if(retval==2)
+			status=L"未安装" ;
+	   }
+	   else //==0
+	   {
+		  switch(ServiceStatus)
+		  {
+			 case SERVICE_STOPPED:
+			 status=L"已停止" ;
+			 break;
+			 case SERVICE_START_PENDING:
+			 status=L"正在启动" ;
+			 break;
+			 case SERVICE_STOP_PENDING:
+			 status=L"正在停止";
+			 break;
+			 case SERVICE_RUNNING:
+			 status=L"已运行" ;
+			 break;
+			 case SERVICE_CONTINUE_PENDING:
+			 status=L"正在继续";
+			 break;
+			 case SERVICE_PAUSE_PENDING:
+			 status=L"正在暂停" ;
+			 break;
+			 case SERVICE_PAUSED:
+			 status=L"已暂停" ;
+			 break;
+			 default:
+			 status=L"未知" ;
+			 break;
+
+		  }
+		}
+	   if(PreServiceStatus!=ServiceStatus)
+	   {    //修改服务器状态
+			jNode->RemovePair("ServiceStatus");
+			jNode->AddPair("ServiceStatus",ServiceStatus);
+			//发送消息
+			TJSONObject *JSONMsg = new  TJSONObject();
+			JSONMsg->AddPair(new TJSONPair("messageType", "servercontrol"));
+			JSONMsg->AddPair(new TJSONPair("computerip", FComputerIP));
+			JSONMsg->AddPair(new TJSONPair("servername", FServerName));
+			JSONMsg->AddPair(new TJSONPair("datetime", Now().FormatString("YYYY-MM-DD HH:MM:SS")));
+			JSONMsg->AddPair(new TJSONPair("msg", status));
+		   FServer->BroadcastMessage(SMessageChannel, SMsgCallback, JSONMsg);
+	   }
+   }
+   __finally
+   {
+	 System::TMonitor::Exit(FServerList);
+   }
+
+}

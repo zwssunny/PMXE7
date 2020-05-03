@@ -1,0 +1,270 @@
+// ---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ChatRoomServer.h"
+#include "MessageManage.h"
+#include "SHConst.h"
+// ---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+// ---------------------------------------------------------------------------
+TUserNotifyThread::TUserNotifyThread(TDSServer *Server, TLoginUserRecord* User,
+	bool WasAdded) {
+	FServer = Server;
+	AccBookID = User->AccBookID;
+	UserID = User->UserID;
+	UserName = User->UserName;
+	CallBackClientID = User->CallBackClientID;
+	FWasAdded = WasAdded;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TUserNotifyThread::Execute() {
+	TJSONObject *Msg;
+	String EventType;
+	FreeOnTerminate = true;
+	if (AccBookID == NULL)
+		return;
+	if (FWasAdded)
+		EventType = "user_login";
+	else
+		EventType = "user_logout";
+
+	// create a JSON object with a message describing the user login/logout event
+	Msg = new TJSONObject();
+	Msg->AddPair(new TJSONPair("notificationType", EventType));
+	Msg->AddPair(new TJSONPair("from", UserID));
+	Msg->AddPair(new TJSONPair("fromusrname", UserName));
+	Msg->AddPair(new TJSONPair("datetime",
+		Now().FormatString("YYYY-mm-DD HH:mm:ss")));
+	Msg->AddPair(new TJSONPair("accbookid", AccBookID));
+	Msg->AddPair(new TJSONPair("callbackclientid", CallBackClientID));
+	try {
+		// give time for the client's callback to be added or removed
+		Sleep(1000);
+		// send a message to all clients that a user either logged in, or logged out
+		bool result = FServer->BroadcastMessage(SMessageChannel + AccBookID,
+			SMsgCallback, Msg);
+	}
+	catch (...) {
+	}
+}
+
+// ---------------------------------------------------------------------------
+TBootUserThread::TBootUserThread(TDSServer *Server, TLoginUserRecord* User) {
+	FServer = Server;
+	FUser = User;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TBootUserThread::Execute() {
+	TDSCallbackTunnel *Tunnel;
+	String OldSecurityToken;
+	String SecurityToken;
+	FreeOnTerminate = true;
+	if ((FServer == NULL) || (FUser->CallBackClientID == EmptyStr))
+		return;
+	Tunnel = FServer->GetCallbackTunnel(FUser->CallBackClientID);
+	if (Tunnel != NULL) {
+		SecurityToken = "ThisCanBeAnything";
+		OldSecurityToken = Tunnel->SecurityToken;
+		// change SecurityToken on the tunnel so the server can kill the callback
+		// and nobody else can do anything with it in the meantime.
+		Tunnel->SecurityToken = SecurityToken;
+		// unregister the callback
+		FServer->UnregisterChannelCallback(FUser->CallBackClientID,
+			SMsgCallback, SecurityToken);
+		// remvoe the user from the user list
+		// RemoveUser(FUserName); 移除用户
+	}
+}
+// ---------------------------------------------------------------------------
+TSendMissMessageThread::TSendMissMessageThread(TDSServer *Server, TLoginUserRecord* User, TADOConnection *AccConn)
+ {
+	FServer = Server;
+	FAccConn = AccConn;
+	AccBookID = User->AccBookID;
+	UserID = User->UserID;
+	UserName = User->UserName;
+	CallBackClientID = User->CallBackClientID;
+
+	AccQuery = new TADOQuery(NULL);
+	AccQuery->ParamCheck = false;
+	AccQuery->EnableBCD = false;
+	AccQuery->CommandTimeout = 60;
+	AccQuery->Connection = FAccConn;
+
+	Query = new TADOQuery(NULL);
+	Query->ParamCheck = false;
+	Query->EnableBCD = false;
+	Query->CommandTimeout = 60;
+	Query->Connection = FAccConn;
+}
+void __fastcall  TSendMissMessageThread::Execute()
+{
+	FreeOnTerminate = true;
+	try{
+		Sleep(2000);
+		SendMissMessage();
+    }
+ 	catch (...) {
+	}
+}
+void TSendMissMessageThread::SendMissMessage() {
+	// 注意，下面算法没有考虑Blob字段。
+	AccQuery->Close();
+	String SQLText="select tbMissMember.RecMsgID,tbMissMember.RecMsgUserID, tbMessageRecords.*,EmpName as username "
+					" from tbMissMember left join tbMessageRecords on RecMsgID=MsgID "
+					" left join tbEmployeeData on MsgUserID=EmpPKID "
+					" where RecMsgUserID ='"+UserID + "' order by MsgSendTime";
+	AccQuery->SQL->Text = SQLText;
+	AccQuery->Open();
+	while (!AccQuery->Eof) {
+		if (AccQuery->FieldByName("MsgRecType")->AsInteger == 2) {  //个人
+			SendMissMessageToUser(AccQuery->FieldByName("MsagContent")
+				->AsString, AccQuery->FieldByName("MsgUserID")->AsString,
+				AccQuery->FieldByName("username")->AsString,
+				AccQuery->FieldByName("MsgID")->AsString,AccQuery->FieldByName("MsgSendTime")->AsString);
+		}
+
+		else if (AccQuery->FieldByName("MsgRecType")->AsInteger == 3) { //群
+			SendMissMessageToGroup(AccQuery->FieldByName("MsagContent")
+				->AsString, AccQuery->FieldByName("MsgUserID")->AsString,
+				AccQuery->FieldByName("username")->AsString,AccQuery->FieldByName("MsgReceiver")->AsString,
+				AccQuery->FieldByName("MsgID")->AsString,AccQuery->FieldByName("MsgSendTime")->AsString);
+		}
+		else  /*if(AccQuery->FieldByName("MsgRecType")->AsInteger == 1) */{  //部门 公司
+			SendMissMessageToDepartment(AccQuery->FieldByName("MsagContent")
+				->AsString, AccQuery->FieldByName("MsgUserID")->AsString,
+				AccQuery->FieldByName("username")->AsString,
+				AccQuery->FieldByName("MsgReceiver")->AsString,
+				AccQuery->FieldByName("MsgID")->AsString,AccQuery->FieldByName("MsgSendTime")->AsString);
+		}
+		AccQuery->Next();
+	}
+	AccQuery->Close();
+}
+// ---------------------------------------------------------------------------
+bool TSendMissMessageThread::SendMissMessageToUser(String const Msg,
+	String const FromID, String const FromName, String const MsgID,String const sendtime) {
+	TJSONValue *Resp = NULL;
+	String MesgTrimmed;
+	TJSONObject *JSONMsg = NULL;
+	bool result = false;
+	MesgTrimmed = Trim(Msg);
+	// no message to send, so just exit
+	if (Msg == EmptyStr)
+		return false;
+
+	// get the current session
+
+	JSONMsg = new TJSONObject();
+	JSONMsg->AddPair(new TJSONPair("notificationType", "message"));
+	JSONMsg->AddPair(new TJSONPair("from", FromID));
+	JSONMsg->AddPair(new TJSONPair("fromusrname", FromName));
+	JSONMsg->AddPair(new TJSONPair("msgtype", "2"));
+	JSONMsg->AddPair(new TJSONPair("to", UserID));
+	JSONMsg->AddPair(new TJSONPair("accbookid", AccBookID));
+	JSONMsg->AddPair(new TJSONPair("datetime",sendtime));
+	JSONMsg->AddPair(new TJSONPair("message", MesgTrimmed));
+
+	result = FServer->NotifyCallback(CallBackClientID, SMsgCallback, JSONMsg, Resp);
+	if (Resp != NULL)
+		Resp->Free();
+	if (result) {
+		Query->Close();
+		Query->SQL->Text = "delete from tbMissMember where RecMsgID='" +
+			MsgID + "' and RecMsgUserID='" + UserID + "'";
+		Query->ExecSQL();
+	}
+	return result;
+}
+
+// ---------------------------------------------------------------------------
+bool TSendMissMessageThread::SendMissMessageToDepartment(String const Msg, String const FromID,String const FromName,
+	String const DepartmentID, String const MsgID,String const sendtime) {
+	String MesgTrimmed;
+	TJSONValue *Resp;
+	TJSONObject *JSONMsg;
+	MesgTrimmed = Trim(Msg);
+	bool allSender = true;
+	bool curSender = false;
+
+	// no message to send, so just exit
+	if (Msg == EmptyStr)
+		return false;
+
+
+	// 需要判断是否是同一个帐套，如果不是同一个帐套的用户不发送
+	// 先保存消息，然后逐个判断是否登录
+
+	// wrap the message in a JSON object
+	JSONMsg = new TJSONObject();
+	JSONMsg->AddPair(new TJSONPair("notificationType", "message"));
+	JSONMsg->AddPair(new TJSONPair("from", FromID));
+	JSONMsg->AddPair(new TJSONPair("fromusrname", FromName));
+	if(DepartmentID=="0")
+	   JSONMsg->AddPair(new TJSONPair("msgtype", "0"));
+	else
+	   JSONMsg->AddPair(new TJSONPair("msgtype", "1"));
+	JSONMsg->AddPair(new TJSONPair("to", DepartmentID));
+	JSONMsg->AddPair(new TJSONPair("accbookid", AccBookID));
+	JSONMsg->AddPair(new TJSONPair("datetime",sendtime));
+	JSONMsg->AddPair(new TJSONPair("message", MesgTrimmed));
+
+	curSender = (FServer->NotifyCallback(CallBackClientID, SMsgCallback,
+		(TJSONObject*)(JSONMsg->Clone()), Resp));
+	if (Resp != NULL)
+		Resp->Free();
+	if (curSender) {
+		Query->Close();
+		Query->SQL->Text = "delete from tbMissMember where RecMsgID='" +
+			MsgID + "' and RecMsgUserID='" + UserID + "'";
+		Query->ExecSQL();
+	}
+	return curSender;
+}
+
+// ---------------------------------------------------------------------------
+bool TSendMissMessageThread::SendMissMessageToGroup(String const Msg,String const FromID,String const FromName,
+	String const GroupID, String const MsgID,String const sendtime) {
+	String MesgTrimmed;
+	TJSONValue *Resp;
+	TJSONObject *JSONMsg;
+	MesgTrimmed = Trim(Msg);
+	bool allSender = true;
+	bool curSender = false;
+
+	// no message to send, so just exit
+	if (Msg == EmptyStr)
+		return false;
+
+
+	// 需要判断是否是同一个帐套，如果不是同一个帐套的用户不发送
+	// 先保存消息，然后逐个判断是否登录
+
+	// wrap the message in a JSON object
+	JSONMsg = new TJSONObject();
+	JSONMsg->AddPair(new TJSONPair("notificationType", "message"));
+	JSONMsg->AddPair(new TJSONPair("from", FromID));
+	JSONMsg->AddPair(new TJSONPair("fromusrname", FromName));
+	JSONMsg->AddPair(new TJSONPair("msgtype", "3"));
+	JSONMsg->AddPair(new TJSONPair("to", GroupID));
+	JSONMsg->AddPair(new TJSONPair("accbookid", AccBookID));
+	JSONMsg->AddPair(new TJSONPair("datetime",sendtime));
+	JSONMsg->AddPair(new TJSONPair("message", MesgTrimmed));
+
+	curSender = (FServer->NotifyCallback(CallBackClientID, SMsgCallback,
+		(TJSONObject*)(JSONMsg->Clone()), Resp));
+	if (Resp != NULL)
+		Resp->Free();
+	if (curSender) {
+		Query->Close();
+		Query->SQL->Text = "delete from tbMissMember where RecMsgID='" +
+			MsgID + "' and RecMsgUserID='" + UserID + "'";
+		Query->ExecSQL();
+	}
+	return curSender;
+}
+// ---------------------------------------------------------------------------

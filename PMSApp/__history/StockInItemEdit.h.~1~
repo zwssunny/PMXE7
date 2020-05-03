@@ -1,0 +1,25 @@
+//---------------------------------------------------------------------------
+
+#ifndef StockInItemEditH
+#define StockInItemEditH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "ItemBaseForm.h"
+#include <FMX.ActnList.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <System.Actions.hpp>
+//---------------------------------------------------------------------------
+class TfrmItemBaseForm1 : public TfrmItemBaseForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmItemBaseForm1(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmItemBaseForm1 *frmItemBaseForm1;
+//---------------------------------------------------------------------------
+#endif

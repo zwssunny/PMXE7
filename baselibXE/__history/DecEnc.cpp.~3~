@@ -1,0 +1,21 @@
+// ---------------------------------------------------------------------------
+//#include <fmx.h>
+#pragma hdrstop
+
+#include "DecEnc.h"
+#include "ElAES.hpp"
+const String KEY = "1372806068473069";
+// {'1','3','7','2','8','0','6','0','6','8','4','7','3','0','6','9'};
+// ---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+
+String DecryptAES(const String InBuf) {
+	// ShowMessage("StrToHex需要重新实现");  InBuf;//
+	return DecryptAESString(InBuf, KEY, kb128);
+}
+
+String EncryptAES(const String InBuf) {
+	// ShowMessage("StrToHex需要重新实现"); InBuf;//
+	return EncryptAESString(InBuf, KEY, kb128);
+}

@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5067B3D4-1B10-4238-B460-20A018D457E2}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Foresight.InstantMessenger</RootNamespace>
+    <AssemblyName>ForesightIM</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>ForesightIM.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>Foresight.InstantMessenger.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="Newtonsoft.Json.WindowsPhone, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>proxy\references\Newtonsoft.Json.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccBook.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CTCallback.cs" />
+    <Compile Include="CTCMDCallback.cs" />
+    <Compile Include="CTConnection.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainTweetPage.xaml.cs">
+      <DependentUpon>MainTweetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="proxy\Base64.cs" />
+    <Compile Include="proxy\DBXCallback.cs" />
+    <Compile Include="proxy\DBXDataTypes.cs" />
+    <Compile Include="proxy\DBXDefaultFormatter.cs" />
+    <Compile Include="proxy\DBXException.cs" />
+    <Compile Include="proxy\DBXJSONTools.cs" />
+    <Compile Include="proxy\DBXParameter.cs" />
+    <Compile Include="proxy\DBXTools.cs" />
+    <Compile Include="proxy\DBXValue.cs" />
+    <Compile Include="proxy\DBXValueType.cs" />
+    <Compile Include="proxy\DBXWritableValue.cs" />
+    <Compile Include="proxy\DSAdmin.cs" />
+    <Compile Include="proxy\DSAdminRestClient.cs" />
+    <Compile Include="proxy\DSCallbackChannelManager.cs" />
+    <Compile Include="proxy\DSHTTPRequestType.cs" />
+    <Compile Include="proxy\DSProxy.cs" />
+    <Compile Include="proxy\DSRESTCommand.cs" />
+    <Compile Include="proxy\DSRESTConnection.cs" />
+    <Compile Include="proxy\DSRESTParamDirection.cs" />
+    <Compile Include="proxy\DSRESTParameter.cs" />
+    <Compile Include="proxy\DSRESTParameterMetaData.cs" />
+    <Compile Include="proxy\JSONSerializable.cs" />
+    <Compile Include="proxy\JSONValueType.cs" />
+    <Compile Include="proxy\TableType.cs" />
+    <Compile Include="proxy\TDataSet.cs" />
+    <Compile Include="proxy\TDBXAnsiCharsValue.cs" />
+    <Compile Include="proxy\TDBXAnsiStringValue.cs" />
+    <Compile Include="proxy\TDBXBcdValue.cs" />
+    <Compile Include="proxy\TDBXBooleanValue.cs" />
+    <Compile Include="proxy\TDBXDateValue.cs" />
+    <Compile Include="proxy\TDBXDoubleValue.cs" />
+    <Compile Include="proxy\TDBXInt16Value.cs" />
+    <Compile Include="proxy\TDBXInt32Value.cs" />
+    <Compile Include="proxy\TDBXInt64Value.cs" />
+    <Compile Include="proxy\TDBXInt8Value.cs" />
+    <Compile Include="proxy\TDBXReader.cs" />
+    <Compile Include="proxy\TDBXReaderValue.cs" />
+    <Compile Include="proxy\TDBXSingleValue.cs" />
+    <Compile Include="proxy\TDBXStreamValue.cs" />
+    <Compile Include="proxy\TDBXStringValue.cs" />
+    <Compile Include="proxy\TDBXTimeStampValue.cs" />
+    <Compile Include="proxy\TDBXTimeValue.cs" />
+    <Compile Include="proxy\TDBXUInt16Value.cs" />
+    <Compile Include="proxy\TDBXUInt8Value.cs" />
+    <Compile Include="proxy\TDBXWideStringValue.cs" />
+    <Compile Include="proxy\TJSONArray.cs" />
+    <Compile Include="proxy\TJSONFalse.cs" />
+    <Compile Include="proxy\TJSONNull.cs" />
+    <Compile Include="proxy\TJSONNumber.cs" />
+    <Compile Include="proxy\TJSONObject.cs" />
+    <Compile Include="proxy\TJSONPair.cs" />
+    <Compile Include="proxy\TJSONString.cs" />
+    <Compile Include="proxy\TJSONTrue.cs" />
+    <Compile Include="proxy\TJSONValue.cs" />
+    <Compile Include="proxy\TParams.cs" />
+    <Compile Include="proxy\TStream.cs" />
+    <Compile Include="proxy\UrlUTF8Encoder.cs" />
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserRecord.cs" />
+    <Compile Include="UsersList.xaml.cs">
+      <DependentUpon>UsersList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainTweetPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UsersList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Properties\AppManifest.xml" />
+    <Content Include="Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icons\appbar.feature.settings.rest.png" />
+    <Content Include="icons\appbar.next.rest.png" />
+    <Content Include="icons\appbar.cancel.rest.png" />
+    <Content Include="icons\appbar.check.rest.png" />
+    <Content Include="icons\appbar.close.rest.png" />
+    <Content Include="icons\appbar.refresh.rest.png" />
+    <Content Include="icons\appbar.sync.rest.png" />
+    <Resource Include="Images\main.png" />
+    <Resource Include="Images\Foresight.png" />
+    <Content Include="tweet.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="cmd.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SplashScreenImage.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>

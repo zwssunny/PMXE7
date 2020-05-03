@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<MobileDevice>DU2TDM14B8002095</MobileDevice>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.616,F:\fmtest\BSOAtest\BaseForm\BaseForm.fmx=F:\fmtest\BSOAtest\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.616,F:\fmtest\BSOAtest\BaseForm\BaseForm.cpp=F:\fmtest\BSOAtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.920,F:\fmtest\BSOAtest\NotPassTextForm.cpp=F:\fmtest\BSOAtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.224,F:\AppCode\HSApp\Unit1.fmx=F:\AppCode\HSApp\SaleManagement\RoomEdit.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.199,F:\fmtest\BSOAtest\DocCheck.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.810,F:\AppCode\HSApp\Common\PhotoViewer.cpp=F:\AppCode\HSApp\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.224,F:\AppCode\HSApp\Unit1.h=F:\AppCode\HSApp\SaleManagement\RoomEdit.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.214,F:\fmtest\BSOAtest\ZhengQiGuoLu.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.616,F:\fmtest\BSOAtest\BaseForm\BaseForm.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.214,F:\fmtest\BSOAtest\ZhengQiGuoLu.fmx=F:\fmtest\BSOAtest\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.128,F:\AppCode\HSApp\Unit1.h=F:\AppCode\HSApp\SaleManagement\SaleSubscribeCancel.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.256,F:\AppCode\HSApp\Unit1.h=F:\AppCode\HSApp\WorkFlow\WorkFlowBrowseForm.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.082,F:\AppCode\HSApp\Unit1.h=F:\AppCode\HSApp\BaseForm\BaseBillForm.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.256,F:\AppCode\HSApp\Unit1.fmx=F:\AppCode\HSApp\WorkFlow\WorkFlowBrowseForm.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.451,F:\AppCode\XZSSAPP\Unit1.h=F:\AppCode\XZSSAPP\ChartReport\EstateTotalReport.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.322,F:\AppCode\XZSSAPP\Unit1.h=F:\AppCode\XZSSAPP\CustomerMng\ClientEdit.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.174,F:\AppCode\XZSSAPP\Unit1.h=F:\AppCode\XZSSAPP\SaleManagement\SaleSubscribeMangeDetail.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.942,F:\fmtest\BSOAtest\NotPassTextForm.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.057,F:\fmtest\BSOAtest\LoanCalculation.cpp=F:\fmtest\BSOAtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.284,F:\AppCode\XZSSAPP\Unit1.h=F:\AppCode\XZSSAPP\CustomerMng\ClientVisitDetailEdit.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.344,F:\AppCode\XZSSAPP\Unit1.h=F:\AppCode\XZSSAPP\CustomerMng\Client.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.667,F:\fmtest\BSOAtest\NotPassMethod.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.128,F:\AppCode\HSApp\Unit1.fmx=F:\AppCode\HSApp\SaleManagement\SaleSubscribeCancel.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.082,F:\AppCode\HSApp\Unit1.fmx=F:\AppCode\HSApp\BaseForm\BaseBillForm.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.810,F:\AppCode\HSApp\Common\PhotoViewer.fmx=F:\AppCode\HSApp\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.505,F:\AppCode\HSApp\SaleManagement\SaleSubscribeCancelDetail.cpp=F:\AppCode\HSApp\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.199,F:\fmtest\BSOAtest\DocCheck.fmx=F:\fmtest\BSOAtest\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.667,F:\fmtest\BSOAtest\NotPassMethod.cpp=F:\fmtest\BSOAtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.174,F:\AppCode\XZSSAPP\Unit1.fmx=F:\AppCode\XZSSAPP\SaleManagement\SaleSubscribeMangeDetail.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.322,F:\AppCode\XZSSAPP\Unit1.fmx=F:\AppCode\XZSSAPP\CustomerMng\ClientEdit.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.004,F:\fmtest\BSOAtest\Common\CommFunc.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.914,F:\AppCode\XZSSAPP\Common\WaitThread.h=F:\AppCode\XZSSAPP\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.751,F:\AppCode\HSApp\WorkFlow\WorkFlowDetailForm.h=F:\AppCode\HSApp\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.284,F:\AppCode\XZSSAPP\Unit1.fmx=F:\AppCode\XZSSAPP\CustomerMng\ClientVisitDetailEdit.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.057,F:\fmtest\BSOAtest\LoanCalculation.fmx=F:\fmtest\BSOAtest\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.214,F:\fmtest\BSOAtest\ZhengQiGuoLu.cpp=F:\fmtest\BSOAtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.057,F:\fmtest\BSOAtest\LoanCalculation.h=F:\fmtest\BSOAtest\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.451,F:\AppCode\XZSSAPP\Unit1.fmx=F:\AppCode\XZSSAPP\ChartReport\EstateTotalReport.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.344,F:\AppCode\XZSSAPP\Unit1.fmx=F:\AppCode\XZSSAPP\CustomerMng\Client.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.629,F:\AppCode\XZSSAPP\CustomerMng\ClientVisit.fmx=F:\AppCode\XZSSAPP\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.505,F:\AppCode\HSApp\SaleManagement\SaleSubscribeCancelDetail.h=F:\AppCode\HSApp\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.984,F:\fmtest\BSOAtest\Unit1.h=F:\fmtest\BSOAtest\ZhengQiGuoLuEdit.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.194,F:\fmtest\BSOAtest\DocCheck.cpp=F:\fmtest\BSOAtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.942,F:\fmtest\BSOAtest\NotPassTextForm.fmx=F:\fmtest\BSOAtest\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.810,F:\AppCode\HSApp\Common\PhotoViewer.h=F:\AppCode\HSApp\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.629,F:\AppCode\XZSSAPP\CustomerMng\ClientVisit.h=F:\AppCode\XZSSAPP\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.050,F:\fmtest\BSOAtest\Unit1.h=F:\fmtest\BSOAtest\SaleManagement\Room.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.184,F:\fmtest\BSOAtest\HSApp.cbproj=F:\fmtest\BSOAtest\BSTest.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.751,F:\AppCode\HSApp\WorkFlow\WorkFlowDetailForm.fmx=F:\AppCode\HSApp\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.036,F:\fmtest\BSOAtest\HSAppPCH1.h=F:\fmtest\BSOAtest\BSTestPCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.751,F:\AppCode\HSApp\WorkFlow\WorkFlowDetailForm.cpp=F:\AppCode\HSApp\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.505,F:\AppCode\HSApp\SaleManagement\SaleSubscribeCancelDetail.fmx=F:\AppCode\HSApp\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.984,F:\fmtest\BSOAtest\Unit1.fmx=F:\fmtest\BSOAtest\ZhengQiGuoLuEdit.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.050,F:\fmtest\BSOAtest\Unit1.fmx=F:\fmtest\BSOAtest\SaleManagement\Room.fmx</Transaction>
+  </Transactions>
+	<BT_BuildType>Debug</BT_BuildType>
+</BorlandProject>

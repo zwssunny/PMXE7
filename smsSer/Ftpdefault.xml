@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="NeedFTP" value="true"/>
+	<Setting Name="InternetIP" value="127.0.0.1"/>
+	<Setting Name="InteranetIP" value="127.0.0.1"/>
+	<Setting Name="UserName" value="user"/>
+	<Setting Name="Password" value="674A647A506D5972733055324D4943354261364565773D3D"/>
+	<Setting Name="Port" value="22"/>
+	<Setting Name="Passive" value="true"/>
+	<Setting Name="UpdateURL" value="http://www.xzepm.com/pms/update"/>
+</DefaultSettings>

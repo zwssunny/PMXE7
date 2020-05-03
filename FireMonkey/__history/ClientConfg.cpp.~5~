@@ -1,0 +1,126 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "ClientConfg.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.fmx"
+TfrmConfgForm *frmConfgForm;
+//---------------------------------------------------------------------------
+__fastcall TfrmConfgForm::TfrmConfgForm(TComponent* Owner)
+  : TForm(Owner)
+{
+	Panel3->Enabled=false;
+	ReadOption();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmConfgForm::ReadOption()
+{
+	String settingfile=ExtractFilePath(ParamStr(0))+"\\ClientConfig.xml";
+	if(!FileExists(settingfile))
+		throw Exception("找不到系统配置文件"+settingfile);
+	XMLDocument1->FileName=settingfile;
+	XMLDocument1->Active=true;
+	IXMLNodeList *NodeList=XMLDocument1->ChildNodes;
+	int count=NodeList->Count;
+	IXMLNode *selectNode=NULL;
+	for(int i=0;i<count;i++)
+	{
+		IXMLNode *curNode=NodeList->Nodes[i];
+		if(curNode->LocalName==WideString("DefaultSettings")&&(curNode->GetAttribute("Version")==String("2.0.0.2")))
+		{
+			selectNode=curNode;
+			break;
+		}
+	}
+	if(selectNode!=NULL)
+	{
+		IXMLNodeList *sNodeList=selectNode->ChildNodes;
+		for(int j=0;j<sNodeList->Count;j++)
+		{
+			IXMLNode *sNode=sNodeList->Nodes[j];
+			if(sNode->GetAttribute("Name")==String("AgentAddress"))
+				edAgentIP->Text=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("AgentPort"))
+				edAgentPort->Text=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("Protocol"))
+				cbProtocol->Text=sNode->GetAttribute("value");
+		}
+	}
+	XMLDocument1->Active=false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmConfgForm::WriteOption()
+{
+	String settingfile=ExtractFilePath(ParamStr(0))+"\\ClientConfig.xml";
+	if(!FileExists(settingfile))
+		throw Exception("找不到系统配置文件"+settingfile);
+	XMLDocument1->FileName=settingfile;
+	XMLDocument1->Active=true;
+	IXMLNodeList *NodeList=XMLDocument1->ChildNodes;
+	int count=NodeList->Count;
+	IXMLNode *selectNode=NULL;
+	for(int i=0;i<count;i++)
+	{
+		IXMLNode *curNode=NodeList->Nodes[i];
+		if(curNode->LocalName==WideString("DefaultSettings")&&(curNode->GetAttribute("Version")==String("2.0.0.2")))
+		{
+			selectNode=curNode;
+			break;
+		}
+	}
+	if(selectNode!=NULL)
+	{
+		IXMLNodeList *sNodeList=selectNode->ChildNodes;
+		for(int j=0;j<sNodeList->Count;j++)
+		{
+			IXMLNode *sNode=sNodeList->Nodes[j];
+			if(sNode->GetAttribute("Name")==String("AgentAddress"))
+				sNode->Attributes["value"]= edAgentIP->Text;
+			else if(sNode->GetAttribute("Name")==String("AgentPort"))
+				sNode->Attributes["value"]=edAgentPort->Text;
+			else if(sNode->GetAttribute("Name")==String("Protocol"))
+				sNode->Attributes["value"]=cbProtocol->Text.UpperCase();
+		}
+		XMLDocument1->SaveToFile(settingfile);
+	}
+	XMLDocument1->Active=false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmConfgForm::bbEditClick(TObject *Sender)
+{
+	Panel3->Enabled=true;
+	bbEdit->Enabled=false;
+	bbCancel->Enabled=true;
+	bbSave->Enabled=true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmConfgForm::bbSaveClick(TObject *Sender)
+{
+	Panel3->Enabled=false;
+	bbEdit->Enabled=true;
+	bbCancel->Enabled=false;
+	bbSave->Enabled=false;
+	WriteOption();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmConfgForm::bbCancelClick(TObject *Sender)
+{
+	Panel3->Enabled=false;
+	bbEdit->Enabled=true;
+	bbSave->Enabled=false;
+	bbCancel->Enabled=false;
+	ReadOption();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmConfgForm::edAgentPortKeyDown(TObject *Sender, WORD &Key, System::WideChar &KeyChar,
+          TShiftState Shift)
+{
+  	if(Key!=13 && Key!=8 && (Key>'9' || Key<'0'))
+		Key=0;
+}
+//---------------------------------------------------------------------------
+

@@ -1,0 +1,12 @@
+构件重大修改内容,
+在头文件ProjectStruct.h
+下面这些函数，增加项目编号的传入，在单项目操作情况下可以为空，不需要改原来代码，如果有外部项目情况下，需要传相应的子项目的ID。
+	TTask*           TaskByID(String AID,String APrjID="");
+	TPrjObject*      ObjByID(String AID,String PrjID="");
+	TPrjObject*      ObjByCode(String ACode,String PrjCode="");
+	TTask* GetTaskByID(TPrjObject* AObj, const String& AID,const String& APrjID="");
+	TTaskLink* AddFrontTask(const String& FrontCode,const String& FrontPrjCode="") 
+	TTaskLink* AddLateTask(const String& LateCode,const String& LatePrjCode="")
+这些改目前主要满足外部项目跟本上级项目中任务关系的建立，实现多级计划的关联和跟踪。
+还是只能通过当前项目的任务来设置该任务的前置任务或者后置任务，来实现上级项目与下级项目的任务关系；
+外部项目中的任务还是不能修改，保持了原来业务的控制方法。			

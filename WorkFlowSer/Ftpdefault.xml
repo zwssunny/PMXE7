@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="False">
+	<Setting Name="NeedFTP" value="True"/>
+	<Setting Name="InternetIP" value="127.0.0.1"/>
+	<Setting Name="InteranetIP" value="127.0.0.1"/>
+	<Setting Name="UserName" value="username"/>
+	<Setting Name="Password" value="password"/>
+	<Setting Name="Port" value="21"/>
+	<Setting Name="Passive" value="True"/>
+</DefaultSettings>

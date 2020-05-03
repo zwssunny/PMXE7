@@ -1,0 +1,23 @@
+//---------------------------------------------------------------------------
+
+#ifndef HouseReserveFiltersH
+#define HouseReserveFiltersH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseFilters.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+//---------------------------------------------------------------------------
+class THouseReserveFiltersForm : public TBaseFiltersForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall THouseReserveFiltersForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE THouseReserveFiltersForm *HouseReserveFiltersForm;
+//---------------------------------------------------------------------------
+#endif

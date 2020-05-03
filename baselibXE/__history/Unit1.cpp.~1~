@@ -1,0 +1,17 @@
+//---------------------------------------------------------------------------
+
+
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma classgroup "System.Classes.TPersistent"
+#pragma resource "*.fmx"
+TDataModule1 *DataModule1;
+//---------------------------------------------------------------------------
+__fastcall TDataModule1::TDataModule1(TComponent* Owner)
+	: TDataModule(Owner)
+{
+}
+//---------------------------------------------------------------------------

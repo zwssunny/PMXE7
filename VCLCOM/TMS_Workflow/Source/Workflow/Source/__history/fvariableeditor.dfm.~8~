@@ -1,0 +1,131 @@
+object fmVariableEditor: TfmVariableEditor
+  Left = 517
+  Top = 152
+  Caption = 'Variables'
+  ClientHeight = 360
+  ClientWidth = 510
+  Color = clBtnFace
+  Constraints.MinHeight = 300
+  Constraints.MinWidth = 400
+  Font.Charset = GB2312_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = #23435#20307
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  DesignSize = (
+    510
+    360)
+  PixelsPerInch = 96
+  TextHeight = 12
+  object PageControl1: TPageControl
+    Left = 195
+    Top = 5
+    Width = 300
+    Height = 310
+    ActivePage = TabSheet1
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'General'
+      DesignSize = (
+        292
+        283)
+      object Label1: TLabel
+        Left = 5
+        Top = 5
+        Width = 30
+        Height = 12
+        Caption = 'Value'
+      end
+      object edValue: TEdit
+        Left = 6
+        Top = 20
+        Width = 278
+        Height = 20
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 0
+        OnChange = PropertyChanged
+      end
+      object ckbInteraction: TCheckBox
+        Left = 7
+        Top = 49
+        Width = 200
+        Height = 17
+        Caption = #38656#35201#36319#19994#21153#21333#25454#23383#27573#20851#32852
+        TabOrder = 1
+        OnClick = PropertyChanged
+      end
+      object Memo1: TMemo
+        Left = 6
+        Top = 96
+        Width = 273
+        Height = 140
+        Lines.Strings = (
+          #22914#26524#36873#20013#35813#26631#24535#65292#21017#35813#21464#37327#20250#36319#30456#20851#32852#30340#19994#21153#21333#25454
+          #30340#23383#27573#36827#34892#20114#30456#26356#26032','#22312#23457#25209#36807#31243#20013#22914#26524#20462#25913#20102#35813
+          #21464#37327#30340#20540#65292#21017#24403#35813#19994#21153#23457#26680#26102#23601#20250#30456#24212#26356#26032#21040#23545#24212
+          #19994#21153#21333#25454#20013#65292#24037#20316#27969#21551#21160#26102#20063#20250#20174#30456#24212#21333#25454#20013#33719#21462
+          #20851#32852#30340#23383#27573#20540#65307
+          #36825#20010#20851#31995#30340#24314#31435#35201#27714#21464#37327#21517#36319#23545#24212#30340#23383#27573#21517#37319#29992#30456
+          #21516#30340#21517#31216#21644#21462#20540#31867#22411#65292#19988#35813#21464#37327#21482#33021#29992#21512#27861#30340#23383#31526)
+        ParentColor = True
+        ReadOnly = True
+        TabOrder = 2
+      end
+    end
+  end
+  object lvVars: TListView
+    Left = 5
+    Top = 35
+    Width = 185
+    Height = 280
+    Anchors = [akLeft, akTop, akBottom]
+    Columns = <>
+    HideSelection = False
+    TabOrder = 1
+    ViewStyle = vsReport
+    OnEdited = lvVarsEdited
+    OnSelectItem = lvVarsSelectItem
+  end
+  object btAdd: TButton
+    Left = 5
+    Top = 5
+    Width = 60
+    Height = 25
+    Caption = '&Add'
+    TabOrder = 2
+    OnClick = btAddClick
+  end
+  object btDelete: TButton
+    Left = 70
+    Top = 5
+    Width = 60
+    Height = 25
+    Caption = '&Delete'
+    TabOrder = 3
+    OnClick = btDeleteClick
+  end
+  object btCancel: TButton
+    Left = 420
+    Top = 320
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Cancel'
+    TabOrder = 5
+    OnClick = btCancelClick
+  end
+  object btOk: TButton
+    Left = 340
+    Top = 320
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Caption = '&Ok'
+    TabOrder = 4
+    OnClick = btOkClick
+  end
+end

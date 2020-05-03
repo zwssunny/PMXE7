@@ -1,0 +1,18 @@
+//---------------------------------------------------------------------------
+
+#ifndef dmConnH
+#define dmConnH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+//---------------------------------------------------------------------------
+class TdmSQLConn : public TDataModule
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TdmSQLConn(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TdmSQLConn *dmSQLConn;
+//---------------------------------------------------------------------------
+#endif

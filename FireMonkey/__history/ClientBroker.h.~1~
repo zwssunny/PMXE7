@@ -1,0 +1,223 @@
+// ---------------------------------------------------------------------------
+
+#ifndef ClientBrokerH
+#define ClientBrokerH
+// ---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Types.hpp>
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+#include "CZDataSet.h"
+#include "loginfo.h"
+#include <SqlExpr.hpp>
+#include <IndyPeerImpl.hpp>
+#include "CallbackClient.h"
+class TLoginUserClient;
+
+// ---------------------------------------------------------------------------
+class TClientBroker {
+private:
+	String FDevCorp;
+	String FSoftName;
+	String FVersion;
+	String FHomePage;
+	String FEmail;
+	String FAgentAddress;
+	int FAgentPort;
+	int FIsSystemer;
+	bool FAppConnected;
+	String FAccBookName;
+
+	String FftpInteranetIP;
+	String FftpInternetIP;
+	String FftpUserName;
+	String FftpPassword;
+	int FftpPort;
+	bool FftpNeedFTP;
+	bool FftpPassive;
+	String FUpdateURL;
+
+	// mail
+	String FMailServer;
+	String FSendEMail;
+	String FMailUserName;
+	String FMailPassword;
+	int FMailPort;
+
+	TCZDataSet* FUserDataSet;
+	bool FRemoter;
+	int FSysDbType;
+	int FAccDbType;
+
+   //	HWND FHandle;
+  //	HWND FAOwner;
+
+
+	TList* CDataSetList;
+	TCZDataSet *FClientLibs; // 保存已启装载动态链接库
+	TCZDataSet *FClientForms; // 保存已启动窗体信息
+	TCZDataSet *FAccBooks; // 保存当前系统可提供的账套信息
+	TClientDataSet *FModuleRight; // 保存当前用户的操作权限
+	String FGlobeVarStr;
+
+	String FServerID; // 代理服务器ID
+	String FLocalMachineName; //
+	String FLocalIP; //
+	String ClientPath; //
+	//////////////////////////////////////////////////
+	String FLogonCode; // 登录号
+	String FUserCode; // 当前登录用户编码
+	String FUserName; // 当前登录用户名
+	String FUserEmpID;
+	String FQQID; // QQID
+	String FQQPassword; // QQ登陆口令
+	String FPassword; // 当前登录用户密码
+	String FAccBookID; // 账套ID
+	//////////////////////////////////////////////////
+	String FAppServerIP; // 应用服务器IP
+	int FAppServerPort; // 应用服务器端口
+	int FUserCount; // 在线用户数
+	String LogStr;
+	int FTimeOut;
+	int FExecuteTime;
+	bool FRecvAccBook;
+	int FUpdateTimes;
+	bool FIsTrial;
+	String FModuleList;
+	int FProjectLevel;
+
+
+	int __thread FClientID;
+	// ----------------------------------------------------------------
+	int ClientBrokerStatus;
+	String BrokerErrorMessage;
+
+	// ----------------------------------------------------------------
+
+	TSQLConnection *DSConnection;
+	TLoginUserClient *LoginUserClient;
+	TDSClientCallbackChannelManager* LChannelManager;
+	TCallbackClient * MsgCallBack;
+	// ----------------------------------------------------------------
+	void __fastcall GetAccList();
+	void __fastcall GetAccListBack(TJSONObject *fdata); // 初始化账套数据
+	// 确认应用服务器登录
+	void __fastcall RefershUserCount(); // 刷新在线用户数
+	void __fastcall RefreshGlobeVar();
+	void __fastcall BuildGlobeVar(TDataSet *DataSet);
+	//////////////////////////////////////////////////////////
+	void __fastcall MessageCallBackHook(TJSONObject* Arg); // 接收消息
+	void __fastcall SendUserMessage(int type, String Msg);
+	// 发送系统到服务器消息 type:11-审批消息，12-短消息，13-备忘录
+
+	int dwCurStatus;
+
+
+	bool __fastcall GetLogInfo(TLogInfo *logInfo);
+	void __fastcall GetModuleRight();
+	void __fastcall GetCurUserInfo();
+
+	String __fastcall get_DevCorp();
+	String __fastcall get_SoftName();
+	String __fastcall get_Version();
+	String __fastcall get_HomePage();
+	String __fastcall get_Email();
+	int __fastcall get_UserCount();
+	bool __fastcall get_Active();
+	void __fastcall SetLogonCode(String Value);
+	void __fastcall SetUserCode(String Value);
+
+	bool __fastcall GetConnected();
+	void __fastcall ReConnetToAgentAndApp();
+
+	TDBXConnection* __fastcall GetDBXConnection();
+	void __fastcall AppOnConnect(TObject * Sender);
+	void __fastcall AppOnDisConnect(TObject * Sender);
+
+	// ----------------------------------------------------------------
+protected:
+	void __fastcall ClientCommTerminate(TObject *Sender);
+	void __fastcall SetHookCallBack(THookMsgCallback Value);
+	THookMsgCallback __fastcall GetHookCallBack();
+	// ----------------------------------------------------------------
+public:
+	__fastcall TClientBroker();
+	__fastcall virtual ~TClientBroker();
+	bool __fastcall InitClientComm(); // 初始化ClientComm
+	bool __fastcall LogIn(); // 登录
+	void __fastcall LogOut(); // 注销
+	void __fastcall GetModuleData(TClientDataSet *query);
+	TStream* __fastcall GetClassList(); //直接返回ADO数据集
+	TStream* __fastcall GetAutoCodeFields(); //直接返回ADO数据集
+	TJSONArray* __fastcall GetUserList();
+	TJSONArray* __fastcall GetDepartmentAndUsersList();
+	bool __fastcall ChangePwd(String szNewPwd);
+	void __fastcall CloseAllForms();
+	void __fastcall ShowForm(int modulecode, String param, bool bShow = true);
+	void __fastcall ShowFormModal(int modulecode, String param);
+	void __fastcall ShowFormModalByFormCode(int formcode, String param);
+	void __fastcall CloseForm(int formid);
+	// ----------------------------------------------------------------
+	// ----------------------------------------------------------------
+	__property TDBXConnection* DBXConnection = {read=GetDBXConnection};
+	__property int TimeOut = {read = FTimeOut, write = FTimeOut};
+	__property int SysDbType = {read = FSysDbType, write = FSysDbType};
+	__property int AccDbType = {read = FAccDbType, write = FAccDbType};
+	__property TCZDataSet *ClientForms = {read = FClientForms};
+	__property TCZDataSet *ClientLibs = {read = FClientLibs};
+	__property bool Active = {read = get_Active};
+	__property String UserCode = {read = FUserCode};
+	__property String UserEmpID = {read = FUserEmpID};
+	__property String Password = {read = FPassword, write = FPassword};
+	__property String AccBookID = {read = FAccBookID, write = FAccBookID};
+	__property int UserCount = {read = get_UserCount};
+	__property String DevCorp = {read = get_DevCorp};
+	__property String SoftName = {read = get_SoftName};
+	__property String Version = {read = get_Version};
+	__property String HomePage = {read = get_HomePage};
+	__property String Email = {read = get_Email};
+	__property String AgentAddress = {
+		read = FAgentAddress, write = FAgentAddress};
+	__property int AgentPort = {read = FAgentPort, write = FAgentPort};
+	__property TCZDataSet *AccBooks = {read = FAccBooks};
+	__property bool Connected = {read = GetConnected};
+	__property bool AppConnected = {read = FAppConnected};
+	__property int IsSystemer = {read = FIsSystemer, write = FIsSystemer};
+	__property String UserName = {read = FUserName};
+	__property String AccBookName = {read = FAccBookName, write = FAccBookName};
+	// ftp
+	__property String ftpInteranetIP = {
+		read = FftpInteranetIP, write = FftpInteranetIP};
+	__property String ftpInternetIP = {
+		read = FftpInternetIP, write = FftpInternetIP};
+	__property String ftpUserName = {read = FftpUserName, write = FftpUserName};
+	__property String ftpPassword = {read = FftpPassword, write = FftpPassword};
+	__property int ftpPort = {read = FftpPort, write = FftpPort};
+	__property bool ftpNeedFTP = {read = FftpNeedFTP, write = FftpNeedFTP};
+	__property bool ftpPassive = {read = FftpPassive, write = FftpPassive};
+	__property TCZDataSet* UserDataSet = {read = FUserDataSet};
+	__property String LogonCode = {read = FLogonCode, write = SetLogonCode};
+	//UpdateURL
+	__property String UpdateURL = {read = FUpdateURL, write = FUpdateURL};
+	// QQ
+	__property String QQID = {read = FQQID};
+	__property String QQPassword = {read = FQQPassword};
+	// 是否是远程连接
+	__property bool Remoter = {read = FRemoter, write = FRemoter};
+	//
+	// 邮件发送服务
+	__property String MailServer = {read = FMailServer, write = FMailServer};
+	__property String ESendMail = {read = FSendEMail, write = FSendEMail};
+	__property String MailUserName = {
+		read = FMailUserName, write = FMailUserName};
+	__property String MailPassword = {
+		read = FMailPassword, write = FMailPassword};
+	__property int MailPort = {read = FMailPort, write = FMailPort};
+	// 工作流引擎
+  //	__property TWorkflowStudio* WorkflowStudio = {read = GetWorkFlowStudio};
+	//消息处理钩子
+   __property THookMsgCallback HookCallBack = {read = GetHookCallBack,write = SetHookCallBack};
+
+};
+// ---------------------------------------------------------------------------
+#endif

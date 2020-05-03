@@ -1,0 +1,247 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object ToolBar1: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 3
+    Width = 384.000000000000000000
+    object btFind: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 336.000000000000000000
+      StyleLookup = 'searchtoolbutton'
+      TabOrder = 1
+      Text = #26597#25214#36828#31243#26426#22120
+      Width = 48.000000000000000000
+      OnClick = btFindClick
+    end
+    object cbBoxProfile: TComboBox
+      Align = Left
+      DisableFocusEffect = False
+      Height = 48.000000000000000000
+      Position.X = 90.000000000000000000
+      TabOrder = 4
+      Width = 191.000000000000000000
+      OnClosePopup = cbBoxProfileClosePopup
+    end
+    object Label1: TLabel
+      Align = Left
+      AutoSize = True
+      Height = 48.000000000000000000
+      TextSettings.WordWrap = False
+      Text = #36830#25509#26426#22120#65306
+      Width = 90.000000000000000000
+    end
+  end
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    TabOrder = 6
+    Width = 384.000000000000000000
+    object btTake: TButton
+      Action = TakePhotoFromCameraAction1
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 336.000000000000000000
+      StyleLookup = 'cameratoolbutton'
+      TabOrder = 2
+      Width = 48.000000000000000000
+    end
+    object btSN: TButton
+      Action = acReadSN
+      Align = Left
+      Height = 48.000000000000000000
+      Position.X = 145.000000000000000000
+      StyleLookup = 'speedbuttonstyle'
+      TabOrder = 5
+      Width = 88.000000000000000000
+    end
+    object cbCodeType: TComboBox
+      Align = Left
+      DisableFocusEffect = False
+      Height = 48.000000000000000000
+      Items.Strings = (
+        #26465#24418#30721
+        #20108#32500#30721
+        #20840#31867#22411)
+      ItemIndex = 0
+      Position.X = 48.000000000000000000
+      TabOrder = 6
+      Width = 97.000000000000000000
+    end
+    object btClose: TButton
+      Action = acClose
+      Align = Left
+      Height = 48.000000000000000000
+      StyleLookup = 'arrowlefttoolbutton'
+      TabOrder = 8
+      Width = 48.000000000000000000
+    end
+  end
+  object Panel1: TPanel
+    Align = Top
+    Height = 153.000000000000000000
+    Position.Y = 48.000000000000000000
+    Width = 384.000000000000000000
+    TabOrder = 7
+    object Label2: TLabel
+      AutoSize = True
+      Height = 23.000000000000000000
+      Position.X = 26.000000000000000000
+      Position.Y = 16.000000000000000000
+      TextSettings.WordWrap = False
+      Text = #35774#22791#21495#65306
+      Width = 72.000000000000000000
+    end
+    object edDeviceSN: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Position.X = 97.000000000000000000
+      Position.Y = 8.000000000000000000
+      Width = 257.000000000000000000
+      Height = 32.000000000000000000
+      object EditButton1: TEditButton
+        Action = acLocateRecord
+        CanFocus = False
+        Cursor = crArrow
+        Height = 28.000000000000000000
+        TabOrder = 0
+        Text = 'GO'
+        Width = 41.000000000000000000
+      end
+    end
+    object Label3: TLabel
+      AutoSize = True
+      Height = 23.000000000000000000
+      Position.X = 8.000000000000000000
+      Position.Y = 61.000000000000000000
+      TextSettings.WordWrap = False
+      Text = #35774#22791#21517#31216#65306
+      Width = 90.000000000000000000
+    end
+    object lbDeviceName: TLabel
+      Height = 23.000000000000000000
+      Position.X = 97.000000000000000000
+      Position.Y = 61.000000000000000000
+      TextSettings.WordWrap = False
+      Text = #21517#31216
+      Width = 256.000000000000000000
+    end
+    object Label5: TLabel
+      AutoSize = True
+      Height = 23.000000000000000000
+      Position.X = 8.000000000000000000
+      Position.Y = 105.000000000000000000
+      TextSettings.WordWrap = False
+      Text = #35774#22791#22411#21495#65306
+      Width = 90.000000000000000000
+    end
+    object lbDeciceMode: TLabel
+      Height = 23.000000000000000000
+      Position.X = 97.000000000000000000
+      Position.Y = 105.000000000000000000
+      TextSettings.WordWrap = False
+      Text = #22411#21495
+      Width = 272.000000000000000000
+    end
+  end
+  object ImageContainer: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Align = Client
+    Height = 318.000000000000000000
+    Width = 384.000000000000000000
+  end
+  object ActionList1: TActionList
+    Left = 336
+    Top = 152
+    object TakePhotoFromCameraAction1: TTakePhotoFromCameraAction
+      Category = 'Media Library'
+      OnDidFinishTaking = TakePhotoFromCameraAction1DidFinishTaking
+    end
+    object acReadSN: TAction
+      Text = #26597#19968#26597
+      OnExecute = acReadSNExecute
+    end
+    object acLocateRecord: TAction
+      Text = #23450#20301#35760#24405
+      OnExecute = acLocateRecordExecute
+    end
+    object acClose: TAction
+      Text = #20851#38381
+      OnExecute = acCloseExecute
+    end
+  end
+  object CommandManager: TTetheringManager
+    OnEndManagersDiscovery = CommandManagerEndManagersDiscovery
+    OnEndProfilesDiscovery = CommandManagerEndProfilesDiscovery
+    OnRequestManagerPassword = CommandManagerRequestManagerPassword
+    OnRemoteManagerShutdown = CommandManagerRemoteManagerShutdown
+    Password = '1314'
+    Text = 'CommandApp'
+    Left = 56
+    Top = 464
+  end
+  object CommandApp: TTetheringAppProfile
+    Manager = CommandManager
+    Text = 'CommandApp'
+    Group = 'FSTAppGroup'
+    Actions = <
+      item
+        Name = 'acConnDB'
+        IsPublic = True
+        Kind = Mirror
+        NotifyUpdates = False
+      end
+      item
+        Name = 'acRefresh'
+        IsPublic = True
+        Kind = Mirror
+        NotifyUpdates = False
+      end>
+    Resources = <
+      item
+        Name = 'Image'
+        IsPublic = True
+        Kind = Mirror
+        ResType = Stream
+        OnResourceReceived = CommandAppResources0ResourceReceived
+      end
+      item
+        Name = 'IsLocate'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = CommandAppResources1ResourceReceived
+      end
+      item
+        Name = 'DeviceName'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = CommandAppResources2ResourceReceived
+      end
+      item
+        Name = 'DeviceModel'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = CommandAppResources3ResourceReceived
+      end>
+    Left = 224
+    Top = 464
+  end
+end

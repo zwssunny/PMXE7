@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "LogoutThread.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+TLogOutThread::TLogOutThread(TLoginUserClient *ALoginUserClient)
+{
+  FLoginUserClient=ALoginUserClient;
+}
+void __fastcall TLogOutThread::Execute()
+{
+  		   try{
+			   try{
+					FLoginUserClient->Logout();
+			   }
+			   catch(...) /*Exception &e*/
+			   {
+				 // throw Exception(L"×¢ÏúÊ±±¨´í:"+e.Message);
+			   }
+		   }
+		   __finally
+		   {
+			delete FLoginUserClient;
+			FLoginUserClient=NULL;
+		   }
+ }

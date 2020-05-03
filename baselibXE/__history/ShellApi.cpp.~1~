@@ -1,0 +1,12 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ShellApi.h"
+#ifdef POSIX
+#include <Macapi.CoreFoundation.hpp>	// Pascal unit
+#include <Macapi.Foundation.hpp>	// Pascal unit
+#include <Macapi.AppKit.hpp>	// Pascal unit
+#endif
+//---------------------------------------------------------------------------
+#pragma package(smart_init)

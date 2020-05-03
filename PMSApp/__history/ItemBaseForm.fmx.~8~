@@ -1,0 +1,66 @@
+inherited frmItemBaseForm: TfrmItemBaseForm
+  Caption = 'frmItemBaseForm'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object ItemMainToolBar: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    TabOrder = 0
+    Width = 384.000000000000000000
+    object btSave: TButton
+      Action = ItemSaveAction
+      Align = Center
+      Height = 48.000000000000000000
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 0
+      Width = 79.636367797851560000
+    end
+    object btBaseClose: TButton
+      Align = Left
+      Height = 48.000000000000000000
+      StyleLookup = 'arrowlefttoolbutton'
+      TabOrder = 2
+      Width = 48.000000000000000000
+      OnClick = btBaseCloseClick
+    end
+    object btEdit: TButton
+      Action = ItemEditAction
+      Align = Center
+      Height = 48.000000000000000000
+      StyleLookup = 'composetoolbutton'
+      TabOrder = 3
+      Width = 48.000000000000000000
+    end
+  end
+  object ItemVertScrollBox: TVertScrollBox
+    Align = Client
+    Height = 519.000000000000000000
+    TabOrder = 4
+    Width = 384.000000000000000000
+    object EditLayout: TLayout
+      Align = Client
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      TabOrder = 0
+    end
+  end
+  object ItemActionList: TActionList
+    Left = 304
+    Top = 48
+    object ItemEditAction: TAction
+      Text = #32534#36753
+      OnExecute = ItemEditActionExecute
+      OnUpdate = ItemEditActionUpdate
+    end
+    object ItemSaveAction: TAction
+      Text = #20445#23384
+      OnExecute = ItemSaveActionExecute
+      OnUpdate = ItemSaveActionUpdate
+    end
+  end
+end

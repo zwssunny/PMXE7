@@ -1,0 +1,120 @@
+object LoginForm: TLoginForm
+  Left = 0
+  Top = 0
+  Caption = #20808#26234#39033#30446#31649#29702#31995#32479
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object MainVertScrollBox: TVertScrollBox
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object MainLayout: TLayout
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 567.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object Footer: TToolBar
+        Align = Bottom
+        Position.Y = 519.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object btOk: TButton
+          Align = MostLeft
+          Size.Width = 80.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'donetoolbutton'
+          TabOrder = 0
+          Text = #30830#23450
+          OnClick = btOkClick
+        end
+        object btCancel: TButton
+          Align = MostRight
+          Cancel = True
+          ModalResult = 2
+          Position.X = 304.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'deletetoolbutton'
+          TabOrder = 1
+          Text = #21462#28040
+        end
+      end
+      object Header: TToolBar
+        Size.Width = 384.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object HeaderLabel: TLabel
+          Align = Contents
+          Size.Width = 384.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'toollabel'
+          TextSettings.HorzAlign = Center
+          Text = #27426#36814#30331#24405#20808#26234#21806#27004#31649#29702#31995#32479
+        end
+      end
+      object Panel1: TPanel
+        Align = Client
+        Size.Width = 384.000000000000000000
+        Size.Height = 471.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        object edPassword: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 0
+          Password = True
+          Text = 'admin'
+          Position.X = 120.000000000000000000
+          Position.Y = 160.000000000000000000
+          Size.Width = 161.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object edUserLoginCode: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 1
+          Text = 'admin'
+          Position.X = 120.000000000000000000
+          Position.Y = 104.000000000000000000
+          Size.Width = 161.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object Label1: TLabel
+          AutoSize = True
+          Position.X = 48.000000000000000000
+          Position.Y = 112.000000000000000000
+          Size.Width = 68.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #30331#24405#21517' :'
+        end
+        object Label2: TLabel
+          AutoSize = True
+          Position.X = 66.000000000000000000
+          Position.Y = 168.000000000000000000
+          Size.Width = 46.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #21475#20196':'
+        end
+      end
+    end
+  end
+end

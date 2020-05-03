@@ -1,0 +1,100 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "BaseServerClass.h"
+#include "FSServerContainer.h"
+#include "BaseFunc.h"
+#include "DBJson.hpp"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TDMBaseServerClass *DMBaseServerClass;
+//---------------------------------------------------------------------------
+__fastcall TDMBaseServerClass::TDMBaseServerClass(TComponent* Owner)
+	: TDSServerModule(Owner)
+{
+	m_Query = new TADOQuery(NULL);
+	m_Query->ParamCheck = false;
+	m_Query->EnableBCD = false;
+	m_Query->CommandTimeout = 60;
+
+	b_Query = new TADOQuery(NULL);
+	b_Query->ParamCheck = false;
+	b_Query->EnableBCD = false;
+	b_Query->CommandTimeout = 60;
+
+	LogQuery = new TADOQuery(NULL);
+	LogQuery->ParamCheck = false;
+}
+//---------------------------------------------------------------------------
+__fastcall TDMBaseServerClass::~TDMBaseServerClass()
+{
+	delete m_Query;
+	delete b_Query;
+	delete LogQuery;
+}
+//---------------------------------------------------------------------------
+TADOConnection *__fastcall TDMBaseServerClass::GetSysConnection()
+{
+	return DMServerContainer->SysADOConnection;
+}
+//---------------------------------------------------------------------------
+TADOConnection *__fastcall TDMBaseServerClass::GetAccConnection()
+{
+	return DMServerContainer->GetConnection();
+}
+//---------------------------------------------------------------------------
+int __fastcall TDMBaseServerClass::GetSysDbType()
+{
+	return DMServerContainer->DbType;
+}
+//---------------------------------------------------------------------------
+TLoginUserRecord * __fastcall TDMBaseServerClass::GetCurLoginUser()
+{
+	return DMServerContainer->CurLoginUser;
+}
+//---------------------------------------------------------------------------
+String __fastcall TDMBaseServerClass::DataSetToJson(String SQLText)
+{
+  //研究一下数据集如何转成Json数据集，主要是流字段转化
+	String json = "";
+	if(SQLText.Trim().IsEmpty()) return json;
+	m_Query->Close();
+	m_Query->SQL->Clear();
+	m_Query->SQL->Text = SQLText;
+	m_Query->Open();
+	json = TTableJson::DataSetToJson(m_Query);
+	m_Query->Close();
+	return json;
+}
+//---------------------------------------------------------------------------
+TJSONObject* __fastcall TDMBaseServerClass::DataSetToJsonObject(String SQLText)
+{
+	if(SQLText.Trim().IsEmpty()) return (TJSONObject*)(new TJSONFalse());
+	String json = DataSetToJson(SQLText);
+	return (TJSONObject*)TJSONObject::ParseJSONValue(json);
+}
+//---------------------------------------------------------------------------
+String __fastcall TDMBaseServerClass::DataSetSysToJson(String SQLText)
+{
+	String json = "";
+	if(SQLText.Trim().IsEmpty()) return json;
+	b_Query->Close();
+	b_Query->SQL->Clear();
+	b_Query->SQL->Text = SQLText;
+	b_Query->Open();
+	json = TTableJson::DataSetToJson(b_Query);
+	b_Query->Close();
+  return json;
+}
+//---------------------------------------------------------------------------
+TJSONObject* __fastcall TDMBaseServerClass::DataSetSysToJsonObject(String SQLText)
+{
+  if(SQLText.Trim().IsEmpty()) return (TJSONObject*)(new TJSONFalse());
+	String json = DataSetSysToJson(SQLText);
+	return (TJSONObject*)TJSONObject::ParseJSONValue(json);
+}
+//---------------------------------------------------------------------------
+

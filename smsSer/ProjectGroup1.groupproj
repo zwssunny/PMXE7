@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{cd74d051-2004-4646-8947-465a9e5df3f0}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="Project1.cbproj" />
+    <Projects Include="SMSApp.cbproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="Project1">
+    <MSBuild Projects="Project1.cbproj" Targets="" />
+  </Target>
+  <Target Name="Project1:Clean">
+    <MSBuild Projects="Project1.cbproj" Targets="Clean" />
+  </Target>
+  <Target Name="Project1:Make">
+    <MSBuild Projects="Project1.cbproj" Targets="Make" />
+  </Target>
+  <Target Name="SMSApp">
+    <MSBuild Projects="SMSApp.cbproj" Targets="" />
+  </Target>
+  <Target Name="SMSApp:Clean">
+    <MSBuild Projects="SMSApp.cbproj" Targets="Clean" />
+  </Target>
+  <Target Name="SMSApp:Make">
+    <MSBuild Projects="SMSApp.cbproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="Project1;SMSApp" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="Project1:Clean;SMSApp:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="Project1:Make;SMSApp:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#ifndef LogQueueProcH
+#define LogQueueProcH
+#include "Classes.hpp"
+#include "SysUtils.hpp"
+//---------------------------------------------------------------------------
+typedef void __fastcall (__closure *TWriteUserLog)(String UserID, String IPAddress,String ClassCode, String AcckBook, int type, String Desc);
+class TLogQueueProc : public  TThread
+  {
+  private:
+	TWriteUserLog FWriteUserLog;
+	String FUserID;
+	String FIPAddress;
+	String FAcckBook ;
+	int Ftype;
+	String FDesc;
+	String FClassCode;
+  public:
+	TLogQueueProc(TWriteUserLog& AWriteUserLog,String AUserID, String AIPAddress, String AClassCode,String AAcckBook, int Atype, String ADesc)
+	:FWriteUserLog(AWriteUserLog),FUserID(AUserID),FIPAddress(AIPAddress),FAcckBook(AAcckBook),FClassCode(AClassCode),Ftype(Atype),FDesc(ADesc) {}
+	__fastcall ~TLogQueueProc() {}
+	void __fastcall Execute()
+	{
+	  FWriteUserLog(FUserID,FIPAddress,FClassCode,FAcckBook,Ftype,FDesc);
+	}
+};
+#endif

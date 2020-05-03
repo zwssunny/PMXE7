@@ -1,0 +1,33 @@
+//---------------------------------------------------------------------------
+#include <vcl.h>
+#pragma hdrstop
+
+#include "JSyAccBook.h"
+#include "FSServerContainer.h"
+#include "ADODataSetStream.h"
+//---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+__fastcall TJSyAccBook::TJSyAccBook(TComponent* Owner)
+	:TDMBaseServerClass(Owner)
+{
+	b_Query->Connection = SysConnection;
+}
+//---------------------------------------------------------------------------
+TJSONObject* __fastcall TJSyAccBook::GetAllAccBook()
+{
+	return DataSetSysToJsonObject("select * from SyAccBook");
+}
+//---------------------------------------------------------------------------
+TJSONObject* __fastcall TJSyAccBook::GetActiveAccBook()
+{
+	b_Query->Close();
+	b_Query->SQL->Text = "select * from SyAccBook where SyAccBookStatue=1" ;
+	b_Query->Open();
+	TADODataSetStream *ADOStream = new TADODataSetStream(b_Query);
+	b_Query->Close();
+	ADOStream->Position = 0;
+	return ADOStream;
+}
+//---------------------------------------------------------------------------

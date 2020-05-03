@@ -1,0 +1,52 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "SelectCustomer.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseFilters"
+#pragma resource "*.fmx"
+TSelectCustomerForm *SelectCustomerForm;
+//---------------------------------------------------------------------------
+__fastcall TSelectCustomerForm::TSelectCustomerForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker)
+	: TBaseFiltersForm(Owner,AOnFilteredDataSet,ABroker)
+{
+}
+//---------------------------------------------------------------------------
+String __fastcall TSelectCustomerForm::BuildFilters()
+{
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TSelectCustomerForm::InitControl()
+{
+   cboxFilterType->Clear();
+   cboxFilterType->Items->Add(L"客户名称");
+   cboxFilterType->Items->Add(L"移动电话");
+   cboxFilterType->Items->Add(L"会员卡号");
+   cboxFilterType->Items->Add(L"证件号");
+   cboxFilterType->ItemIndex=0;
+}
+//---------------------------------------------------------------------------
+void __fastcall TSelectCustomerForm::FillCustomerList()
+{
+  try{
+	  lvCustomerList->BeginUpdat();
+	  Query->Close();
+	  Query->SQL->Text="";
+	  Query->Open();
+	  while(!Query->Eof)
+	  {
+		 TListViewItem* vItem=lvCustomerList->Items->Add();
+		 Query->Next();
+	  }
+  }
+  __finally
+  {
+   lvCustomerList->EndUpdat();
+  }
+}
+//---------------------------------------------------------------------------
+

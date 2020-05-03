@@ -1,0 +1,33 @@
+//---------------------------------------------------------------------------
+
+#ifndef LoginH
+#define LoginH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.MobilePreview.hpp>
+#include <FMX.Edit.hpp>
+//---------------------------------------------------------------------------
+class THeaderFooterForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *Header;
+	TToolBar *Footer;
+	TLabel *HeaderLabel;
+	TLabel *Label1;
+	TEdit *Edit1;
+	TLabel *Label2;
+	TEdit *Edit2;
+	TButton *btLogin;
+	TButton *btSetup;
+private:	// User declarations
+public:		// User declarations
+	__fastcall THeaderFooterForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE THeaderFooterForm *HeaderFooterForm;
+//---------------------------------------------------------------------------
+#endif

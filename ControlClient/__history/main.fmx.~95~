@@ -1,0 +1,250 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = #20808#26234#30417#25511#23458#25143#31471
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnClose = FormClose
+  DesignerMasterStyle = 2
+  object tcControl: TTabControl
+    Align = Client
+    FullSize = True
+    Size.Width = 384.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    TabHeight = 49.000000000000000000
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = Top
+    OnChange = tcControlChange
+    object TabServerMsg: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 192.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = #28040#24687#21015#34920
+      object mainFooter: TToolBar
+        Align = Bottom
+        Position.Y = 474.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'bottomtoolbar'
+        TabOrder = 1
+        object btSetup: TButton
+          Align = MostRight
+          Position.X = 311.000000000000000000
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'speedbuttonstyle'
+          TabOrder = 0
+          Text = #35774#32622
+          OnClick = btSetupClick
+        end
+        object btLogin: TButton
+          Align = MostLeft
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'toolbutton'
+          TabOrder = 1
+          Text = #30331#24405
+          OnClick = btLoginClick
+        end
+        object btExit: TButton
+          Align = MostRight
+          Position.X = 238.000000000000000000
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'toolbutton'
+          TabOrder = 3
+          Text = #36864#20986
+          OnClick = btExitClick
+        end
+        object UserLabel: TLabel
+          Align = Center
+          AutoSize = True
+          Size.Width = 57.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'toollabel'
+          TextSettings.HorzAlign = Center
+          TextSettings.WordWrap = False
+          Text = #26410#30331#24405
+        end
+      end
+      object mmMsg: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Align = Client
+        Size.Width = 384.000000000000000000
+        Size.Height = 474.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        ReadOnly = True
+      end
+    end
+    object TabServer: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 192.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = #26381#21153#22120#21015#34920
+      object lvServerList: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 384.000000000000000000
+        Size.Height = 474.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ItemAppearanceObjects.ItemObjects.Accessory.Visible = False
+        ItemAppearanceObjects.ItemObjects.Image.Visible = False
+        OnItemClick = lvServerListItemClick
+      end
+      object ToolBar1: TToolBar
+        Align = Bottom
+        Position.Y = 474.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object btFill: TButton
+          Align = Left
+          StyleLookup = 'refreshtoolbutton'
+          TabOrder = 0
+          Text = 'btFill'
+          OnClick = btFillClick
+        end
+        object btReg: TButton
+          Action = acSCReg
+          Align = Right
+          Enabled = True
+          Position.X = 139.000000000000000000
+          StyleLookup = 'addtoolbutton'
+          TabOrder = 2
+          Visible = True
+        end
+        object btUnReg: TButton
+          Action = acSCUnReg
+          Align = Right
+          Enabled = True
+          Position.X = 212.000000000000000000
+          Position.Y = 9.000000000000000000
+          Size.Width = 26.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'deleteitembutton'
+          TabOrder = 3
+          Visible = True
+        end
+        object btStart: TButton
+          Action = acSCStart
+          Align = Right
+          Enabled = True
+          Position.X = 311.000000000000000000
+          StyleLookup = 'playtoolbutton'
+          TabOrder = 4
+          Visible = True
+        end
+        object btStop: TButton
+          Action = acSCStop
+          Align = Right
+          Enabled = True
+          Position.X = 238.000000000000000000
+          StyleLookup = 'pausetoolbutton'
+          TabOrder = 5
+          Visible = True
+        end
+        object btReboot: TButton
+          Action = acReboot
+          Align = Center
+          Enabled = True
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'speedbuttonstyle'
+          TabOrder = 7
+          Visible = True
+        end
+      end
+    end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    Left = 168
+    Top = 144
+  end
+  object NotificationC: TNotificationCenter
+    Left = 72
+    Top = 136
+  end
+  object FConnection: TSQLConnection
+    DriverName = 'DataSnap'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DBXDataSnap'
+      'HostName=localhost'
+      'Port=411'
+      'CommunicationProtocol=tcp/ip'
+      'DatasnapContext=datasnap/'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland' +
+        '.Data.DbxClientDriver,Version=20.0.0.0,Culture=neutral,PublicKey' +
+        'Token=91d62ebb5b0d1b1b'
+      'DSAuthenticationUser=FSAdmin'
+      'DSAuthenticationPassword=')
+    Left = 88
+    Top = 312
+    UniqueId = '{4BFE6C0A-F5C2-487A-AA1A-0B7AA0DE8C58}'
+  end
+  object ActionList1: TActionList
+    Left = 248
+    Top = 73
+    object acSCReg: TAction
+      Category = 'server'
+      Text = #23433#35013#26381#21153
+      OnExecute = acSCRegExecute
+    end
+    object acSCUnReg: TAction
+      Category = 'server'
+      Text = #21368#36733#26381#21153
+      OnExecute = acSCUnRegExecute
+    end
+    object acSCStart: TAction
+      Category = 'server'
+      Text = #21551#21160#26381#21153
+      OnExecute = acSCStartExecute
+    end
+    object acSCStop: TAction
+      Category = 'server'
+      Text = #20572#27490#26381#21153
+      OnExecute = acSCStopExecute
+    end
+    object acReboot: TAction
+      Category = 'computer'
+      Text = #37325#21551#30005#33041
+      OnExecute = acRebootExecute
+    end
+  end
+  object XMLDocument1: TXMLDocument
+    Left = 216
+    Top = 344
+    DOMVendorDesc = 'ADOM XML v4'
+  end
+end

@@ -1,0 +1,76 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "SelectPeople.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseFilters"
+#pragma resource "*.fmx"
+TSelectPeopleForm *SelectPeopleForm;
+//---------------------------------------------------------------------------
+__fastcall TSelectPeopleForm::TSelectPeopleForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker)
+	: TBaseFiltersForm(Owner,AOnFilteredDataSet,ABroker)
+{
+}
+//---------------------------------------------------------------------------
+String __fastcall TSelectPeopleForm::BuildFilters()
+{
+   if(lvPeopleList->ItemIndex>-1)
+   return lvPeopleList->Selected->ButtonText;
+   else
+	 throw Exception(L"请选中记录");
+}
+//---------------------------------------------------------------------------
+void __fastcall TSelectPeopleForm::InitControl()
+{
+   cboxFilterType->Clear();
+   cboxFilterType->Items->Add(L"员工名称");
+   cboxFilterType->Items->Add(L"联系电话");
+   cboxFilterType->Items->Add(L"员工编号");
+   cboxFilterType->ItemIndex=0;
+}
+//---------------------------------------------------------------------------
+void __fastcall TSelectPeopleForm::FillPeopleList()
+{
+	String SQLStr=" Select tbEmployeeData.*,CorpOgnDeptName,EmpSexName=(case when EmpSex = 1 then '男' else '女' end ), "
+                   " EmpStateName=(case when EmpState = 2 then '离职' else '在职' end ), "
+                   " EmpDutyFKIDName=Isnull((select NewDutyName from tbNewDuty where NewDutyPKID=EmpDutyFKID),'') "
+                   "  from tbEmployeeData left join tbCorporationOrganize  on EmpDeptCodeFKID=CorpOgnPKID"
+				   " where  "
+	  switch(cboxFilterType->ItemIndex)
+	  {
+		  case 0:
+			 SQLStr=SQLStr+"EmpName like '%"+edFilterValue->Text.Trim()+"%'";
+		  break;
+		  case 1:
+			SQLStr=SQLStr+"EmpContactTel like '%"+edFilterValue->Text.Trim()+"%' or ";
+			SQLStr=SQLStr+"EmpMobile like '%"+edFilterValue->Text.Trim()+"%'";
+		  break;
+		  case 2:
+			 SQLStr=SQLStr+"EmpNum like '%"+edFilterValue->Text.Trim()+"%'";
+		  break;
+	  }
+  try{
+	  lvPeopleList->BeginUpdate();
+	  lvPeopleList->Items->Clear();
+	  Query->Close();
+	  Query->SQL->Text=SQLStr;
+	  Query->Open();
+	  while(!Query->Eof)
+	  {
+		 TListViewItem* vItem=lvPeopleList->Items->Add();
+		 vItem->ButtonText=Query->FieldByName("EmpPKID")->AsString;
+		 vItem->Text=Query->FieldByName("EmpName")->AsString+SexText+L"电话:"+Query->FieldByName("EmpContactTel")->AsString
+					+L"手机:"+Query->FieldByName("EmpMobile")->AsString;
+		 vItem->Detail=L"部门:"+Query->FieldByName("CorpOgnDeptName")->AsString+L"员工号:"+Query->FieldByName("EmpNum")->AsString;
+		 Query->Next();
+	  }
+  }
+  __finally
+  {
+   lvPeopleList->EndUpdate();
+  }
+}
+//---------------------------------------------------------------------------

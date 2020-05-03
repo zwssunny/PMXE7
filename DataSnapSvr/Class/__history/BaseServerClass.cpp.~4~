@@ -1,0 +1,51 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "BaseServerClass.h"
+#include "FSServerContainer.h"
+#include "BaseFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TDMBaseServerClass *DMBaseServerClass;
+//---------------------------------------------------------------------------
+__fastcall TDMBaseServerClass::TDMBaseServerClass(TComponent* Owner)
+	: TDSServerModule(Owner)
+{
+  /*	m_MasterFileName = OpenTempFile("MDS");
+	m_DetailFileName = OpenTempFile("DDS");
+	m_QueryFileName = OpenTempFile("QDS"); */
+}
+//---------------------------------------------------------------------------
+__fastcall TDMBaseServerClass::~TDMBaseServerClass()
+{
+ /*	if (FileExists(m_MasterFileName))
+		DeleteFile(m_MasterFileName);
+	if (FileExists(m_DetailFileName))
+		DeleteFile(m_DetailFileName);
+	if (FileExists(m_QueryFileName))
+		DeleteFile(m_QueryFileName); */
+}
+TADOConnection *__fastcall TDMBaseServerClass::GetSysConnection()
+{
+   return DMServerContainer->SysADOConnection;
+}
+//---------------------------------------------------------------------------
+TADOConnection *__fastcall TDMBaseServerClass::GetAccConnection()
+{
+   return DMServerContainer->GetConnection();
+}
+//---------------------------------------------------------------------------
+int __fastcall TDMBaseServerClass::GetSysDbType()
+{
+	 return DMServerContainer->DbType;
+}
+//---------------------------------------------------------------------------
+TLoginUserRecord * __fastcall TDMBaseServerClass::GetCurLoginUser()
+{
+	return DMServerContainer->CurLoginUser;
+}
+//---------------------------------------------------------------------------
+

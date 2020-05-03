@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#ifndef CallbackTunnelEventProcH
+#define CallbackTunnelEventProcH
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <DBXCommon.hpp>
+#include <DbxDataSnap.hpp>
+#include <DSService.hpp>
+#include <DSServer.hpp>
+#include <DSHTTPLayer.hpp>
+//---------------------------------------------------------------------------
+typedef void __fastcall (*TDSCallbackTunnelEventProc)(TObject *Sender,const TDSCallbackTunnelEventItem &EventItem);
+
+class TCallbackTunnelEventProc :public TCppInterfacedObject<TDSCallbackTunnelEvent>
+{
+private:
+	TDSCallbackTunnelEventProc FCallbackTunnelEventProc;
+public:
+	TCallbackTunnelEventProc(TDSCallbackTunnelEventProc &ACallbackTunnelEventProc):FCallbackTunnelEventProc(ACallbackTunnelEventProc){}
+	__fastcall ~TCallbackTunnelEventProc(){}
+	virtual void __fastcall Invoke(System::TObject* Sender, const TDSCallbackTunnelEventItem &EventItem)
+	{
+	  FCallbackTunnelEventProc(Sender,EventItem);
+	}
+};
+#endif

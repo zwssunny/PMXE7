@@ -1,0 +1,43 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+#include <tchar.h>
+//---------------------------------------------------------------------------
+USEFORM("About.cpp", frmAbout);
+USEFORM("ClientConfg.cpp", frmConfgForm);
+USEFORM("main.cpp", frmMain);
+USEFORM("Login.cpp", frmLogin);
+USEFORM("QQMain.cpp", frmQQMain);
+USEFORM("QQMessage.cpp", frmQQMessage);
+USEFORM("DM.cpp", DMmodule); /* TDataModule: File Type */
+USEFORM("Test.cpp", frmTest);
+//---------------------------------------------------------------------------
+extern "C" int FMXmain()
+{
+	try
+	{
+		Application->Initialize();
+		Application->CreateForm(__classid(TfrmMain), &frmMain);
+		Application->CreateForm(__classid(TDMmodule), &DMmodule);
+		Application->CreateForm(__classid(TfrmTest), &frmTest);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

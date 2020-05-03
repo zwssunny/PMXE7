@@ -1,0 +1,97 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseListFormH
+#define BaseListFormH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseForm.h"
+#include "BaseFilters.h"
+//---------------------------------------------------------------------------
+class PACKAGE TfrmBaseListForm : public TfrmBaseForm
+{
+__published:	// IDE-managed Components
+
+private:	// private variable
+  String FClientFilter; //窗体自定义过滤条件
+  String FRptSQLString; //窗体自定义报表SQL
+  int FOperateStatus;       //操作状态
+  void __fastcall InitBaseListForm();
+void __fastcall DoDelData(System::Uitypes::TModalResult AResult);
+protected: //protected function
+  void __fastcall AddData();          //增加数据
+  void __fastcall EditData();         //修改数据
+  void __fastcall DelData();          //删除数据
+  void __fastcall BrowseRecord();     //浏览数据
+
+  void __fastcall CheckBillData();    //审核单据
+  void __fastcall UnCheckBillData();  //反审核单据
+  void __fastcall CheckBill();        //审核
+  void __fastcall UnCheckBill();      //反审核
+
+  void __fastcall RefreshData(String Filters);      //刷新界面数据
+  void __fastcall RefreshDataSet();   //刷新数据集
+
+  void __fastcall DoCheckBillProc(System::Uitypes::TModalResult AResult);
+  void __fastcall DoUnCheckBillProc(System::Uitypes::TModalResult AResult);
+protected: //virtual function
+
+  virtual void __fastcall ShowEditForm(int status);  //创建和显示编辑窗口,status:0-浏览,1-新增,2-修改
+  virtual TForm * __fastcall NewEditForm(TZClientDataSet *m_DataSet,int status); //创建编辑窗口，传递数据集和状态，status=1-增加，2-修改，0-浏览
+  virtual TForm * __fastcall NewFilterForm(TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker); //创建过滤窗口，传递查询事件
+  virtual void __fastcall QueryData();//查询数据
+  virtual void __fastcall FormFillData(){};   //填充列表或树图
+  virtual bool __fastcall BeforeCheck(){return false;};   //审核前处理函数
+  virtual bool __fastcall BeforeUnCheck(){return false;}; //反审核前处理函数
+  virtual void __fastcall AfterCheck(){};    //审核后处理函数
+  virtual void __fastcall AfterUnCheck(){};  //反审核后处理函数
+  virtual void __fastcall SetOptCtrlStatus(int status){};//设置窗体状态
+  virtual int __fastcall GetCheckStatus(){return 0;}; //获取审核状态
+
+  virtual bool __fastcall BeforeUpdateData(int OptType){return true;}//OptType 0-浏览,1-新增，2-修改,3-删除
+
+  //-----------实现相关业务虚函数--------------
+  virtual String __fastcall GetRelaFormParam(int ModuleCode){return "";}; //获取相关窗体过滤条件
+  virtual void __fastcall AfterRelaFormModal(int ModuleCode){}; //关闭相关业务窗体后处理
+  virtual void __fastcall NavItemClick(TObject* Sender, int GroupIndex, String GroupCaption, int GroupTag,
+				 int ItemIndex, String ItemCaption, int ItemTag){}; //导航按钮Click事件
+
+
+public:  //public property and function
+  TCZDataSet *RelaFormSet;  //相关业务窗体集合，字段有caption,modulecode,ImageIndex和createstyle
+
+  void __fastcall AddNavItem(String sCaption,int iCode=0,int iStyle=1,int iImageIndex=-1);
+  //增加相关业务菜单，sCaption-菜单标题，iCode-菜单代码，iImageIndex-图标，
+  //    iStyle-0系统定义，1相关业务，2辅助功能,3用户定义
+  void __fastcall ShowNavPane(bool bShowPane=false); //显示导航面板,bShowPane-ture需要显示面板
+  void __fastcall ShowRelationForm(int ModuleCode); //显示相关业务窗体
+
+  __property String ClientFilter = {read=FClientFilter,write=FClientFilter}; //自定义过滤条件
+  __property String RptSQLString = {read=FRptSQLString,write=FRptSQLString}; //自定义过滤条件
+
+  __property int OperateStatus = {read=FOperateStatus,write=FOperateStatus };
+  //窗体操作状态 0－浏览，1－增加单据，2－修改单据
+
+  bool __fastcall LocateRecord(String KeyValues); //定位数据集数据
+  /*字段取值存值的封装函数*/
+  Variant __fastcall GetDetailValue(String fieldname);
+  Variant __fastcall GetDetailOldValue(String fieldname);
+  void __fastcall SetDetailValue(String fieldname,Variant value);
+  Variant __fastcall GetFieldValue(String fieldname);
+  Variant __fastcall GetFieldOldValue(String fieldname);
+  void __fastcall SetFieldValue(String fieldname,Variant value);
+  Variant __fastcall GetMasterValue(String Mastername);
+  Variant __fastcall GetMasterOldValue(String Mastername);
+  void __fastcall SetMasterValue(String Mastername,Variant value);
+
+public:		// constructor and destructor
+  __fastcall TfrmBaseListForm(TComponent* Owner);
+  __fastcall TfrmBaseListForm(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,String Param);
+  __fastcall TfrmBaseListForm(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,TZClientDataSet *FDataSet,String Param);
+  __fastcall ~TfrmBaseListForm();
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmBaseListForm *frmBaseListForm;
+//---------------------------------------------------------------------------
+#endif

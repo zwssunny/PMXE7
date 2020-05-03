@@ -1,0 +1,116 @@
+object frmDocCheck: TfrmDocCheck
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 3
+  object StringGrid1: TStringGrid
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 471.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    ReadOnly = True
+    RowCount = 100
+    RowHeight = 30.000000000000000000
+    object StringColumn1: TStringColumn
+      Size.Width = 49.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+    object StringColumn2: TStringColumn
+      Position.X = 49.000000000000000000
+      Size.Width = 221.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+    end
+    object StringColumn3: TStringColumn
+      Position.X = 270.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Visible = False
+    end
+    object StringColumn4: TStringColumn
+      Position.X = 270.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Visible = False
+    end
+  end
+  object Panel1: TPanel
+    Align = Top
+    Size.Width = 384.000000000000000000
+    Size.Height = 49.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    object ToolBar1: TToolBar
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object Label1: TLabel
+        StyledSettings = [Size, FontColor]
+        Position.X = 16.000000000000000000
+        Position.Y = 11.000000000000000000
+        Size.Width = 82.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = #24494#36719#38597#40657
+        TextSettings.Font.Style = [fsBold]
+        Text = #24453#21150#20107#39033
+      end
+      object btLook: TButton
+        Align = MostRight
+        Position.X = 336.000000000000000000
+        Size.Width = 48.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'infotoolbutton'
+        TabOrder = 4
+        OnClick = btLookClick
+      end
+    end
+  end
+  object Panel2: TPanel
+    Align = Bottom
+    Position.Y = 520.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 47.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 7
+    object ToolBar2: TToolBar
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object btClose: TButton
+        Align = MostLeft
+        Size.Width = 49.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'backtoolbutton'
+        TabOrder = 1
+        Text = #36820#22238
+        OnClick = btCloseClick
+      end
+    end
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 264
+    Top = 224
+  end
+end

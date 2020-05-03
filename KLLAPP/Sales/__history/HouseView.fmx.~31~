@@ -1,0 +1,135 @@
+inherited HouseViewForm: THouseViewForm
+  Caption = 'CommBaseForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      object FilterExpander: TExpander
+        Align = Top
+        Height = 137.000000000000000000
+        ShowCheck = False
+        Text = #36807#28388#22120
+        Width = 384.000000000000000000
+        TabOrder = 1
+        ContentSize = '112'
+        object cbHsgFKID_Bdg: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+          Position.Y = 34.000000000000000000
+          TabOrder = 1
+          Width = 209.000000000000000000
+        end
+        object cbHsgFKID_Est: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+          TabOrder = 0
+          Width = 209.000000000000000000
+          OnClosePopup = cbHsgFKID_EstClosePopup
+        end
+        object cbHsgHouseType: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+          Position.Y = 68.000000000000000000
+          TabOrder = 2
+          Width = 177.000000000000000000
+        end
+        object Label1: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 8.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #27004#30424#21517#31216#65306
+          Width = 90.000000000000000000
+        end
+        object Label2: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 43.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #27004#38401#21517#31216#65306
+          Width = 90.000000000000000000
+        end
+        object Label3: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 45.000000000000000000
+          Position.Y = 78.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #25143#22411#65306
+          Width = 54.000000000000000000
+        end
+        object sbSearch: TSpeedButton
+          Action = SearchAction
+          Height = 32.000000000000000000
+          Position.X = 304.000000000000000000
+          Position.Y = 72.000000000000000000
+          StyleLookup = 'searcheditbutton'
+          Width = 32.000000000000000000
+        end
+      end
+      object lvHouseList: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailRightButtonAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailRightButtonShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Height = 382.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        ItemAppearanceObjects.ItemObjects.Image.Visible = False
+        ItemAppearanceObjects.ItemObjects.TextButton.Text = #26597#30475
+        OnButtonClick = lvHouseListButtonClick
+        object WaitAniIndicator: TAniIndicator
+          Align = Center
+          Cursor = crHourGlass
+          Height = 30.000000000000000000
+          Width = 30.000000000000000000
+        end
+      end
+    end
+  end
+  inherited tbarBaseFilter: TToolBar
+    inherited lbTitle: TLabel
+      Text = #25143#22411#22270
+    end
+    object btDown: TButton
+      Action = DownLoadAction
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 304.000000000000000000
+      StyleLookup = 'toolbutton'
+      TabOrder = 2
+      Width = 80.000000000000000000
+    end
+  end
+  object MediaPlayer1: TMediaPlayer
+    Left = 24
+    Top = 136
+  end
+  object HVActionList: TActionList
+    Left = 320
+    Top = 16
+    object DownLoadAction: TAction
+      Category = 'button'
+      Text = #19979#36733#26356#26032
+      Hint = #25143#22411#22270#19979#36733#26356#26032#21040#26412#22320
+      OnExecute = DownLoadActionExecute
+    end
+    object SearchAction: TAction
+      Category = 'button'
+      Text = 'SearchAction'
+      OnExecute = SearchActionExecute
+    end
+  end
+end

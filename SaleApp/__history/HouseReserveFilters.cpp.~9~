@@ -1,0 +1,64 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "HouseReserveFilters.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseFilters"
+#pragma resource "*.fmx"
+THouseReserveFiltersForm *HouseReserveFiltersForm;
+//---------------------------------------------------------------------------
+__fastcall THouseReserveFiltersForm::THouseReserveFiltersForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker)
+	: TBaseFiltersForm(Owner,AOnFilteredDataSet,ABroker)
+{
+}
+//---------------------------------------------------------------------------
+String __fastcall THouseReserveFiltersForm::BuildFilters()
+{
+  String custFilters="";
+  if(cbHseRsveFKID_Est->ItemIndex>0)
+  {
+	 custFilters="HseRsveFKID_Est="+QuotedStr(cbHseRsveFKID_Est->Selected->TagString);
+  }
+  if(!edHsgNum->Text.Trim().IsEmpty())
+  {
+	  if(custFilters>" ")
+		custFilters=custFilters+" and ";
+	   custFilters=custFilters+"HsgNum like '%"+edHsgNum->Text.Trim()+"%'";
+  }
+  if(!edHseRsveNum->Text.Trim().IsEmpty())
+  {
+	  if(custFilters>" ")
+		custFilters=custFilters+" and ";
+	   custFilters=custFilters+"HseRsveNum like '%"+edHseRsveNum->Text.Trim()+"%'";
+  }
+  if(!edClientTheName->Text.Trim().IsEmpty())
+  {
+	if(custFilters>" ")
+		custFilters=custFilters+" and ";
+	   custFilters=custFilters+"ClientTheName like '%"+edClientTheName->Text.Trim()+"%'";
+  }
+   return custFilters;
+}
+void __fastcall THouseReserveFiltersForm::InitControl()
+{
+  cbHseRsveFKID_Est->Clear();
+  TListBoxItem * newBoxItem=new TListBoxItem(cbHseRsveFKID_Est);
+  newBoxItem->Text=L"ËùÓÐÂ¥ÅÌ";
+  newBoxItem->TagString="0"; //Â¥ÅÌID
+  cbHseRsveFKID_Est->AddObject(newBoxItem);
+   Query->Close();
+   Query->SQL->Text="select EstatePKID,EstateCode,EstateName from tbEstate order by EstateCode";
+   Query->Open();
+   Query->First();
+   while(!Query->Eof)
+   {
+		newBoxItem=new TListBoxItem(cbHseRsveFKID_Est);
+		newBoxItem->Text=Query->FieldByName("EstateName")->AsString;
+		newBoxItem->TagString=Query->FieldByName("EstatePKID")->AsString;
+		cbHseRsveFKID_Est->AddObject(newBoxItem);
+		Query->Next();
+   }
+}

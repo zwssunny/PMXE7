@@ -1,0 +1,49 @@
+//---------------------------------------------------------------------------
+#include <vcl.h>
+#pragma hdrstop
+
+#include "SyAccBook.h"
+#include "FSServerContainer.h"
+#include "ADODataSetStream.h"
+//---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+__fastcall TSyAccBook::TSyAccBook(TComponent* Owner)
+	:TDMBaseServerClass(Owner)
+{
+	b_Query->Connection = SysConnection;
+}
+//---------------------------------------------------------------------------
+TStream * __fastcall TSyAccBook::GetAllAccBook()
+{
+	b_Query->Close();
+	b_Query->SQL->Text = "select * from SyAccBook" ;
+	b_Query->Open();
+	TADODataSetStream *ADOStream = new TADODataSetStream(b_Query);
+	b_Query->Close();
+	ADOStream->Position = 0;
+	return ADOStream;
+}
+//---------------------------------------------------------------------------
+TStream * __fastcall TSyAccBook::GetActiveAccBook()
+{
+	b_Query->Close();
+	b_Query->SQL->Text = "select * from SyAccBook where SyAccBookStatue=1" ;
+	b_Query->Open();
+	TADODataSetStream *ADOStream = new TADODataSetStream(b_Query);
+	b_Query->Close();
+	ADOStream->Position = 0;
+	return ADOStream;
+}
+//---------------------------------------------------------------------------
+TJSONObject* __fastcall TSyAccBook::GetAllAccBookJO()
+{
+	return DataSetSysToJsonObject("select * from SyAccBook");
+}
+//---------------------------------------------------------------------------
+TJSONObject* __fastcall TSyAccBook::GetActiveAccBookJO()
+{
+	return DataSetSysToJsonObject("select * from SyAccBook where SyAccBookStatue=1");
+}
+//---------------------------------------------------------------------------

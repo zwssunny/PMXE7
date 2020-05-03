@@ -1,0 +1,747 @@
+inherited HouseInformationForm: THouseInformationForm
+  Caption = #25151#28304#20449#24687
+  DesignerMasterStyle = 3
+  inherited MainVertScrollBox: TVertScrollBox
+    inherited MainLayout: TLayout
+      inherited tcDetailControl: TTabControl
+        inherited tabDetail: TTabItem
+          Text = #21333#20803#35814#24773
+          inherited tcMainControl: TTabControl
+            inherited TabDetailMain: TTabItem
+              inherited EditVertScrollBox: TVertScrollBox
+                inherited EditLayout: TLayout
+                  Size.Height = 1200.000000000000000000
+                  object UnitExpander: TExpander
+                    Align = Top
+                    ShowCheck = False
+                    Size.Width = 50.000000000000000000
+                    Size.Height = 657.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = #21333#20803#20449#24687
+                    TabOrder = 0
+                    OnResize = UnitExpanderResize
+                    ContentSize = '632'
+                    object Label1: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 8.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #27004#30424#21517#31216':'
+                    end
+                    object Label2: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 40.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #27004#38401#21517#31216':'
+                    end
+                    object Label3: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 72.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #21333#20803#32534#21495':'
+                    end
+                    object Label4: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 104.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #21333#20803#21517#31216':'
+                    end
+                    object Label5: TLabel
+                      AutoSize = True
+                      Position.X = 44.000000000000000000
+                      Position.Y = 136.000000000000000000
+                      Size.Width = 41.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #21151#33021':'
+                    end
+                    object Label6: TLabel
+                      AutoSize = True
+                      Position.X = 44.000000000000000000
+                      Position.Y = 168.000000000000000000
+                      Size.Width = 41.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #25143#22411':'
+                    end
+                    object Label7: TLabel
+                      AutoSize = True
+                      Position.X = 44.000000000000000000
+                      Position.Y = 200.000000000000000000
+                      Size.Width = 41.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #26397#21521':'
+                    end
+                    object Label8: TLabel
+                      AutoSize = True
+                      Position.X = 44.000000000000000000
+                      Position.Y = 232.000000000000000000
+                      Size.Width = 41.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #35013#20462':'
+                    end
+                    object Label9: TLabel
+                      AutoSize = True
+                      Position.X = 44.000000000000000000
+                      Position.Y = 264.000000000000000000
+                      Size.Width = 41.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #26223#35266':'
+                    end
+                    object Label10: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 296.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #24314#31569#38754#31215':'
+                    end
+                    object Label11: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 328.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #22871#20869#38754#31215':'
+                    end
+                    object Label12: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 360.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #24179#21488#38754#31215':'
+                    end
+                    object Label13: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 392.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #20998#25674#38754#31215':'
+                    end
+                    object Label15: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 456.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #19978#23618#38754#31215':'
+                    end
+                    object Label16: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 488.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #19979#23618#38754#31215':'
+                    end
+                    object Label19: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 520.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #38144#21806#21333#20215':'
+                    end
+                    object Label20: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 552.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #38144#21806#24635#20215':'
+                    end
+                    object Label17: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 584.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #21333#20803#29366#24577':'
+                    end
+                    object edEstateName: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 18
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edBdgName: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 19
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 32.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgNum: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 20
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 64.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgName: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 21
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 96.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgFnRemark: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 22
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 128.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgHTRemark: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 23
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 160.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgOnRemark: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 24
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 192.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgDnRemark: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 25
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 224.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgLeRemark: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 26
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 256.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgFloorSpace: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 27
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 288.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgInnerArea: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 28
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 320.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgBalconyArea: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 29
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 352.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgPublicArea: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 30
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 384.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgUpperArea: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 31
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 448.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgLowerArea: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 32
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 480.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object ckBoxIsDouble: TCheckBox
+                      Enabled = False
+                      Position.X = 88.000000000000000000
+                      Position.Y = 429.000000000000000000
+                      Size.Width = 97.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TabOrder = 33
+                      Text = #26159#21542#22797#24335
+                    end
+                    object edHsgSellPrice: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 34
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 512.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgSellTotal: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 35
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 544.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object cbBoxHsgState: TComboBox
+                      DisableFocusEffect = False
+                      Enabled = False
+                      Position.X = 88.000000000000000000
+                      Position.Y = 576.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                      TabOrder = 36
+                    end
+                  end
+                  object ReserveExpander: TExpander
+                    Align = Top
+                    Position.Y = 657.000000000000000000
+                    ShowCheck = False
+                    Size.Width = 50.000000000000000000
+                    Size.Height = 168.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = #39044#35746#20449#24687
+                    TabOrder = 1
+                    OnResize = UnitExpanderResize
+                    ContentSize = '143'
+                    object Label18: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 8.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #39044#35746#32534#21495':'
+                    end
+                    object Label21: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 40.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #39044#35746#26102#38388':'
+                    end
+                    object Label22: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 72.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #39044#35746#23458#25143':'
+                    end
+                    object Label25: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 104.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #23450#37329#37329#39069':'
+                    end
+                    object edHseRsveNum: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 4
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = -4.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHseRsveDate: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 5
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 28.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHseRsveFKID_Client: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 6
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 60.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHseRsveSubsAmt: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 7
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 92.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                  end
+                  object SellExpander: TExpander
+                    Align = Top
+                    Position.Y = 825.000000000000000000
+                    ShowCheck = False
+                    Size.Width = 50.000000000000000000
+                    Size.Height = 368.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = ' '#35748#36141#20449#24687
+                    TabOrder = 2
+                    OnResize = UnitExpanderResize
+                    ContentSize = '343'
+                    object Label26: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 8.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #35748#36141#32534#21495':'
+                    end
+                    object Label27: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 40.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #35748#36141#26102#38388':'
+                    end
+                    object Label28: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 72.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #35748#36141#23458#25143':'
+                    end
+                    object Label29: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 104.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #25104#20132#24635#20215':'
+                    end
+                    object Label30: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 136.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #20184#27454#26041#24335':'
+                    end
+                    object Label31: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 168.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #35748#36141#29366#24577':'
+                    end
+                    object Label32: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 200.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #24212#25910#37329#39069':'
+                    end
+                    object Label33: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 232.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #24050#25910#37329#39069':'
+                    end
+                    object edSubsBillNum: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 8
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edSubsBillContSignDate: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 9
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 32.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edSubsBillFKID_Client: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 10
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 64.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edSubsBillSaleTotal: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 11
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 96.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edSubsBillPayMode: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 12
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 128.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object SubsBillStats: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 13
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 160.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgMnyBillLevyAmt: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 14
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 192.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object edHsgMnyBillPayAmt: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 15
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 224.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object Label23: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 264.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #20132#27004#26631#24535':'
+                    end
+                    object edflag: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 39
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 255.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object Label24: TLabel
+                      AutoSize = True
+                      Position.X = 8.000000000000000000
+                      Position.Y = 296.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 23.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #20132#27004#26085#26399':'
+                    end
+                    object edHsgHandoverDate: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 40
+                      ReadOnly = True
+                      Position.X = 88.000000000000000000
+                      Position.Y = 287.000000000000000000
+                      Size.Width = 200.000000000000000000
+                      Size.Height = 32.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+        inherited tabOA: TTabItem
+          inherited tcWorkflowControl: TTabControl
+            inherited TabCheckExec: TTabItem
+              inherited TaskListBox: TListBox
+                inherited TaskListBoxItem1: TListBoxItem
+                  inherited lbTaskTitleText: TLabel
+                    Size.Width = 0.000000000000000000
+                  end
+                end
+                inherited TaskListBoxItem3: TListBoxItem
+                  inherited edFlowMnDtlComments: TEdit
+                    Size.Width = -35.000000000000000000
+                  end
+                end
+                inherited TaskListBoxItem4: TListBoxItem
+                  inherited btCheck: TButton
+                    Position.X = -29.000000000000000000
+                  end
+                end
+              end
+            end
+            inherited TabCheckStare: TTabItem
+              inherited FlowMainListBox: TListBox
+                inherited TaskListBoxItem5: TListBoxItem
+                  inherited edWorkflowTitle: TEdit
+                    Size.Width = -35.000000000000000000
+                  end
+                end
+                inherited TaskListBoxItem7: TListBoxItem
+                  inherited btOAStare: TButton
+                    Position.X = -37.000000000000000000
+                  end
+                end
+                inherited TaskListBoxItem9: TListBoxItem
+                  inherited lbCreatorName: TLabel
+                    Size.Width = 0.000000000000000000
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,42 @@
+//---------------------------------------------------------------------------
+#ifndef SerMainH
+#define SerMainH
+//---------------------------------------------------------------------------
+#include <SysUtils.hpp>
+#include <Classes.hpp>
+#include <SvcMgr.hpp>
+#include <vcl.h>
+#include <Xml.Win.msxmldom.hpp>
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+//---------------------------------------------------------------------------
+class TFSControlService : public TService
+{
+__published:    // IDE-managed Components
+	void __fastcall ServiceStart(TService *Sender, bool &Started);
+	void __fastcall ServiceAfterInstall(TService *Sender);
+	void __fastcall ServiceBeforeInstall(TService *Sender);
+	void __fastcall ServiceBeforeUninstall(TService *Sender);
+	void __fastcall ServiceCreate(TObject *Sender);
+private:        // User declarations
+	String FInstanceName;
+	void __fastcall ChangeServiceConfiguration();
+	void __fastcall SetInstanceName(String Value);
+	String __fastcall GetInstanceName();
+protected:
+	bool __fastcall DoStop(void);
+	bool __fastcall DoPause(void);
+	bool __fastcall DoContinue(void);
+	void __fastcall DoInterrogate(void);
+public:         // User declarations
+	__fastcall TFSControlService(TComponent* Owner);
+	TServiceController __fastcall GetServiceController(void);
+	friend void __stdcall ServiceController(unsigned CtrlCode);
+	__property String InstanceName={read=FInstanceName,write=SetInstanceName};
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TFSControlService *FSControlService;
+const String INSTANCE_SWITCH = "-instance=";
+//---------------------------------------------------------------------------
+#endif

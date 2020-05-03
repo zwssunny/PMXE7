@@ -1,0 +1,121 @@
+inherited frmClient: TfrmClient
+  Caption = #23458#25143#36164#26009
+  DesignerMasterStyle = 3
+  inherited MainPanel: TPanel
+    inherited ToolBarTop: TToolBar
+      inherited lbTitle: TLabel
+        Text = #23458#25143#36164#26009
+      end
+      object BtnAdd: TButton
+        Align = Right
+        Position.X = 312.000000000000000000
+        Size.Width = 48.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'addtoolbutton'
+        TabOrder = 0
+        Text = #26032#22686
+        OnClick = BtnAddClick
+      end
+    end
+    inherited ClientVertScrollBox: TVertScrollBox
+      Viewport.Width = 360.000000000000000000
+      Viewport.Height = 544.000000000000000000
+      object ListViewClient: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 360.000000000000000000
+        Size.Height = 544.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        OnMouseUp = ListViewClientMouseUp
+        OnPaint = ListViewClientPaint
+        ItemAppearanceObjects.HeaderObjects.Text.TextAlign = Center
+        ItemAppearanceObjects.HeaderObjects.Text.Align = Center
+        ItemAppearanceObjects.HeaderObjects.Text.VertAlign = Center
+        ItemAppearanceObjects.FooterObjects.Text.TextAlign = Center
+        ItemAppearanceObjects.FooterObjects.Text.Align = Center
+        ItemAppearanceObjects.FooterObjects.Text.VertAlign = Center
+        OnItemClick = ListViewClientItemClick
+        OnPullRefresh = ListViewClientPullRefresh
+        AutoTapScroll = True
+        PullToRefresh = True
+      end
+    end
+  end
+  object ClientData: TClientDataSet
+    PersistDataPacket.Data = {
+      590000009619E0BD010000001800000003000000000003000000590003464944
+      0400010000000000044E616D65010049000000010005574944544802000200C8
+      000550686F6E6501004900000001000557494454480200020014000000}
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'FID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Name'
+        DataType = ftString
+        Size = 200
+      end
+      item
+        Name = 'Phone'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 112
+    Top = 152
+    object ClientDataFID: TIntegerField
+      FieldName = 'FID'
+    end
+    object ClientDataName: TStringField
+      FieldName = 'Name'
+      Size = 200
+    end
+    object ClientDataPhone: TStringField
+      FieldName = 'Phone'
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = Query
+    ScopeMappings = <>
+    Left = 168
+    Top = 104
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 52
+    Top = 88
+    object LinkFillControlToField1: TLinkFillControlToField
+      Category = 'Quick Bindings'
+      FieldName = 'FID'
+      Control = ListViewClient
+      Track = True
+      FillDataSource = BindSourceDB1
+      FillDisplayFieldName = 'Name'
+      AutoFill = True
+      FillExpressions = <
+        item
+          SourceMemberName = 'Phone'
+          ControlMemberName = 'Detail'
+        end>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+  end
+  object Query: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 56
+    Top = 160
+  end
+end

@@ -1,0 +1,42 @@
+//---------------------------------------------------------------------------
+
+#ifndef HouseFiltersH
+#define HouseFiltersH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseFilters.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.ListBox.hpp>
+//---------------------------------------------------------------------------
+class THouseFiltersForm : public TBaseFiltersForm
+{
+__published:	// IDE-managed Components
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TLabel *Label4;
+	TLabel *Label5;
+	TLabel *Label6;
+	TLabel *Label7;
+	TComboBox *ComboBox1;
+	TComboBox *ComboBox2;
+	TComboBox *ComboBox3;
+	TComboBox *ComboBox4;
+	TComboBox *ComboBox5;
+	TComboBox *ComboBox6;
+	TEdit *Edit1;
+	TLabel *Label8;
+	TComboBox *ComboBox7;
+private:	// User declarations
+	virtual String __fastcall BuildFilters();
+public:		// User declarations
+	__fastcall THouseFiltersForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE THouseFiltersForm *HouseFiltersForm;
+//---------------------------------------------------------------------------
+#endif

@@ -1,0 +1,337 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "ServerMethodsUnit1.h"
+#include "DBJson.hpp"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "wsAccAndSysDB"
+#pragma link "wsClasses"
+#pragma link "wsDB"
+#pragma link "wsMain"
+#pragma resource "*.dfm"
+//---------------------------------------------------------------------------
+__fastcall TServerMethods1::TServerMethods1(TComponent* Owner)
+	: TDSServerModule(Owner)
+{
+	InitWorkFlowStudio();
+}
+//----------------------------------------------------------------------------
+String TServerMethods1::ServerWorkFlowStart(String FlowDefID,String Subject,String Content,
+				String BusWindow,String BusCode,int Rank , String PrjID , String Report)
+{
+	TWorkflowInstance *AWorkIns;
+	TWorkflowBiz *WorkBiz;
+	TWorkflowVariable *wsVar;
+	TWorkflowVariables *wsVarList;
+	String FFlowID;
+	TField *AField;
+
+	try
+	{
+		AWorkIns = GetWorkIns(FlowDefID,"");
+
+		if (AWorkIns!=NULL )
+		{
+			WorkBiz = new TWorkflowBiz(NULL);
+			try
+			{
+				//AWorkIns->FlowMnCreator =
+				AWorkIns->FlowMnSubject = Subject;
+				AWorkIns->FlowMnContent = Content;
+				AWorkIns->FlowMnBusWindow = BusWindow;
+				AWorkIns->FlowMnBusCode = BusCode;
+				AWorkIns->FlowMnRank = Rank;
+				AWorkIns->FlowMnPrjID = PrjID;
+				AWorkIns->FlowMnReport = Report;
+
+				//初始化流程实例变量值
+				WorkBiz->BizFormID = AWorkIns->FlowMnBusWindow;
+				FWorkflowStudioSvr->WorkflowManager->LoadWorkflowBiz(WorkBiz);
+				if(WorkBiz->BizTableName>"")
+				{
+					FQuery->Connection=ACCADOConnection;
+					FQuery->SQL->Clear();
+					FQuery->Close();
+					FQuery->SQL->Text = "select * from "
+					 +WorkBiz->BizTableName +" where "+WorkBiz->BizKey +"="
+					 +QuotedStr(AWorkIns->FlowMnBusCode);
+					FQuery->Open();
+					if(FQuery->RecordCount>0)
+					{
+						wsVarList = AWorkIns->Diagram->Variables;
+						for (int i = 0; i < wsVarList->Count; i++)
+						{
+							wsVar = wsVarList->Items[i];
+							if(wsVar->Interaction)       //需要交互的值
+							{
+								AField = FQuery->FindField(wsVar->Name);
+								if (AField!=NULL)
+									wsVar->Value=AField->Value;
+							}
+						}
+					}
+				}
+				AWorkIns->Key = "";
+				FWorkflowStudioSvr->WorkflowManager->SaveWorkflowInstance(AWorkIns);
+				FFlowID = AWorkIns->Key;
+				FWorkflowStudioSvr->WorkflowManager->SignalWorkflowInstance(FFlowID);
+				return FFlowID;
+			}
+			catch(Exception &e)
+			{
+				return "";
+			}
+		}
+		else
+		{
+			return "";
+		}
+	}
+	__finally
+	{
+		if(WorkBiz)
+			delete WorkBiz;
+		if(AWorkIns)
+			delete AWorkIns;
+	}
+}
+//----------------------------------------------------------------------------
+bool TServerMethods1::ServerWorkFlowExec(String FlowDefID,String WorkInsID,
+				String TaskInsID,String TskStatus,String TskComments,TJSONArray *VariableList)
+{
+	TWorkflowAttachment *AAttach;
+	TWorkflowInstance *AWorkIns;
+	TTaskInstance *ATaskIns;
+
+	try
+	{
+		try
+		{
+			//{Get the workflowinstance related to the task}
+			AWorkIns = GetWorkIns(FlowDefID,WorkInsID);
+			ATaskIns = new TTaskInstance(NULL);
+			ATaskIns->Key = TaskInsID;
+
+			FWorkflowStudioSvr->WorkflowDB->TaskInstanceLoad(ATaskIns);
+
+			if(AWorkIns != NULL && ATaskIns != NULL)
+			{
+				//{Save the fields}
+				TWorkflowVariable* WorkflowVar;
+				TCustomWorkflowDiagram* ADiagram=AWorkIns->Diagram;
+
+				try
+				{
+					for(int i=0;i<VariableList->Size();i++)
+					{						String TempStr = VariableList->Get(i)->Value();						int iPos=TempStr.Pos("=");						if(iPos > 0)						{							String VariableName = TempStr.SubString(1,iPos);							String VariableValue= TempStr.SubString(iPos+2,TempStr.Length()-iPos-1);							WorkflowVar = ADiagram->Variables->FindByName(VariableName);							if(WorkflowVar != NULL)								WorkflowVar->Value = VariableValue;						}					}
+				}
+				__finally
+				{
+					delete VariableList;
+				}
+
+				//{Save the workflow instance}
+				FWorkflowStudioSvr->WorkflowManager->SaveWorkflowInstance(AWorkIns);
+
+				/*{Save the task instance. WARNING - this should be done after any saving code, because
+				it loads the workflowinstance and signal it (run it again). So, it must be executed
+				after all processing so it gets the most up to date workflow instance object}*/
+				ATaskIns->Status = TskStatus;
+				ATaskIns->Comments = TskComments;
+				FWorkflowStudioSvr->TaskManager->SaveTaskInstance(ATaskIns);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(Exception &e)
+		{
+			return false;
+		}
+
+	}
+	__finally
+	{
+		if(ATaskIns)
+			delete ATaskIns;
+		if(AWorkIns)
+			delete AWorkIns;
+	}
+}
+//----------------------------------------------------------------------------
+TWorkflowInstance* __fastcall TServerMethods1::GetWorkIns(String FlowDefID,String WorkInsID)
+{
+	TWorkflowInstance* FWorkIns = new TWorkflowInstance(NULL,FWorkflowStudioSvr);
+	FWorkIns->Key = WorkInsID;
+	if(!FWorkflowStudioSvr->WorkflowDB->WorkflowInstanceLoad(FWorkIns) || WorkInsID.Trim().IsEmpty())
+	{
+		TWorkflowDefinition* CurWorkDef = new TWorkflowDefinition(FWorkflowStudioSvr);
+		CurWorkDef->WorkflowStudio = FWorkflowStudioSvr;
+		FWorkflowStudioSvr->WorkflowManager->LoadWorkflowDefinition(FlowDefID,CurWorkDef);
+
+		if(CurWorkDef!=NULL)
+		{
+			FWorkIns->DefinitionKey = CurWorkDef->Key;
+			FWorkIns->Diagram->Attachments->MakeAllDirty();
+			FWorkIns->AssignFromDiagram(CurWorkDef->Diagram, false);
+			FWorkIns->Diagram->WorkflowStudio = FWorkflowStudioSvr;
+		}
+		else
+		{
+			return NULL;
+		}
+	}
+	return FWorkIns;
+}
+//----------------------------------------------------------------------------
+void __fastcall TServerMethods1::InitWorkFlowStudio()
+{
+	String FUserEmpID = "FB456A00-F13E-443E-A984-D5FF2F91E503";
+	String FUserCode = "YG20110318006";
+	FWorkflowStudioSvr->UserManager->LoggedUserId = FUserEmpID;
+	FWorkflowStudioSvr->UserManager->LoggedUserCode = FUserCode;
+	FWorkflowStudioSvr->UserManager->LoadWorkflowUsers();
+	FWorkflowStudioSvr->UserManager->LoadWorkflowGroups();
+	FWorkflowStudioSvr->UserManager->LoadWorkflowJobs();
+	FWorkflowStudioSvr->UserManager->LoadWorkflowDepartments();
+}
+//---------------------------------------------------------------------------
+TJSONObject* TServerMethods1::GetTaskList(String AUserID, int ACompletedState,String AOtherCondition)
+{
+	TTaskInstanceList *FTaskList = new TTaskInstanceList(__classid(TTaskInstanceItem));
+	String FUserID;
+	if(FUserID.IsEmpty())
+		FUserID = FWorkflowStudioSvr->UserManager->LoggedUserId;
+	else
+		FUserID = AUserID;
+	FWorkflowStudioSvr->WorkflowDB->TaskInstanceLoadList(FTaskList,tfUser,FUserID,ACompletedState,FWorkflowStudioSvr,AOtherCondition);
+
+	TClientDataSet *FMasterDataSet = new TClientDataSet(NULL);
+	FQuery->Close();
+	FQuery->SQL->Text = "select FlowMnDtlPKID,FlowMnDtlFKID,FlowMnDtlNum,FlowMnDtlSender,"
+		"FlowMnDtlReceiver,FlowMnDtlSendTime,FlowMnDtlChkTime,FlowMnDtlLimitTime,FlowMnDtlComments,"
+		"FlowMnDtlState,FlowMnDtlResults,FlowMnDtlStateChgTime,FlowMnDtlPrintRight,FlowMnDtlRemark,"
+		"FlowMnDtlName,FlowMnDtlUserType,FlowMnDtlStep,FlowMnDtlNeedPrjRight,FlowMnDtlPrjID "
+		"from tbFlowMain_Detail where 1=2";
+	FQuery->Open();
+	FMasterDataSet->FieldDefs->Clear();
+	for(int i=0;i<FQuery->FieldCount;i++)
+	{
+		TField *TempField = FQuery->Fields->Fields[i];
+		FMasterDataSet->FieldDefs->Add(TempField->FieldName,TempField->DataType,TempField->Size,TempField->Required);
+	}
+	FMasterDataSet->CreateDataSet();
+
+	TClientDataSet *FDetailDataSet = new TClientDataSet(NULL);
+	FDetailDataSet->FieldDefs->Clear();
+	FDetailDataSet->FieldDefs->Add("TaskInsID",ftString,40,true);
+	FDetailDataSet->FieldDefs->Add("Status",ftString,40,true);
+	FDetailDataSet->FieldDefs->Add("IsHidden",ftInteger);
+	FDetailDataSet->CreateDataSet();
+
+	for(int i=0;i<FTaskList->Count;i++)
+	{
+		TTaskInstance *TempTask = FTaskList->Items[i]->Task;
+		String TaskKey		= TempTask->Key;
+		String WorkInsKey 	= TempTask->WorkInsKey;
+		int TaskNum			= TempTask->FlowMnDtlNum;
+		String Receiver		= TempTask->UserID;
+		String Operater		= TempTask->FlowMnDtlReceiver;
+		String SendTime 	= DateTimeToStr(TempTask->CreatedOn);
+		String ChkTime		= DateTimeToStr(TempTask->FlowMnDtlChkTime);
+		String LimTime		= DateTimeToStr(TempTask->FlowMnDtlLimitTime);
+		String Comments		= TempTask->Comments;
+		int State			= TempTask->Completed ? 1 : 0;
+		String Results		= TempTask->Status;
+		String ChgTime		= DateTimeToStr(TempTask->FlowMnDtlStateChgTime);
+		int PrintRight		= TempTask->CanPrint ? 1 : 0;
+		String Remark		= TempTask->FlowMnDtlRemark;
+		String TaskName		= TempTask->TaskDef->Name;
+		int UserType		= TempTask->AssignedUserType;
+		int StepNum			= TempTask->FlowMnDtlStepDefin;
+		int NeedPrjRight	= TempTask->NeedPrjRight ? 1 : 0;
+		String ProjectID	= TempTask->FlowMnDtlProjectID;
+
+		FMasterDataSet->Append();
+		FMasterDataSet->FieldValues["FlowMnDtlPKID"]			= TaskKey;
+		FMasterDataSet->FieldValues["FlowMnDtlFKID"]			= WorkInsKey;
+		FMasterDataSet->FieldValues["FlowMnDtlNum"]				= TaskNum;
+		FMasterDataSet->FieldValues["FlowMnDtlSender"]			= Receiver;
+		FMasterDataSet->FieldValues["FlowMnDtlReceiver"]		= Operater;
+		FMasterDataSet->FieldValues["FlowMnDtlSendTime"]		= SendTime;
+		FMasterDataSet->FieldValues["FlowMnDtlChkTime"]			= ChkTime;
+		FMasterDataSet->FieldValues["FlowMnDtlLimitTime"]		= LimTime;
+		FMasterDataSet->FieldValues["FlowMnDtlComments"]		= Comments;
+		FMasterDataSet->FieldValues["FlowMnDtlState"]			= State;
+		FMasterDataSet->FieldValues["FlowMnDtlResults"]			= Results;
+		FMasterDataSet->FieldValues["FlowMnDtlStateChgTime"]	= ChgTime;
+		FMasterDataSet->FieldValues["FlowMnDtlPrintRight"]		= PrintRight;
+		FMasterDataSet->FieldValues["FlowMnDtlRemark"]			= Remark;
+		FMasterDataSet->FieldValues["FlowMnDtlName"]			= TaskName;
+		FMasterDataSet->FieldValues["FlowMnDtlUserType"]		= UserType;
+		FMasterDataSet->FieldValues["FlowMnDtlStep"]			= StepNum;
+		FMasterDataSet->FieldValues["FlowMnDtlNeedPrjRight"]	= NeedPrjRight;
+		FMasterDataSet->FieldValues["FlowMnDtlPrjID"]			= ProjectID;
+		FMasterDataSet->Post();
+
+		TTaskDefinition* FTaskDef = TempTask->TaskDef;
+		for(int j=0;j<FTaskDef->StatusCount;j++)
+		{
+			FDetailDataSet->Append();
+			FDetailDataSet->FieldValues["TaskInsID"]	= TaskKey;
+			FDetailDataSet->FieldValues["Status"]		= FTaskDef->StatusName[j];
+			FDetailDataSet->FieldValues["IsHidden"]		= FTaskDef->StatusHidden[j] ? 1 : 0;
+			FDetailDataSet->Post();
+        }
+    }
+	String MasterJson = TTableJson::DataSetToJson(FMasterDataSet);
+	String DetailJson = TTableJson::DataSetToJson(FDetailDataSet);
+
+	TJSONObject *TasksObject = new TJSONObject();
+	TasksObject->AddPair("MasterDataSet",MasterJson);
+	TasksObject->AddPair("DetailDataSet",DetailJson);
+
+	return TasksObject;
+}
+//---------------------------------------------------------------------------
+String TServerMethods1::GetLogList(int ALogFilterType,String AFilterKey)
+{
+	String SQLStr;
+	if(ALogFilterType == 1)
+		SQLStr = "select * from tbFlowTaskLog where FlowTaskLogFlowInsID='"+AFilterKey+"' order by FlowTaskLogDate";
+	else
+		SQLStr = "select * from tbFlowTaskLog where FlowTaskLogTaskInsID='"+AFilterKey+"' order by FlowTaskLogDate";
+
+	FQuery->Close();
+	FQuery->SQL->Text = SQLStr;
+	FQuery->Open();
+	String Json = TTableJson::DataSetToJson(FQuery);
+	FQuery->Close();
+	return Json;
+}
+//---------------------------------------------------------------------------
+String TServerMethods1::GetDiagram(int ADiagramType,String ADiagramKey)
+{
+	String SQLStr,FDiagramString;
+	if(ADiagramType == 0)
+		SQLStr = "select Diagram=FlowDnContent from tbFlowDefin where FlowDnPKID='"+ADiagramKey+"'";
+	else if(ADiagramType == 1)
+		SQLStr = "select Diagram=FlowMnFlowContent from tbFlowMain where FlowMnPKID='"+ADiagramKey+"'";
+	else
+		SQLStr = "select Diagram=FlowMnDtlTaskContent from tbFlowMain_Detail where FlowMnDtlPKID='"+ADiagramKey+"'";
+
+	FQuery->Close();
+	FQuery->SQL->Text = SQLStr;
+	FQuery->Open();
+	if(FQuery->RecordCount > 0)
+		FDiagramString = VarToStr(FQuery->FieldValues["Diagram"]);
+	else
+		FDiagramString = "";
+	return FDiagramString;
+}
+//---------------------------------------------------------------------------

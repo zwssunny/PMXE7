@@ -1,0 +1,36 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ShowBizForm.h"
+#include "APIbase.h"
+#include "CurrencyData.h"
+#include "StuffStockIn.h"
+#include "OAChecker.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+void __fastcall ShowBizForm(TComponent* Owner,int modulecode)
+{
+ switch(modulecode)
+ {
+  case 1170104:
+  {
+	TfrmCurrencyData *form=new TfrmCurrencyData(Owner,GClientBroker,modulecode,"");
+	form->Show();
+  }
+	break;
+  case 1050208:
+  {
+	TfrmStuffStockIn *frmStuffStockIn=new TfrmStuffStockIn(Owner,GClientBroker,modulecode,"",1);
+	frmStuffStockIn->Show();
+  }
+  break;
+  case 1240302:
+  {
+	TfrmOAChecker *frmOAChecker=new TfrmOAChecker(Owner,GClientBroker,modulecode,"");
+	frmOAChecker->Show();
+  }
+  break;
+  default: 	ShowMessage(IntToStr(modulecode));
+ }
+}

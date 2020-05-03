@@ -1,0 +1,34 @@
+//---------------------------------------------------------------------------
+
+#ifndef CommFuncH
+#define CommFuncH
+#include "ZClientQuery.h"
+//---------------------------------------------------------------------------
+enum TFloatType: unsigned char{ftQty=1,ftPrice=2,ftAmt=3,ftRate=4}; //浮点数据类型，数量、单价、金额、汇率
+enum TBusinessType: unsigned char{BtProject=1, BtContract=2, Btdocument=3, BtContractMenu=4,
+				   BtdocumentMenu=5, BtInviteProject=6, BtBalance=7, BtSign=8};
+//--------------------------------------------------------------------------
+// 函数说明 获取用户相关业务的数据权限
+// 参数说明
+// Query Query指针
+// businessCode 业务GUID编码,
+// businessType  1-项目,2-合同,3-文档,4-合同目录,5-文档目录,6-招标项目,7-核算项目
+// userGUID 用户编码
+// write :lsm 2009-02-10
+// return value 1 输出：只读  2 写权限
+//--------------------------------------------------------------------------
+int __fastcall GetDataRight(TZClientQuery *Query,const String &businessCode,
+														TBusinessType businessType,String userGUID = "");
+//--------------------------------------------------------------------------
+// 函数说明 获取用户相关业务的数据权限过滤字符串
+// 参数说明
+// Query Query指针
+// businessType  1-项目,2-合同,3-文档,4-合同目录,5-文档目录,6-招标项目,7-核算项目
+// userGUID 用户编码
+// write :lsm 2009-02-10
+// return value ：filter string
+//--------------------------------------------------------------------------
+String __fastcall GetDataRightString(TZClientQuery *Query,TBusinessType businessType,String userGUID = "");
+String __fastcall GetGlobeVarValue(String VarName);   //读取全局变量
+String __fastcall GetGUIDString();
+#endif

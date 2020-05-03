@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#ifndef SelectStuSupplyNoteH
+#define SelectStuSupplyNoteH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseFilters.h"
+#include <FMX.Layouts.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+//---------------------------------------------------------------------------
+class TSelectStuSupplyNoteForm : public TBaseFiltersForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+
+protected:
+	virtual String __fastcall BuildFilters();
+	virtual void __fastcall InitControl();
+public:		// User declarations
+	__fastcall TSelectStuSupplyNoteForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TSelectStuSupplyNoteForm *SelectStuSupplyNoteForm;
+//---------------------------------------------------------------------------
+#endif

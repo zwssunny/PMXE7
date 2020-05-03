@@ -1,0 +1,23 @@
+1、新增事件OnExpand:
+定义如下：
+typedef void __fastcall (__closure *TExpandEvent)(TObject* Sender, int ACol,int ARow, bool& CanExpand);
+其中：
+     Sender---TsdGrid ;
+     ACol  ---列号；
+     ARow  ---行号；
+     CanExpand --- 是否可以展开,默认为true;
+     
+2、新增属性int IsFilled[int ARow]  -----每行是否已填充，默认值是1，读写； 
+其中:
+    ARow ----行号；
+    
+3、应用方法：
+1)为了继承原来的功能和已完成的劳动成果，层级填充方法安原来的方法；
+现在需要在未填充的行中显示展开符号：需要进行特殊处理
+设当前行：IsFilled[ARow]=0;
+
+2)当处理OnExpand属性时：
+判断 如果：IsFilled[ARow]==0
+ 进行填充下级；
+然后设置IsFilled[ARow]=1；
+如果下级还有为展开，则如上一样处理；

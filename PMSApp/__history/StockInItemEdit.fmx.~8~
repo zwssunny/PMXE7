@@ -1,0 +1,200 @@
+inherited frmStockInItemEdit: TfrmStockInItemEdit
+  Caption = #20837#24211#21333#26126#32454#34892
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Label1: TLabel [1]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 24.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #29289#36164#32534#30721#65306
+    Width = 90.000000000000000000
+  end
+  object edStuSkInDtlFKID_Stu: TEdit [2]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 5
+    Position.X = 112.000000000000000000
+    Position.Y = 16.000000000000000000
+    Width = 201.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label2: TLabel [3]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 65.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #29289#36164#21517#31216#65306
+    Width = 90.000000000000000000
+  end
+  object edStuDefName: TEdit [4]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 7
+    Position.X = 112.000000000000000000
+    Position.Y = 57.000000000000000000
+    Width = 201.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label3: TLabel [5]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 148.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #35745#37327#21333#20301#65306
+    Width = 90.000000000000000000
+  end
+  object edStuDefSpecModel: TEdit [6]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 9
+    Position.X = 112.000000000000000000
+    Position.Y = 99.000000000000000000
+    Width = 201.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edStuSkInDtlFKID_Unit: TEdit [7]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 10
+    Position.X = 112.000000000000000000
+    Position.Y = 140.000000000000000000
+    Width = 97.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label4: TLabel [8]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 107.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #35268#26684#22411#21495#65306
+    Width = 90.000000000000000000
+  end
+  object Label5: TLabel [9]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 190.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #25442#31639#31995#25968#65306
+    Width = 90.000000000000000000
+  end
+  object edStuSkInDtlCovFactor: TEdit [10]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 13
+    Position.X = 112.000000000000000000
+    Position.Y = 182.000000000000000000
+    Width = 97.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edStuSkInDtlQty: TEdit [11]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 14
+    Position.X = 112.000000000000000000
+    Position.Y = 224.000000000000000000
+    Width = 161.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edStuSkInDtlPrice: TEdit [12]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 15
+    Position.X = 112.000000000000000000
+    Position.Y = 265.000000000000000000
+    Width = 161.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edStuSkInDtlAmt: TEdit [13]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 16
+    Position.X = 112.000000000000000000
+    Position.Y = 307.000000000000000000
+    Width = 161.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edStuSkInDtlCostPrice: TEdit [14]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 17
+    Position.X = 112.000000000000000000
+    Position.Y = 348.000000000000000000
+    Width = 161.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label6: TLabel [15]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 44.000000000000000000
+    Position.Y = 232.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #25968#37327#65306
+    Width = 54.000000000000000000
+  end
+  object Label7: TLabel [16]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 44.000000000000000000
+    Position.Y = 273.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #21333#20215#65306
+    Width = 54.000000000000000000
+  end
+  object Label8: TLabel [17]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 44.000000000000000000
+    Position.Y = 315.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #37329#39069#65306
+    Width = 54.000000000000000000
+  end
+  object Label9: TLabel [18]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 26.000000000000000000
+    Position.Y = 356.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #21457#31080#20215#65306
+    Width = 72.000000000000000000
+  end
+  object Label10: TLabel [19]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 398.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #36890#30693#25968#37327#65306
+    Width = 90.000000000000000000
+  end
+  object Label11: TLabel [20]
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 440.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #20837#24211#25968#37327#65306
+    Width = 90.000000000000000000
+  end
+  object edStuSpyNtDtlQty: TEdit [21]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 24
+    Position.X = 112.000000000000000000
+    Position.Y = 390.000000000000000000
+    Width = 161.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edStuSpyNtDtlHaveInQty: TEdit [22]
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 25
+    Position.X = 112.000000000000000000
+    Position.Y = 432.000000000000000000
+    Width = 161.000000000000000000
+    Height = 32.000000000000000000
+  end
+  inherited ItemActionList: TActionList
+    Left = 344
+    Top = 0
+  end
+end

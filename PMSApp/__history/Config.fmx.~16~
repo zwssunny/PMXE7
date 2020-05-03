@@ -1,0 +1,129 @@
+object ConfigForm: TConfigForm
+  Left = 0
+  Top = 0
+  Caption = #36830#25509#26381#21153#22120#21442#25968
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Header: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 0
+    Width = 384.000000000000000000
+    object HeaderLabel: TLabel
+      Align = Contents
+      Height = 48.000000000000000000
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = #36830#25509#26381#21153#22120#21442#25968
+      Width = 384.000000000000000000
+    end
+  end
+  object Footer: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    StyleLookup = 'bottomtoolbar'
+    TabOrder = 1
+    Width = 384.000000000000000000
+    object btSave: TButton
+      Align = MostLeft
+      Height = 48.000000000000000000
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 0
+      Text = #20445#23384
+      Width = 73.000000000000000000
+      OnClick = btSaveClick
+    end
+    object btCancel: TButton
+      Align = MostRight
+      Height = 48.000000000000000000
+      ModalResult = 2
+      Position.X = 311.000000000000000000
+      StyleLookup = 'deletetoolbutton'
+      TabOrder = 1
+      Text = #20851#38381
+      Width = 73.000000000000000000
+      OnClick = btCancelClick
+    end
+  end
+  object Label1: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 39.000000000000000000
+    Position.Y = 136.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #26381#21153#22120#22320#22336#65306
+    Width = 108.000000000000000000
+  end
+  object edAgentIP: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Position.X = 160.000000000000000000
+    Position.Y = 120.000000000000000000
+    Width = 185.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object lableport: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 57.000000000000000000
+    Position.Y = 187.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #26381#21153#31471#21475#65306
+    Width = 90.000000000000000000
+  end
+  object edAgentPort: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 5
+    KeyboardType = NumberPad
+    Position.X = 160.000000000000000000
+    Position.Y = 176.000000000000000000
+    Width = 100.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object lbProtocol: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 57.000000000000000000
+    Position.Y = 239.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #36890#20449#21327#35758#65306
+    Width = 90.000000000000000000
+  end
+  object cbProtocol: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    ItemIndex = 0
+    Position.X = 160.000000000000000000
+    Position.Y = 232.000000000000000000
+    TabOrder = 7
+    Width = 100.000000000000000000
+    object TListBoxItem
+      Height = 19.000000000000000000
+      IsSelected = True
+      TabOrder = 0
+      Text = 'TCP/IP'
+      Width = 19.000000000000000000
+    end
+    object TListBoxItem
+      Height = 19.000000000000000000
+      TabOrder = 1
+      Text = 'HTTP'
+      Width = 19.000000000000000000
+    end
+    object TListBoxItem
+      Height = 19.000000000000000000
+      TabOrder = 2
+      Text = 'HTTPS'
+      Width = 19.000000000000000000
+    end
+  end
+end

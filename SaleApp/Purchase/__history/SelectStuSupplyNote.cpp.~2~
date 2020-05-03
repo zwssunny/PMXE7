@@ -1,0 +1,17 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "SelectStuSupplyNote.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseFilters"
+#pragma resource "*.fmx"
+TSelectStuSupplyNoteForm *SelectStuSupplyNoteForm;
+//---------------------------------------------------------------------------
+__fastcall TSelectStuSupplyNoteForm::TSelectStuSupplyNoteForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker)
+	: TBaseFiltersForm(Owner,AOnFilteredDataSet,ABroker)
+{
+}
+//---------------------------------------------------------------------------

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.914,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.893,E:\PMXE6\ControlSer\ControlConfig.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.888,=E:\PMXE6\ControlSer\EditServer.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.333,=E:\PMXE6\baselibXE\ServerCtl.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.793,=E:\PMXE6\ControlSer\AppSetup.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.833,=E:\PMXE6\baselibXE\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.933,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.772,E:\PMXE6\baselibXE\SerLib.lib=</Transaction>
+  </Transactions>
+</BorlandProject>

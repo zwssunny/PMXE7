@@ -1,0 +1,1017 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "BaseBillForm.h"
+#include "ItemBaseForm.h"
+#include "FSTMessageDlg.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseForm"
+#pragma resource "*.fmx"
+TfrmBaseBillForm *frmBaseBillForm;
+//---------------------------------------------------------------------------
+__fastcall TfrmBaseBillForm::TfrmBaseBillForm(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,String Param)
+  : TfrmBaseForm(Owner,clBroker,ModuleCode,Param)
+{
+	IniBaseBillForm();
+	if(Param.IsEmpty())
+	SetFormStatus(0); //构造函数不带参数时，设置窗体为浏览状态
+	InitDevLocalize();
+}
+//---------------------------------------------------------------------------
+__fastcall TfrmBaseBillForm::TfrmBaseBillForm(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,TZClientDataSet *FDataSet,String Param)
+  : TfrmBaseForm(Owner,clBroker,ModuleCode,FDataSet,"")
+{
+  IniBaseBillForm();
+  //窗体初始状态由调用窗体设置
+  InitDevLocalize();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::IniBaseBillForm()
+{
+
+	m_LockControls = new TCZDataSet;
+	m_LockControls->AddField("Section");
+	m_LockControls->AddField("control");
+	m_LockControls->AddField("browse");
+	m_LockControls->AddField("add");
+	m_LockControls->AddField("edit");
+	m_LockControls->AddField("LockType");
+
+	m_WaitInputControls = new TCZDataSet;
+	m_WaitInputControls->AddField("Section");
+	m_WaitInputControls->AddField("control");
+
+	m_InitStatus = 0;
+	m_EditBill = false;
+
+	FormInitControl();   //初始化 ,从 SetFormStatus中迁移来
+	ChangeToBrowseState(true);
+	SetControlEnabled(1,0);
+	SetOptCtrlStatus(0);
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::FormClose(TObject *Sender, TCloseAction &Action)
+{
+
+	if(CreateStyle == fcsClass)
+		Action = TCloseAction::caFree;
+}
+//---------------------------------------------------------------------------
+__fastcall TfrmBaseBillForm::~TfrmBaseBillForm()
+{
+  delete m_LockControls;
+  delete m_WaitInputControls;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::RefreshDataSet()
+{
+  DS_Close();
+  DS_Open();
+  DS_MoveFirst();
+	if(RecordCount > 0)
+	{
+    GetDataFromDataSet(1);
+    FormFillData();
+    SetControlFocus(1);
+	}
+	else
+	{
+		FormClearControl(1);
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::LockControl(int Section,TControl *ctl,bool browse,bool add,bool edit,int LockType)
+{
+	String existsctr=IntToStr((int)ctl);
+	if(m_LockControls->LocateField("control",existsctr))
+       m_LockControls->DelRecord();
+	m_LockControls->AddNew();
+	m_LockControls->FieldValues["Section"]  = IntToStr(Section);
+	m_LockControls->FieldValues["control"]  = IntToStr((int)ctl);
+	m_LockControls->FieldValues["browse"]   = IntToStr((int)browse);
+	m_LockControls->FieldValues["add"]      = IntToStr((int)add);
+	m_LockControls->FieldValues["edit"]     = IntToStr((int)edit);
+	m_LockControls->FieldValues["LockType"] = IntToStr(LockType);
+	m_LockControls->Update();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::WaitInputControl(int Section,TControl *winctl)
+{
+  m_WaitInputControls->AddNew();
+	m_WaitInputControls->FieldValues["Section"] = Section;
+	m_WaitInputControls->FieldValues["control"] = (int)winctl;
+  m_WaitInputControls->Update();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::BrowseRecord()
+{
+	if(DetailCount > 0)
+	{
+		GetDataFromDataSet(2);
+		ChangeToBrowseState(false);
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SetControlEnabled(int Section,int status)
+{
+  TControl *ctl;
+  int iSection;
+  int iLockType;
+	String CtrlClassName;
+	m_LockControls->First();
+  while(!m_LockControls->Eof)
+	{
+		ctl           = (TControl*)(m_LockControls->FieldValues["control"].ToInt());
+		iSection      = m_LockControls->FieldValues["Section"].ToInt();
+		iLockType     = m_LockControls->FieldValues["LockType"].ToInt();
+		CtrlClassName = ctl->ClassName().UpperCase();
+
+		if(status==0) //浏览
+		{
+			if(iLockType != 0 &&  CtrlClassName == "TMEMO")
+				((TMemo *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else if(iLockType != 0 && CtrlClassName == "TEDIT")
+				((TEdit *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else
+				ctl->Enabled=m_LockControls->FieldValues["browse"].ToInt();
+		}
+		else if(status==1) //新增
+		{
+			if (iSection == Section)
+			{
+			if(iLockType != 0 &&  CtrlClassName == "TMEMO")
+				((TMemo *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else if(iLockType != 0 && CtrlClassName == "TEDIT")
+				((TEdit *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else
+				ctl->Enabled=m_LockControls->FieldValues["add"].ToInt();
+			}
+			else
+			{
+			if(iLockType != 0 &&  CtrlClassName == "TMEMO")
+				((TMemo *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else if(iLockType != 0 && CtrlClassName == "TEDIT")
+				((TEdit *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else
+				ctl->Enabled=false;
+			}
+		}
+		else if(status==2) //修改
+		{
+			if (iSection == Section)
+			{
+			if(iLockType != 0 &&  CtrlClassName == "TMEMO")
+				((TMemo *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else if(iLockType != 0 && CtrlClassName == "TEDIT")
+				((TEdit *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else
+				ctl->Enabled=m_LockControls->FieldValues["edit"].ToInt();
+			}
+			else
+			{
+			if(iLockType != 0 &&  CtrlClassName == "TMEMO")
+				((TMemo *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else if(iLockType != 0 && CtrlClassName == "TEDIT")
+				((TEdit *)ctl)->ReadOnly=!(m_LockControls->FieldValues["browse"].ToInt());
+			else
+				ctl->Enabled=false;
+			}
+		}
+		m_LockControls->Next();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SetControlFocus(int Section)
+{
+  TControl *winctl;
+  m_WaitInputControls->First();
+  while(!m_WaitInputControls->Eof)
+  {
+    if(m_WaitInputControls->FieldValues["Section"].ToInt() == Section)
+    {
+	 winctl=(TControl*)(m_WaitInputControls->FieldValues["control"].ToInt());
+	 if(this->Active && winctl->CanFocus)
+	 {
+	   winctl->SetFocus();
+	   break;
+	 }
+	}
+	m_WaitInputControls->Next();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::Open()
+{
+  DS_Open();
+  if(RecordCount>0)
+  {
+	MoveFirst();
+  }
+  else
+  {
+	FormClearControl(1);
+	if(DataSetType == 2)
+	  FormClearControl(2);
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::CloseDataSet()
+{
+  DS_Close();
+  FormClearControl(1);
+  if(DataSetType == 2)
+	FormClearControl(2);
+  SetControlEnabled(1,0);
+  SetOptCtrlStatus(0);
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::MoveFirst()
+{
+  if(RecordCount>0)
+  {
+	DS_MoveFirst();
+	DisplayMaster();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::MoveLast()
+{
+  if(RecordCount>0)
+  {
+	DS_MoveLast();
+	DisplayMaster();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::MoveNext()
+{
+  if(RecordCount>0)
+  {
+	DS_MoveNext();
+	DisplayMaster();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::MovePrior()
+{
+  if(RecordCount>0)
+  {
+	DS_MovePrior();
+	DisplayMaster();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::MoveTo(int Distance)
+{
+  if(RecordCount>0)
+  {
+	DS_MoveTo(Distance);
+	DisplayMaster();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DisplayMaster()
+{
+  if(RecordCount > 0)
+  {
+	GetDataFromDataSet(1);
+	FormFillData();
+	ChangeToBrowseState(true);
+	SetControlEnabled(1,0);
+	SetOptCtrlStatus(0);
+//	SendMessage(ParentHandle,WM_YW_LOCATEGRID_MSG,0,(int)Handle);
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DetailFirst()
+{
+  if(DetailCount>0)
+  {
+    DS_DetailFirst();
+    DisplayDetail();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DetailLast()
+{
+  if(DetailCount>0)
+  {
+    DS_DetailLast();
+    DisplayDetail();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DetailPrior()
+{
+  if(DetailCount>0)
+  {
+    DS_DetailPrior();
+    DisplayDetail();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DetailNext()
+{
+  if(DetailCount>0)
+  {
+    DS_DetailNext();
+    DisplayDetail();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DetailMoveTo(int Distance)
+{
+  if(DetailCount>0)
+  {
+    DS_DetailMoveTo(Distance);
+    DisplayDetail();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DisplayDetail()
+{
+  if(DetailCount > 0)
+  {
+    GetDataFromDataSet(2);
+    FormLocateControl();
+  }
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmBaseBillForm::LocateMaster(String KeyValues)
+{
+  bool bLocate;
+	bLocate = DS_LocateMaster(KeyValues);
+  if(bLocate) //定位成功
+  {
+    GetDataFromDataSet(1);
+    FormFillData();
+  }
+  return bLocate;
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmBaseBillForm::LocateDetail(String KeyValues)
+{
+  bool bLocate;
+	bLocate = DS_LocateDetail(KeyValues);
+  if(bLocate)
+    FormLocateControl();
+  return bLocate;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::FindRecord()
+{
+/*
+  TLocateBaseForm *p=new TLocateBaseForm(this,m_DataSet);
+  p->ShowModal();
+  GetDataFromDataSet();
+	FormFillData();
+  delete p;
+  SetOptCtrlStatus(0);
+*/
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SaveData()
+{
+  int state = (int)MasterStatus;
+	if(BeforeUpdateData((int)otUpdate) == false) return;
+
+  TCursor Save_Cursor = Cursor;
+	Cursor = crHourGlass;
+  try
+  {
+		if(MasterStatus!=Data::Db::dsBrowse)
+    {
+			if(MasterStatus == Data::Db::dsInsert)
+				VerifyFieldData(1,1);
+			else if(MasterStatus == Data::Db::dsEdit)
+				VerifyFieldData(1,2);
+			SendDataToDataSet(1);
+			if(KeyFieldsValid(1) == false)
+				throw Exception(L"关键字不允许包含'%[]_^等特殊字符");
+		}
+
+		if(DataSetType != 1 && DetailStatus != Data::Db::dsBrowse) //明细保存
+		{
+			if(DetailStatus == Data::Db::dsEdit)   //明细修改保存
+			  {
+				VerifyFieldData(2,2);
+				SendDataToDataSet(2);
+				if(KeyFieldsValid(2) == false)
+					throw Exception(L"关键字不允许包含'%[]_^等特殊字符");
+				DS_UpdateDetail();
+					}
+
+				 if(DetailStatus == Data::Db::dsInsert) //明细新增取消
+					 DS_CancelDetail();
+				}
+				DS_Update();
+
+	GetDataFromDataSet(1);
+    FormFillData();
+    m_EditBill = false;
+    ChangeToBrowseState(true);
+    SetControlEnabled(1,0);
+    SetOptCtrlStatus(0);
+  }
+  __finally
+	{
+		Cursor = Save_Cursor;
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::CancelChange()
+{
+  if(BeforeUpdateData((int)otCancel) == true)
+  {
+    DS_Cancel();
+    if(RecordCount>0)
+    {
+      GetDataFromDataSet(1);
+      FormFillData();
+	}
+    else
+    {
+      FormClearControl(1);
+      if(DataSetType == 2)
+        FormClearControl(2);
+    }
+		m_EditBill = false;
+    ChangeToBrowseState(true);
+	SetControlEnabled(1,0);
+    SetOptCtrlStatus(0);
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::CancelDetailChange()
+{
+  if(BeforeUpdateData((int)otCancelDetail) == true)
+  {
+    if(m_EditBill)
+    {
+			DS_CancelDetail();
+			FormLocateControl();
+			SetOptCtrlStatus(0);     //5
+    }
+    ChangeToBrowseState(true);
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::RefreshData()
+{
+	TDataSetNotifyEvent m_AfterScroll = DataSet->MasterDataSet->AfterScroll;
+	try
+	{
+		DataSet->MasterDataSet->DisableControls();
+		DataSet->MasterDataSet->AfterScroll = NULL;
+		RefreshDataSet();
+		SetControlEnabled(1,0);
+		SetOptCtrlStatus(0);
+  }
+  __finally
+  {
+	DataSet->MasterDataSet->AfterScroll = m_AfterScroll;
+	DataSet->MasterDataSet->EnableControls();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::AddData()
+{
+  if(BeforeUpdateData((int)otAdd) == true)
+  {
+    DS_AddNew();
+    FormClearControl(1);
+    if(DataSetType == 2)
+      FormClearControl(2);
+    SetControlEnabled(1,1);
+    SetOptCtrlStatus(1);
+    ChangeToBrowseState(true);
+    SetControlFocus(1);
+    BeforeInputData(1); //虚函数用于用户输入数据之前的处理  panner 2002/4/15
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::EditData()
+{
+  if(RecordCount>0)
+  {
+    if(BeforeUpdateData((int)otEdit) == true)
+    {
+//      GetDataFromDataSet(1);
+//      FormFillData();
+      DS_Edit();
+      ChangeToBrowseState(true);
+      SetControlEnabled(1,2);
+      SetOptCtrlStatus(2);
+      SetControlFocus(1);
+      BeforeInputData(1); //虚函数用于用户输入数据之前的处理  panner 2002/4/15
+    }
+  }
+  else
+	 ShowMessage(_D("没有可编辑数据"));
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DelData()
+{
+  if(RecordCount>0)
+  {
+    if(BeforeUpdateData((int)otDel) == true)
+	{
+	  TMessageDialogEventProc msgDialogCloseProc=&DoDelDataProc;
+	  ShowMessageBox(L"是否要删除当前数据？",msgDialogCloseProc);
+	}
+  }
+  else
+   ShowMessage(_D("没有可删除数据"));
+}
+//---------------------------------------------------------------------------
+void __fastcall  TfrmBaseBillForm::DoDelDataProc(System::Uitypes::TModalResult AResult)
+{
+  if(AResult==mrYes)
+  {
+	   {
+		DS_Delete();
+		if(RecordCount>0)
+		{
+		  GetDataFromDataSet(1);
+		  FormFillData();
+		  if(DataSetType == 2) //主从数据集
+		  {
+			if(DetailCount > 0)
+			{
+			  DS_DetailFirst();
+			  GetDataFromDataSet(2);
+			}
+			else
+			  FormClearControl(2);
+		  }
+		}
+		else
+		{
+		  FormClearControl(1);
+		  if(DataSetType == 2)
+			FormClearControl(2);
+		}
+		SetOptCtrlStatus(0);
+	  }
+
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::AddItemData()
+{
+  if(MasterStatus!=dsBrowse)
+  {
+	if(BeforeUpdateData((int)otAddDetail) == true)
+	{
+	  VerifyFieldData(1,1);
+	  SendDataToDataSet(1);
+	  if(KeyFieldsValid(1) == false)
+		throw Exception(L"关键字不允许包含'%[]_^等特殊字符");
+	  DS_AddDetail();
+	  m_EditBill=true; //设置明细编辑状态
+	  FormClearControl(2);
+	  ChangeToBrowseState(false);
+	  SetControlEnabled(2,1);
+	  SetOptCtrlStatus(3);
+	  SetControlFocus(2);
+	  BeforeInputData(2); //虚函数用于用户输入数据之前的处理  panner 2002/4/15
+	}
+  }
+  else if(RecordCount>0)
+  {
+	if(BeforeUpdateData((int)otAddDetail) == true)
+	{
+	  DS_AddDetail();
+	  m_EditBill=true; //设置明细编辑状态
+	  FormClearControl(2);
+	  ChangeToBrowseState(false);
+	  SetControlEnabled(2,1);
+	  SetOptCtrlStatus(3);
+	  SetControlFocus(2);
+	  BeforeInputData(2); //虚函数用于用户输入数据之前的处理  panner 2002/4/15
+	}
+  }
+  else
+   ShowMessage(_D("尚未建立主表数据"));
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::EditItemData()
+{
+  //主从表连续新增时，RecordCount可为0而DetailCount不为0
+  if((RecordCount>0 || MasterStatus == dsInsert) && DetailCount>0)
+  {
+    if(BeforeUpdateData((int)otEditDetail) == true)
+    {
+      GetDataFromDataSet(2);
+      DS_EditDetail();
+      m_EditBill=true; //设置明细编辑状态
+	  ChangeToBrowseState(false);
+	  SetControlEnabled(2,2);
+      SetOptCtrlStatus(4);
+      SetControlFocus(2);
+	  BeforeInputData(2); //虚函数用于用户输入数据之前的处理
+    }
+  }
+  else
+   ShowMessage(_D("无可编辑数据"));
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DelItemData()
+{
+  //主从表连续新增时，RecordCount可为0而DetailCount不为0
+  if((RecordCount>0 || MasterStatus == dsInsert) && DetailCount>0)
+  {
+    if(BeforeUpdateData((int)otDelDetail) == true)
+	{
+	  TMessageDialogEventProc msgDialogCloseProc=&DoDelItemDataProc;
+	  ShowMessageBox(L"是否要删除当前数据？",msgDialogCloseProc);
+	}
+  }
+  else
+  ShowMessage(_D("无可删除数据"));
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DoDelItemDataProc(System::Uitypes::TModalResult AResult)
+{
+   if(AResult==mrYes)
+   {
+		DS_DeleteDetail();
+		FormDeleteData();
+//************
+		if(!m_EditBill)
+		  DS_Update();
+//************
+		if(DetailCount > 0)
+		{
+		 FormLocateControl();
+		 GetDataFromDataSet(2);
+		}
+		else
+		 FormClearControl(2);
+   }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SaveItemData(bool bAddAgain)
+{
+	int state = (int)DetailStatus;
+	if(state == Data::Db::dsBrowse)
+	   return;
+	if(BeforeUpdateData((int)otUpdateDetail) == false)
+	   return;
+
+	if(DetailStatus == Data::Db::dsInsert)
+	  VerifyFieldData(2,1);
+		else if(DetailStatus == Data::Db::dsEdit)
+	  VerifyFieldData(2,2);
+	SendDataToDataSet(2);
+	if(KeyFieldsValid(2) == false)
+		throw Exception(L"关键字不允许包含'%[]_^等特殊字符");
+	DS_UpdateDetail();
+	if(state == Data::Db::dsInsert && bAddAgain)
+	{
+	 if(BeforeUpdateData((int)otAddDetail))
+	 {
+	   FormAppendData();
+	   DS_AddDetail();
+	   FormClearControl(2);
+	   SetControlFocus(2);
+	 }
+	}
+	else if(state == Data::Db::dsEdit)
+	{
+	 FormChangeData();
+	 SetOptCtrlStatus(5);
+	 ChangeToBrowseState(true);
+	}
+	DS_Update();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::ClearMasterDataSet()
+{
+  while(RecordCount>0)
+  {
+    DS_MoveFirst();
+    DS_Delete();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::ClearDetailDataSet()
+{
+  while(DetailCount>0)
+  {
+    DS_DetailFirst();
+    DS_DeleteDetail();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SetFormStatus(int status)
+{
+   m_InitStatus = status; //设置窗体的初始状态
+
+  if(status==0) //浏览
+	{
+	GetDataFromDataSet(1);
+	FormFillData();
+	SetControlEnabled(1,0);
+	SetOptCtrlStatus(0);
+  }
+  else if(status==1) //新增
+  {
+	AddData();
+  }
+  else if(status==2) //修改
+  {
+		GetDataFromDataSet(1);
+		FormFillData();
+		EditData();
+  }
+  else if(status==3)
+  {
+	 AddItemData();
+  }
+  else if(status==4)
+  {
+	GetDataFromDataSet(2);
+	FormFillData();
+	EditItemData();
+  }
+}
+//---------------------------------------------------------------------------
+Variant __fastcall TfrmBaseBillForm::GetMasterValue(String fieldname)
+{
+ return DS_GetMasterValue(fieldname);
+}
+//---------------------------------------------------------------------------
+Variant __fastcall TfrmBaseBillForm::GetMasterOldValue(String fieldname)
+{
+ return DS_GetMasterOldValue(fieldname);
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SetMasterValue(String fieldname,Variant value)
+{
+ DS_SetMasterValue(fieldname,value);
+}
+//---------------------------------------------------------------------------
+Variant __fastcall TfrmBaseBillForm::GetDetailValue(String fieldname)
+{
+ return DS_GetDetailValue(fieldname);
+}
+//---------------------------------------------------------------------------
+Variant __fastcall TfrmBaseBillForm::GetDetailOldValue(String fieldname)
+{
+ return DS_GetDetailOldValue(fieldname);
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SetDetailValue(String fieldname,Variant value)
+{
+ DS_SetDetailValue(fieldname,value);
+}
+//---------------------------------------------------------------------------
+Variant __fastcall TfrmBaseBillForm::GetFieldValue(String fieldname)
+{
+ return DS_GetMasterValue(fieldname);
+}
+//---------------------------------------------------------------------------
+Variant __fastcall TfrmBaseBillForm::GetFieldOldValue(String fieldname)
+{
+ return DS_GetMasterOldValue(fieldname);
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::SetFieldValue(String fieldname,Variant value)
+{
+ DS_SetMasterValue(fieldname,value);
+}
+//---------------------------------------------------------------------------
+TField *__fastcall TfrmBaseBillForm::FindMasterField(String fieldname)   //查找表头或单表字段
+{
+   return DS_FindMasterField(fieldname);
+}
+//---------------------------------------------------------------------------
+TField *__fastcall TfrmBaseBillForm::FindDetailField(String fieldname)   //查找明细字段
+{
+   return DS_FindDetailField(fieldname);
+}
+
+//函数名：ValidKeyStr
+//功能：判断关键字字符串是否有效
+//说明：作为关键字的字符串不能包含非法字符，如单引号',下划线_,百分号%等
+//---------------------------------------------------------------------------
+bool TfrmBaseBillForm::ValidKeyStr(String KeyStr)
+{
+  bool IsValid;
+  if(KeyStr.Pos("'") > 0 || KeyStr.Pos("%") > 0 || KeyStr.Pos("_") > 0 ||
+	 KeyStr.Pos("[") > 0 || KeyStr.Pos("]") > 0 || KeyStr.Pos("^") > 0)
+   IsValid = false;
+  else
+	IsValid = true;
+  return IsValid;
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmBaseBillForm::KeyFieldsValid(int Section)  //关键字段检验
+{
+ String KeyFieldsStr,FieldStr;
+ int iPos;
+ TField *KeyField;
+ Variant FieldValue;
+
+ if(Section == 1) //检验单头关键字
+ {
+   KeyFieldsStr = MasterKeyFields;
+ }
+ else //检验明细关键字
+ {
+   KeyFieldsStr = DetailKeyFields;
+ }
+ while(KeyFieldsStr != "")  //拆解关键字字符串
+ {
+   iPos = KeyFieldsStr.Pos(";");
+   if(iPos > 0)
+   {
+	 FieldStr = KeyFieldsStr.SubString(0,iPos);
+	 KeyFieldsStr = KeyFieldsStr.SubString(iPos+1,KeyFieldsStr.Length());
+   }
+   else
+   {
+     FieldStr = KeyFieldsStr;
+     KeyFieldsStr = "";
+   }
+   if(FieldStr == "")
+     continue;
+   if(Section == 1)
+     KeyField = MasterFields->FieldByName(FieldStr);
+   else
+     KeyField = DetailFields->FieldByName(FieldStr);
+   if(KeyField->DataType == ftString || KeyField->DataType == ftWideString) //关键字段是字符型
+   {
+     if(Section == 1)
+      FieldValue = GetMasterValue(FieldStr);
+     else
+      FieldValue = GetDetailValue(FieldStr);
+     if(!FieldValue.IsNull())
+     {
+       if(ValidKeyStr(FieldValue) == false) //校验关键字段字串是否带有非法字符
+         return false;
+     }
+   }
+ }
+ return true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::CheckBillData()
+{
+  TMessageDialogEventProc msgDialogCloseProc=&DoCheckBillProc;
+  ShowMessageBox(L"确认要审核当前单据吗?",msgDialogCloseProc);
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DoCheckBillProc(System::Uitypes::TModalResult AResult)
+{
+	if(AResult==mrYes)
+	{
+   Cursor=crHourGlass;
+   try
+   {
+	DS_Edit();
+	if(BeforeCheck())
+	{
+	  CheckBill();
+	  AfterCheck();
+	}
+	else
+	  DS_Cancel();
+	}
+	__finally
+	{
+	  Cursor=crDefault;
+	}
+
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DoUnCheckBillProc(System::Uitypes::TModalResult AResult)
+{
+	if(AResult==mrYes)
+	{
+    DS_Edit();
+	BeforeUnCheck();
+	UnCheckBill();
+	AfterUnCheck();
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::UnCheckBillData()
+{
+  TMessageDialogEventProc msgDialogCloseProc=&DoUnCheckBillProc;
+  ShowMessageBox(L"确认要反审核当前单据吗?",msgDialogCloseProc);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmBaseBillForm::BeforeCheck()
+{
+  //给审核单据所需的字段赋值
+  //在这里可以再次检测不进行审核,但最好给出提示
+  return true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::AfterCheck()
+{
+  GetDataFromDataSet(1);
+  FormFillData();
+  SetOptCtrlStatus(0);
+  ShowMessage(_D("当前单据审核成功"));
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::CheckBill()
+{
+  DS_Check(1);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmBaseBillForm::BeforeUnCheck()
+{
+  return true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::AfterUnCheck()
+{
+  GetDataFromDataSet(1);
+	FormFillData();
+  SetOptCtrlStatus(0);
+  ShowMessage(_D("当前单据反审核成功"));
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::UnCheckBill()
+{
+  DS_Check(0);
+}
+//---------------------------------------------------------------------------
+//函数功能:显示二级明细编辑窗体并设置初始编辑状态
+//参数说明: DetailDataSet-明细数据集,status-编辑状态
+void __fastcall TfrmBaseBillForm::ShowItemEditForm(int status)
+{
+  if(status != 3)  //非新增状态，浏览或修改操作时
+  {
+   if(this->DetailCount>0)
+	{
+	  if(DataSet->DetailDataSet->Eof)
+		DataSet->DetailDataSet->Last();
+	  else if(DataSet->DetailDataSet->Bof)
+		DataSet->DetailDataSet->First();
+	}
+	else
+	{
+		ShowMessage(_D("当前没有数据，无法执行操作"));
+		return;
+    }
+  }
+  //创建并显示数据编辑窗体
+	TfrmItemBaseForm *EditForm;
+	try{
+		TForm *p = NewItemEditForm(DataSet, status);  //获取编辑窗体指针0,3,4
+		if(p)
+		{
+			EditForm =dynamic_cast<TfrmItemBaseForm *>(p); //类型转换
+		   if(EditForm)
+		   {
+			//屏蔽下面两行，主要对权限数据获取太慢，已经在构造函数进行处理
+			//传入moduleCode，一次性解决权限和窗体ID取值
+			//	EditForm->FormModuleCode = FormModuleCode;
+			//	EditForm->FormID=FormID;
+			EditForm->SetFormStatus(status); //设置编辑窗体初始状态
+			EditForm->Show();
+		   }
+		}
+	  }
+	  catch(Exception &e)
+	  {
+	   throw Exception(e.Message);
+	  }
+}
+//---------------------------------------------------------------------------
+//函数功能:创建并返回二级明细编辑窗体指针,虚函数
+//参数说明: DetailDataSet-明细数据集,status-编辑状态
+TForm * __fastcall TfrmBaseBillForm::NewItemEditForm(TZClientDataSet *m_DataSet, int status)
+{
+  return NULL;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmBaseBillForm::FormCloseQuery(TObject *Sender, bool &CanClose)
+
+{
+	if(MasterStatus!=dsBrowse || (DataSetType==2 && DetailStatus!=dsBrowse) || m_EditBill) //处于编辑状态
+	{
+        CanClose=false;
+		TMessageDialogEventProc MsgDialogCloseEvent=&DoCancelChange;
+		ShowMessageBox(L"修改未保存，是否确定取消!",MsgDialogCloseEvent);
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmBaseBillForm::DoCancelChange(System::Uitypes::TModalResult AResult)
+{
+  if(AResult==mrYes)
+  {
+	  CancelChange();
+  }
+}
+

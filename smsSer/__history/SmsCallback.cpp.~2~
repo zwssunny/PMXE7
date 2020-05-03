@@ -1,0 +1,45 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "SmsCallback.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+__fastcall TSmsCallbackClient:: TSmsCallbackClient(TDSClientCallbackChannelManager* AChannelManager, String ACallbackName)
+:TDBXCallback()
+{
+  FHookCallBack=NULL;
+  FChannelManager=AChannelManager;
+  FCallbackName=ACallbackName;
+  if(FChannelManager)
+	 FChannelManager->RegisterCallback(FCallbackName,this);
+}
+//---------------------------------------------------------------------------
+__fastcall TSmsCallbackClient:: ~TSmsCallbackClient()
+{
+   if(FChannelManager)
+   FChannelManager->UnregisterCallback(FCallbackName);
+}
+TJSONValue* __fastcall TSmsCallbackClient::Execute(const TJSONValue* Arg)
+{
+   TJSONObject * Result=new TJSONObject();
+   Result->AddPair(new TJSONPair("notificationType", "sms"));
+   TJSONObject * FArg=(TJSONObject*)Arg;
+  if(FArg->Size()>0)
+  {
+	if(FHookCallBack)
+	{
+      FHookCallBack((TJSONObject*)(FArg->Clone()),Result);
+  //	 TThreadProcedure* methProc(static_cast<TThreadProcedure*>(new TSmsQueueProc(FHookCallBack,(TJSONObject*)(FArg->Clone()),Result)));
+   //	 TThread::Queue(0, methProc);
+	 }
+   }
+   return Result;
+}
+//---------------------------------------------------------------------------
+System::TObject* __fastcall TSmsCallbackClient::Execute(System::TObject* Arg)
+{
+   return NULL;
+}
+//---------------------------------------------------------------------------
+

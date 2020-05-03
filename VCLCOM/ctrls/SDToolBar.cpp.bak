@@ -1,0 +1,32 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "SDToolBar.h"
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+// ValidCtrCheck is used to assure that the components created do not have
+// any pure virtual functions.
+//
+
+static inline void ValidCtrCheck(TSDToolBar *)
+{
+  new TSDToolBar(NULL);
+}
+//---------------------------------------------------------------------------
+__fastcall TSDToolBar::TSDToolBar(TComponent* Owner)
+  : TToolBar(Owner)
+{
+}
+//---------------------------------------------------------------------------
+namespace Sdtoolbar
+{
+  void __fastcall PACKAGE Register()
+  {
+     TComponentClass classes[1] = {__classid(TSDToolBar)};
+     RegisterComponents("RbWin32", classes, 0);
+  }
+}
+//---------------------------------------------------------------------------
+ 

@@ -1,0 +1,13 @@
+		TWorkInsBindary;
+		TWorkDefBindary;
+		TTaskInsBindary;
+		TAttachmentBindary;
+		TTaskLogBindary;
+		TUserBindary;
+		TGroupBindary;
+		TDepartmentBindary;
+		TJobBindary;
+		TCustomWorkflowDB£º
+		procedure WorkflowDepartmentFillUserIds(WorkDepartment: TWorkflowDepartment);
+		procedure WorkflowJobFillUserIds(WorkJob: TWorkflowJob);
+		procedure WorkflowGroupFillUserIds(WorkGroup: TWorkflowGroup);

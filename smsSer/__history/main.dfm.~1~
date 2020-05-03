@@ -1,0 +1,11 @@
+object SmsServer: TSmsServer
+  OldCreateOrder = False
+  OnDestroy = ServiceDestroy
+  AllowPause = False
+  DisplayName = 'HYWY SMSServer'
+  Interactive = True
+  OnStart = ServiceStart
+  OnStop = ServiceStop
+  Height = 150
+  Width = 215
+end

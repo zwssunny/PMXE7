@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.944,=E:\PMXE6\tethering\Zxing\zxing\oned\ITFReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.973,=E:\PMXE6\tethering\Zxing\zxing\oned\OneDResultPoint.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.984,=E:\PMXE6\tethering\Zxing\zxing\oned\UPCAReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.004,=E:\PMXE6\tethering\Zxing\zxing\oned\UPCEReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.748,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj=E:\PMXE6\tethering\Zxing\zxing\oned\Onedlib.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.995,=E:\PMXE6\tethering\Zxing\zxing\oned\UPCEANReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.914,=E:\PMXE6\tethering\Zxing\zxing\oned\Code128Reader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.903,=E:\PMXE6\tethering\Zxing\zxing\oned\Code93Reader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.922,=E:\PMXE6\tethering\Zxing\zxing\oned\EAN8Reader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.966,=E:\PMXE6\tethering\Zxing\zxing\oned\OneDReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.958,=E:\PMXE6\tethering\Zxing\zxing\oned\MultiFormatUPCEANReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.981,=E:\PMXE6\tethering\Zxing\win32\Debug\ZxingCommon.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.933,=E:\PMXE6\tethering\Zxing\zxing\oned\EAN13Reader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.665,=E:\PMXE6\tethering\Zxing\zxing\oned\MultiFormatOneDReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.951,=E:\PMXE6\tethering\Zxing\zxing\oned\MultiFormatOneDReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.112,E:\PMXE6\tethering\Zxing\zxing\oned\MultiFormatOneDReader.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.890,=E:\PMXE6\tethering\Zxing\zxing\oned\Code39Reader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.873,=E:\PMXE6\tethering\Zxing\zxing\oned\CodaBarReader.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

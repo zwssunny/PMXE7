@@ -1,0 +1,2734 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+    <ProjectExtensions>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <ItemGroup Condition="'$(Platform)'=='Android'">
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_144x144.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\library\lib\armeabi\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_426x320.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Debug\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-normal\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_960x720.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-xlarge\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-normal\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-large\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\library\lib\mips\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\menu\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Debug\libTakePic.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout-ldpi\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\raw\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Release\AndroidManifest.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Debug\splash_image_def.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable\</RemoteDir>
+            <RemoteName>splash_image_def.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\xml\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_640x480.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-large\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout-land\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="E:\Android\ndk\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>gdbserver</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_144x144.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\menu\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\menu\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout-land\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\x86\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\library\lib\x86\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\layout\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\library\lib\mips\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Release\styles.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="E:\Android\ndk\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>gdbserver</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\x86\libnative-activity.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\library\lib\x86\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\jar\NativeActivityExt.jar" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\assets\internal\</RemoteDir>
+            <RemoteName>NativeActivityExt.jar</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Release\splash_image_def.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\res\drawable\</RemoteDir>
+            <RemoteName>splash_image_def.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\15.0\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\library\lib\armeabi\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Release\libTakePic.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libTakePic.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_960x720.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\drawable-xlarge\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\res\values-zh-rCN\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Android\Debug\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice'">
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Win32\Release\TakePic.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>TakePic.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\cc32160.dll" Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>cc32160.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\borlndmm.dll" Condition="'$(UsingDelphiRTL)'=='true'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>borlndmm.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\cc32160mt.dll" Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>cc32160mt.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include=".\Win32\Debug\TakePic.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>TakePic.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='OSX32'">
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>libcgunwind.1.0.dylib</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\osx32\libcgstl.dylib" Condition="'$(DynamicRTL)'=='true'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>libcgstl.dylib</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\osx32\libcgcrtl.dylib" Condition="'$(DynamicRTL)'=='true'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>libcgcrtl.dylib</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='iOSSimulator'">
+        <DeployFile Include="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
+            <RemoteDir>TakePic.app\</RemoteDir>
+            <RemoteName>libcgunwind.1.0.dylib</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\bookmark_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-ldpi\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\help.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\styles.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin64\cc64160.dll" Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'!='true'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>cc64160.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\share.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\arrays.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\ids.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\themes.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin64\cc64160mt.dll" Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>cc64160mt.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\history.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\raw\beep.ogg" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\capture.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\history_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\launcher_icon.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin64\borlndmm.dll" Condition="'$(UsingDelphiRTL)'=='true'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>borlndmm.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values-zh-rCN\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\menu\encode.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\values\dimens.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\drawable\share_via_barcode.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\java\output\dex\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\xml\preferences.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\app_picker_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\capture.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_header.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout\search_book_contents_list_item.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\DevicePhoto\res\Capture\capture_res\layout-land\encode.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TakePic\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+</Project>

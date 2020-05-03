@@ -1,0 +1,152 @@
+inherited HouseFiltersForm: THouseFiltersForm
+  Caption = #25151#28304#26465#20214#36807#28388
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Label1: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 6.000000000000000000
+    Position.Y = 24.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #27004#30424#21517#31216#65306
+    Width = 90.000000000000000000
+  end
+  object Label2: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 6.000000000000000000
+    Position.Y = 72.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #27004#38401#21517#31216#65306
+    Width = 90.000000000000000000
+  end
+  object Label3: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 42.000000000000000000
+    Position.Y = 120.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #25143#22411#65306
+    Width = 54.000000000000000000
+  end
+  object Label4: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 42.000000000000000000
+    Position.Y = 168.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #26397#21521#65306
+    Width = 54.000000000000000000
+  end
+  object Label5: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 42.000000000000000000
+    Position.Y = 216.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #35013#20462#65306
+    Width = 54.000000000000000000
+  end
+  object Label6: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 24.000000000000000000
+    Position.Y = 312.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #21333#20803#21495#65306
+    Width = 72.000000000000000000
+  end
+  object Label7: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 42.000000000000000000
+    Position.Y = 360.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #38754#31215#65306
+    Width = 54.000000000000000000
+  end
+  object cbHsgFKID_Est: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 104.000000000000000000
+    Position.Y = 16.000000000000000000
+    TabOrder = 10
+    Width = 209.000000000000000000
+  end
+  object cbHsgFKID_Bdg: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 104.000000000000000000
+    Position.Y = 64.000000000000000000
+    TabOrder = 11
+    Width = 209.000000000000000000
+  end
+  object cbHsgHouseType: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 104.000000000000000000
+    Position.Y = 112.000000000000000000
+    TabOrder = 12
+    Width = 209.000000000000000000
+  end
+  object cbHsgOrientation: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 104.000000000000000000
+    Position.Y = 160.000000000000000000
+    TabOrder = 13
+    Width = 209.000000000000000000
+  end
+  object cbHsgLandscape: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 104.000000000000000000
+    Position.Y = 256.000000000000000000
+    TabOrder = 14
+    Width = 209.000000000000000000
+  end
+  object cbHsgSellArea: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Items.Strings = (
+      #25152#26377#38754#31215
+      #23567#20110#31561#20110'100'#24179#26041#31859
+      #22823#20110'100'#24179#26041#31859#23567#20110#31561#20110'200'#24179#26041#31859
+      #22823#20110'200'#24179#26041#31859#23567#20110#31561#20110'300'#24179#26041#31859
+      #22823#20110'300'#24179#26041#31859)
+    ItemIndex = 0
+    Position.X = 104.000000000000000000
+    Position.Y = 352.000000000000000000
+    TabOrder = 15
+    Width = 209.000000000000000000
+  end
+  object edHsgNum: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 16
+    Position.X = 104.000000000000000000
+    Position.Y = 304.000000000000000000
+    Width = 209.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label8: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 40.000000000000000000
+    Position.Y = 264.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #26223#35266#65306
+    Width = 54.000000000000000000
+  end
+  object cbHsgDecoration: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 104.000000000000000000
+    Position.Y = 208.000000000000000000
+    TabOrder = 18
+    Width = 209.000000000000000000
+  end
+end

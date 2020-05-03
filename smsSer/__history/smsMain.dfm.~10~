@@ -1,0 +1,22 @@
+object frmSmsMain: TfrmSmsMain
+  Left = 0
+  Top = 0
+  Caption = #20808#26234#30701#20449#26381#21153#22120'XE'
+  ClientHeight = 201
+  ClientWidth = 328
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 256
+    Top = 88
+  end
+end

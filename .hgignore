@@ -1,0 +1,22 @@
+syntax: glob
+*.local
+*.dsk
+*identcache
+*.~dsk
+*.tvsconfig
+__history
+iOSSimulator
+Android
+OSX32
+iOSDevice
+Win32
+Win64
+*.exe
+*.otares
+*.stat
+*.dcu
+*.obj
+*.o
+*.pch
+*.d
+*.rar

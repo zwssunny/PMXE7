@@ -1,0 +1,34 @@
+//---------------------------------------------------------------------------
+
+#ifndef StockInItemEditH
+#define StockInItemEditH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "ItemBaseForm.h"
+#include <FMX.ActnList.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <System.Actions.hpp>
+//---------------------------------------------------------------------------
+class TfrmStockInItemEdit : public TfrmItemBaseForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+   int FCheckFlag;
+   String FGuidBillID;
+   void __fastcall FormInitControl();   //初始化数据控件
+   void __fastcall FormClearControl(int Section);   //清空控件数据
+   void __fastcall SendDataToDataSet(int Section);  //控件数据存入数据集
+   void __fastcall GetDataFromDataSet(int Section); //数据集数据显示在控件中
+   void __fastcall VerifyFieldData(int Section,int status); //保存前校验数据，status：1-新增，2-修改
+   void __fastcall SetUserCtrlStatus();//设置用户构件状态
+void __fastcall DetailDataSetBeforePost(TDataSet* DataSet);
+public:		// User declarations
+	__fastcall TfrmStockInItemEdit(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet *FDataSet,int DataSetStatus);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmStockInItemEdit *frmStockInItemEdit;
+//---------------------------------------------------------------------------
+#endif

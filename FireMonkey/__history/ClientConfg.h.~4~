@@ -1,0 +1,44 @@
+//---------------------------------------------------------------------------
+
+#ifndef ClientConfgH
+#define ClientConfgH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <Xml.Win.msxmldom.hpp>
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+//---------------------------------------------------------------------------
+class TfrmConfgForm : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel3;
+	TButton *bbEdit;
+	TButton *bbSave;
+	TButton *bbCancel;
+	TGroupBox *GroupBox1;
+	TEdit *edAgentIP;
+	TEdit *Edit2;
+	TEdit *Edit3;
+	TLabel *Label1;
+	TLabel *edAgentPort;
+	TLabel *cbProtocol;
+	TXMLDocument *XMLDocument1;
+	void __fastcall bbEditClick(TObject *Sender);
+	void __fastcall bbSaveClick(TObject *Sender);
+	void __fastcall bbCancelClick(TObject *Sender);
+private:	// User declarations
+  void __fastcall ReadOption();
+  void __fastcall WriteOption();
+public:		// User declarations
+	__fastcall TfrmConfgForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmConfgForm *frmConfgForm;
+//---------------------------------------------------------------------------
+#endif

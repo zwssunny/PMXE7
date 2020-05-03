@@ -1,0 +1,78 @@
+object frmNotPassTextForm: TfrmNotPassTextForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 3
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object btClose: TButton
+      Align = MostLeft
+      Size.Width = 73.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'backtoolbutton'
+      TabOrder = 1
+      Text = #36820#22238
+      OnClick = btCloseClick
+    end
+    object Button1: TButton
+      Align = Right
+      Position.X = 311.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = #30830#23450
+      OnClick = Button1Click
+    end
+  end
+  object ToolBar1: TToolBar
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object Label1: TLabel
+      StyledSettings = [Size, FontColor]
+      Position.X = 16.000000000000000000
+      Position.Y = 11.000000000000000000
+      Size.Width = 185.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = #24494#36719#38597#40657
+      TextSettings.Font.Style = [fsBold]
+      Text = #35828#26126#19981#36890#36807#21407#22240
+    end
+  end
+  object Panel1: TPanel
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 471.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    object Label2: TLabel
+      Align = Top
+      Size.Width = 384.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      Text = #21407#22240#65306
+    end
+    object Memo1: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 448.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+    end
+  end
+end

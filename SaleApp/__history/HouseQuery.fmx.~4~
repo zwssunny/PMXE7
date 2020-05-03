@@ -1,0 +1,29 @@
+inherited frmHouseQuery: TfrmHouseQuery
+  Caption = 'frmBaseListShow1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object HouseStringGrid: TStringGrid [2]
+    Align = Client
+    Height = 471.000000000000000000
+    TabOrder = 17
+    Width = 384.000000000000000000
+    RowCount = 100
+    RowHeight = 21.000000000000000000
+  end
+  inherited ListFormBindingsList: TBindingsList
+    object BindStringGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = HouseStringGrid
+      SourceComponent = GridBindSourceDB
+      ColumnExpressions = <>
+      PosControlExpressions = <>
+      PosSourceExpressions = <>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+    end
+  end
+end

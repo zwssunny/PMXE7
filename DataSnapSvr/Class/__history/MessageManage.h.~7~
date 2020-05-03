@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------
+
+#ifndef MessageManageH
+#define MessageManageH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TMessageManage : public TDMBaseServerClass
+{
+private:
+	TADOQuery *AccQuery;
+	TADOQuery *Query;
+public:
+	String FUserCode;
+	__fastcall TMessageManage(TComponent* Owner);
+	__fastcall ~TMessageManage();
+
+	void NewMessageGroup(String GroupName,String Description);
+	void DelMessageGroup(String GroupID);
+	void UpdateMessageGroup(String GroupID,String GroupName,String Description);
+	void NewMessageMember(String GroupID,String GroupMemberID,int IsAdmin);
+	void UpdateMessageMember(String GroupID,String GroupMemberID,int IsAdmin);
+	void DelMessageMember(String GroupID,String GroupMemberID);
+	TJSONArray*  GetMessageGroupList();
+	TJSONArray*  GetGroupMemberList(String GroudId);
+	TJSONArray*  GetAllEmployee(String GroupId);
+	bool IsGroupMember(String GroupId,String MemberId);
+	void SendMissMessage(String UserId);
+	TJSONArray*  GetLatelyMessage(String UserId,String ReceId,int RecType);
+	bool  SendMissMessageToUser(String const Msg,String const FromID,String const FromName,String const MsgID,String const sendtime);
+	bool  SendMissMessageToDepartment(String const Msg,String const FromID,String const FromName, String const DepartmentID,String const MsgID,String const sendtime);
+	bool  SendMissMessageToGroup(String const Msg, String const FromID,String const FromName,String const GroupID,String const MsgID,String const sendtime);
+};
+#endif

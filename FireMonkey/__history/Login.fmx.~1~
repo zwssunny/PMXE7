@@ -1,0 +1,73 @@
+object frmLogin: TfrmLogin
+  Left = 0
+  Top = 0
+  Caption = #30331#24405
+  ClientHeight = 253
+  ClientWidth = 368
+  Position = poScreenCenter
+  Visible = False
+  StyleLookup = 'backgroundstyle'
+  object Label1: TLabel
+    Position.Point = '(72,40)'
+    Width = 49.000000000000000000
+    Height = 15.000000000000000000
+    TabOrder = 0
+    Text = #24080#22871#65306
+  end
+  object CombAccBook: TComboBox
+    Position.Point = '(120,40)'
+    Width = 145.000000000000000000
+    Height = 22.000000000000000000
+    TabOrder = 1
+    ItemIndex = -1
+  end
+  object Label2: TLabel
+    Position.Point = '(72,88)'
+    Width = 57.000000000000000000
+    Height = 15.000000000000000000
+    TabOrder = 2
+    Text = #30331#24405#21495#65306
+  end
+  object Label3: TLabel
+    Position.Point = '(72,136)'
+    Width = 57.000000000000000000
+    Height = 15.000000000000000000
+    TabOrder = 3
+    Text = #21475#20196#65306
+  end
+  object edUserLoginCode: TEdit
+    Position.Point = '(120,84)'
+    Width = 145.000000000000000000
+    Height = 22.000000000000000000
+    TabOrder = 4
+    KeyboardType = vktDefault
+    Password = False
+    Text = '1001'
+  end
+  object edPassword: TEdit
+    Position.Point = '(120,128)'
+    Width = 145.000000000000000000
+    Height = 22.000000000000000000
+    TabOrder = 5
+    KeyboardType = vktDefault
+    Password = True
+    Text = '1'
+  end
+  object btOk: TButton
+    Position.Point = '(88,192)'
+    Width = 80.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = btOkClick
+    TabOrder = 6
+    Text = #30830#23450
+  end
+  object btCancel: TButton
+    Position.Point = '(216,192)'
+    Width = 80.000000000000000000
+    Height = 22.000000000000000000
+    TabOrder = 7
+    ModalResult = 2
+    Text = #21462#28040
+    Cancel = True
+  end
+end

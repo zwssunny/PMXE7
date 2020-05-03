@@ -1,0 +1,72 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#ifdef _WIN32
+#include <tchar.h>
+#endif
+#pragma hdrstop
+#include <System.StartUpCopy.hpp>
+#include <FMX.MobilePreview.hpp>
+//---------------------------------------------------------------------------
+USEFORM("Filters\SelectPeople.cpp", SelectPeopleForm);
+USEFORM("Login.cpp", LoginForm);
+USEFORM("Filters\HouseReserveFilters.cpp", HouseReserveFiltersForm);
+USEFORM("Filters\HouseFilters.cpp", HouseFiltersForm);
+USEFORM("Filters\QueryFilter.cpp", QueryFilterForm);
+USEFORM("Filters\SelectHouse.cpp", SelectHouseForm);
+USEFORM("Filters\SelectCustomer.cpp", SelectCustomerForm);
+USEFORM("System\CurrencyDataEdit.cpp", frmCurrencyDataEdit);
+USEFORM("System\CurrencyData.cpp", frmCurrencyData);
+USEFORM("MiMessage.cpp", frmMessageForm);
+USEFORM("Main.cpp", MainForm);
+USEFORM("OA\OAChecker.cpp", frmOAChecker);
+USEFORM("BaseForm\ItemBaseForm.cpp", frmItemBaseForm);
+USEFORM("BaseForm\DetailBaseForm.cpp", frmDetailBaseForm);
+USEFORM("BaseForm\BaseForm.cpp", frmBaseForm);
+USEFORM("BaseForm\BaseBillForm.cpp", frmBaseBillForm);
+USEFORM("BaseForm\BaseListForm.cpp", frmBaseListForm);
+USEFORM("BaseForm\CommBase.cpp", CommBaseForm);
+USEFORM("BaseForm\BaseListShow.cpp", frmBaseListShow);
+USEFORM("Filters\CustomerFilters.cpp", CustomerFiltersForm);
+USEFORM("Filters\BaseFilters.cpp", BaseFiltersForm);
+USEFORM("Component\StartAndEndDate.cpp", StartAndEndDateFrame); /* TFrame: File Type */
+USEFORM("Config.cpp", ConfigForm);
+USEFORM("Cooperation\WorkReport.cpp", frmWorkReport);
+USEFORM("Cooperation\WorkReportEdit.cpp", frmWorkReportEdit);
+USEFORM("Cooperation\WorkReportFilters.cpp", frmWorkReportFilters);
+USEFORM("Cooperation\WorkReportItemEdit.cpp", frmWorkReportItemEdit);
+USEFORM("Sales\Customer.cpp", frmCustomer);
+USEFORM("Sales\CustomerEdit.cpp", CustomerEditForm);
+USEFORM("Sales\HouseInformation.cpp", HouseInformationForm);
+USEFORM("Sales\HouseQuery.cpp", frmHouseQuery);
+USEFORM("Sales\HouseReserve.cpp", frmHouseReserve);
+USEFORM("Sales\HouseReserveEdit.cpp", HouseReserveEditForm);
+USEFORM("Sales\HouseView.cpp", HouseViewForm);
+USEFORM("Sales\ShowHSView.cpp", ShowViewForm);
+//---------------------------------------------------------------------------
+extern "C" int FMXmain()
+{
+	try
+	{
+		Application->Initialize();
+		Application->CreateForm(__classid(TMainForm), &MainForm);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

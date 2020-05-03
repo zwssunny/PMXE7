@@ -1,0 +1,6 @@
+object FSControlService: TFSControlService
+  OldCreateOrder = False
+  DisplayName = 'FSControlService'
+  Height = 150
+  Width = 215
+end

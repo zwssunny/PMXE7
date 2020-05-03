@@ -1,0 +1,161 @@
+inherited StuffStockInFiltersForm: TStuffStockInFiltersForm
+  Caption = 'BaseFiltersForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      object cbStore: TComboBox
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Position.X = 104.000000000000000000
+        Position.Y = 17.000000000000000000
+        TabOrder = 6
+        Width = 201.000000000000000000
+      end
+      object Label1: TLabel
+        Height = 23.000000000000000000
+        Position.X = 22.000000000000000000
+        Position.Y = 24.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #29289#36164#20179#24211':'
+        Width = 77.000000000000000000
+      end
+      object Label3: TLabel
+        Height = 23.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 232.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #20379#24212#21830':'
+        Width = 59.000000000000000000
+      end
+      object Label2: TLabel
+        Height = 23.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 276.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #21512#21516#21495':'
+        Width = 59.000000000000000000
+      end
+      inline deStuSkInDate: TStartAndEndDateFrame
+        Height = 121.000000000000000000
+        Position.X = 101.000000000000000000
+        Position.Y = 100.000000000000000000
+        Width = 217.000000000000000000
+        TabOrder = 9
+        inherited lbBegEndScope: TLabel
+          Height = 23.000000000000000000
+          Width = 90.000000000000000000
+        end
+        inherited cbDateRange: TComboBox
+          Height = 32.000000000000000000
+          Position.X = 105.000000000000000000
+          Position.Y = 4.000000000000000000
+        end
+        inherited lbBeginDate: TLabel
+          Height = 23.000000000000000000
+          Width = 90.000000000000000000
+        end
+        inherited lbEndDate: TLabel
+          Height = 23.000000000000000000
+          Width = 90.000000000000000000
+        end
+        inherited deStart: TDateEdit
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+          Position.Y = 40.000000000000000000
+        end
+        inherited deEnd: TDateEdit
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+        end
+      end
+      object Label4: TLabel
+        Height = 23.000000000000000000
+        Position.X = 9.000000000000000000
+        Position.Y = 97.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #21333#25454#26085#26399#65306
+        Width = 90.000000000000000000
+      end
+      object edStuSkInSupplier: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 11
+        Position.X = 104.000000000000000000
+        Position.Y = 224.000000000000000000
+        Width = 201.000000000000000000
+        Height = 32.000000000000000000
+      end
+      object edStuSkInFKID_Cont: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 12
+        Position.X = 104.000000000000000000
+        Position.Y = 267.000000000000000000
+        Width = 201.000000000000000000
+        Height = 32.000000000000000000
+      end
+      object Label6: TLabel
+        Height = 23.000000000000000000
+        Position.X = 22.000000000000000000
+        Position.Y = 60.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #23457#26680#26631#24535':'
+        Width = 77.000000000000000000
+      end
+      object cbBoxState: TComboBox
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Items.Strings = (
+          #25152#26377
+          #26410#23457
+          #24050#23457)
+        ItemIndex = 0
+        Position.X = 104.000000000000000000
+        Position.Y = 53.000000000000000000
+        TabOrder = 14
+        Width = 201.000000000000000000
+      end
+      object Label5: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 320.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #21333#25454#21495':'
+        Width = 59.000000000000000000
+      end
+      object edStuSkInNum: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 16
+        Position.X = 106.000000000000000000
+        Position.Y = 306.000000000000000000
+        Width = 200.000000000000000000
+        Height = 32.000000000000000000
+      end
+      object Memo1: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Height = 153.000000000000000000
+        Position.X = 32.000000000000000000
+        Position.Y = 352.000000000000000000
+        TabOrder = 17
+        Width = 321.000000000000000000
+      end
+    end
+  end
+  inherited tbarBaseFilter: TToolBar
+    object Button1: TButton
+      Height = 44.000000000000000000
+      Position.X = 232.000000000000000000
+      Position.Y = 8.000000000000000000
+      TabOrder = 4
+      Text = 'Button1'
+      Width = 73.000000000000000000
+      OnClick = Button1Click
+    end
+  end
+end

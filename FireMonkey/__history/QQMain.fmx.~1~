@@ -1,0 +1,43 @@
+object frmQQMain: TfrmQQMain
+  Left = 0
+  Top = 0
+  Caption = #20808#26234#21363#26102#36890#20449
+  ClientHeight = 400
+  ClientWidth = 264
+  Visible = False
+  OnDestroy = FormDestroy
+  OnClose = FormClose
+  StyleLookup = 'backgroundstyle'
+  object TabGroup: TTabControl
+    Align = alClient
+    Width = 264.000000000000000000
+    Height = 400.000000000000000000
+    TabOrder = 0
+    TabIndex = 0
+    TabHeight = 20.000000000000000000
+    object TabCompany: TTabItem
+      Width = 80.000000000000000000
+      Height = 20.000000000000000000
+      TabOrder = 0
+      Index = 0
+      Text = #20844#21496
+      WordWrap = False
+      object tvCompany: TTreeView
+        Align = alClient
+        Width = 264.000000000000000000
+        Height = 380.000000000000000000
+        OnDblClick = tvCompanyDblClick
+        TabOrder = 0
+      end
+    end
+    object TabGroupItem: TTabItem
+      Position.Point = '(80,0)'
+      Width = 80.000000000000000000
+      Height = 20.000000000000000000
+      TabOrder = 1
+      Index = 1
+      Text = #32676'/'#35752#35770#32452
+      WordWrap = False
+    end
+  end
+end

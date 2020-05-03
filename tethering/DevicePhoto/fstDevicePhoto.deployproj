@@ -1,0 +1,1341 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+    <ProjectExtensions>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice'">
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_120x120.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_120x120.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\history.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\share.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\colors.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_57x57.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_57x57.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\strings.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SpotlightSearchIcon_80x80.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SpotlightSearchIcon_80x80.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\arrays.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_114x114.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_114x114.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-ldpi\capture.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImageLandscape_2048x1536.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Landscape@2x~ipad.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_152x152.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_152x152.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\capture.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SettingIcon_29x29.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SettingIcon_29x29.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImageLandscape_1024x748.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Landscape.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_60x60.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_60x60.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_320x480.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\fstDevicePhoto.info.plist" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Info.plist</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\encode.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\share_via_barcode.png">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_1536x2008.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Portrait@2x.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\share.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SettingIcon_58x58.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SettingIcon_58x58.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\launcher_icon.png">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SpotlightSearchIcon_50x50.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SpotlightSearchIcon_50x50.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\app_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_144x144.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_144x144.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\fstDevicePhoto" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>libfstDevicePhoto.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\themes.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_SpotlightSearchIcon_29x29.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SpotlightSearchIcon_29x29.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\encode.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_640x960.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default@2x.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\raw\beep.ogg">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImageLandscape_2048x1496.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Landscape@2x.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\bookmark_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\ids.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_SpotlightSearchIcon_40x40.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SpotlightSearchIcon_40x40.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\encode.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_header.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\fstDevicePhoto.entitlements" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Entitlements.plist</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\xml\preferences.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\history_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_76x76.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_76x76.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SpotlightSearchIcon_40x40.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SpotlightSearchIcon_40x40.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImageLandscape_1024x768.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Landscape~ipad.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_1536x2048.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Portrait@2x~ipad.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_72x72.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_72x72.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_768x1004.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default~ipad.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SpotlightSearchIcon_100x100.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>FM_SpotlightSearchIcon_100x100.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_768x1024.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-Portrait~ipad.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\dimens.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\capture.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_LaunchImage_640x1136.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>Default-568h@2x.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\styles.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\fstDevicePhoto.dSYM" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
+            <RemoteName>libfstDevicePhoto</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values-zh-rCN\strings.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="java\output\dex\classes.dex">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="iOSDevice\Debug\ResourceRules.plist" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>ResourceRules.plist</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\help.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Android'">
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_list_item.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\history.xml">
+            <RemoteDir>fstDevicePhoto\res\menu\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\share.xml">
+            <RemoteDir>fstDevicePhoto\res\layout-land\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\colors.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\14.0\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\library\lib\armeabi\</RemoteDir>
+            <RemoteName>libfstDevicePhoto.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\strings.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\arrays.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_96x96.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-ldpi\capture.xml">
+            <RemoteDir>fstDevicePhoto\res\layout-ldpi\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\libfstDevicePhoto.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libfstDevicePhoto.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\capture.xml">
+            <RemoteDir>fstDevicePhoto\res\menu\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Release\AndroidManifest.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Base\libfstDevicePhoto.so" Condition="'$(Config)'=='Base'">
+            <RemoteDir>fstDevicePhoto\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libfstDevicePhoto.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\encode.xml">
+            <RemoteDir>fstDevicePhoto\res\layout-land\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\share_via_barcode.png">
+            <RemoteDir>fstDevicePhoto\res\drawable\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\14.0\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\library\lib\mips\</RemoteDir>
+            <RemoteName>libZXingEmbedded.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\share.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\launcher_icon.png">
+            <RemoteDir>fstDevicePhoto\res\drawable\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\app_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\themes.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\encode.xml">
+            <RemoteDir>fstDevicePhoto\res\menu\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="d:\embarcadero\studio\14.0\lib\android\debug\x86\libnative-activity.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\library\lib\x86\</RemoteDir>
+            <RemoteName>libZXingEmbedded.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\raw\beep.ogg">
+            <RemoteDir>fstDevicePhoto\res\raw\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\bookmark_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\ids.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_144x144.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\encode.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="E:\Android\ndk\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>gdbserver</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_header.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\xml\preferences.xml">
+            <RemoteDir>fstDevicePhoto\res\xml\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\history_list_item.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Base\AndroidManifest.xml" Condition="'$(Config)'=='Base'">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_72x72.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Release\libfstDevicePhoto.so" Condition="'$(Config)'=='Release'">
+            <RemoteDir>fstDevicePhoto\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libfstDevicePhoto.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\dimens.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\capture.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\styles.xml">
+            <RemoteDir>fstDevicePhoto\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values-zh-rCN\strings.xml">
+            <RemoteDir>fstDevicePhoto\res\values-zh-rCN\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="java\output\dex\classes.dex">
+            <RemoteDir>fstDevicePhoto\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\help.xml">
+            <RemoteDir>fstDevicePhoto\res\layout\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_list_item.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\history.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\share.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\colors.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\strings.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\arrays.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-ldpi\capture.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\capture.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\encode.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\share_via_barcode.png">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\share.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\launcher_icon.png">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\app_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\themes.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\encode.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\raw\beep.ogg">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\bookmark_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\ids.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\encode.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_header.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\xml\preferences.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\history_list_item.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\dimens.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\capture.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\styles.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values-zh-rCN\strings.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="java\output\dex\classes.dex">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\help.xml">
+            <RemoteDir>fstDevicePhoto\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='OSX32'">
+        <DeployFile Include="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
+            <RemoteDir>fstDevicePhoto.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>libcgunwind.1.0.dylib</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win64'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSSimulator'">
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>search_book_contents_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\history.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>history.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\share.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\colors.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\strings.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\arrays.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>arrays.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-ldpi\capture.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\capture.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout-land\encode.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\share_via_barcode.png">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>share_via_barcode.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\share.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>share.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\drawable\launcher_icon.png">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>launcher_icon.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\app_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>app_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\themes.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>themes.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\menu\encode.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\raw\beep.ogg">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>beep.ogg</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\bookmark_picker_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>bookmark_picker_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\ids.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>ids.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>libcgunwind.1.0.dylib</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\encode.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>encode.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents_header.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>search_book_contents_header.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\xml\preferences.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>preferences.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\history_list_item.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>history_list_item.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\dimens.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>dimens.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\capture.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>capture.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values\styles.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\search_book_contents.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>search_book_contents.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\values-zh-rCN\strings.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="java\output\dex\classes.dex">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="res\Capture\capture_res\layout\help.xml">
+            <RemoteDir>fstDevicePhoto.app\</RemoteDir>
+            <RemoteName>help.xml</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,49 @@
+//---------------------------------------------------------------------------
+#include <fmx.h>
+#pragma hdrstop
+
+#include "CallbackClient.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+__fastcall TCallbackClient:: TCallbackClient(TDSClientCallbackChannelManager* AChannelManager, String ACallbackName)
+:TDBXCallback()
+{
+  FHookCallBack=NULL;
+  FChannelManager=AChannelManager;
+  FCallbackName=ACallbackName;
+  if(FChannelManager)
+	 FChannelManager->RegisterCallback(FCallbackName,this);
+}
+//---------------------------------------------------------------------------
+__fastcall TCallbackClient:: ~TCallbackClient()
+{
+   if(FChannelManager)
+   FChannelManager->UnregisterCallback(FCallbackName);
+}
+TJSONValue* __fastcall TCallbackClient::Execute(const TJSONValue* Arg)
+{
+   TJSONValue * Result=new TJSONFalse();
+   TJSONObject * FArg=(TJSONObject*)Arg;
+  if(FArg->Size()>0)
+  {
+	if(FHookCallBack)
+	{
+	#if defined _Windows
+	 _di_TThreadProcedure methProc(static_cast<TThreadProcedure*>(new TMsgQueueProc(FHookCallBack,(TJSONObject*)(FArg->Clone()))));
+	 TThread::Queue(NULL, methProc);
+	#else
+	 FHookCallBack((TJSONObject*)(FArg->Clone()));
+	#endif
+	 }
+	 Result=new TJSONTrue();;
+   }
+   return Result;
+}
+//---------------------------------------------------------------------------
+System::TObject* __fastcall TCallbackClient::Execute(System::TObject* Arg)
+{
+   return new TJSONTrue;
+}
+//---------------------------------------------------------------------------
+

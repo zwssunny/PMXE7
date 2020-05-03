@@ -1,0 +1,106 @@
+inherited frmClientVisitDetailEdit: TfrmClientVisitDetailEdit
+  Caption = 'frmBaseBillForm1'
+  DesignerMasterStyle = 3
+  inherited StyleBook1: TStyleBook
+    Left = 104
+    Top = 8
+  end
+  inherited MainPanel: TPanel
+    inherited ToolBarTop: TToolBar
+      object BtnSave: TButton
+        Align = Right
+        Position.X = 312.000000000000000000
+        Size.Width = 48.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'donetoolbutton'
+        TabOrder = 0
+        Text = #20445#23384
+        OnClick = BtnSaveClick
+      end
+    end
+    inherited ClientVertScrollBox: TVertScrollBox
+      Viewport.Width = 360.000000000000000000
+      Viewport.Height = 544.000000000000000000
+      object Panel1: TPanel
+        Align = Client
+        Size.Width = 360.000000000000000000
+        Size.Height = 544.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object Label1: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 32.000000000000000000
+          Text = #20027#39064#65306
+        end
+        object Label2: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 72.000000000000000000
+          Size.Width = 105.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #35775#38382#26102#38388#65306
+        end
+        object Label3: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 112.000000000000000000
+          Size.Width = 97.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #35775#38382#22320#28857#65306
+        end
+        object Label4: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 152.000000000000000000
+          Text = #25688#35201#65306
+        end
+        object edSubject: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 4
+          Position.X = 64.000000000000000000
+          Position.Y = 24.000000000000000000
+          Size.Width = 289.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object edAddress: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 5
+          Position.X = 96.000000000000000000
+          Position.Y = 104.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object deDate: TDateEdit
+          Date = 42030.000000000000000000
+          Format = 'YYYY-MM-DD'
+          Position.X = 96.000000000000000000
+          Position.Y = 64.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+        end
+        object mmSummary: TMemo
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          DataDetectorTypes = []
+          Position.X = 56.000000000000000000
+          Position.Y = 152.000000000000000000
+          Size.Width = 297.000000000000000000
+          Size.Height = 241.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 7
+          Viewport.Width = 289.000000000000000000
+          Viewport.Height = 233.000000000000000000
+        end
+      end
+    end
+  end
+  object Query: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 64
+    Top = 195
+  end
+end

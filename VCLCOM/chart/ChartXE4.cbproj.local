@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.158,=rtl.bpi</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.223,=E:\FstPrj\VCLCOM\chart\PrintInterface.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.459,=e:\fstprj\vclcom\chart\CalendarView.dcr</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.341,=E:\FstPrj\VCLCOM\chart\ProjectStruct.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.487,=vcl.bpi</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.164,=E:\FstPrj\VCLCOM\chart\NetChart.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.004,=D:\VclCom_XE2\VclCom\lib\baseComXE2.bpi</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.439,=D:\Embarcadero\RAD Studio\8.0\lib\win32\release\tee.bpi</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.563,=E:\FstPrj\VCLCOM\chart\Gantt.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.609,=E:\FstPrj\VCLCOM\chart\LogicalChart.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.200,=E:\FstPrj\VCLCOM\chart\PatternSelect.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.592,D:\VclCom_XE2\VclCom\chart\ChartXE.cbproj=D:\VclCom_XE2\VclCom\chart\ChartXE2.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.256,=E:\FstPrj\VCLCOM\chart\PrjCalendar.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.783,=E:\FstPrj\VCLCOM\chart\ZChart.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.147,=E:\PMXE2\VCLCOM\chart\Cncalendar.res</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.122,=E:\FstPrj\VCLCOM\chart\navigationimage.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.598,E:\FstPrj\VCLCOM\chart\ChartXE.cbproj=C:\Users\zhanws\Documents\RAD Studio\Projects\Package1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.874,=E:\FstPrj\VCLCOM\chart\ZChartPrint.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.402,=E:\FstPrj\VCLCOM\chart\CalendarView.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.524,=E:\FstPrj\VCLCOM\chart\DoubleCode.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.747,=E:\FstPrj\VCLCOM\chart\RoomGridSet.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.579,=E:\FstPrj\VCLCOM\lib\baseComXE.bpi</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.832,=E:\FstPrj\VCLCOM\chart\ZChartDraw.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.294,=E:\FstPrj\VCLCOM\chart\PrjGrid.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.497,=E:\FstPrj\VCLCOM\chart\RoomGrid.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.001,=E:\FstPrj\VCLCOM\chart\MoveTaskDlg.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.427,=D:\Embarcadero\RAD Studio\8.0\lib\win32\release\designide.bpi</Transaction>
+    <Transaction>2013-09-06 15:52:56.246,E:\PMXE3\VCLCOM\chart\ChartXE4.cbproj=E:\PMXE3\VCLCOM\chart\ChartXE2.cbproj</Transaction>
+    <Transaction>2013-09-06 15:58:41.886,=E:\PMXE3\VCLCOM\lib\baseComXE4.bpi</Transaction>
+  </Transactions>
+</BorlandProject>

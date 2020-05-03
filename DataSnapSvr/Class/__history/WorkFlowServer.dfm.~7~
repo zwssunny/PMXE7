@@ -1,0 +1,12 @@
+inherited DMWorkFlowServer: TDMWorkFlowServer
+  OldCreateOrder = True
+  object WorkflowStudio: TWorkflowStudio
+    WorkflowDB = WorkflowAccAndSysDB
+    Left = 72
+    Top = 80
+  end
+  object WorkflowAccAndSysDB: TWorkflowAccAndSysDB
+    Left = 72
+    Top = 16
+  end
+end

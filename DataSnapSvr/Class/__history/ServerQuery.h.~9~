@@ -1,0 +1,44 @@
+//---------------------------------------------------------------------------
+
+#ifndef ServerQueryH
+#define ServerQueryH
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+#include "MsgStream.h"
+//---------------------------------------------------------------------------
+class TServerQuery : public TDMBaseServerClass
+{
+private:
+	 int FSysDbType;
+	 int FAccDbType;
+	 String FUserCode;
+	 String FUserIP;
+	 String FAcckBook;
+	 TADOQuery *m_Query;
+	 TADOQuery *b_Query;
+	 TADOQuery *LogQuery;
+	 TADOConnection *m_Connection;
+	 TADOConnection *m_BuildConn;
+	void __fastcall WriteUserLog(int type, String Desc);
+	TStream* __fastcall SendFailMessage(int operate,
+						String errormessage);
+	TStream* __fastcall SendErrorMessage(int errortype, int errorcode,
+						String errormessage);
+public:
+	__fastcall TServerQuery(TComponent* Owner);
+	__fastcall ~TServerQuery();
+	TStream* __fastcall QueryOpen(String SQLText);
+   //	TStream* __fastcall QueryUpdate(TStream *Stream);
+  //	TStream* __fastcall QueryDelete(TStream *Stream);
+	int __fastcall QueryExecSQL(String SQLText);
+	int __fastcall ExecSQL(String SQLText,TJSONObject* Parameters);
+	// Ö´ÐÐÏµÍ³¿â
+	TStream* __fastcall QuerySysOpen(String SQLText);
+   //	TStream* __fastcall QuerySysUpdate(TStream *Stream);
+   //	TStream* __fastcall QuerySysDelete(TStream *Stream);
+	int __fastcall QuerySysExecSQL(String SQLText);
+	int __fastcall SysExecSQL(String SQLText,TJSONObject* Parameters);
+
+};
+#endif

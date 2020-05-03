@@ -1,0 +1,40 @@
+//---------------------------------------------------------------------------
+
+#ifndef smsMainH
+#define smsMainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Xml.Win.msxmldom.hpp>
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+//---------------------------------------------------------------------------
+class TfrmSmsMain : public TForm
+{
+__published:	// IDE-managed Components
+	TXMLDocument *XMLDocument1;
+private:	// User declarations
+		String FAgentIP;
+		int FAgentPort;
+		String FProtocol;
+
+		 String FDbConStr;
+		 String FCordId,FUserName,FPassword;
+		 int    FSMSType;
+         TTime  FBeginTime ;//开始时间
+         TTime  FEndTime; //结束时间
+         int    FWaitLong;//消息处理间隔时间 秒为单位
+		 int    FRepeatCount;//发送错误时，需要重复次数
+		 int    FMonType;
+		 int    FPortNum;
+		void __fastcall ReadOption();
+public:		// User declarations
+	__fastcall TfrmSmsMain(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmSmsMain *frmSmsMain;
+//---------------------------------------------------------------------------
+#endif

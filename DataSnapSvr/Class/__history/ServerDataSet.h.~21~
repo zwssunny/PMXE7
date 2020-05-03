@@ -1,0 +1,112 @@
+//---------------------------------------------------------------------------
+
+#ifndef ServerDataSetH
+#define ServerDataSetH
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+#include "MsgStream.h"
+//---------------------------------------------------------------------------
+class TServerDataSet : public TDMBaseServerClass
+{
+private:
+	TADOQuery *m_MasterDataSet;
+	TADOQuery *m_DetailDataSet;
+	TADOStoredProc *m_StoredProc;
+	TADOQuery *m_Query;
+	TADOQuery *b_Query;
+	TADOQuery *LogQuery;
+
+	TADOConnection *m_Connection;
+	TADOQuery *m_BuildQuery;
+	TADOConnection *m_BuildConn;
+	String m_ClassCode;
+
+	bool m_Active;
+	int m_Status;
+	int m_DataSetType;
+
+	String m_MasterSQLString;
+	String m_DetailSQLString;
+	String m_MasterFixedWhereString;
+	String m_MasterWhereString;
+	String m_DetailFixedWhereString;
+	String m_DetailWhereString;
+	String m_MasterFixedOrderString;
+	String m_MasterOrderString;
+	String m_DetailFixedOrderString;
+	String m_DetailOrderString;
+	String m_MasterFixedGroupString;
+	String m_MasterGroupString;
+	String m_DetailFixedGroupString;
+	String m_DetailGroupString;
+	String m_MasterDisplayName;
+	String m_DetailDisplayName;
+	String m_MasterDisplayField;
+	String m_DetailDisplayField;
+	TStringList *m_MasterLinkFields;
+	TStringList *m_DetailLinkFields;
+	String m_MasterFilterFields;
+	String m_DetailFilterFields;
+	String m_MasterFieldAttr;
+	String m_DetailFieldAttr;
+	String m_MasterFieldExpr;
+	String m_DetailFieldExpr;
+	String m_MasterAttrType;
+	String m_DetailAttrType;
+
+	String m_MasterKeyFields;
+	String m_DetailKeyFields;
+
+	String m_ClientDataSetHandle;
+	TStringList *m_ServerBuffer;
+
+	 int FSysDbType;
+	 int FAccDbType;
+	 String FUserCode;
+	 String FUserIP;
+	 String FAcckBook;
+	 TMsgStream *MsgStream;
+	 TMemoryStream *resultStream;
+	void __fastcall SetAllFieldCanModify(TCustomADODataSet *ds);
+	TStream* __fastcall SendErrorMessage(int errortype, int errorcode,
+		String errormessage);
+	TStream* __fastcall SendFailMessage(int operate, String errormessage);
+	void __fastcall WriteUserLog(int type, String Desc);
+	void __fastcall InitServerDataSet(String ClassCode);
+protected:
+	String __fastcall BuildLinkStr();
+	String __fastcall BuildLinkFields();
+	void __fastcall ExtractLinkFields(String value);
+	void __fastcall BuildDetailFilter();
+	int __fastcall CheckFieldType(TField *Field);
+public:
+	__fastcall TServerDataSet(TComponent* Owner);
+	__fastcall ~TServerDataSet();
+
+
+	TStream* __fastcall GetInitResult(String ClassCode);
+	TStream* __fastcall Open(TStream *Stream,String ClassCode);
+	TStream* __fastcall Update(TStream *Stream,String ClassCode);
+	TStream* __fastcall Delete(TStream *Stream,String ClassCode);
+	TStream* __fastcall DeleteDetail(TStream *Stream,String ClassCode);
+	TStream* __fastcall CmdExec(TStream *Stream,String ClassCode);
+	TStream* __fastcall Check(TStream *Stream,String ClassCode);
+	TStream* __fastcall CloseOff(TStream *Stream,String ClassCode);
+	TStream* __fastcall Revoke(TStream *Stream,String ClassCode);
+	TStream* __fastcall Tally(TStream *Stream,String ClassCode);
+	TStream* __fastcall ExecSQL(TStream *Stream);
+
+
+	TStream* __fastcall QueryOpen(String SQLText);
+   //	TStream* __fastcall QueryUpdate(TStream *Stream);
+  //	TStream* __fastcall QueryDelete(TStream *Stream);
+	TStream* __fastcall QueryExecSQL(String SQLText);
+	// Ö´ÐÐÏµÍ³¿â
+	TStream* __fastcall QuerySysOpen(String SQLText);
+   //	TStream* __fastcall QuerySysUpdate(TStream *Stream);
+   //	TStream* __fastcall QuerySysDelete(TStream *Stream);
+	TStream* __fastcall QuerySysExecSQL(String SQLText);
+
+};
+#endif

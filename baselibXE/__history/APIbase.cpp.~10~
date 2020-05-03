@@ -1,0 +1,469 @@
+// ---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "APIbase.h"
+//#include "BaseFunc.h"
+//#include "MessageDef.h"
+/****************************************************************************
+ prj standard edition release :101 trial:111  项目管理标准版
+ prj profession edition release:102 trial:112 项目管理专业版
+ prj enterprise edition release:103 trial:113 项目管理企业版
+ est standard edition release:201 trial:211    房地产标准版
+ est profession edition release: 202 trial:212 房地产专业版
+ sale edition release: 203 trial:213           售楼系统
+ gl standard edition release:301 trial:311     公路项目管理标准版
+ gl profession edition release 302 trial:312   公路项目管理专业版
+ fsp standard edition release:401 trial:412    投资项目管理标准版
+ fsp profession edition release 402 trial:412  投资项目管理专业版
+ vip edition edition release 501 trial:511     定制系统
+ ****************************************************************************/
+const int MAX_BUFFER_LEN = 255;
+const DWORD LOCAL_VERSION = 111;
+const char LOCAL_VERSION_STRING[] = "@#ZWSVERSION$%";
+// ---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+TClientBroker* GClientBroker;
+TCZDataSet *USERLISTQUERY;
+unsigned  ClientOwnerHandle;
+DWORD FST_ERROR_CODE;
+String FST_ERROR_MSG;
+// ---------------------------------------------------------------------------
+DWORD GetLocalVersion() {
+	DWORD retver;
+	char encstr[4], decstr[4];
+	memcpy(encstr, LOCAL_VERSION_STRING + 2, 3);
+	encstr[3] = '\0';
+	retver = atoi(encstr);
+	if (retver == 0)
+		return LOCAL_VERSION;
+	else
+		return retver;
+}
+TClientBroker* GetClientComm() {
+//	String szHandle;
+//	Char hBuffer[MAX_BUFFER_LEN];
+//	int iCount;
+//	iCount = GetEnvironmentVariable(L"ClientCommHandle", hBuffer, 255);
+//	if (iCount == 0) {
+//		SetErrorMessage(0, "系统尚未初始化");
+//		return NULL;
+//	}
+//	szHandle = hBuffer;
+//	return ((HWND)szHandle.ToInt());
+   return  GClientBroker;
+}
+
+// ---------------------------------------------------------------------------
+TCZDataSet * GetUserListQuery() {
+//	String szHandle;
+//	Char hBuffer[MAX_BUFFER_LEN];
+//	int iCount;
+//	iCount = GetEnvironmentVariable(L"USERLISTQUERY", hBuffer, MAX_BUFFER_LEN);
+//	if (iCount == 0) {
+//		SetErrorMessage(0, "系统用户列表尚未初始化");
+//		return NULL;
+//	}
+//	szHandle = hBuffer;
+//	return ((TCZDataSet*)szHandle.ToInt());
+   return  USERLISTQUERY;
+}
+
+// ---------------------------------------------------------------------------
+DWORD GetRemoteVersion() {
+//	int RemoteVer = 0;
+//	HWND h = GetClientComm();
+//	SendMessage(h, WM_REMOTEVERSION, (WPARAM)&RemoteVer, 0);
+//	if (RemoteVer == 0) {
+//		SetErrorMessage(0, "读取服务器版本号失败");
+//		return NULL;
+//	}
+//	else
+//		return RemoteVer;
+   return GClientBroker->GetRemoteVersion();
+}
+
+// ---------------------------------------------------------------------------
+void GetLogUserInfo(TLogInfo &Info) {
+//	HWND h = GetClientComm();
+//	SendMessage(h, WM_GETLOGINFO, (WPARAM)&Info, 0);
+	GClientBroker->GetLogUserInfo(Info);
+}
+
+BOOL ValidateVersion(ValidVerFlag flag) {
+	if (GetRemoteVersion() == GetLocalVersion()) {
+		return true;
+	}
+	else {
+		if (flag == vfExitNoHint) {
+			exit(0);
+		}
+		else if (flag == vfExitAndHint) {
+		MessageDlg(L"版本号不匹配,系统将自动退出.",TMsgDlgType::mtWarning,mbAbortIgnore,0);
+//			MessageBox(NULL, L"版本号不匹配,系统将自动退出.", L"提示", MB_ICONWARNING);
+			exit(0);
+		}
+		return false;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void SetErrorMessage(DWORD dwErrCode, String lpErrMsg) {
+//	SetEnvironmentVariable(L"ZWS_ERROR_CODE", String(dwErrCode).c_str());
+//	SetEnvironmentVariable(L"ZWS_ERROR_MSG", lpErrMsg.c_str());
+ FST_ERROR_CODE=dwErrCode;
+ FST_ERROR_MSG=lpErrMsg;
+}
+
+// ---------------------------------------------------------------------------
+DWORD GetErrorMessage(String &lpBuffer) {
+//	Char errbuf[1024];
+//	DWORD retval;
+//	String s;
+//	memset(errbuf, 0, 1024*sizeof(Char));
+//	int iCount;
+//	iCount =FST_ERROR_CODE;// GetEnvironmentVariable(L"ZWS_ERROR_CODE", errbuf, 1024);
+//	if (iCount == 0)
+//		return NULL;
+//	s = errbuf;
+//	retval = s.ToInt();
+//	memset(errbuf, 0, 1024*sizeof(Char));
+//	iCount = GetEnvironmentVariable(L"ZWS_ERROR_MSG", errbuf, 1024);
+//	// StrCopy(String(lpBuffer).c_str(),errbuf);
+//	lpBuffer = errbuf;
+//	return retval;
+   lpBuffer=FST_ERROR_MSG;
+   return FST_ERROR_CODE;
+}
+
+// ---------------------------------------------------------------------------
+//BOOL ChangePassword(String szUid, String szOldPwd, String szNewPwd) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	StrCopy(buff, szNewPwd.c_str());
+//	StrCopy(buff + 16, szOldPwd.c_str());
+//	SendMessage(h, WM_CHANGEPWD, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	return RemoteRet;
+//}
+
+// ---------------------------------------------------------------------------
+DWORD GetModuleList(String &szModuleList) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	SendMessage(h, WM_MODULELIST, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szModuleList.SetLength(StrLen(buff));
+//	StrCopy(szModuleList.c_str(), buff);
+//	return RemoteRet;
+  return GClientBroker->GetModuleList(szModuleList);
+}
+
+// ---------------------------------------------------------------------------
+unsigned int GetOwnerHandle() {
+//	String szHandle;
+//	Char hBuffer[MAX_BUFFER_LEN];
+//	int iCount;
+//	iCount = GetEnvironmentVariable(L"ClientOwnerHandle", hBuffer,
+//		MAX_BUFFER_LEN);
+//	if (iCount == 0) {
+//		SetErrorMessage(0, "系统尚未初始化");
+//		return NULL;
+//	}
+//	szHandle = hBuffer;
+//	return ((HWND)szHandle.ToInt());
+	return ClientOwnerHandle;
+}
+
+// ---------------------------------------------------------------------------
+DWORD GetFormCode(DWORD dwModule) {
+//	int RemoteRet = 0;
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_GETFORMCODE, (WPARAM)&RemoteRet, 0);
+//	return RemoteRet;
+	return GClientBroker->GetFormCode(dwModule);
+}
+
+// ---------------------------------------------------------------------------
+DWORD GetClassCode(DWORD dwModule) {
+//	int RemoteRet = 0;
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_GETCLASSCODE, (WPARAM)&RemoteRet, 0);
+//	return RemoteRet;
+	return GClientBroker->GetClassCode(dwModule);
+}
+
+// ---------------------------------------------------------------------------
+int GetModuleRight(DWORD dwModule, String &szRight) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_MODULERIGHT, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szRight.SetLength(StrLen(buff));
+//	StrCopy(szRight.c_str(), buff);
+//	return RemoteRet;
+   return GClientBroker->GetModuleRight(dwModule,szRight);
+}
+
+// ---------------------------------------------------------------------------
+int CheckModuleRight(DWORD dwModule, String szRightId) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	String szRight;
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_MODULERIGHT, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szRight.SetLength(StrLen(buff));
+//	StrCopy(szRight.c_str(), buff);
+//	if (RemoteRet == -1)
+//		return RemoteRet;
+//	return szRight.Pos(szRightId);
+	String szRight;
+	int retPos=-1;
+	if(GetModuleRight(dwModule,szRight))
+	{
+	 retPos=szRight.Pos(szRightId);
+	}
+	return retPos;
+}
+
+// ---------------------------------------------------------------------------
+int GetModuleDefRight(DWORD dwModule, String &szRight) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_MODULEDEFRIGHT, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szRight.SetLength(StrLen(buff));
+//	StrCopy(szRight.c_str(), buff);
+//	return RemoteRet;
+	return GClientBroker->GetModuleDefRight(dwModule,szRight);
+}
+
+// ---------------------------------------------------------------------------
+int CheckModuleDefRight(DWORD dwModule, String szRightId) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	String szRight;
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_MODULEDEFRIGHT, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szRight.SetLength(StrLen(buff));
+//	StrCopy(szRight.c_str(), buff);
+//	if (RemoteRet == -1)
+//		return RemoteRet;
+//	return szRight.Pos(szRightId);
+	String szRight;
+	int retPos=-1;
+	if(GetModuleDefRight(dwModule,szRight))
+	{
+	 retPos=szRight.Pos(szRightId);
+	}
+	return retPos;
+}
+
+// ---------------------------------------------------------------------------
+int GetModuleDefFunc(DWORD dwModule, String &szFunc) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_MODULEDEFFUNC, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szFunc.SetLength(StrLen(buff));
+//	StrCopy(szFunc.c_str(), buff);
+//	return RemoteRet;
+	return GClientBroker->GetModuleDefFunc(dwModule,szFunc);
+}
+
+// ---------------------------------------------------------------------------
+int CheckModuleDefFunc(DWORD dwModule, String szFuncId) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	String szFunc;
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_MODULEDEFFUNC, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szFunc.SetLength(StrLen(buff));
+//	StrCopy(szFunc.c_str(), buff);
+//	if (RemoteRet == -1)
+//		return RemoteRet;
+//	return szFunc.Pos(szFuncId);
+	String szFunc;
+	int retPos=-1;
+	if(GetModuleDefFunc(dwModule, szFunc))
+	  retPos=szFunc.Pos(szFuncId);
+	return retPos;
+}
+
+// ---------------------------------------------------------------------------
+int GetDataAccess(DWORD dwModule, String &szRight) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_DATAACCESS, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szRight.SetLength(StrLen(buff));
+//	StrCopy(szRight.c_str(), buff);
+//	return RemoteRet;
+  return GClientBroker->GetDataAccess(dwModule,szRight);
+}
+
+// ---------------------------------------------------------------------------
+int CheckDataAccess(DWORD dwModule, String szUid, String szRightId) {
+//	int RemoteRet = 0;
+//	Char buff[1024];
+//	memset(buff, 0, 1024*sizeof(Char));
+//	String szRight, szCmpStr;
+//	HWND h = GetClientComm();
+//	RemoteRet = dwModule;
+//	SendMessage(h, WM_DATAACCESS, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szRight.SetLength(StrLen(buff));
+//	StrCopy(szRight.c_str(), buff);
+//	if (RemoteRet == -1)
+//		return RemoteRet;
+//	szCmpStr = szUid + ":" + szRightId;
+//	return szRight.Pos(szCmpStr);
+	String szRight, szCmpStr;
+	int retPos=-1;
+	if(GetDataAccess(dwModule, szRight))
+	{
+	   szCmpStr = szUid + ":" + szRightId;
+	   retPos= szRight.Pos(szCmpStr);
+	}
+	return retPos;
+}
+
+// ---------------------------------------------------------------------------
+DWORD GetProjectLevel() {
+//	int RemoteRet = 0;
+//	HWND h = GetClientComm();
+//	SendMessage(h, WM_GETPRJLEVEL, (WPARAM)&RemoteRet, 0);
+//	return RemoteRet;
+  return GClientBroker->GetProjectLevel();
+}
+
+// ---------------------------------------------------------------------------
+/* int GetGroupData(String &szGroup)
+ {
+ int RemoteRet=0;
+ Char buff[64*1024];
+ memset(buff,0,64*1024*sizeof(Char));
+ HWND h=GetClientComm();
+ SendMessage(h,WM_GETGROUPDATA,(WPARAM)&RemoteRet,(LPARAM)buff);
+ szGroup.SetLength(StrLen(buff));
+ StrCopy(szGroup.c_str(),buff);
+ return RemoteRet;
+ }
+ //---------------------------------------------------------------------------
+ int GetUserData(String &szUser)
+ {
+ int RemoteRet=0;
+ Char buff[64*1024];
+ memset(buff,0,64*1024*sizeof(Char));
+ HWND h=GetClientComm();
+ SendMessage(h,WM_GETUSERDATA,(WPARAM)&RemoteRet,(LPARAM)buff);
+ szUser.SetLength(StrLen(buff));
+ StrCopy(szUser.c_str(),buff);
+ return RemoteRet;
+ } */
+// ---------------------------------------------------------------------------
+//int GetMidClassList(String &szClassData) {
+//	int RemoteRet = 0;
+//	Char buff[64 * 1024];
+//	memset(buff, 0, 64*1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	SendMessage(h, WM_GETMIDCLASSLIST, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szClassData.SetLength(StrLen(buff));
+//	StrCopy(szClassData.c_str(), buff);
+//	return RemoteRet;
+//
+//}
+
+// ---------------------------------------------------------------------------
+//int GetMidClassUseCodeField(String &szClassUseCodeField) {
+//	int RemoteRet = 0;
+//	Char buff[64 * 1024];
+//	memset(buff, 0, 64*1024*sizeof(Char));
+//	HWND h = GetClientComm();
+//	SendMessage(h, WM_GETCLASSUSERCODEFIELD, (WPARAM)&RemoteRet, (LPARAM)buff);
+//	szClassUseCodeField.SetLength(StrLen(buff));
+//	StrCopy(szClassUseCodeField.c_str(), buff);
+//	return RemoteRet;
+//
+//}
+// ---------------------------------------------------------------------------
+// hWnd-ClientComm:Handle,ModuleCode-Form:ModuleCode
+void ShowClientForm(int ModuleCode, String Param)
+{
+//	bool bChanged;
+//	TCursor oldcursor;
+//	bChanged = false;
+//
+//	if(Screen->Cursor == crDefault || Screen->Cursor == crHandPoint)
+//	{
+//		bChanged = true;
+//		oldcursor = Screen->Cursor;
+//		Screen->Cursor = crHourGlass;
+//	}
+//
+//	SendMessage(hWnd, WM_SHOW_CLIENTFORM, ModuleCode, (int)Param.c_str());
+//	if(bChanged)
+//		Screen->Cursor = oldcursor;
+	GClientBroker->ShowForm(ModuleCode,Param);
+}
+
+// ---------------------------------------------------------------------------
+void ShowClientFormModal(int ModuleCode, String Param)
+{
+//	bool bChanged;
+//	TCursor oldcursor;
+//	bChanged = false;
+//	if(Screen->Cursor == crDefault || Screen->Cursor == crHandPoint)
+//	{
+//		bChanged = true;
+//		oldcursor = Screen->Cursor;
+//		Screen->Cursor = crHourGlass;
+//	}
+//	SendMessage(hWnd, WM_SHOWMODAL_CLIENTFORM, ModuleCode, (int)Param.c_str());
+//	if(bChanged)
+//		Screen->Cursor = oldcursor;
+   GClientBroker->ShowFormModal(ModuleCode,Param);
+}
+// ---------------------------------------------------------------------------
+void ShowFormModalByFormCode(int FormCode, String Param)
+{
+//	bool bChanged;
+//	TCursor oldcursor;
+//	bChanged = false;
+//	if(Screen->Cursor == crDefault || Screen->Cursor == crHandPoint)
+//	{
+//		bChanged = true;
+//		oldcursor = Screen->Cursor;
+//		Screen->Cursor = crHourGlass;
+//	}
+//	SendMessage(hWnd, WM_SHOWMODAL_BYFORMID, FormCode, (int)Param.c_str());
+//	if(bChanged)
+//		Screen->Cursor = oldcursor;
+	GClientBroker->ShowFormModalByFormCode(FormCode,Param);
+}
+// ---------------------------------------------------------------------------
+void CloseClientForm( int FormID)
+{
+	GClientBroker->CloseForm(FormID);
+	   //	SendMessage(hWnd, WM_CLOSE_CLIENTFORM, FormID, 0);
+}
+// ---------------------------------------------------------------------------

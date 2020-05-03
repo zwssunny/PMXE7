@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.553,E:\PMXE6\ControlSer\Unit1.cpp=E:\PMXE6\ControlSer\EditServer.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.669,=E:\PMXE6\ControlSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.220,=E:\PMXE6\ControlSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.266,=E:\PMXE6\ControlSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.420,E:\PMXE6\ControlSer\ControlApp.cbproj=E:\PMXE6\ControlSer\ControlSer.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.630,E:\PMXE6\ControlSer\ServerControlMethods.h=E:\PMXE6\ControlSer\ServerMethodsUnit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.919,=E:\PMXE6\ControlSer\js\json2-min.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.705,=E:\PMXE6\ControlSer\LogQueueProc.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.238,E:\PMXE6\ControlSer\MainForm.h=E:\PMXE6\ControlSer\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.861,=E:\PMXE6\ControlSer\js\base64.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.927,=E:\PMXE6\ControlSer\js\ServerFunctionExecutor-min.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.630,E:\PMXE6\ControlSer\ServerControlMethods.cpp=E:\PMXE6\ControlSer\ServerMethodsUnit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.164,E:\PMXE6\ControlSer\ServerContainerModule.h=E:\PMXE6\ControlSer\ServerContainerUnit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.940,E:\PMXE6\ControlSer\Unit1.cpp=E:\PMXE6\ControlSer\CheckService.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.940,=E:\PMXE6\ControlSer\js\CallbackFramework-min.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.891,=E:\PMXE6\ControlSer\js\json2.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.238,E:\PMXE6\ControlSer\MainForm.cpp=E:\PMXE6\ControlSer\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.878,=E:\PMXE6\ControlSer\js\ServerFunctionExecutor.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.164,E:\PMXE6\ControlSer\ServerContainerModule.dfm=E:\PMXE6\ControlSer\ServerContainerUnit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.499,E:\PMXE6\baselibXE\SerLib.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.009,=E:\PMXE6\baselibXE\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.553,E:\PMXE6\ControlSer\Unit1.h=E:\PMXE6\ControlSer\EditServer.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.821,=E:\PMXE6\ControlSer\AppSetup.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.994,=E:\PMXE6\baselibXE\ServerCtl.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.940,E:\PMXE6\ControlSer\Unit1.h=E:\PMXE6\ControlSer\CheckService.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.316,=E:\PMXE6\ControlSer\ServerContainerUnit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.189,=E:\PMXE6\ControlSer\ServerMethodsUnit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.912,=E:\PMXE6\ControlSer\js\base64-min.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.164,E:\PMXE6\ControlSer\ServerContainerModule.cpp=E:\PMXE6\ControlSer\ServerContainerUnit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.905,=E:\PMXE6\ControlSer\js\CallbackFramework.js</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.238,E:\PMXE6\ControlSer\MainForm.dfm=E:\PMXE6\ControlSer\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.338,=E:\PMXE6\baselibXE\BaseFunc.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.553,E:\PMXE6\ControlSer\Unit1.dfm=E:\PMXE6\ControlSer\EditServer.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DefaultSettings Version="2.0.0.2" FirstTime="false">
+	<Setting Name="AgentServer" value=""/>
+	<Setting Name="AgentAddress" value="192.168.1.15:8888"/>
+	<Setting Name="AgentPort" value="211"/>
+	<Setting Name="Protocol" value="TCP/IP"/>
+	<Setting Name="LogInURL" value="/Account/Login/Login"/>
+	<Setting Name="LogOutURL" value="/Account/Login/LoginOut"/>
+	<Setting Name="LogUserDataURL" value="/Account/Login/GetCurrent"/>
+	<Setting Name="BaseBusiRate" value="6.15"/>
+	<Setting Name="BaseAccuRate" value="4.25"/>
+</DefaultSettings>

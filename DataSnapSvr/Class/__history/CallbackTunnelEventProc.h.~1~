@@ -1,0 +1,12 @@
+//---------------------------------------------------------------------------
+
+#ifndef CallbackTunnelEventProcH
+#define CallbackTunnelEventProcH
+//---------------------------------------------------------------------------
+ typedef void __fastcall (*TDSCallbackTunnelEvent)CallbackTunnelEvent(TObject *Sender,const TDSCallbackTunnelEventItem *EventItem);
+TCallbackTunnelEventProc :public TCppInterfacedObject<TDSCallbackTunnelEvent>
+{
+public:
+	virtual void __fastcall Invoke(System::TObject* Sender, const TDSCallbackTunnelEventItem &EventItem);
+}
+#endif

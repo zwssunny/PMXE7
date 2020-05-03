@@ -1,0 +1,623 @@
+inherited HouseReserveEditForm: THouseReserveEditForm
+  Caption = #39044#35746#35814#24773
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited MainVertScrollBox: TVertScrollBox
+    inherited MainLayout: TLayout
+      Height = 567.000000000000000000
+      Width = 384.000000000000000000
+      inherited tcDetailControl: TTabControl
+        Height = 567.000000000000000000
+        Width = 384.000000000000000000
+        inherited tabDetail: TTabItem
+          Width = 128.000000000000000000
+          inherited tcMainControl: TTabControl
+            Height = 518.000000000000000000
+            Width = 384.000000000000000000
+            inherited TabDetailMain: TTabItem
+              inherited DetailMainToolBar: TToolBar
+                Position.Y = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited btMainNext: TButton
+                  Position.X = 336.000000000000000000
+                end
+              end
+              inherited EditVertScrollBox: TVertScrollBox
+                Height = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited EditLayout: TLayout
+                  Height = 1000.000000000000000000
+                  Width = 379.000000000000000000
+                  object CustomerExpander: TExpander
+                    Align = Top
+                    Height = 193.000000000000000000
+                    ShowCheck = False
+                    Text = #23458#25143#20449#24687
+                    Width = 379.000000000000000000
+                    TabOrder = 0
+                    OnCheckChange = ReserveExpanderCheckChange
+                    ContentSize = '168'
+                    object Label1: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 6.000000000000000000
+                      Position.Y = 8.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #23458#25143#21517#31216':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label2: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 42.000000000000000000
+                      Position.Y = 42.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #24615#21035':'
+                      Width = 41.000000000000000000
+                    end
+                    object Label3: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 24.000000000000000000
+                      Position.Y = 73.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #35777#20214#21495':'
+                      Width = 59.000000000000000000
+                    end
+                    object Label4: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 6.000000000000000000
+                      Position.Y = 104.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #32852#31995#30005#35805':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label5: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 6.000000000000000000
+                      Position.Y = 136.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #32852#31995#22320#22336':'
+                      Width = 77.000000000000000000
+                    end
+                    object seHseRsveFKID_Client: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 5
+                      ReadOnly = True
+                      Position.X = 96.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      TextPrompt = #35831#36873#25321#23458#25143
+                      object CustEditButton: TEditButton
+                        CanFocus = False
+                        Cursor = crArrow
+                        Height = 28.000000000000000000
+                        TabOrder = 0
+                        Text = '...'
+                        Width = 28.000000000000000000
+                        OnClick = CustEditButtonClick
+                      end
+                    end
+                    object clClientsex: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 42.000000000000000000
+                      Text = 'clClientsex'
+                      Width = 225.000000000000000000
+                    end
+                    object clClientZJ: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 73.000000000000000000
+                      Text = 'clClientZJ'
+                      Width = 225.000000000000000000
+                    end
+                    object clClientPhone: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 104.000000000000000000
+                      Text = 'clClientPhone'
+                      Width = 225.000000000000000000
+                    end
+                    object clAddress: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 136.000000000000000000
+                      Text = 'clAddress'
+                      Width = 225.000000000000000000
+                    end
+                  end
+                  object ReserveExpander: TExpander
+                    Align = Top
+                    Height = 376.000000000000000000
+                    Position.Y = 617.000000000000000000
+                    ShowCheck = False
+                    Text = #39044#35746#20449#24687
+                    Width = 379.000000000000000000
+                    TabOrder = 1
+                    OnCheckChange = ReserveExpanderCheckChange
+                    ContentSize = '351'
+                    object Label6: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 26.000000000000000000
+                      Position.Y = 8.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #39044#35746#21495':'
+                      Width = 59.000000000000000000
+                    end
+                    object Label7: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 43.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #39044#35746#26085#26399':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label8: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 78.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #26377#25928#26085#26399':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label9: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 114.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #23450#37329#27604#20363':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label10: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 149.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #23450#37329#37329#39069':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label11: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 7.000000000000000000
+                      Position.Y = 185.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #31614#32422#20195#34920':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label12: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 220.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #32622#19994#39038#38382':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label13: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 256.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #21333#25454#23646#24615':'
+                      Width = 77.000000000000000000
+                    end
+                    object seHseRsveNum: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 8
+                      KeyboardType = Alphabet
+                      Position.X = 96.000000000000000000
+                      Position.Y = -2.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      TextPrompt = #22914#20026#31354#33258#21160#29983#25104#39044#35746#21495
+                    end
+                    object deHseRsveDate: TDateEdit
+                      Date = 41826.000000000000000000
+                      OnChange = deHseRsveDateChange
+                      Height = 32.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 33.000000000000000000
+                      TabOrder = 9
+                      Width = 225.000000000000000000
+                    end
+                    object deHseRsveValidDate: TDateEdit
+                      Date = 41824.000000000000000000
+                      Height = 32.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 69.000000000000000000
+                      TabOrder = 10
+                      Width = 225.000000000000000000
+                    end
+                    object seHseRsveSubsAmtPct: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 11
+                      KeyboardType = NumberPad
+                      Text = '0'
+                      Position.X = 96.000000000000000000
+                      Position.Y = 105.000000000000000000
+                      Width = 201.000000000000000000
+                      Height = 32.000000000000000000
+                      OnExit = seHseRsveSubsAmtPctExit
+                    end
+                    object seHseRsveSubsAmt: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 12
+                      KeyboardType = NumberPad
+                      Text = '0'
+                      Position.X = 96.000000000000000000
+                      Position.Y = 140.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                    end
+                    object seHseRsveFKID_Consigner: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 13
+                      ReadOnly = True
+                      Position.X = 96.000000000000000000
+                      Position.Y = 176.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      object ConsignerEditButton: TEditButton
+                        CanFocus = False
+                        Cursor = crArrow
+                        Height = 28.000000000000000000
+                        TabOrder = 0
+                        Text = '...'
+                        Width = 28.000000000000000000
+                        OnClick = ConsignerEditButtonClick
+                      end
+                    end
+                    object seHouseAdv: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 14
+                      Position.X = 96.000000000000000000
+                      Position.Y = 212.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      Enabled = False
+                    end
+                    object scCombox: TComboBox
+                      DisableFocusEffect = False
+                      Enabled = False
+                      Height = 32.000000000000000000
+                      Items.Strings = (
+                        #39044#35746
+                        #35748#36141
+                        #36864#35746
+                        #36864#36141)
+                      ItemIndex = 0
+                      Position.X = 96.000000000000000000
+                      Position.Y = 248.000000000000000000
+                      TabOrder = 15
+                      Width = 225.000000000000000000
+                    end
+                    object Label14: TLabel
+                      AutoSize = True
+                      Height = 22.000000000000000000
+                      Position.X = 304.000000000000000000
+                      Position.Y = 120.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = '%'
+                      Width = 14.000000000000000000
+                    end
+                    object Label27: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 44.000000000000000000
+                      Position.Y = 288.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #22791#27880':'
+                      Width = 41.000000000000000000
+                    end
+                    object mmHseRsveRemark: TMemo
+                      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                      Height = 60.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 285.000000000000000000
+                      TabOrder = 18
+                      Width = 225.000000000000000000
+                      KeyboardType = Alphabet
+                    end
+                  end
+                  object HouseExpander: TExpander
+                    Align = Top
+                    Height = 424.000000000000000000
+                    Position.Y = 193.000000000000000000
+                    ShowCheck = False
+                    Text = #25151#38388#20449#24687
+                    Width = 379.000000000000000000
+                    TabOrder = 2
+                    OnCheckChange = ReserveExpanderCheckChange
+                    ContentSize = '399'
+                    object Label15: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 43.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #27004#30424#21517#31216':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label16: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 75.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #27004#38401#21517#31216':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label17: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 26.000000000000000000
+                      Position.Y = 11.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #25151#38388#21495':'
+                      Width = 59.000000000000000000
+                    end
+                    object Label18: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 108.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #24314#31569#38754#31215':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label19: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 140.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #22871#20869#38754#31215':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label20: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 172.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #39044#21806#21333#20215':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label21: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 8.000000000000000000
+                      Position.Y = 205.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #39044#21806#24635#20215':'
+                      Width = 77.000000000000000000
+                    end
+                    object Label22: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 44.000000000000000000
+                      Position.Y = 237.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #26397#21521':'
+                      Width = 41.000000000000000000
+                    end
+                    object Label23: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 44.000000000000000000
+                      Position.Y = 269.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #21151#33021':'
+                      Width = 41.000000000000000000
+                    end
+                    object Label24: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 44.000000000000000000
+                      Position.Y = 302.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #25143#22411':'
+                      Width = 41.000000000000000000
+                    end
+                    object Label25: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 44.000000000000000000
+                      Position.Y = 334.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #26223#35266':'
+                      Width = 41.000000000000000000
+                    end
+                    object Label26: TLabel
+                      AutoSize = True
+                      Height = 23.000000000000000000
+                      Position.X = 44.000000000000000000
+                      Position.Y = 367.000000000000000000
+                      TextSettings.WordWrap = False
+                      Text = #35013#20462':'
+                      Width = 41.000000000000000000
+                    end
+                    object seHseRsveFKID_Hsg: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 12
+                      ReadOnly = True
+                      Position.X = 96.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      TextPrompt = #35831#36873#25321#25151#28304
+                      object HsgEditButton: TEditButton
+                        CanFocus = False
+                        Cursor = crArrow
+                        Height = 28.000000000000000000
+                        TabOrder = 0
+                        Text = '...'
+                        Width = 28.000000000000000000
+                        OnClick = HsgEditButtonClick
+                      end
+                    end
+                    object lbEstName: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 43.000000000000000000
+                      Text = 'lbEstName'
+                      Width = 225.000000000000000000
+                    end
+                    object lbLGName: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 75.000000000000000000
+                      Text = 'lbLGName'
+                      Width = 225.000000000000000000
+                    end
+                    object lbHseRsveArea: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 107.000000000000000000
+                      Text = 'lbHseRsveArea'
+                      Width = 225.000000000000000000
+                    end
+                    object lbUseAre: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 140.000000000000000000
+                      Text = 'lbUseAre'
+                      Width = 225.000000000000000000
+                    end
+                    object lbDirection: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 237.000000000000000000
+                      Text = 'lbDirection'
+                      Width = 225.000000000000000000
+                    end
+                    object lbhouseType: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 269.000000000000000000
+                      Text = 'lbhouseType'
+                      Width = 225.000000000000000000
+                    end
+                    object lbHouseModule: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 302.000000000000000000
+                      Text = 'lbHouseModule'
+                      Width = 225.000000000000000000
+                    end
+                    object lbHouseView: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 334.000000000000000000
+                      Text = 'lbHouseView'
+                      Width = 225.000000000000000000
+                    end
+                    object lbHouseDecorate: TLabel
+                      Height = 23.000000000000000000
+                      Position.X = 96.000000000000000000
+                      Position.Y = 367.000000000000000000
+                      Text = 'lbHouseDecorate'
+                      Width = 225.000000000000000000
+                    end
+                    object seHseRsvePrice: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 22
+                      Text = '0'
+                      Position.X = 96.000000000000000000
+                      Position.Y = 163.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      Enabled = False
+                    end
+                    object seHseRsveTotal: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      TabOrder = 23
+                      Text = '0'
+                      Position.X = 96.000000000000000000
+                      Position.Y = 197.000000000000000000
+                      Width = 225.000000000000000000
+                      Height = 32.000000000000000000
+                      Enabled = False
+                    end
+                  end
+                end
+              end
+            end
+            inherited TabDetailItem: TTabItem
+              inherited ItemToolBar: TToolBar
+                Position.Y = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited btDeleteItem: TButton
+                  Position.X = 288.000000000000000000
+                end
+                inherited btAddItem: TButton
+                  Position.X = 336.000000000000000000
+                end
+                inherited btBrowsItem: TButton
+                  Position.X = 240.000000000000000000
+                end
+              end
+            end
+          end
+        end
+        inherited tabOA: TTabItem
+          Width = 128.000000000000000000
+          inherited TaskStringGrid: TStringGrid
+            Width = 384.000000000000000000
+          end
+          inherited tcWorkflowControl: TTabControl
+            Height = 293.000000000000000000
+            Width = 384.000000000000000000
+            inherited TabCheckExec: TTabItem
+              Width = 192.000000000000000000
+            end
+            inherited TabCheckStare: TTabItem
+              Width = 190.000000000000000000
+            end
+          end
+        end
+        inherited tabFlow: TTabItem
+          Width = 128.000000000000000000
+          inherited tcflowLogControl: TTabControl
+            Height = 518.000000000000000000
+            Width = 384.000000000000000000
+            inherited tabTaskLog: TTabItem
+              Width = 192.000000000000000000
+              inherited TaskLogStringGrid: TStringGrid
+                Height = 469.000000000000000000
+                Width = 384.000000000000000000
+              end
+            end
+            inherited tabTaskflow: TTabItem
+              Width = 192.000000000000000000
+              inherited WorkflowImage: TImage
+                Height = 469.000000000000000000
+                Width = 384.000000000000000000
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  inherited TaskBindSourceDB: TBindSourceDB
+    Left = 264
+    Top = 25
+  end
+  inherited TaskLogBindSourceDB: TBindSourceDB
+    Top = 152
+  end
+end

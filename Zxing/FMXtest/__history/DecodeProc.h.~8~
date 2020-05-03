@@ -1,0 +1,50 @@
+//---------------------------------------------------------------------------
+
+#ifndef DecodeProcH
+#define DecodeProcH
+#include <System.Classes.hpp>
+#include <System.SysUtils.hpp>
+#include <zxing/common/Counted.h>
+#include <zxing/Binarizer.h>
+#include <zxing/MultiFormatReader.h>
+#include <zxing/Result.h>
+#include <zxing/ReaderException.h>
+#include <zxing/common/GlobalHistogramBinarizer.h>
+#include <zxing/common/HybridBinarizer.h>
+#include <exception>
+#include <zxing/Exception.h>
+#include <zxing/common/IllegalArgumentException.h>
+#include <zxing/BinaryBitmap.h>
+#include <zxing/DecodeHints.h>
+
+#include <zxing/qrcode/QRCodeReader.h>
+#include <zxing/multi/qrcode/QRCodeMultiReader.h>
+#include <zxing/multi/ByQuadrantReader.h>
+#include <zxing/multi/MultipleBarcodeReader.h>
+#include <zxing/multi/GenericMultipleBarcodeReader.h>
+using namespace std;
+using namespace zxing;
+using namespace zxing::multi;
+using namespace zxing::qrcode;
+//---------------------------------------------------------------------------
+typedef void __fastcall (__closure *TOnDecodeResults)(UnicodeString result,UnicodeString barformat);
+class TDecodeQueueProc : public  TThread
+{
+  private:
+	TOnDecodeResults FOnDecodeResults;
+	bool Fhybrid;
+	TBitmap *FBarImage;
+	UnicodeString FFileName;
+	bool HasInputBitmap;
+	Ref<LuminanceSource> Source;
+	Ref<LuminanceSource> ImageToLuminanceSource(TBitmap *Image);
+	Ref<LuminanceSource> BarcodePicToLuminanceSource(UnicodeString filename);
+	void __fastcall read_image(Ref<LuminanceSource> source, bool hybrid);
+	vector<Ref<Result> > decode(Ref<BinaryBitmap> image, DecodeHints hints);
+	vector<Ref<Result> > decode_multi(Ref<BinaryBitmap> image, DecodeHints hints);
+  public:
+	virtual  TDecodeQueueProc(TOnDecodeResults &AOnDecodeResults,TBitmap *FImage,TRectF BarRect,bool Ahybrid);
+	virtual  TDecodeQueueProc(TOnDecodeResults &AOnDecodeResults,UnicodeString filename,bool Ahybrid);
+	void __fastcall Execute();
+};
+#endif

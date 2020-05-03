@@ -1,0 +1,11 @@
+inherited frmSaleSubscribeCancel: TfrmSaleSubscribeCancel
+  Caption = #23458#25143#36864#25151
+  DesignerMasterStyle = 3
+  inherited MainPanel: TPanel
+    inherited ToolBarTop: TToolBar
+      inherited lbTitle: TLabel
+        Text = #23458#25143#36864#25151
+      end
+    end
+  end
+end

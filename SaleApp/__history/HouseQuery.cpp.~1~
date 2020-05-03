@@ -1,0 +1,17 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "HouseQuery.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseListShow"
+#pragma resource "*.fmx"
+TfrmBaseListShow1 *frmBaseListShow1;
+//---------------------------------------------------------------------------
+__fastcall TfrmBaseListShow1::TfrmBaseListShow1(TComponent* Owner)
+	: TfrmBaseListShow(Owner)
+{
+}
+//---------------------------------------------------------------------------

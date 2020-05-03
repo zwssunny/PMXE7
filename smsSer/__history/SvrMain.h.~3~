@@ -1,0 +1,31 @@
+//---------------------------------------------------------------------------
+#ifndef SvrMainH
+#define SvrMainH
+//---------------------------------------------------------------------------
+#include <SysUtils.hpp>
+#include <Classes.hpp>
+#include <SvcMgr.hpp>
+#include "SmsClientBroker.h"
+#include <Vcl.ExtCtrls.hpp>
+//---------------------------------------------------------------------------
+class TSmsServer : public TService
+{
+__published:    // IDE-managed Components
+	TTimer *Timer1;
+		void __fastcall ServiceStart(TService *Sender, bool &Started);
+        void __fastcall ServiceStop(TService *Sender, bool &Stopped);
+        void __fastcall ServiceDestroy(TObject *Sender);
+	void __fastcall ServiceAfterInstall(TService *Sender);
+	void __fastcall Timer1Timer(TObject *Sender);
+private:        // User declarations
+		 TSmsClientBroker *smsClient;
+public:         // User declarations
+	__fastcall TSmsServer(TComponent* Owner);
+	TServiceController __fastcall GetServiceController(void);
+
+	friend void __stdcall ServiceController(unsigned CtrlCode);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TSmsServer *SmsServer;
+//---------------------------------------------------------------------------
+#endif

@@ -1,0 +1,278 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 3
+  object ToolBar1: TToolBar
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    object btFind: TButton
+      Align = Right
+      Position.X = 336.000000000000000000
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'searchtoolbutton'
+      TabOrder = 1
+      Text = #26597#25214
+      OnClick = btFindClick
+    end
+    object Label1: TLabel
+      Align = Left
+      AutoSize = True
+      Size.Width = 46.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #29366#24577':'
+    end
+    object lbConnProfiles: TLabel
+      Align = Left
+      Position.X = 46.000000000000000000
+      Size.Width = 239.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      Text = #26410#36830#25509
+    end
+  end
+  object ImageContainer: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 318.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 20
+    object btTake: TButton
+      Action = TakePhotoFromCameraAction1
+      Align = Right
+      Enabled = True
+      Position.X = 336.000000000000000000
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'cameratoolbutton'
+      TabOrder = 1
+      Visible = True
+    end
+    object btSN: TButton
+      Action = acReadSN
+      Align = Center
+      Enabled = True
+      Size.Width = 88.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'speedbuttonstyle'
+      TabOrder = 2
+      Visible = True
+    end
+    object btClose: TButton
+      Action = acClose
+      Align = Left
+      Enabled = True
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'arrowlefttoolbutton'
+      TabOrder = 7
+      Visible = True
+    end
+    object cbBoxFormat: TComboBox
+      Align = Left
+      DisableFocusEffect = False
+      Items.Strings = (
+        #20840#31867#22411
+        #26465#24418#30721
+        #20108#32500#30721)
+      ItemIndex = 0
+      Position.X = 48.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 97.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 9
+    end
+  end
+  object Panel1: TPanel
+    Align = Top
+    Position.Y = 48.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 153.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 7
+    object Label2: TLabel
+      AutoSize = True
+      Position.X = 8.000000000000000000
+      Position.Y = 16.000000000000000000
+      Size.Width = 64.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #35774#22791#21495':'
+    end
+    object edDeviceSN: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Position.X = 73.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 257.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      object EditButton1: TEditButton
+        Action = acLocateRecord
+        CanFocus = False
+        Cursor = crArrow
+        Size.Width = 41.000000000000000000
+        Size.Height = 28.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = 'GO'
+      end
+    end
+    object Label3: TLabel
+      AutoSize = True
+      Position.X = 8.000000000000000000
+      Position.Y = 61.000000000000000000
+      Size.Width = 46.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #21517#31216':'
+    end
+    object lbDeviceName: TLabel
+      Position.X = 73.000000000000000000
+      Position.Y = 61.000000000000000000
+      Size.Width = 272.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #35774#22791#21517#31216
+    end
+    object Label5: TLabel
+      AutoSize = True
+      Position.X = 8.000000000000000000
+      Position.Y = 105.000000000000000000
+      Size.Width = 46.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #22411#21495':'
+    end
+    object lbDeciceMode: TLabel
+      Position.X = 73.000000000000000000
+      Position.Y = 105.000000000000000000
+      Size.Width = 272.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #35774#22791#22411#21495
+    end
+  end
+  object tmCheckConnection: TTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = tmCheckConnectionTimer
+    Left = 40
+    Top = 240
+  end
+  object CommandManager: TTetheringManager
+    OnRequestManagerPassword = CommandManagerRequestManagerPassword
+    OnRemoteManagerShutdown = CommandManagerRemoteManagerShutdown
+    OnEndAutoConnect = CommandManagerEndAutoConnect
+    Password = '131415'
+    Text = 'CommandApp'
+    Enabled = False
+    AllowedAdapters = 'Network'
+    Left = 40
+    Top = 320
+  end
+  object CommAppProfile: TTetheringAppProfile
+    Manager = CommandManager
+    Text = 'CommAppProfile'
+    Group = 'FSTAppGroup'
+    Enabled = False
+    Actions = <>
+    Resources = <
+      item
+        Name = 'Image'
+        IsPublic = True
+        Kind = Mirror
+        ResType = Stream
+        OnResourceReceived = CommandAppResources0ResourceReceived
+      end
+      item
+        Name = 'IsLocate'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = CommandAppResources1ResourceReceived
+      end
+      item
+        Name = 'DeviceName'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = CommandAppResources2ResourceReceived
+      end
+      item
+        Name = 'DeviceModel'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = CommandAppResources3ResourceReceived
+      end
+      item
+        Name = 'DeviceID'
+        IsPublic = True
+        Kind = Mirror
+        OnResourceReceived = FSTAppProfileResources4ResourceReceived
+      end>
+    Left = 32
+    Top = 400
+  end
+  object ActionList1: TActionList
+    Left = 344
+    Top = 56
+    object TakePhotoFromCameraAction1: TTakePhotoFromCameraAction
+      Category = 'Media Library'
+      OnDidFinishTaking = TakePhotoFromCameraAction1DidFinishTaking
+    end
+    object acReadSN: TAction
+      Text = #26597#19968#26597
+      OnExecute = acReadSNExecute
+    end
+    object acClose: TAction
+      Text = 'acClose'
+      OnExecute = acCloseExecute
+    end
+    object acLocateRecord: TAction
+      Text = #23450#20301#35760#24405
+      OnExecute = acLocateRecordExecute
+    end
+  end
+  object TetheringManager1: TTetheringManager
+    Text = 'TetheringManager1'
+    AllowedAdapters = 'Network'
+    Left = 288
+    Top = 296
+  end
+  object TetheringAppProfile1: TTetheringAppProfile
+    Text = 'TetheringAppProfile1'
+    Actions = <>
+    Resources = <>
+    Left = 264
+    Top = 360
+  end
+end

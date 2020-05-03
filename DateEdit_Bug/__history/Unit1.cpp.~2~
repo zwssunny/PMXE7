@@ -1,0 +1,31 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.fmx"
+#pragma resource ("*.iPhone.fmx", _PLAT_IOS)
+
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+/*
+1.NEW Multi-device application-C++builder
+2.Drop a TVertScrollBox Component into main form, name it "VertScrollBox1", Set it's property Align with Client;
+3.Drop a TPanel Component into VertScrollBox1,name it "Panel2". Set it's property Align with "Top",Height with 800.
+4.Scroll the Panel more bottom.
+5.Drop two TDateEdit Component into more bottom of Panel2 ,name "DateEdit2" and "DateEdit3".
+6.build and deploy to android device ,my device is ZTE Q802T.
+7.In my Mobile phone,run the application ,scroll the panel.then it throw Exception and exit the application;
+8.the same result use other mobile phone like coolpad 8705.
+9.XE6 is Ok but not in XE7.
+*/
+
+

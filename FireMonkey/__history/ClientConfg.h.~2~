@@ -1,0 +1,34 @@
+//---------------------------------------------------------------------------
+
+#ifndef ClientConfgH
+#define ClientConfgH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+//---------------------------------------------------------------------------
+class TfrmConfgForm : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TButton *bbEdit;
+	TButton *bbSave;
+	TButton *bbCancel;
+	TGroupBox *GroupBox1;
+	TEdit *edAgentIP;
+	TEdit *Edit2;
+	TEdit *Edit3;
+	TLabel *Label1;
+	TLabel *edAgentPort;
+	TLabel *cbProtocol;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmConfgForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmConfgForm *frmConfgForm;
+//---------------------------------------------------------------------------
+#endif

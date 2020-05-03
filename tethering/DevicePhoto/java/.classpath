@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/PMXE6/tethering/DevicePhoto/embarcadero.jar"/>
+	<classpathentry kind="lib" path="E:/Android/sdk/platforms/android-14/android.jar"/>
+	<classpathentry kind="output" path="output/classes"/>
+</classpath>

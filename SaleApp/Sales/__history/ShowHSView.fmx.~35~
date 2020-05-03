@@ -1,0 +1,104 @@
+object ShowViewForm: TShowViewForm
+  Left = 0
+  Top = 0
+  Caption = #25143#22411#22270#27983#35272
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMasterStyle = 3
+  object ToolBar1: TToolBar
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 10
+    object lbModule: TLabel
+      Align = Contents
+      Size.Width = 384.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'lbModule'
+    end
+  end
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 16
+    object btClose: TButton
+      Align = Left
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'backtoolbutton'
+      TabOrder = 1
+      Text = #36820#22238
+      OnClick = btCloseClick
+    end
+    object btShare: TButton
+      Action = ShowShareSheetAction1
+      Align = Right
+      Enabled = True
+      Position.X = 311.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'speedbuttonstyle'
+      TabOrder = 2
+      Visible = True
+    end
+  end
+  object ScrollBox1: TScrollBox
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 471.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 21
+    OnResize = ScrollBox1Resize
+    object Layout1: TLayout
+      Touch.GestureManager = GestureManager2
+      Touch.InteractiveGestures = [Zoom]
+      OnGesture = Layout1Gesture
+      Size.Width = 384.000000000000000000
+      Size.Height = 471.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object Image1: TImage
+        MultiResBitmap.Height = 1004
+        MultiResBitmap.Width = 768
+        MultiResBitmap = <
+          item
+          end>
+        Align = Center
+        Size.Width = 246.000000000000000000
+        Size.Height = 263.000000000000000000
+        Size.PlatformDefault = False
+        WrapMode = Stretch
+      end
+      object Memo1: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Position.X = 50.000000000000000000
+        Size.Width = 100.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        ReadOnly = True
+      end
+    end
+  end
+  object GestureManager2: TGestureManager
+    Left = 80
+    Top = 64
+  end
+  object ActionList1: TActionList
+    Left = 176
+    Top = 16
+    object ShowShareSheetAction1: TShowShareSheetAction
+      CustomText = #20998#20139
+      OnBeforeExecute = ShowShareSheetAction1BeforeExecute
+    end
+  end
+end

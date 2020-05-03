@@ -1,0 +1,113 @@
+package XZWorkflowXE7;
+
+{$R *.res}
+{$R '..\source\wsWorkflowReg.dcr'}
+{$R '..\source\wsADO.dcr'}
+{$R '..\source\wsDbx.dcr'}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Foresight Workflow Studio Components'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  vclx,
+  vcldb,
+  adortl,
+  rtl,
+  dbrtl,
+  dbexpress,
+  vclimg;
+
+contains
+  fDgrLayerManager in '..\..\diagram\source\fDgrLayerManager.pas',
+  fDgrLibraryManagerEditor in '..\..\diagram\source\fDgrLibraryManagerEditor.pas',
+  fLibItemEditor in '..\..\diagram\source\fLibItemEditor.pas',
+  wsBlocks in '..\source\wsBlocks.pas',
+  wsClasses in '..\source\wsClasses.pas',
+  wsControls in '..\source\wsControls.pas',
+  wsDB in '..\source\wsDB.pas',
+  wsDiagram in '..\source\wsDiagram.pas',
+  wslanguage in '..\source\wslanguage.pas',
+  wsMain in '..\source\wsMain.pas',
+  wsres in '..\source\wsres.pas',
+  wsScripter in '..\source\wsScripter.pas',
+  wsUserInterface in '..\source\wsUserInterface.pas',
+  atpascal in '..\..\scripter\source\atpascal.pas',
+  atScript in '..\..\scripter\source\atScript.pas',
+  atdiagram in '..\..\diagram\source\atdiagram.pas',
+  atparser in '..\..\scripter\source\atparser.pas',
+  DiagramUtils in '..\..\diagram\source\DiagramUtils.pas',
+  uSystemLibrary in '..\..\scripter\source\uSystemLibrary.pas',
+  liveflowchart in '..\..\diagram\source\liveflowchart.pas',
+  dgrcombo in '..\..\diagram\source\dgrcombo.pas',
+  DgrSelectors in '..\..\diagram\source\DgrSelectors.pas',
+  diagramactns in '..\..\diagram\source\diagramactns.pas',
+  DiagramExtra in '..\..\diagram\source\DiagramExtra.pas',
+  diagramgradient in '..\..\diagram\source\diagramgradient.pas' {GradientEditor},
+  DiagramShadow in '..\..\diagram\source\DiagramShadow.pas' {ShadowEditor},
+  DiagramPreview in '..\..\diagram\source\DiagramPreview.pas' {fmDiagramPreview},
+  livediagram in '..\..\diagram\source\livediagram.pas',
+  uCallDLL in '..\..\scripter\source\uCallDLL.pas',
+  dispatchlib in '..\..\scripter\source\dispatchlib.pas',
+  GdipClasses in '..\..\diagram\source\GdipClasses.pas',
+  DgrGdipApi in '..\..\diagram\source\DgrGdipApi.pas',
+  DgrGdipObj in '..\..\diagram\source\DgrGdipObj.pas',
+  fdiagrameditor in '..\..\diagram\source\fdiagrameditor.pas',
+  DgrButtons in '..\..\diagram\source\DgrButtons.pas',
+  DgrEditorActions in '..\..\diagram\source\DgrEditorActions.pas',
+  DiagramEditor in '..\..\diagram\source\DiagramEditor.pas',
+  fDgrPrintDialog in '..\..\diagram\source\fDgrPrintDialog.pas' {fmDgrPrintDialog},
+  fdgrpagesettings in '..\..\diagram\source\fdgrpagesettings.pas' {fmDgrPageSettings},
+  dgrclasses in '..\..\diagram\source\dgrclasses.pas',
+  Direct2dClasses in '..\..\diagram\source\Direct2dClasses.pas',
+  wsWorkflowReg in '..\Source\wsWorkflowReg.pas',
+  ap_wsClasses in '..\Source\ap_wsClasses.pas',
+  fApprovalEditor in '..\Source\fApprovalEditor.pas',
+  fAssignedUserFrame in '..\Source\fAssignedUserFrame.pas' {frAssignedUserFrame: TFrame},
+  fAttachmentEditor in '..\Source\fAttachmentEditor.pas',
+  fAttachmentFrame in '..\Source\fAttachmentFrame.pas',
+  fAttachPermissions in '..\Source\fAttachPermissions.pas' {frAttachPermissions: TFrame},
+  fAuditEditor in '..\Source\fAuditEditor.pas' {fmAuditEditor},
+  fDecisionEditor in '..\Source\fDecisionEditor.pas' {fmDecisionEditor},
+  fExpirationFrame in '..\Source\fExpirationFrame.pas' {frExpirationFrame: TFrame},
+  fFieldFrame in '..\Source\fFieldFrame.pas' {frFieldFrame: TFrame},
+  fRunWorkflowEditor in '..\Source\fRunWorkflowEditor.pas' {fmRunWorkflowEditor},
+  fscripteditor in '..\Source\fscripteditor.pas' {fmScriptEditor},
+  fSponsorEditor in '..\Source\fSponsorEditor.pas',
+  fStatusFrame in '..\Source\fStatusFrame.pas' {frStatusFrame: TFrame},
+  fTaskEditor in '..\Source\fTaskEditor.pas' {fmTaskEditor},
+  fTaskInstanceView in '..\Source\fTaskInstanceView.pas',
+  fTaskList in '..\Source\fTaskList.pas',
+  fTransitionEditor in '..\Source\fTransitionEditor.pas' {fmTransitionEditor},
+  fvariableeditor in '..\Source\fvariableeditor.pas' {fmVariableEditor},
+  fWorkDefManager in '..\Source\fWorkDefManager.pas',
+  fWorkflowEditor in '..\Source\fWorkflowEditor.pas' {fmDummyWorkflowEditor},
+  wsAccAndSysDB in '..\Source\wsAccAndSysDB.pas',
+  wsado in '..\Source\wsado.pas',
+  wsdbx in '..\Source\wsdbx.pas';
+
+end.

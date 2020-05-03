@@ -1,0 +1,124 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "WorkReport.h"
+#include "CommFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseListShow"
+#pragma resource "*.fmx"
+TfrmWorkReport *frmWorkReport;
+//---------------------------------------------------------------------------
+__fastcall TfrmWorkReport::TfrmWorkReport(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,String Param,int FormType)
+	: TfrmBaseListShow(Owner,clBroker,ModuleCode,Param)
+{
+	fFormType = FormType;
+	GridBindSourceDB->DataSet=this->DataSet->MasterDataSet;
+	GridBindSourceDB->DataSource=this->MasterDataSource;
+	DataSet->MasterDataSetAfterPost=MasterDataSetAfterPost;
+	switch(fFormType)
+	{
+		case 0:
+		 Caption=L"工作周报";
+		break;
+		case 1:
+		 Caption=L"工作月报";
+		break;
+		case 2:
+		 Caption=L"工作季报";
+		break;
+		case 3:
+		 Caption=L"工作年报";
+		break;
+		default:
+		 Caption=L"工作日报";
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmWorkReport::FormFillData()
+{
+	WorkReportGrid->RowCount = DataSet->MasterDataSet->RecordCount;
+	DS_MoveFirst();
+	int index = 0;
+	while(!Eof)
+	{
+		WorkReportGrid->Cells[0][index] = VarToStr(GetFieldValue("WorkReportID"));
+		WorkReportGrid->Cells[1][index] = VarToStr(GetFieldValue("CorpOgnDeptName"));
+		WorkReportGrid->Cells[2][index] = VarToStr(GetFieldValue("EmpName"));
+
+		if(fFormType == 0)
+			WorkReportGrid->Cells[3][index] = VarToStr(GetFieldValue("WorkReportYear"))+L"年 第"+VarToStr(GetFieldValue("WorkReportWeek"))+L"周";
+		else if(fFormType == 1)
+			WorkReportGrid->Cells[3][index] = VarToStr(GetFieldValue("WorkReportYear"))+L"年"+VarToStr(GetFieldValue("WorkReportMonth"))+L"月";
+		else if(fFormType == 2)
+			WorkReportGrid->Cells[3][index] = VarToStr(GetFieldValue("WorkReportYear"))+L"年 第"+VarToStr(GetFieldValue("WorkReportQuarter"))+L"季度";
+		else if(fFormType == 3)
+			WorkReportGrid->Cells[3][index] = VarToStr(GetFieldValue("WorkReportYear"))+L"年";
+		else if(fFormType == 4)
+			WorkReportGrid->Cells[3][index] = VarToStr(GetFieldValue("WorkReportDate"));
+
+		if(GetFieldValue("WorkReportCheckState") == 1)
+			WorkReportGrid->Cells[4][index] = L"已审核";
+		else if(GetFieldValue("WorkReportState") == 1)
+			WorkReportGrid->Cells[4][index] = L"已提交";
+		else
+			WorkReportGrid->Cells[4][index] = L"草稿";
+
+		DS_MoveNext();
+		index++;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmWorkReport::SetUserCtrlStatus()
+{
+	bool canWrite = OperateRight.Pos(FR_SYSTEMWRITE)>0;
+	if(!canWrite)
+	{
+		EditAction->Enabled = false;
+		DelAction->Enabled = false;
+	}
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmWorkReport::NewEditForm(TZClientDataSet *m_DataSet,int status)
+{
+   if(WorkReportEdit==NULL)
+	  WorkReportEdit=new TfrmWorkReportEdit(this,ClientBroker,this->FormModuleCode,m_DataSet,status,fFormType);
+   return WorkReportEdit;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmWorkReport::MasterDataSetAfterPost(TDataSet* DataSet)
+{
+    SetOptCtrlStatus(0);
+	FormFillData();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmWorkReport::WorkReportGridSelChanged(TObject *Sender)
+{
+	int row = WorkReportGrid->Selected;
+	String fMasterID =  VarToStr(WorkReportGrid->Cells[0][row]);
+	bool result = DS_LocateMaster(fMasterID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TfrmWorkReport::BeforeUpdateData(int OptType)
+{
+	if(OptType == (int)otDel)
+	{
+		int Check = GetFieldValue("WorkReportCheckState");
+		if(Check != 0)
+		{
+            ShowMessage(_D("已审核，不能删除！"));
+			return false;
+        }
+	}
+	return true;
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmWorkReport::NewFilterForm(TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker) //创建过滤窗口，传递查询事件
+{
+   if(FiltersForm==NULL)
+	 FiltersForm= new TfrmWorkReportFilters(this,AOnFilteredDataSet,ABroker,fFormType,FormDefRight.Pos(31) > 0);
+   return FiltersForm;
+}
+//---------------------------------------------------------------------------

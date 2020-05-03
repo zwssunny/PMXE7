@@ -1,0 +1,54 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "CurrencyData.h"
+#include "CurrencyDataEdit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseListShow"
+#pragma resource "*.fmx"
+TfrmCurrencyData *frmCurrencyData;
+//---------------------------------------------------------------------------
+__fastcall TfrmCurrencyData::TfrmCurrencyData(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,
+							 String WhereStr)
+	: TfrmBaseListShow(Owner, clBroker,ModuleCode,WhereStr)
+{
+//     GridBindSourceDB->DataSet=this->
+	 GridBindSourceDB->DataSource=this->MasterDataSource;
+}
+//---------------------------------------------------------------------------
+TForm * __fastcall TfrmCurrencyData::NewEditForm(TZClientDataSet *FDataSet,int status)
+{
+  TfrmCurrencyDataEdit *p=new TfrmCurrencyDataEdit(this,ClientBroker,FDataSet,status);
+  return p;
+}
+void __fastcall TfrmCurrencyData::FormFillData()
+{
+	// this->DS_MoveFirst();
+	 BindGridLink1->Active=false;
+	 BindGridLink1->Active=true;
+}
+bool __fastcall TfrmCurrencyData::BeforeUpdateData(int OptType)
+{
+     switch(OptType)
+   {
+	  case 1:   //Add
+         return true;
+	  case 2:  //Edit
+         return true;
+      case 3:  //Del
+          if(GetFieldValue("CurDataIsStandard")==1)
+          {
+ 			  MessageDlg(_D("系统使用了当前币种，不能删除") ,TMsgDlgType::mtInformation,TMsgDlgButtons()<< TMsgDlgBtn::mbYes,0);
+			  return false;
+          }
+          return true;
+
+      default:
+          return true;
+   }
+
+}
+

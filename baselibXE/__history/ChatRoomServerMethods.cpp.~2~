@@ -1,0 +1,78 @@
+//---------------------------------------------------------------------------
+#include <fmx.h>
+#pragma hdrstop
+
+#include "ChatRoomServerMethods.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+__fastcall  TChatRoomServerMethods::TChatRoomServerMethods(TDBXConnection *ADBXConnection)
+{
+	FChatRoomServerMethodsClient = new TChatRoomServerMethodsClient(ADBXConnection);
+}
+
+
+__fastcall  TChatRoomServerMethods::TChatRoomServerMethods(TDBXConnection *ADBXConnection, bool AInstanceOwner)
+{
+	FChatRoomServerMethodsClient = new TChatRoomServerMethodsClient(ADBXConnection,false);
+}
+__fastcall TChatRoomServerMethods::~TChatRoomServerMethods()
+{
+  delete FChatRoomServerMethodsClient;
+}
+TJSONArray* __fastcall TChatRoomServerMethods::GetUserList()
+{
+		  return FChatRoomServerMethodsClient->GetUserList();
+}
+System::UnicodeString __fastcall TChatRoomServerMethods::GetHTMLEscapedString(System::UnicodeString Value)
+{
+		  return FChatRoomServerMethodsClient->GetHTMLEscapedString(Value);
+}
+bool __fastcall TChatRoomServerMethods::UpdateCurUserCallbackClientID(System::UnicodeString Value)
+{
+   return FChatRoomServerMethodsClient->UpdateCurUserCallbackClientID(Value);
+}
+bool __fastcall TChatRoomServerMethods::SendMessageToAll(System::UnicodeString Msg)
+{
+   return FChatRoomServerMethodsClient->SendMessageToAll(Msg);
+}
+bool __fastcall TChatRoomServerMethods::SendMessageToUser(System::UnicodeString Msg, System::UnicodeString UserID)
+{
+  return FChatRoomServerMethodsClient->SendMessageToUser(Msg,UserID);
+}
+bool __fastcall TChatRoomServerMethods::SendMessageToDepartment(System::UnicodeString Msg, System::UnicodeString DepartmentID)
+{
+   return FChatRoomServerMethodsClient->SendMessageToDepartment(Msg,DepartmentID);
+}
+bool __fastcall TChatRoomServerMethods::SendMessageToGroup(System::UnicodeString Msg, System::UnicodeString GroupID)
+{
+   return FChatRoomServerMethodsClient->SendMessageToGroup(Msg,GroupID);
+}
+bool __fastcall TChatRoomServerMethods::SendMessageToFollow(System::UnicodeString Msg)
+{
+   return FChatRoomServerMethodsClient->SendMessageToFollow(Msg);
+}
+bool __fastcall TChatRoomServerMethods::SendCMDToFollow(System::UnicodeString cmdStr)
+{
+  return FChatRoomServerMethodsClient->SendCMDToFollow(cmdStr);
+}
+bool __fastcall TChatRoomServerMethods::SendCMDToAll(System::UnicodeString cmdStr)
+{
+  return FChatRoomServerMethodsClient->SendCMDToAll(cmdStr);
+}
+bool __fastcall TChatRoomServerMethods::SendCMDToUser(System::UnicodeString cmdStr, System::UnicodeString UserID)
+{
+   return FChatRoomServerMethodsClient->SendCMDToUser(cmdStr,UserID);
+}
+bool __fastcall TChatRoomServerMethods::SendCMDToDepartment(System::UnicodeString cmdStr, System::UnicodeString DepartmentID)
+{
+  return FChatRoomServerMethodsClient->SendCMDToDepartment(cmdStr,DepartmentID);
+}
+bool __fastcall TChatRoomServerMethods::SendCMDToGroup(System::UnicodeString cmdStr, System::UnicodeString GroupID)
+{
+  return FChatRoomServerMethodsClient->SendCMDToGroup(cmdStr,GroupID);
+}
+bool __fastcall TChatRoomServerMethods::SendMgrMessage(int itype, System::UnicodeString Msg)
+{
+    return FChatRoomServerMethodsClient->SendMgrMessage(itype,Msg);
+}
+

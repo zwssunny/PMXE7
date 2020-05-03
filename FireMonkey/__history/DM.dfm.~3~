@@ -1,0 +1,31 @@
+object DMmodule: TDMmodule
+  OldCreateOrder = False
+  Height = 150
+  Width = 215
+  object FSDSConnection: TSQLConnection
+    DriverName = 'Datasnap'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DBXDataSnap'
+      'HostName=localhost'
+      'Port=211'
+      'CommunicationProtocol=tcp/ip'
+      'DatasnapContext=datasnap/'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland' +
+        '.Data.DbxClientDriver,Version=16.0.0.0,Culture=neutral,PublicKey' +
+        'Token=91d62ebb5b0d1b1b'
+      'Filters={}'
+      'DSAuthenticationUser=FSAdmin'
+      'DSAuthenticationPassword=fs123!@#')
+    Left = 96
+    Top = 56
+    UniqueId = '{F1016E56-39E7-4E75-AFBD-0E7B04AED31B}'
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 120
+    Top = 32
+  end
+end

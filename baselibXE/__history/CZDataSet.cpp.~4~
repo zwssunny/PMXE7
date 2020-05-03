@@ -1,0 +1,622 @@
+// ---------------------------------------------------------------------------
+
+//#include <fmx.h>
+#pragma hdrstop
+
+#include "CZDataSet.h"
+
+// ---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+
+__fastcall TCZDataSet::TCZDataSet() {
+	m_CurRecNo = -1;
+	m_Bookmark = "";
+	m_Bof = true;
+	m_Eof = true;
+	m_Status = 0;
+	m_RecordCount = 0;
+	m_KeyField = "";
+	m_FieldSet = new TStringList;
+	m_EditRecord = new TStringList;
+}
+
+// ---------------------------------------------------------------------------
+__fastcall TCZDataSet::~TCZDataSet() {
+	TStringList *p;
+	for (int i = 0; i < m_FieldSet->Count; i++) {
+		p = (TStringList*)m_FieldSet->Objects[i];
+		if (p != NULL)
+			delete p;
+	}
+	m_EditRecord->Clear();
+	delete m_FieldSet;
+	delete m_EditRecord;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::ChgStatus(int value) {
+	String ErrMsg;
+	if (m_FieldSet->Count == 0)
+		throw Exception(L"没有定义数据字段.");
+	// if(m_KeyField.IsEmpty())
+	// throw("关键字段名不能为空.");
+	switch (m_Status) {
+	case 0:
+		ErrMsg = L"数据集未打开.";
+		break;
+	case 1:
+		m_Status = value;
+		ErrMsg = "";
+		break;
+	case 2:
+		ErrMsg = L"当前正在增加状态.";
+		break;
+	case 3:
+		ErrMsg = L"当前正在修改状态.";
+		break;
+	case 4:
+		ErrMsg = L"当前正在插入状态.";
+		break;
+	}
+	if (!ErrMsg.IsEmpty())
+		throw Exception(ErrMsg);
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::AddNew() {
+	ChgStatus(2);
+	m_EditRecord->Clear();
+	for (int i = 0; i < m_FieldSet->Count; i++)
+		m_EditRecord->Add("");
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::InsRecord() {
+	ChgStatus(4);
+	m_EditRecord->Clear();
+	for (int i = 0; i < m_FieldSet->Count; i++)
+		m_EditRecord->Add("");
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Edit() {
+	TStringList *p;
+	ChgStatus(3);
+	m_EditRecord->Clear();
+	for (int i = 0; i < m_FieldSet->Count; i++) {
+		p = (TStringList*)m_FieldSet->Objects[i];
+		m_EditRecord->Add(p->Strings[m_CurRecNo]);
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::DelRecord() {
+	TStringList *p;
+	ChgStatus(1);
+	for (int i = 0; i < m_FieldSet->Count; i++) {
+		p = (TStringList*)m_FieldSet->Objects[i];
+		p->Delete(m_CurRecNo);
+	}
+	m_RecordCount--;
+	if (m_RecordCount == 0) {
+		m_Bof = true;
+		m_Eof = true;
+		m_CurRecNo = -1;
+	}
+	else if (m_RecordCount > m_CurRecNo) {
+		m_Bof = false;
+		m_Eof = false;
+	}
+	else {
+		m_Bof = false;
+		m_Eof = false;
+		m_CurRecNo = m_RecordCount - 1;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Cancel() {
+	String ErrMsg;
+	if (m_FieldSet->Count == 0)
+		throw Exception(L"没有定义数据字段.");
+	switch (m_Status) {
+	case 0:
+		ErrMsg = L"数据集未打开.";
+		break;
+	case 1:
+		ErrMsg = L"当前不是编辑状态.";
+		break;
+	case 2:
+	case 4:
+	case 3:
+		m_Status = 1;
+		break;
+	}
+	if (!ErrMsg.IsEmpty())
+		throw Exception(ErrMsg);
+	m_EditRecord->Clear();
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Update() {
+	TStringList *p;
+	String ErrMsg;
+	if (m_FieldSet->Count == 0)
+		throw Exception(L"没有定义数据字段.");
+	switch (m_Status) {
+	case 0:
+		ErrMsg = L"数据集未打开.";
+		break;
+	case 1:
+		ErrMsg = L"当前不是编辑状态.";
+		break;
+	case 2:
+		for (int i = 0; i < m_FieldSet->Count; i++) {
+			p = (TStringList*)m_FieldSet->Objects[i];
+			p->Add(m_EditRecord->Strings[i]);
+		}
+		m_Status = 1;
+		// p=(TStringList*)m_FieldSet->Objects[0];
+		// m_CurRecNo=p->Count-1;
+		m_RecordCount++;
+		m_CurRecNo = m_RecordCount - 1;
+		m_Bof = false;
+		m_Eof = false;
+		ErrMsg = "";
+		break;
+	case 3:
+		for (int i = 0; i < m_FieldSet->Count; i++) {
+			p = (TStringList*)m_FieldSet->Objects[i];
+			p->Strings[m_CurRecNo] = m_EditRecord->Strings[i];
+		}
+		m_Status = 1;
+		ErrMsg = "";
+		m_Bof = false;
+		m_Eof = false;
+		break;
+	case 4:
+		for (int i = 0; i < m_FieldSet->Count; i++) {
+			p = (TStringList*)m_FieldSet->Objects[i];
+			p->Insert(m_CurRecNo, m_EditRecord->Strings[i]);
+		}
+		m_RecordCount++;
+		m_Status = 1;
+		ErrMsg = "";
+		m_Bof = false;
+		m_Eof = false;
+		break;
+	}
+	if (!ErrMsg.IsEmpty())
+		throw Exception(ErrMsg);
+	m_EditRecord->Clear();
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Clear() {
+	TStringList *p;
+	ChgStatus(1);
+	for (int i = 0; i < m_FieldSet->Count; i++) {
+		p = (TStringList*)m_FieldSet->Objects[i];
+		p->Clear();
+	}
+	m_Bof = true;
+	m_Eof = true;
+	m_Status = 1;
+	m_RecordCount = 0;
+	m_CurRecNo = -1;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::First() {
+	ChgStatus(1);
+	if (m_RecordCount > 0) {
+		m_CurRecNo = 0;
+		m_Bof = true;
+		m_Eof = false;
+	}
+	else {
+		m_CurRecNo = -1;
+		m_Bof = true;
+		m_Eof = true;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Prior() {
+	ChgStatus(1);
+	if (m_RecordCount > 0) {
+		if (m_CurRecNo > 0) {
+			m_CurRecNo--;
+			m_Bof = false;
+			m_Eof = false;
+		}
+		else {
+			m_CurRecNo = 0;
+			m_Bof = true;
+			m_Eof = false;
+		}
+	}
+	else {
+		m_CurRecNo = -1;
+		m_Bof = true;
+		m_Eof = true;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Last() {
+	ChgStatus(1);
+	if (m_RecordCount > 0) {
+		m_CurRecNo = m_RecordCount - 1;
+		m_Bof = false;
+		m_Eof = true;
+	}
+	else {
+		m_CurRecNo = -1;
+		m_Bof = true;
+		m_Eof = true;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::Next() {
+	ChgStatus(1);
+	if (m_RecordCount > 0) {
+		if (m_CurRecNo + 1 < m_RecordCount) {
+			m_CurRecNo++;
+			m_Bof = false;
+			m_Eof = false;
+		}
+		else {
+			m_CurRecNo = m_RecordCount - 1;
+			m_Bof = false;
+			m_Eof = true;
+		}
+	}
+	else {
+		m_CurRecNo = -1;
+		m_Bof = true;
+		m_Eof = true;
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::MoveBy(int index) {
+	ChgStatus(1);
+	if (m_RecordCount > 0) {
+		if (index > 0) {
+			if (m_CurRecNo + index < m_RecordCount - 1) {
+				m_CurRecNo += index;
+				m_Bof = false;
+				m_Eof = false;
+			}
+			else {
+				m_CurRecNo = m_RecordCount - 1;
+				m_Bof = false;
+				m_Eof = true;
+			}
+		}
+		else {
+			if (m_CurRecNo + index > 1) {
+				m_CurRecNo += index;
+				m_Bof = false;
+				m_Eof = false;
+			}
+			else {
+				m_CurRecNo = 0;
+				m_Bof = true;
+				m_Eof = false;
+			}
+		}
+	}
+	else {
+		m_CurRecNo = -1;
+		m_Bof = true;
+		m_Eof = true;
+	}
+}
+
+// ---------------------------------------------------------------------------
+bool __fastcall TCZDataSet::LocateByKey(String key) {
+	TStringList *p;
+	int index;
+	ChgStatus(1);
+	if (m_KeyField.IsEmpty())
+		throw(L"关键字段名不能为空.");
+	return LocateField(m_KeyField, key);
+	/*
+	 index=m_FieldSet->IndexOf(m_KeyField);
+	 p=(TStringList*)m_FieldSet->Objects[index];
+	 m_CurRecNo=p->IndexOf(key);
+	 if(m_CurRecNo==-1)
+	 return false;
+	 else
+	 return true; */
+}
+
+// ---------------------------------------------------------------------------
+bool __fastcall TCZDataSet::LocateByIndex(int index) {
+	ChgStatus(1);
+	if (m_FieldSet->Count < 1)
+		throw(L"尚未建立字段名.");
+	if (index >= m_RecordCount || index < 0) {
+		throw Exception(L"超出边界");
+	}
+	else {
+		m_CurRecNo = index;
+		return true;
+	}
+}
+
+// ---------------------------------------------------------------------------
+bool __fastcall TCZDataSet::LocateField(String fieldname, String key) {
+	TStringList *p;
+	int index, LocateIndex;
+	ChgStatus(1);
+	index = m_FieldSet->IndexOf(fieldname);
+	if (index == -1)
+		throw Exception(L"字段'" + fieldname + L"'不存在.");
+	p = (TStringList*)m_FieldSet->Objects[index];
+	LocateIndex = p->IndexOf(key);
+	if (LocateIndex > -1) {
+		m_CurRecNo = LocateIndex;
+		return true;
+	}
+	return false;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::AddField(String fieldname) {
+	int index;
+	if (m_Status == 2 || m_Status == 3 || m_Status == 4)
+		throw Exception(L"当前正在编辑状态.");
+	index = m_FieldSet->IndexOf(fieldname);
+	if (index != -1)
+		throw Exception(L"字段'" + fieldname + L"'已定义.");
+	TStringList *p;
+	TStringList *f = new TStringList;
+	if (m_FieldSet->Count > 0) {
+		p = (TStringList*)m_FieldSet->Objects[0];
+		for (int i = 0; i < p->Count; i++)
+			f->Add("");
+	}
+	m_FieldSet->AddObject(fieldname, f);
+	m_Status = 1;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::DelField(String fieldname) {
+	int index;
+	if (m_Status == 0)
+		throw Exception(L"数据集未打开.");
+	if (m_Status == 2 || m_Status == 3 || m_Status == 4)
+		throw Exception(L"当前正在编辑状态.");
+	index = m_FieldSet->IndexOf(fieldname);
+	if (index == -1)
+		throw Exception(L"字段'" + fieldname + L"'未定义.");
+	TStringList *p;
+	p = (TStringList*)m_FieldSet->Objects[index];
+	delete p;
+	m_FieldSet->Delete(index);
+	if (m_FieldSet->Count == 0)
+		m_Status = 0;
+	else
+		m_Status = 1;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::LoadFromString(String datasetstr) {
+	bool readfield;
+	readfield = true;
+	String optbuff=datasetstr;
+	Char *strptr, *pos;
+	int curfield;
+	optbuff.SetLength(datasetstr.Length());
+	memcpy(optbuff.c_str(), datasetstr.c_str(),
+		datasetstr.Length());
+	strptr = pos = optbuff.c_str();
+	curfield = 0;
+	TStringList *p, *f;
+	for (int i = 0; i < m_FieldSet->Count; i++) {
+		p = (TStringList*)m_FieldSet->Objects[i];
+		delete p;
+	}
+	m_FieldSet->Clear();
+	m_Status = 0;
+	m_RecordCount = 0;
+	while (*pos != '\0') {
+		if (*pos == '\t') {
+			*pos = '\0';
+			if (readfield) {
+				if (StrLen(strptr) < 1) {
+					Clear();
+					throw Exception(L"字段名不能为空");
+				}
+				f = new TStringList;
+				if (m_FieldSet->Count > 0) {
+					p = (TStringList*)m_FieldSet->Objects[0];
+					for (int i = 0; i < p->Count; i++)
+						f->Add("");
+				}
+				m_FieldSet->AddObject(strptr, f);
+				strptr = pos + 1;
+				m_Status = 1;
+			}
+			else {
+				p = (TStringList*)m_FieldSet->Objects[curfield];
+				p->Add(strptr);
+				strptr = pos + 1;
+				curfield++;
+				// if(curfield>=m_FieldSet->Count-1)尚未处理字段值与字段数不匹配错误
+			}
+		}
+		else if (*pos == '\r' && *(pos + 1) == '\n') {
+			*pos = '\0';
+			if (readfield) {
+				if (StrLen(strptr) < 1) {
+					Clear();
+					throw Exception(L"字段名不能为空");
+				}
+				f = new TStringList;
+				if (m_FieldSet->Count > 0) {
+					p = (TStringList*)m_FieldSet->Objects[0];
+					for (int i = 0; i < p->Count; i++)
+						f->Add("");
+				}
+				m_FieldSet->AddObject(strptr, f);
+				readfield = false;
+				m_Status = 1;
+				pos++;
+				strptr = pos + 1;
+			}
+			else {
+				p = (TStringList*)m_FieldSet->Objects[curfield];
+				p->Add(strptr);
+				curfield = 0;
+				m_RecordCount = p->Count;
+				m_CurRecNo = m_RecordCount - 1;
+				m_Bof = false;
+				m_Eof = false;
+				pos++;
+				strptr = pos + 1;
+			}
+		}
+		pos++;
+	}
+}
+
+// ---------------------------------------------------------------------------
+int __fastcall TCZDataSet::get_RecordCount() {
+	if (m_FieldSet->Count == 0)
+		throw Exception(L"未定义字段列");
+	ChgStatus(1);
+	TStringList *p;
+	p = (TStringList*)m_FieldSet->Objects[0];
+	return p->Count;
+}
+
+// ---------------------------------------------------------------------------
+int __fastcall TCZDataSet::get_FieldCount() {
+	ChgStatus(1);
+	return m_FieldSet->Count;
+}
+
+// ---------------------------------------------------------------------------
+String __fastcall TCZDataSet::get_FieldValues(String fieldname) {
+	TStringList *p;
+	int index;
+	if (m_Status == 0)
+		throw Exception(L"娄数据集未打开.");
+	else if (m_Status == 1) {
+		if (m_CurRecNo == -1)
+			throw Exception(L"当前数据指针超出范围.");
+		index = m_FieldSet->IndexOf(fieldname);
+		if (index == -1)
+			throw Exception(L"字段'" + fieldname + L"'未定义.");
+		p = (TStringList*)m_FieldSet->Objects[index];
+		return p->Strings[m_CurRecNo];
+	}
+	else {
+		index = m_FieldSet->IndexOf(fieldname);
+		if (index == -1)
+			throw Exception(L"字段'" + fieldname + L"'未定义.");
+		return m_EditRecord->Strings[index];
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::set_FieldValues(String fieldname, String value) {
+	int index;
+	if (m_Status == 0)
+		throw Exception(L"数据集未打开.");
+	if (m_Status == 1)
+		throw Exception(L"当前不是编辑状态.");
+	index = m_FieldSet->IndexOf(fieldname);
+	if (index == -1)
+		throw Exception(L"字段'" + fieldname + L"'未定义.");
+	m_EditRecord->Strings[index] = value;
+}
+
+// ---------------------------------------------------------------------------
+String __fastcall TCZDataSet::get_FieldByIndex(int index) {
+	TStringList *p;
+	if (m_Status == 0)
+		throw Exception(L"娄数据集未打开.");
+	else if (m_Status == 1) {
+		if (m_CurRecNo == -1)
+			throw Exception(L"当前数据指针超出范围.");
+		if (index < 0 || index >= m_FieldSet->Count)
+			throw Exception(L"字段下标'" + String(index) + L"'溢出.");
+		p = (TStringList*)m_FieldSet->Objects[index];
+		return p->Strings[m_CurRecNo];
+	}
+	else {
+		if (index < 0 || index >= m_FieldSet->Count)
+			throw Exception(L"字段下标'" + String(index) + L"'溢出.");
+		return m_EditRecord->Strings[index];
+	}
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::set_FieldByIndex(int index, String value) {
+	if (m_Status == 0)
+		throw Exception(L"数据集未打开.");
+	if (m_Status == 1)
+		throw Exception(L"当前不是编辑状态.");
+	if (index < 0 || index >= m_FieldSet->Count)
+		throw Exception(L"字段下标'" + String(index) + L"'溢出.");
+	m_EditRecord->Strings[index] = value;
+}
+
+// ---------------------------------------------------------------------------
+String __fastcall TCZDataSet::get_FieldName(int index) {
+	if (index < 0 || index >= m_FieldSet->Count)
+		throw Exception(L"字段下标溢出.");
+	return m_FieldSet->Strings[index];
+}
+
+// ---------------------------------------------------------------------------
+String __fastcall TCZDataSet::get_KeyField() {
+	return m_KeyField;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::set_KeyField(String value) {
+	int index;
+	index = m_FieldSet->IndexOf(value);
+	if (index == -1)
+		throw Exception(L"字段'" + value + L"'未定义.");
+	m_KeyField = value;
+}
+
+// ---------------------------------------------------------------------------
+bool __fastcall TCZDataSet::get_Bof() {
+	return m_Bof;
+}
+
+// ---------------------------------------------------------------------------
+bool __fastcall TCZDataSet::get_Eof() {
+	return m_Eof;
+}
+
+// ---------------------------------------------------------------------------
+int __fastcall TCZDataSet::get_Status() {
+	return m_Status;
+}
+
+// ---------------------------------------------------------------------------
+String __fastcall TCZDataSet::get_Bookmark() {
+	return m_Bookmark;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TCZDataSet::set_Bookmark(String value) {
+	m_Bookmark = value;
+}
+
+// ---------------------------------------------------------------------------
+int __fastcall TCZDataSet::get_CurRecNo() {
+	return m_CurRecNo;
+}
+// ---------------------------------------------------------------------------

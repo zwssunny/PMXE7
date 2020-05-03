@@ -1,0 +1,26 @@
+//---------------------------------------------------------------------------
+
+#ifndef SendUserMessageH
+#define SendUserMessageH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TSendUserMessage : public TDMBaseServerClass
+{
+private:
+	TADOQuery *AccQuery;
+	TADOQuery *Query;
+	TADOQuery *EmpQuery;
+	TADOConnection *m_Connection;
+	String FUserCode;
+	TMessageManage * FFMessageManage;
+public:
+	__fastcall TSendUserMessage(TComponent* Owner);
+	__fastcall ~TSendUserMessage();
+}
+};
+#endif

@@ -1,0 +1,392 @@
+#ifndef DSClientProxyH
+#define DSClientProxyH
+
+#include "Data.DBXCommon.hpp"
+#include "System.Classes.hpp"
+#include "System.SysUtils.hpp"
+#include "Data.DB.hpp"
+#include "Data.SqlExpr.hpp"
+#include "Data.DBXDBReaders.hpp"
+#include "Data.DBXCDSReaders.hpp"
+
+  class TLoginUserClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FGetSysConnectionStringCommand;
+    TDBXCommand *FChangePasswordCommand;
+    TDBXCommand *FUpdateCurUserCallbackClientIDCommand;
+    TDBXCommand *FLogoutCommand;
+    TDBXCommand *FSetUsersToFollowCommand;
+    TDBXCommand *FSendMessageToFollowCommand;
+    TDBXCommand *FSendMessageToAllCommand;
+    TDBXCommand *FSendMessageToUserCommand;
+    TDBXCommand *FSendMessageToDepartmentCommand;
+    TDBXCommand *FSendMessageToGroupCommand;
+    TDBXCommand *FSendCMDToFollowCommand;
+    TDBXCommand *FSendCMDToAllCommand;
+    TDBXCommand *FSendCMDToUserCommand;
+    TDBXCommand *FSendCMDToDepartmentCommand;
+    TDBXCommand *FSendCMDToGroupCommand;
+    TDBXCommand *FSendMgrMessageCommand;
+    TDBXCommand *FGetAccListCommand;
+    TDBXCommand *FGetCurUserInfoCommand;
+    TDBXCommand *FListOfLoginUserCommand;
+    TDBXCommand *FListOfAllLoginUserCommand;
+    TDBXCommand *FGetClassListCommand;
+    TDBXCommand *FGetAutoCodeFieldsCommand;
+    TDBXCommand *FGetModuleDataCommand;
+    TDBXCommand *FRefreshGlobeVarCommand;
+    TDBXCommand *FGetModuleRightCommand;
+    TDBXCommand *FGetAccInforJSONCommand;
+    TDBXCommand *FGetAccListJSONCommand;
+    TDBXCommand *FGetCurUserJSONCommand;
+    TDBXCommand *FGetUserListCommand;
+    TDBXCommand *FGetAllUserListCommand;
+    TDBXCommand *FGetClassListJOCommand;
+    TDBXCommand *FGetAutoCodeFieldsJOCommand;
+    TDBXCommand *FGetModuleDataJOCommand;
+    TDBXCommand *FRefreshGlobeVarJOCommand;
+    TDBXCommand *FGetModuleRightJOCommand;
+    TDBXCommand *FGetDepartmentAndUsersListCommand;
+    TDBXCommand *FUserIdToNameCommand;
+    TDBXCommand *FGetServerInfoCommand;
+    TDBXCommand *FGetFtpSettingCommand;
+    TDBXCommand *FGetMailSettingCommand;
+    TDBXCommand *FGetSmsSettingCommand;
+    TDBXCommand *FGetWorkFlowServerListCommand;
+    TDBXCommand *FGetSmsServerListCommand;
+  public:
+    __fastcall TLoginUserClient(TDBXConnection *ADBXConnection);
+    __fastcall TLoginUserClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TLoginUserClient();
+    System::UnicodeString __fastcall GetSysConnectionString();
+    bool __fastcall ChangePassword(System::UnicodeString UserCode, System::UnicodeString OldPassword, System::UnicodeString NewPassword, System::UnicodeString &msg);
+    bool __fastcall UpdateCurUserCallbackClientID(System::UnicodeString Value);
+    void __fastcall Logout();
+    void __fastcall SetUsersToFollow(TJSONArray* Users);
+    bool __fastcall SendMessageToFollow(System::UnicodeString Msg);
+    bool __fastcall SendMessageToAll(System::UnicodeString Msg);
+    bool __fastcall SendMessageToUser(System::UnicodeString Msg, System::UnicodeString UserID);
+    bool __fastcall SendMessageToDepartment(System::UnicodeString Msg, System::UnicodeString DepartmentID);
+    bool __fastcall SendMessageToGroup(System::UnicodeString Msg, System::UnicodeString GroupID);
+    bool __fastcall SendCMDToFollow(System::UnicodeString cmdStr);
+    bool __fastcall SendCMDToAll(System::UnicodeString cmdStr);
+    bool __fastcall SendCMDToUser(System::UnicodeString cmdStr, System::UnicodeString UserID);
+    bool __fastcall SendCMDToDepartment(System::UnicodeString cmdStr, System::UnicodeString DepartmentID);
+    bool __fastcall SendCMDToGroup(System::UnicodeString cmdStr, System::UnicodeString GroupID);
+    bool __fastcall SendMgrMessage(int itype, System::UnicodeString Msg);
+    TStream* __fastcall GetAccList();
+    TStream* __fastcall GetCurUserInfo();
+    TStream* __fastcall ListOfLoginUser();
+    TStream* __fastcall ListOfAllLoginUser();
+    TStream* __fastcall GetClassList();
+    TStream* __fastcall GetAutoCodeFields();
+    TStream* __fastcall GetModuleData();
+    TStream* __fastcall RefreshGlobeVar();
+    TStream* __fastcall GetModuleRight();
+    TJSONObject* __fastcall GetAccInforJSON();
+    TJSONObject* __fastcall GetAccListJSON();
+    TJSONObject* __fastcall GetCurUserJSON();
+    TJSONArray* __fastcall GetUserList();
+    TJSONArray* __fastcall GetAllUserList();
+    TJSONObject* __fastcall GetClassListJO();
+    TJSONObject* __fastcall GetAutoCodeFieldsJO();
+    TJSONObject* __fastcall GetModuleDataJO();
+    TJSONObject* __fastcall RefreshGlobeVarJO();
+    TJSONObject* __fastcall GetModuleRightJO();
+    TJSONArray* __fastcall GetDepartmentAndUsersList();
+    System::UnicodeString __fastcall UserIdToName(System::UnicodeString UserId);
+    TJSONObject* __fastcall GetServerInfo();
+    TJSONObject* __fastcall GetFtpSetting();
+    TJSONObject* __fastcall GetMailSetting();
+    TJSONObject* __fastcall GetSmsSetting();
+    TJSONArray* __fastcall GetWorkFlowServerList();
+    TJSONArray* __fastcall GetSmsServerList();
+  };
+
+  class TSyAccBookClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FGetAllAccBookCommand;
+    TDBXCommand *FGetActiveAccBookCommand;
+    TDBXCommand *FGetAllAccBookJOCommand;
+    TDBXCommand *FGetActiveAccBookJOCommand;
+  public:
+    __fastcall TSyAccBookClient(TDBXConnection *ADBXConnection);
+    __fastcall TSyAccBookClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TSyAccBookClient();
+    TStream* __fastcall GetAllAccBook();
+    TStream* __fastcall GetActiveAccBook();
+    TJSONObject* __fastcall GetAllAccBookJO();
+    TJSONObject* __fastcall GetActiveAccBookJO();
+  };
+
+  class TServerDataSetClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FGetInitResultCommand;
+    TDBXCommand *FOpenCommand;
+    TDBXCommand *FUpdateCommand;
+    TDBXCommand *FDeleteCommand;
+    TDBXCommand *FDeleteDetailCommand;
+    TDBXCommand *FCmdExecCommand;
+    TDBXCommand *FCheckCommand;
+    TDBXCommand *FCloseOffCommand;
+    TDBXCommand *FRevokeCommand;
+    TDBXCommand *FTallyCommand;
+    TDBXCommand *FExecSQLCommand;
+    TDBXCommand *FValidateDataCommand;
+    TDBXCommand *FQueryOpenCommand;
+    TDBXCommand *FQueryExecSQLCommand;
+    TDBXCommand *FQuerySysOpenCommand;
+    TDBXCommand *FQuerySysExecSQLCommand;
+  public:
+    __fastcall TServerDataSetClient(TDBXConnection *ADBXConnection);
+    __fastcall TServerDataSetClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TServerDataSetClient();
+    TStream* __fastcall GetInitResult(System::UnicodeString ClassCode);
+    TStream* __fastcall Open(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall Update(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall Delete(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall DeleteDetail(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall CmdExec(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall Check(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall CloseOff(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall Revoke(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall Tally(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall ExecSQL(TStream* Stream);
+    TStream* __fastcall ValidateData(TStream* Stream, System::UnicodeString ClassCode);
+    TStream* __fastcall QueryOpen(System::UnicodeString SQLText);
+    TStream* __fastcall QueryExecSQL(System::UnicodeString SQLText);
+    TStream* __fastcall QuerySysOpen(System::UnicodeString SQLText);
+    TStream* __fastcall QuerySysExecSQL(System::UnicodeString SQLText);
+  };
+
+  class TServerQueryClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FQueryOpenCommand;
+    TDBXCommand *FQueryExecSQLCommand;
+    TDBXCommand *FExecSQLCommand;
+    TDBXCommand *FQuerySysOpenCommand;
+    TDBXCommand *FQuerySysExecSQLCommand;
+    TDBXCommand *FSysExecSQLCommand;
+  public:
+    __fastcall TServerQueryClient(TDBXConnection *ADBXConnection);
+    __fastcall TServerQueryClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TServerQueryClient();
+    TStream* __fastcall QueryOpen(System::UnicodeString SQLText);
+    int __fastcall QueryExecSQL(System::UnicodeString SQLText);
+    int __fastcall ExecSQL(System::UnicodeString SQLText, TParams* Parameters);
+    TStream* __fastcall QuerySysOpen(System::UnicodeString SQLText);
+    int __fastcall QuerySysExecSQL(System::UnicodeString SQLText);
+    int __fastcall SysExecSQL(System::UnicodeString SQLText, TParams* Parameters);
+  };
+
+  class TChatRoomServerMethodsClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FGetUserListCommand;
+    TDBXCommand *FGetHTMLEscapedStringCommand;
+    TDBXCommand *FUpdateCurUserCallbackClientIDCommand;
+    TDBXCommand *FSendMessageToAllCommand;
+    TDBXCommand *FSendMessageToUserCommand;
+    TDBXCommand *FSendMessageToDepartmentCommand;
+    TDBXCommand *FSendMessageToGroupCommand;
+    TDBXCommand *FSendMessageToFollowCommand;
+    TDBXCommand *FSendCMDToFollowCommand;
+    TDBXCommand *FSendCMDToAllCommand;
+    TDBXCommand *FSendCMDToUserCommand;
+    TDBXCommand *FSendCMDToDepartmentCommand;
+    TDBXCommand *FSendCMDToGroupCommand;
+    TDBXCommand *FSendMgrMessageCommand;
+  public:
+    __fastcall TChatRoomServerMethodsClient(TDBXConnection *ADBXConnection);
+    __fastcall TChatRoomServerMethodsClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TChatRoomServerMethodsClient();
+    TJSONArray* __fastcall GetUserList();
+    System::UnicodeString __fastcall GetHTMLEscapedString(System::UnicodeString Value);
+    bool __fastcall UpdateCurUserCallbackClientID(System::UnicodeString Value);
+    bool __fastcall SendMessageToAll(System::UnicodeString Msg);
+    bool __fastcall SendMessageToUser(System::UnicodeString Msg, System::UnicodeString UserID);
+    bool __fastcall SendMessageToDepartment(System::UnicodeString Msg, System::UnicodeString DepartmentID);
+    bool __fastcall SendMessageToGroup(System::UnicodeString Msg, System::UnicodeString GroupID);
+    bool __fastcall SendMessageToFollow(System::UnicodeString Msg);
+    bool __fastcall SendCMDToFollow(System::UnicodeString cmdStr);
+    bool __fastcall SendCMDToAll(System::UnicodeString cmdStr);
+    bool __fastcall SendCMDToUser(System::UnicodeString cmdStr, System::UnicodeString UserID);
+    bool __fastcall SendCMDToDepartment(System::UnicodeString cmdStr, System::UnicodeString DepartmentID);
+    bool __fastcall SendCMDToGroup(System::UnicodeString cmdStr, System::UnicodeString GroupID);
+    bool __fastcall SendMgrMessage(int itype, System::UnicodeString Msg);
+  };
+
+  class TJServerDataSetClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FGetInitResultCommand;
+    TDBXCommand *FOpenCommand;
+    TDBXCommand *FUpdateCommand;
+    TDBXCommand *FDeleteCommand;
+    TDBXCommand *FDeleteDetailCommand;
+    TDBXCommand *FValidateDataCommand;
+    TDBXCommand *FCmdExecCommand;
+    TDBXCommand *FCheckCommand;
+    TDBXCommand *FCloseOffCommand;
+    TDBXCommand *FRevokeCommand;
+    TDBXCommand *FTallyCommand;
+    TDBXCommand *FExecSQLCommand;
+    TDBXCommand *FQueryOpenCommand;
+    TDBXCommand *FQueryExecSQLCommand;
+    TDBXCommand *FQuerySysOpenCommand;
+    TDBXCommand *FQuerySysExecSQLCommand;
+  public:
+    __fastcall TJServerDataSetClient(TDBXConnection *ADBXConnection);
+    __fastcall TJServerDataSetClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TJServerDataSetClient();
+    TJSONObject* __fastcall GetInitResult(System::UnicodeString ClassCode);
+    TJSONObject* __fastcall Open(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall Update(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall Delete(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall DeleteDetail(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall ValidateData(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall CmdExec(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall Check(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall CloseOff(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall Revoke(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall Tally(TJSONObject* Json, System::UnicodeString ClassCode);
+    TJSONObject* __fastcall ExecSQL(TJSONObject* Json);
+    TJSONObject* __fastcall QueryOpen(System::UnicodeString SQLText);
+    TJSONObject* __fastcall QueryExecSQL(System::UnicodeString SQLText);
+    TJSONObject* __fastcall QuerySysOpen(System::UnicodeString SQLText);
+    TJSONObject* __fastcall QuerySysExecSQL(System::UnicodeString SQLText);
+  };
+
+  class TJServerQueryClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FQueryOpenCommand;
+    TDBXCommand *FQueryUpdateCommand;
+    TDBXCommand *FQueryExecSQLCommand;
+    TDBXCommand *FQuerySysOpenCommand;
+    TDBXCommand *FQuerySysExecSQLCommand;
+  public:
+    __fastcall TJServerQueryClient(TDBXConnection *ADBXConnection);
+    __fastcall TJServerQueryClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TJServerQueryClient();
+    TJSONObject* __fastcall QueryOpen(System::UnicodeString SQLText);
+    TJSONObject* __fastcall QueryUpdate(TJSONObject* Json, System::UnicodeString ClassCode);
+    int __fastcall QueryExecSQL(System::UnicodeString SQLText);
+    TJSONObject* __fastcall QuerySysOpen(System::UnicodeString SQLText);
+    int __fastcall QuerySysExecSQL(System::UnicodeString SQLText);
+  };
+
+  class TDMWorkFlowServerClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FServerWorkFlowStartJSONCommand;
+    TDBXCommand *FServerWorkFlowStartCommand;
+    TDBXCommand *FServerWorkFlowExecJSONCommand;
+    TDBXCommand *FServerWorkFlowExecCommand;
+    TDBXCommand *FGetTaskListCommand;
+    TDBXCommand *FGetLogListCommand;
+    TDBXCommand *FGetDiagramCommand;
+    TDBXCommand *FGetTaskdefListCommand;
+    TDBXCommand *FGetVariableListCommand;
+    TDBXCommand *FGetWorkFlowChartCommand;
+  public:
+    __fastcall TDMWorkFlowServerClient(TDBXConnection *ADBXConnection);
+    __fastcall TDMWorkFlowServerClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TDMWorkFlowServerClient();
+    System::UnicodeString __fastcall ServerWorkFlowStartJSON(TJSONObject* jsonValue);
+    System::UnicodeString __fastcall ServerWorkFlowStart(System::UnicodeString FlowDefID, System::UnicodeString Subject, System::UnicodeString Content, System::UnicodeString BusWindow, System::UnicodeString BusCode, int Rank, System::UnicodeString PrjID, System::UnicodeString Report);
+    bool __fastcall ServerWorkFlowExecJSON(TJSONObject* jsonValue);
+    bool __fastcall ServerWorkFlowExec(System::UnicodeString FlowDefID, System::UnicodeString WorkInsID, System::UnicodeString TaskInsID, System::UnicodeString TskStatus, System::UnicodeString TskComments, TJSONArray* VariableList);
+    TJSONObject* __fastcall GetTaskList(System::UnicodeString AUserID, int ACompletedState, System::UnicodeString AOtherCondition);
+    System::UnicodeString __fastcall GetLogList(int ALogFilterType, System::UnicodeString AFilterKey);
+    System::UnicodeString __fastcall GetDiagram(int ADiagramType, System::UnicodeString ADiagramKey);
+    TJSONObject* __fastcall GetTaskdefList(System::UnicodeString TaskInsID);
+    TJSONObject* __fastcall GetVariableList(System::UnicodeString TaskInsID);
+    TStream* __fastcall GetWorkFlowChart(System::UnicodeString FlowID, bool isDef);
+  };
+
+  class TMessageManageClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FNewMessageGroupCommand;
+    TDBXCommand *FDelMessageGroupCommand;
+    TDBXCommand *FUpdateMessageGroupCommand;
+    TDBXCommand *FNewMessageMemberCommand;
+    TDBXCommand *FUpdateMessageMemberCommand;
+    TDBXCommand *FDelMessageMemberCommand;
+    TDBXCommand *FGetMessageGroupListCommand;
+    TDBXCommand *FGetGroupMemberListCommand;
+    TDBXCommand *FGetAllEmployeeCommand;
+    TDBXCommand *FIsGroupMemberCommand;
+    TDBXCommand *FSendMissMessageCommand;
+    TDBXCommand *FGetLatelyMessageCommand;
+    TDBXCommand *FSendMissMessageToUserCommand;
+    TDBXCommand *FSendMissMessageToDepartmentCommand;
+    TDBXCommand *FSendMissMessageToGroupCommand;
+  public:
+    __fastcall TMessageManageClient(TDBXConnection *ADBXConnection);
+    __fastcall TMessageManageClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TMessageManageClient();
+    void __fastcall NewMessageGroup(System::UnicodeString GroupName, System::UnicodeString Description);
+    void __fastcall DelMessageGroup(System::UnicodeString GroupID);
+    void __fastcall UpdateMessageGroup(System::UnicodeString GroupID, System::UnicodeString GroupName, System::UnicodeString Description);
+    void __fastcall NewMessageMember(System::UnicodeString GroupID, System::UnicodeString GroupMemberID, int IsAdmin);
+    void __fastcall UpdateMessageMember(System::UnicodeString GroupID, System::UnicodeString GroupMemberID, int IsAdmin);
+    void __fastcall DelMessageMember(System::UnicodeString GroupID, System::UnicodeString GroupMemberID);
+    TJSONArray* __fastcall GetMessageGroupList();
+    TJSONArray* __fastcall GetGroupMemberList(System::UnicodeString GroudId);
+    TJSONArray* __fastcall GetAllEmployee(System::UnicodeString GroupId);
+    bool __fastcall IsGroupMember(System::UnicodeString GroupId, System::UnicodeString MemberId);
+    void __fastcall SendMissMessage(System::UnicodeString UserId);
+    TJSONArray* __fastcall GetLatelyMessage(System::UnicodeString UserId, System::UnicodeString ReceId, int RecType);
+    bool __fastcall SendMissMessageToUser(System::UnicodeString Msg, System::UnicodeString FromID, System::UnicodeString FromName, System::UnicodeString MsgID, System::UnicodeString sendtime);
+    bool __fastcall SendMissMessageToDepartment(System::UnicodeString Msg, System::UnicodeString FromID, System::UnicodeString FromName, System::UnicodeString DepartmentID, System::UnicodeString MsgID, System::UnicodeString sendtime);
+    bool __fastcall SendMissMessageToGroup(System::UnicodeString Msg, System::UnicodeString FromID, System::UnicodeString FromName, System::UnicodeString GroupID, System::UnicodeString MsgID, System::UnicodeString sendtime);
+  };
+
+  class TContractProjectClient : public TObject
+  {
+  private:
+    TDBXConnection *FDBXConnection;
+    bool FInstanceOwner;
+    TDBXCommand *FGetContypeCommand;
+    TDBXCommand *FGetContlistCommand;
+    TDBXCommand *FGetContdataCommand;
+    TDBXCommand *FGetProtypeCommand;
+    TDBXCommand *FGetProlistCommand;
+    TDBXCommand *FGetProdataCommand;
+  public:
+    __fastcall TContractProjectClient(TDBXConnection *ADBXConnection);
+    __fastcall TContractProjectClient(TDBXConnection *ADBXConnection, bool AInstanceOwner);
+    __fastcall ~TContractProjectClient();
+    TJSONArray* __fastcall GetContype();
+    TJSONArray* __fastcall GetContlist(System::UnicodeString userid, System::UnicodeString ctypeid);
+    TJSONArray* __fastcall GetContdata(System::UnicodeString contid);
+    TJSONArray* __fastcall GetProtype();
+    TJSONArray* __fastcall GetProlist(System::UnicodeString userid, System::UnicodeString ProTypeid);
+    TJSONArray* __fastcall GetProdata(System::UnicodeString Projectid);
+  };
+
+#endif

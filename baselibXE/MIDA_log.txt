@@ -1,0 +1,88 @@
+Mida - Convert VCL Application To FireMonkey for Delphi Embarcadero XE2 and C++Builder XE2
+Official Site http://www.midaconverter.com
+Mida version : 252
+----------------------------------------------------------------------------------------------------------------------------------------------
+This is a Basic version of Mida ( LiveBindinds - StyleBook - Image - Source Update, Custom components... are not supported )
+
+The Third Party Components ( TMS - JVCL - DevExpress... ) are not supported in this version of Mida.
+Opening from XE2 IDE a converted project, with components like TMS,JVCL,personal ... IDE will indicate an error of Class not known.
+
+This is not an error of Mida.
+
+Upgrade your licence to Mida Pro to obtain a greater number of components supported.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Converting...
+
+Converting : E:\PMXE3\baselibXE\Unit1.dfm
+     
+Converting : E:\PMXE3\baselibXE\DBJson.pas
+     
+Converting : E:\PMXE3\baselibXE\DBJson_New.pas
+     
+Converting : E:\PMXE3\baselibXE\ElAES.pas
+     
+Converting : E:\PMXE3\baselibXE\superobject.pas
+     
+copy extra file : E:\PMXE3\baselibXE\fm\APIbase.h
+copy extra file : E:\PMXE3\baselibXE\fm\BaseFunc.h
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibPCH.h
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.bpi
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.bpl
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.cbproj.bak
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.ilc
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.ild
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.ilf
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.ils
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.lib
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.map
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.pdi
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.res
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXE.tds
+copy extra file : E:\PMXE3\baselibXE\fm\BaseLibXEPCH.h
+copy extra file : E:\PMXE3\baselibXE\fm\Baseobject.h
+copy extra file : E:\PMXE3\baselibXE\fm\BroadCast.h
+copy extra file : E:\PMXE3\baselibXE\fm\CallbackClient.h
+copy extra file : E:\PMXE3\baselibXE\fm\ChatRoomServerMethods.h
+copy extra file : E:\PMXE3\baselibXE\fm\ClientBroker.h
+copy extra file : E:\PMXE3\baselibXE\fm\coredef.h
+copy extra file : E:\PMXE3\baselibXE\fm\CZDataSet.h
+copy extra file : E:\PMXE3\baselibXE\fm\DataSnapClientDataSet.h
+copy extra file : E:\PMXE3\baselibXE\fm\DataSnapStream.h
+copy extra file : E:\PMXE3\baselibXE\fm\DBHead.h
+copy extra file : E:\PMXE3\baselibXE\fm\DBJson.hpp
+copy extra file : E:\PMXE3\baselibXE\fm\DecEnc.h
+copy extra file : E:\PMXE3\baselibXE\fm\DSClientProxy.h
+copy extra file : E:\PMXE3\baselibXE\fm\ElAES.hpp
+copy extra file : E:\PMXE3\baselibXE\fm\fsScreenCursor.h
+copy extra file : E:\PMXE3\baselibXE\fm\hhelp.h
+copy extra file : E:\PMXE3\baselibXE\fm\JClientDataset.h
+copy extra file : E:\PMXE3\baselibXE\fm\JClientQuery.h
+copy extra file : E:\PMXE3\baselibXE\fm\LogInfo.h
+copy extra file : E:\PMXE3\baselibXE\fm\LoginUserRecord.h
+copy extra file : E:\PMXE3\baselibXE\fm\MBDataSet.h
+copy extra file : E:\PMXE3\baselibXE\fm\MessageDef.h
+copy extra file : E:\PMXE3\baselibXE\fm\MsgJson.h
+copy extra file : E:\PMXE3\baselibXE\fm\MsgStream.h
+copy extra file : E:\PMXE3\baselibXE\fm\NetResource.h
+copy extra file : E:\PMXE3\baselibXE\fm\SafeDataApi.h
+copy extra file : E:\PMXE3\baselibXE\fm\SafeDataDef.h
+copy extra file : E:\PMXE3\baselibXE\fm\SecretDB.h
+copy extra file : E:\PMXE3\baselibXE\fm\SerLib.bpi
+copy extra file : E:\PMXE3\baselibXE\fm\SerLib.bpl
+copy extra file : E:\PMXE3\baselibXE\fm\ServerCtl.h
+copy extra file : E:\PMXE3\baselibXE\fm\SHConst.h
+copy extra file : E:\PMXE3\baselibXE\fm\ShZip.h
+copy extra file : E:\PMXE3\baselibXE\fm\SmsSerRecord.h
+copy extra file : E:\PMXE3\baselibXE\fm\superobject.hpp
+copy extra file : E:\PMXE3\baselibXE\fm\WaitBox.h
+copy extra file : E:\PMXE3\baselibXE\fm\WorkFlowSerRecord.h
+copy extra file : E:\PMXE3\baselibXE\fm\WorkflowZClientDB.h
+copy extra file : E:\PMXE3\baselibXE\fm\XMLData.h
+copy extra file : E:\PMXE3\baselibXE\fm\ZButton.h
+copy extra file : E:\PMXE3\baselibXE\fm\ZClientDataset.h
+copy extra file : E:\PMXE3\baselibXE\fm\ZClientQuery.h
+copy extra file : E:\PMXE3\baselibXE\fm\ZQuery.h
+
+Operation Complete
+Time convertion project : 1.70 seconds.

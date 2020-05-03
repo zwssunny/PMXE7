@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.144,=E:\PMXE6\tethering\Zxing\bigint\BigIntegerAlgorithms.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.162,=E:\PMXE6\tethering\Zxing\bigint\BigUnsignedInABase.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.149,=E:\PMXE6\tethering\Zxing\bigint\BigIntegerUtils.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.138,=E:\PMXE6\tethering\Zxing\bigint\BigInteger.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.156,=E:\PMXE6\tethering\Zxing\bigint\BigUnsigned.cc</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.121,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj=E:\PMXE6\tethering\Zxing\bigint\BigIntlib.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>

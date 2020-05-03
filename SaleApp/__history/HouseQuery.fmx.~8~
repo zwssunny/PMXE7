@@ -1,0 +1,266 @@
+inherited frmHouseQuery: TfrmHouseQuery
+  Caption = 'frmBaseListShow1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 567
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object HouseStringGrid: TStringGrid [2]
+    Align = Client
+    Height = 471.000000000000000000
+    TabOrder = 16
+    Width = 384.000000000000000000
+    Options = [ColumnResize, ColLines, RowLines, RowSelect, AlwaysShowSelection, Tabs, Header, HeaderClick]
+    RowCount = 0
+    RowHeight = 30.000000000000000000
+    object StringColumn1: TStringColumn
+      Header = #27004#30424
+      Height = 0.000000000000000000
+      TabOrder = 0
+      Width = 100.000000000000000000
+    end
+    object StringColumn2: TStringColumn
+      Header = #27004#38401
+      Height = 0.000000000000000000
+      Position.X = 100.000000000000000000
+      TabOrder = 1
+      Width = 100.000000000000000000
+    end
+    object StringColumn3: TStringColumn
+      Header = #21333#20803#32534#21495
+      Height = 0.000000000000000000
+      Position.X = 200.000000000000000000
+      TabOrder = 2
+      Width = 100.000000000000000000
+    end
+    object StringColumn4: TStringColumn
+      Header = #25143#22411
+      Height = 0.000000000000000000
+      Position.X = 300.000000000000000000
+      TabOrder = 3
+      Width = 100.000000000000000000
+    end
+    object StringColumn5: TStringColumn
+      Header = #26397#21521
+      Height = 0.000000000000000000
+      Position.X = 400.000000000000000000
+      TabOrder = 4
+      Width = 100.000000000000000000
+    end
+    object StringColumn6: TStringColumn
+      Header = #38754#31215
+      Height = 0.000000000000000000
+      Position.X = 500.000000000000000000
+      TabOrder = 5
+      Width = 100.000000000000000000
+    end
+    object StringColumn7: TStringColumn
+      Header = #21333#20215
+      Height = 0.000000000000000000
+      Position.X = 600.000000000000000000
+      TabOrder = 6
+      Width = 100.000000000000000000
+    end
+    object StringColumn8: TStringColumn
+      Header = #24635#37329#39069
+      Height = 0.000000000000000000
+      Position.X = 700.000000000000000000
+      TabOrder = 7
+      Width = 100.000000000000000000
+    end
+    object StringColumn9: TStringColumn
+      Height = 0.000000000000000000
+      Position.X = 800.000000000000000000
+      TabOrder = 8
+      Width = 100.000000000000000000
+    end
+    object StringColumn10: TStringColumn
+      Height = 0.000000000000000000
+      Position.X = 900.000000000000000000
+      TabOrder = 9
+      Width = 100.000000000000000000
+    end
+  end
+  inherited ListFormBindingsList: TBindingsList
+    object BindStringGridLink: TBindGridLink
+      Category = 'Links'
+      ControlComponent = HouseStringGrid
+      SourceComponent = GridBindSourceDB
+      ColumnExpressions = <
+        item
+          ColumnName = 'EstateName'
+          ColumnIndex = 0
+          SourceMemberName = 'EstateName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[0]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[0].Header'
+              SourceExpression = '"'#27004#30424#21517#31216'"'
+            end>
+        end
+        item
+          ColumnName = 'BdgName'
+          ColumnIndex = 1
+          SourceMemberName = 'BdgName'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[1]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[1].Header'
+              SourceExpression = '"'#27004#38401#21517#31216'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgNum'
+          ColumnIndex = 2
+          SourceMemberName = 'HsgNum'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[2]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[2].Header'
+              SourceExpression = '"'#21333#20803#32534#21495'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgHTRemark'
+          ColumnIndex = 3
+          SourceMemberName = 'HsgHTRemark'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[3]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[3].Header'
+              SourceExpression = '"'#25143#22411'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgOnRemark'
+          ColumnIndex = 4
+          SourceMemberName = 'HsgOnRemark'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[4]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[4].Header'
+              SourceExpression = '"'#26397#21521'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgSellArea'
+          ColumnIndex = 5
+          SourceMemberName = 'HsgSellArea'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[5]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[5].Header'
+              SourceExpression = '"'#38754#31215'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgSellPrice'
+          ColumnIndex = 6
+          SourceMemberName = 'HsgSellPrice'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[6]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[6].Header'
+              SourceExpression = '"'#21333#20215'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgSellTotal'
+          ColumnIndex = 7
+          SourceMemberName = 'HsgSellTotal'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[7]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[7].Header'
+              SourceExpression = '"'#24635#37329#39069'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgLeRemark'
+          ColumnIndex = 8
+          SourceMemberName = 'HsgLeRemark'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[8]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[8].Header'
+              SourceExpression = '"'#26223#35266'"'
+            end>
+        end
+        item
+          ColumnName = 'HsgDnRemark'
+          ColumnIndex = 9
+          SourceMemberName = 'HsgDnRemark'
+          ParseCellExpressions = <>
+          FormatCellExpressions = <
+            item
+              ControlExpression = 'Cells[9]'
+              SourceExpression = 'AsString'
+            end>
+          FormatColumnExpressions = <
+            item
+              ControlExpression = 'Columns[9].Header'
+              SourceExpression = '"'#35013#20462'"'
+            end>
+        end>
+      PosControlExpressions = <
+        item
+          ControlExpression = 'Selected'
+          SourceExpression = 'RecNo-1'
+        end>
+      PosSourceExpressions = <
+        item
+          ControlExpression = 'Selected+1'
+          SourceExpression = 'RecNo'
+        end>
+      FormatControlExpressions = <>
+      ClearControlExpressions = <>
+      AutoActivate = False
+    end
+  end
+end

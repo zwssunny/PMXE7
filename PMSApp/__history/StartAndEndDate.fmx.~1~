@@ -1,0 +1,5 @@
+object Frame1: TFrame1
+  Height = 240.000000000000000000
+  Width = 320.000000000000000000
+  TabOrder = 0
+end

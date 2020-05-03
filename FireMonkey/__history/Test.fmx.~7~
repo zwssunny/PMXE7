@@ -1,0 +1,80 @@
+object frmTest: TfrmTest
+  Left = 0
+  Top = 0
+  Caption = #25968#25454#38598#27979#35797
+  ClientHeight = 400
+  ClientWidth = 600
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMobile = False
+  DesignerWidth = 0
+  DesignerHeight = 0
+  DesignerDeviceName = ''
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Panel1: TPanel
+    Align = Top
+    Height = 41.000000000000000000
+    Width = 600.000000000000000000
+    TabOrder = 0
+    object Button1: TButton
+      Height = 22.000000000000000000
+      Position.X = 24.000000000000000000
+      Position.Y = 8.000000000000000000
+      TabOrder = 0
+      Text = '&Open'
+      Width = 100.000000000000000000
+      OnClick = Button1Click
+    end
+    object BindNavigator1: TBindNavigator
+      Height = 25.000000000000000000
+      Position.X = 264.000000000000000000
+      Position.Y = 8.000000000000000000
+      Width = 320.000000000000000000
+      TabOrder = 2
+      DataSource = BindSourceDB1
+      xRadius = 4.000000000000000000
+      yRadius = 4.000000000000000000
+    end
+  end
+  object StringGrid1: TStringGrid
+    Align = Client
+    Height = 359.000000000000000000
+    TabOrder = 1
+    Width = 600.000000000000000000
+    DisableFocusEffect = False
+    Options = [AlternatingRowBackground, Editing, ColumnResize, ColumnMove, ColLines, RowLines, Tabs, Header, HeaderClick]
+    RowCount = 100
+    RowHeight = 21.000000000000000000
+  end
+  object DataSource1: TDataSource
+    Left = 240
+    Top = 144
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSource = DataSource1
+    ScopeMappings = <>
+    Left = 496
+    Top = 128
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 384
+    Top = 120
+    object LinkGridToDataSourceBindSourceDB1: TLinkGridToDataSource
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      GridControl = StringGrid1
+      Columns = <>
+    end
+  end
+  object BindingsList2: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 304
+    Top = 288
+  end
+end

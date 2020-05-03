@@ -1,0 +1,30 @@
+inherited StuffStockInFiltersForm: TStuffStockInFiltersForm
+  Caption = 'BaseFiltersForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      object cbStore: TComboBox
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Position.X = 104.000000000000000000
+        Position.Y = 20.000000000000000000
+        TabOrder = 6
+        Width = 201.000000000000000000
+      end
+      object Label1: TLabel
+        Height = 23.000000000000000000
+        Position.X = 16.000000000000000000
+        Position.Y = 24.000000000000000000
+        Text = #29289#36164#20179#24211':'
+        Width = 82.000000000000000000
+      end
+    end
+  end
+end

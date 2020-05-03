@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.366,E:\PMXE6\tethering\Zxing\FMXtest\HeaderFooterTemplate.fmx=E:\PMXE6\tethering\Zxing\FMXtest\main.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.584,E:\PMXE6\tethering\Zxing\FMXtest\ImageReaderSource.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.990,E:\PMXE6\tethering\Zxing\FMXtest\jpgd.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.749,=E:\PMXE6\tethering\Zxing\FMXtest\jpgd.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.115,=E:\PMXE6\tethering\Zxing\FMXtest\BufferBitmapSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.526,E:\PMXE6\tethering\Zxing\FMXtest\BufferBitmapSource.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.444,=E:\PMXE6\tethering\Zxing\FMXtest\ImageReaderSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.258,=E:\PMXE6\tethering\Zxing\FMXtest\ImageReaderSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.366,E:\PMXE6\tethering\Zxing\FMXtest\HeaderFooterTemplate.h=E:\PMXE6\tethering\Zxing\FMXtest\main.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.440,E:\PMXE6\tethering\Zxing\FMXtest\AppTest.cbproj=E:\PMXE6\tethering\Zxing\FMXtest\HeaderFooterApplication.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.409,E:\PMXE6\tethering\Zxing\Vcltest\UnicodeAndStdstring.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.193,=E:\PMXE6\tethering\Zxing\Vcltest\UnicodeAndStdstring.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.824,=E:\PMXE6\tethering\Zxing\FMXtest\lodepng.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.068,=E:\PMXE6\tethering\Zxing\FMXtest\jpgd.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.609,=E:\PMXE6\tethering\Zxing\FMXtest\lodepng.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.975,E:\PMXE6\tethering\Zxing\FMXtest\lodepng.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.767,=E:\PMXE6\tethering\Zxing\FMXtest\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.340,E:\PMXE6\tethering\Zxing\Vcltest\ImageReaderSource.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.366,E:\PMXE6\tethering\Zxing\FMXtest\HeaderFooterTemplate.cpp=E:\PMXE6\tethering\Zxing\FMXtest\main.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.519,E:\PMXE6\tethering\Zxing\FMXtest\Unit1.cpp=E:\PMXE6\tethering\Zxing\FMXtest\DecodeProc.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.144,=E:\PMXE6\tethering\Zxing\Vcltest\lodepng.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.519,E:\PMXE6\tethering\Zxing\FMXtest\Unit1.h=E:\PMXE6\tethering\Zxing\FMXtest\DecodeProc.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.041,=E:\PMXE6\tethering\Zxing\Vcltest\ImageReaderSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.406,E:\PMXE6\tethering\Zxing\Vcltest\lodepng.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.664,E:\PMXE6\tethering\Zxing\FMXtest\AppTestPCH.h=E:\PMXE6\tethering\Zxing\FMXtest\HeaderFooterApplicationPCH.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.313,=E:\PMXE6\tethering\Zxing\FMXtest\DecodeProc.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.788,E:\PMXE6\tethering\Zxing\FMXtest\BufferBitmapSource.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.285,=E:\PMXE6\tethering\Zxing\FMXtest\BufferBitmapSource.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.403,E:\PMXE6\tethering\Zxing\Vcltest\jpgd.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.833,=E:\PMXE6\tethering\Zxing\FMXtest\UnicodeAndStdstring.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.289,E:\PMXE6\tethering\Zxing\FMXtest\DecodeProc.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.091,=E:\PMXE6\tethering\Zxing\Vcltest\jpgd.cpp</Transaction>
+  </Transactions>
+	<MobileDevice>Q802T</MobileDevice>
+	<BT_BuildType>Debug</BT_BuildType>
+</BorlandProject>

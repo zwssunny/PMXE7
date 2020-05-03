@@ -1,0 +1,220 @@
+unit fRunWorkflowEditor;
+
+{$I wsdefs.inc}
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ComCtrls, StdCtrls, wsClasses, wsBlocks, Grids;
+
+type
+  TfmRunWorkflowEditor = class(TForm)
+    PageControl1: TPageControl;
+    tsGeneral: TTabSheet;
+    lbWorkflowDefinition: TLabel;
+    cbWorkflowDefinition: TComboBox;
+    btCancel: TButton;
+    btOk: TButton;
+    grVariableMapping: TStringGrid;
+    lbVariableMapping: TLabel;
+    chWaitExecution: TCheckBox;
+    procedure btOkClick(Sender: TObject);
+    procedure btCancelClick(Sender: TObject);
+    procedure cbWorkflowDefinitionChange(Sender: TObject);
+    procedure grVariableMappingSelectCell(Sender: TObject; ACol, ARow: Integer; var CanSelect: Boolean);
+  private
+    FBlock: TWorkflowRunWorkflowBlock;
+    FComboVar: TComboBox;
+    FWorkflowDefinition: TWorkflowDefinition;
+    procedure BlockToInterface;
+    procedure ComboVarChange(Sender: TObject);
+    procedure ComboVarExit(Sender: TObject);
+    procedure InterfaceToBlock;
+    procedure LoadComboVar;
+    procedure LoadVariableMapping(AList: TStrings);
+    procedure Localize;
+    procedure SaveVariableMapping(AList: TStrings);
+  protected
+    procedure Loaded; override;
+  public
+    function EditRunWorkflowBlock(ABlock: TWorkflowRunWorkflowBlock): boolean;
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+uses
+  Math, wsMain, wsRes;
+
+{$R *.DFM}
+
+{ TForm1 }
+
+function TfmRunWorkflowEditor.EditRunWorkflowBlock(ABlock: TWorkflowRunWorkflowBlock): boolean;
+begin
+  FBlock := ABlock;
+  if Assigned(FBlock.WorkflowDiagram) then
+    FBlock.WorkflowDiagram.WorkflowStudio.WorkflowManager.ListWorkflowDefinitionNames(cbWorkflowDefinition.Items);
+  BlockToInterface;
+  result := ShowModal = mrOk;
+  if result then
+    InterfaceToBlock;
+end;
+
+procedure TfmRunWorkflowEditor.btOkClick(Sender: TObject);
+begin
+  ModalResult := mrOk;
+end;
+
+procedure TfmRunWorkflowEditor.btCancelClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TfmRunWorkflowEditor.BlockToInterface;
+begin
+  {$WARNINGS OFF}
+  cbWorkflowDefinition.ItemIndex := cbWorkflowDefinition.Items.IndexOfObject(pointer(StrToIntDef(FBlock.WorkflowDefinitionKey, 0)));
+  {$WARNINGS ON}
+  LoadVariableMapping(FBlock.VariableMapping);
+  chWaitExecution.Checked := FBlock.WaitExecution;
+end;
+
+constructor TfmRunWorkflowEditor.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+
+  FComboVar := TComboBox.Create(Self);
+  FComboVar.Visible := false;
+  FComboVar.Parent := tsGeneral;
+  FComboVar.OnChange := ComboVarChange;
+  FComboVar.OnExit := ComboVarExit;
+  grVariableMapping.DefaultRowHeight := FComboVar.Height - 4;
+end;
+
+destructor TfmRunWorkflowEditor.Destroy;
+begin
+  if Assigned(FWorkflowDefinition) then
+    FWorkflowDefinition.Free;
+  inherited;
+end;
+
+procedure TfmRunWorkflowEditor.InterfaceToBlock;
+begin
+  if cbWorkflowDefinition.ItemIndex >= 0 then
+  begin
+    {$WARNINGS OFF}
+    FBlock.WorkflowDefinitionKey := IntToStr(integer(cbWorkflowDefinition.Items.Objects[cbWorkflowDefinition.ItemIndex]));
+    {$WARNINGS ON}
+    if FBlock.DefaultTextCell.Text = '' then
+      FBlock.DefaultTextCell.Text := cbWorkflowDefinition.Text;
+  end
+  else
+    FBlock.WorkflowDefinitionKey := '';
+  SaveVariableMapping(FBlock.VariableMapping);
+  FBlock.WaitExecution := chWaitExecution.Checked;
+end;
+
+procedure TfmRunWorkflowEditor.Localize;
+begin
+  Self.Caption := _str('fmRunWorkflowEditor.Self.Caption');
+  tsGeneral.Caption := _str('fmRunWorkflowEditor.tsGeneral.Caption');
+  lbWorkflowDefinition.Caption := _str('fmRunWorkflowEditor.lbWorkflowDefinition.Caption');
+  lbVariableMapping.Caption := _str('fmRunWorkflowEditor.lbVariableMapping.Caption');
+  chWaitExecution.Caption := _str('fmRunWorkflowEditor.chWaitExecution.Caption');
+  btCancel.Caption := _str('fmRunWorkflowEditor.btCancel.Caption');
+  btOk.Caption := _str('fmRunWorkflowEditor.btOk.Caption');
+end;
+
+procedure TfmRunWorkflowEditor.Loaded;
+begin
+  inherited;
+  Localize;
+end;
+
+procedure TfmRunWorkflowEditor.LoadVariableMapping(AList: TStrings);
+var
+  i: integer;
+  variables: TWorkflowVariables;
+begin
+  if Assigned(FBlock.WorkflowDiagram) then
+  begin
+    grVariableMapping.Cells[0, 0] := _str(SCurrentWorkflow);
+    grVariableMapping.Cells[1, 0] := cbWorkflowDefinition.Text;
+    LoadComboVar;
+    variables := FBlock.WorkflowDiagram.Variables;
+    grVariableMapping.RowCount := Max(2, variables.Count + 1);
+    for i := 0 to variables.Count-1 do
+    begin
+      grVariableMapping.Cells[0, i+1] := variables[i].Name;
+      grVariableMapping.Cells[1, i+1] := AList.Values[variables[i].Name];
+    end;
+  end;
+end;
+
+procedure TfmRunWorkflowEditor.SaveVariableMapping(AList: TStrings);
+var
+  i: integer;
+begin
+  if Assigned(FBlock.WorkflowDiagram) then
+    for i := 1 to grVariableMapping.RowCount-1 do
+      AList.Values[grVariableMapping.Cells[0, i]] := grVariableMapping.Cells[1, i];
+end;
+
+procedure TfmRunWorkflowEditor.cbWorkflowDefinitionChange(Sender: TObject);
+begin
+  grVariableMapping.Cells[1, 0] := cbWorkflowDefinition.Text;
+  LoadComboVar;
+end;
+
+procedure TfmRunWorkflowEditor.grVariableMappingSelectCell(Sender: TObject; ACol, ARow: Integer; var CanSelect: Boolean);
+var
+  R: TRect;
+begin
+  FComboVar.Visible := (ACol = 1) and (ARow > 0);
+  if FComboVar.Visible then
+  begin
+    FComboVar.Text := grVariableMapping.Cells[ACol, ARow];
+    R := grVariableMapping.CellRect(ACol, ARow);
+    FComboVar.SetBounds(grVariableMapping.Left + R.Left + 2, grVariableMapping.Top + R.Top + 2, R.Right - R.Left + 2, R.Bottom - R.Top + 2);
+    FComboVar.SetFocus;   
+  end;
+end;
+
+procedure TfmRunWorkflowEditor.LoadComboVar;
+var
+  workDefKey: string;
+  WS: TCustomWorkflowStudio;
+  i: integer;
+begin
+  FComboVar.Items.Clear;
+  if cbWorkflowDefinition.ItemIndex >= 0 then
+  begin
+    {$WARNINGS OFF}
+    workDefKey := IntToStr(integer(cbWorkflowDefinition.Items.Objects[cbWorkflowDefinition.ItemIndex]));
+    {$WARNINGS ON}
+
+    WS := FBlock.WorkflowDiagram.WorkflowStudio;
+    if not Assigned(FWorkflowDefinition) then
+      FWorkflowDefinition := TWorkflowDefinition.Create(WS);
+    if FWorkflowDefinition.Key <> workDefKey then
+      WS.WorkflowManager.LoadWorkflowDefinition(workDefKey, FWorkflowDefinition);
+    for i := 0 to FWorkflowDefinition.Diagram.Variables.Count-1 do
+      FComboVar.Items.Add(FWorkflowDefinition.Diagram.Variables[i].Name);
+  end;
+end;
+
+procedure TfmRunWorkflowEditor.ComboVarChange(Sender: TObject);
+begin
+  grVariableMapping.Cells[grVariableMapping.Col, grVariableMapping.Row] := FComboVar.Text;
+end;
+
+procedure TfmRunWorkflowEditor.ComboVarExit(Sender: TObject);
+begin
+  FComboVar.Hide;
+end;
+
+end.
+

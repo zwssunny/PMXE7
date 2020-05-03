@@ -1,0 +1,54 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "WorkFlowSerRecord.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+__fastcall TWorkFlowSerRecord::TWorkFlowSerRecord()
+:TBaseObject()
+{
+ Initialized();
+}
+void __fastcall TWorkFlowSerRecord::Initialized()
+{
+	FThreadSessionId=0;
+	FIpAdress="";
+	FClientPort="";
+	FProtocol="";
+	FCallBackClientID="";
+	FAppName="";
+	FLoginTime=Now();
+
+}
+__fastcall TWorkFlowSerRecord:: ~TWorkFlowSerRecord()
+{
+
+}
+__fastcall TWorkFlowSerRecord::TWorkFlowSerRecord(TJSONObject* Json)
+:TBaseObject()
+{
+  Initialized();
+  if (Json->Size()>0)
+   {
+   FThreadSessionId=Json->Get("threadSessionid")->JsonValue->Value().ToInt();
+   FCallBackClientID=Json->Get("callbackclientid")->JsonValue->Value();
+   FIpAdress=Json->Get("ipadress")->JsonValue->Value();
+   FClientPort=Json->Get("clientport")->JsonValue->Value();
+   FProtocol=Json->Get("protocol")->JsonValue->Value();
+   FAppName= Json->Get("appname")->JsonValue->Value();
+   FLoginTime=StrToDateTime(Json->Get("logintime")->JsonValue->Value());
+   }
+}
+TJSONObject* __fastcall  TWorkFlowSerRecord::ObjectToJSON()
+{
+  TJSONObject *result=new  TJSONObject();
+  result->AddPair(new TJSONPair("threadSessionid", IntToStr(FThreadSessionId)));
+  result->AddPair(new TJSONPair("callbackclientid", FCallBackClientID));
+  result->AddPair(new TJSONPair("ipadress", FIpAdress));
+  result->AddPair(new TJSONPair("protocol", FProtocol));
+  result->AddPair(new TJSONPair("clientport", FClientPort));
+  result->AddPair(new TJSONPair("appname", FAppName));
+  result->AddPair(new TJSONPair("logintime", FormatDateTime("yyyy-MM-dd HH:mm:ss",FLoginTime)));
+  return result;
+}

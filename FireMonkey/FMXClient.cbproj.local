@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.513,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.201,E:\PMXE7\baselibXE\OSX32\Debug\BaseLibXE.a=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.493,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.643,=E:\PMXE7\baselibXE\OSX32\Debug\BaseLibXE.a</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.867,E:\PMXE6\FireMonkey\FMXClient.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.117,E:\PMXE6\FireMonkey\DSClientProxy.h=E:\PMXE6\FireMonkey\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.331,=E:\PMXE6\FireMonkey\Test.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.879,=E:\PMXE6\FireMonkey\ClientConfg.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.964,=E:\PMXE6\FireMonkey\Login.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.085,=E:\PMXE6\FireMonkey\QQMain.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.117,E:\PMXE6\FireMonkey\DSClientProxy.cpp=E:\PMXE6\FireMonkey\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.548,=E:\PMXE6\FireMonkey\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.175,=E:\PMXE6\FireMonkey\main.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.167,E:\PMXE7\FireMonkey\Test.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.153,=E:\PMXE6\FireMonkey\QQMessage.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.378,=E:\PMXE6\FireMonkey\DM.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.532,E:\PMXE6\FireMonkey\DSClientProxy.cpp=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.076,E:\PMXE6\FireMonkey\DM.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

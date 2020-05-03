@@ -1,0 +1,206 @@
+#include <vcl.h>
+#pragma hdrstop
+//---------------------------------------------------------------------------
+#include "main.h"
+#include <msxmldom.hpp>
+#include <XMLDoc.hpp>
+#include <xmldom.hpp>
+#include <XMLIntf.hpp>
+#include <registry.hpp>
+#include "Basefunc.h"
+#include "DecEnc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+#pragma resource "*.dfm"
+
+TSmsServer *SmsServer;
+//---------------------------------------------------------------------------
+__fastcall TSmsServer::TSmsServer(TComponent* Owner)
+	: TService(Owner)
+{
+		   //	DateSeparator = '-';
+		   //	ShortDateFormat="yyyy-MM-dd";
+		  //	ShortTimeFormat="HH:mm:ss";
+	SetLocaleInfo(LOCALE_USER_DEFAULT,LOCALE_SDATE,"-");
+	SetLocaleInfo(LOCALE_USER_DEFAULT,LOCALE_STIME,":");
+	SetLocaleInfo(LOCALE_USER_DEFAULT,LOCALE_SSHORTDATE,"yyyy-MM-dd");
+	SetLocaleInfo(LOCALE_USER_DEFAULT,LOCALE_STIMEFORMAT,"HH:mm:ss");
+  //	::SendMessage(HWND_BROADCAST,WM_WININICHANGE,0,0);
+		   FSMSType=0;
+           FBeginTime=7 ;//开始时间
+           FEndTime=22; //结束时间
+           FWaitLong=1;//消息处理间隔时间 秒为单位
+           FRepeatCount=3;//发送错误时，需要重复次数
+//		   OleInitialize(NULL);
+}
+//---------------------------------------------------------------------------
+TServiceController __fastcall TSmsServer::GetServiceController(void)
+{
+	return (TServiceController) ServiceController;
+}
+//---------------------------------------------------------------------------
+void __stdcall ServiceController(unsigned CtrlCode)
+{
+	SmsServer->Controller(CtrlCode);
+}
+//---------------------------------------------------------------------------
+void __fastcall TSmsServer::LoadSetting()
+{
+  String settingfile=ExtractFilePath(Forms::Application->ExeName)+"default.xml";
+  try
+  {
+   if(!FileExists(settingfile))
+	 throw Exception("找不到系统配置文件"+settingfile);
+	_di_IXMLDocument xdoc=NewXMLDocument();
+	xdoc->LoadFromFile(settingfile);
+	xdoc->Active=true;
+	IXMLNodeList *NodeList=xdoc->ChildNodes;
+	IXMLNode *selectNode=NULL;
+	for(int i=0;i<NodeList->Count;i++)
+	{
+	   IXMLNode *curNode=NodeList->Nodes[i];
+	   if(curNode->LocalName==WideString("DefaultSettings")&&(curNode->GetAttribute("Version")==String("2.0.0.2")))
+		 {
+			selectNode=curNode;
+			break;
+		 }
+	}
+	if(selectNode!=NULL)
+	{
+		IXMLNodeList *sNodeList=selectNode->ChildNodes;
+		for(int j=0;j<sNodeList->Count;j++)
+		{
+			IXMLNode *sNode=sNodeList->Nodes[j];
+			if(sNode->GetAttribute("Name")==String("DbConStr"))
+			   FDbConStr=DecryptAES(sNode->GetAttribute("value"));
+			else if(sNode->GetAttribute("Name")==String("SMSType"))
+			   FSMSType=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("BeginTime"))
+			   FBeginTime=FormatDateTime("HH:mm:ss",StrToDateTime(sNode->GetAttribute("value")));
+			else if(sNode->GetAttribute("Name")==String("EndTime"))
+			   FEndTime=FormatDateTime("HH:mm:ss",StrToDateTime(sNode->GetAttribute("value")));
+			else if(sNode->GetAttribute("Name")==String("WaitLong"))
+			   FWaitLong=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("RepeatCount"))
+			   FRepeatCount=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("MonType"))
+			   FMonType=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("PortNum"))
+			   FPortNum=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("GateCordId"))
+			   FCordId=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("GateUserName"))
+			   FUserName=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("GatePassWord"))
+			   FPassword=sNode->GetAttribute("value");
+		}
+	}
+	xdoc->Active=false;
+ }
+ catch(Exception &e)
+ {
+   LogMessage("读取参数错误,"+e.Message);
+ }
+}
+//---------------------------------------------------------------------------
+void __fastcall TSmsServer::ServiceStart(TService *Sender,
+	  bool &Started)
+{
+	OleInitialize(NULL);
+	LoadSetting();
+	if (FSMSType <= 0)
+	 {
+	  Started=true;
+	  return;
+	 }
+	 int Flag = FSMSType - 1;
+	 ShortInfo = new TShortInfo(Owner,Flag);
+     ShortInfo->BeginTime=FBeginTime;
+     ShortInfo->EndTime=FEndTime;
+     ShortInfo->WaitLong=FWaitLong*1000;
+     ShortInfo->RepeatCount=FRepeatCount;
+	 ShortInfo->DBConnectString=FDbConStr;
+	 ShortInfo->OnWriteErrorLog  = WritErrorLog;
+	 ShortInfo->ModeType = FMonType;
+	 ShortInfo->ComPort = FPortNum;
+	 ShortInfo->CordId = FCordId;
+	 ShortInfo->UserName = FUserName;
+     ShortInfo->PassWord = FPassword;
+     ShortInfo->Initializtion();
+	 ShortInfo->StarTimer();
+	 Started=true;
+	 LogMessage("短信服务器已运行",3);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TSmsServer::ServiceStop(TService *Sender, bool &Stopped)
+{
+     try
+     {
+      try
+       {
+		 if (FSMSType != 0)
+            delete ShortInfo;
+       }
+       catch(Exception &e)
+       {
+		LogMessage(e.Message);
+       }
+      }
+      __finally
+      {
+       Stopped=true;
+	   LogMessage("短信服务器已停止",3);
+      }
+}
+//---------------------------------------------------------------------------
+void  __fastcall TSmsServer::WritErrorLog(String ErrorLong)
+{
+   String Errorfile=ExtractFilePath(Forms::Application->ExeName)+"ErrorLong.txt";
+   ErrorLong = DateTimeToStr(Now())+"  "+ErrorLong+"\r\n";
+   int iFileHandle;
+   try
+   {
+       if (FileExists(Errorfile))
+           iFileHandle = FileOpen(Errorfile,fmOpenWrite);
+       else
+           iFileHandle = FileCreate(Errorfile);
+       FileSeek(iFileHandle,0,2);
+       FileWrite(iFileHandle,ErrorLong.c_str(),ErrorLong.Length());
+   }
+   __finally
+   {
+       FileClose(iFileHandle);
+   }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TSmsServer::ServiceDestroy(TObject *Sender)
+{
+         OleUninitialize();        
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TSmsServer::ServiceAfterInstall(TService *Sender)
+{
+	TRegistry *reg;
+	reg = new TRegistry();
+	reg->RootKey = HKEY_LOCAL_MACHINE;
+	try
+	{
+		reg->OpenKey("SYSTEM",false);
+		reg->OpenKey("CurrentControlSet",false);
+		reg->OpenKey("Services",false);
+		reg->OpenKey("SmsServer",true);
+		reg->WriteString("Description","先智软件短信发送后台服务");
+		reg->CloseKey();
+	}
+	__finally
+	{
+		reg->Free();
+	}
+}
+//---------------------------------------------------------------------------
+

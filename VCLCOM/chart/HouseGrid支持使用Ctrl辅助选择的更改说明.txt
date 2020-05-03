@@ -1,0 +1,50 @@
+HouseGrid支持使用Ctrl辅助选择的更改说明
+1）之前的HouseGrid->SelRange不能再使用，改为遍历所有的单元，对每个单元都进行判断
+　if(HouseGrid->CellSelected[j][i])
+如下:
+原来的
+  for(int i=HouseGrid->SelRange.StartFloor;i<=HouseGrid->SelRange.EndFloor;i++)
+  {
+    for(int j=HouseGrid->SelRange.StartUnit;j<=HouseGrid->SelRange.EndUnit;j++)
+    {
+　　　if(Locate(i,j))//注意原来的Locate(i,j)不再适用
+      { ......
+　　　　HouseGrid->UnitRecord[GetUnitIndex(i,j)].DoubleLays=1;//不要再用这种方法
+      }
+   }}
+现在的：
+  TCells *CellData;
+  for(int i=1; i<=HouseGrid->FloorCount; i++)
+  {
+    for(int j=1; j<=HouseGrid->UnitCount; j++)
+    {
+      if(!HouseGrid->CellSelected[j][i]) continue;
+
+      CellData=HouseGrid->GetCellData(j,i);
+
+      if(Locate(HouseGrid->FloorCount-i+1,j))//这里更改了
+      {............　　　　　　
+　　　　//HouseGrid->UnitRecord[GetUnitIndex(i,j)].DoubleLays=1;//不要再用这种方法   
+        HouseGrid->GetCellData(j,i)->DoubleLays=1;//改为用GetCellData
+      }
+   }}
+2）如上代码中
+　　　　　if(Locate(i,j))//注意原来的Locate(i,j)不再适用
+　　改为 　if(Locate(HouseGrid->FloorCount-i+1,j))//这里更改了
+
+　　改为 HouseGrid->UnitRecord[GetUnitIndex(i,j)].DoubleLays=1;//不要再用这种方法   
+        HouseGrid->GetCellData(j,i)->DoubleLays=1;//改为用GetCellData
+不能再使用的原因：GetUnitIndex(i,j)和Locate(i,j)与CellSelected[j][i]的定位方法是不一致的，故同时使用时就有问题，但单独使用是可以的
+
+3）HouseGrid中增加的方法
+ void __fastcall SelectCells(int StartR, int EndR, int StartC,int EndC);
+ 选择一个范围的单元，StartR开始行号，EndR结束行号，开始列号StartC,结束列号EndC
+　行号由上至下计，最上一行为0；列号由右到左计，最左一列为0
+
+ void __fastcall ClearSelected();
+　使所有单元设置为未选择
+
+ __property bool CellSelected[int ACol][int ARow]
+  单独获取或设置一个单元是否选择
+　行号由上至下计，最上一行为0；列号由右到左计，最左一列为0
+　 CellSelected[1][2] = true;　//设置行1，列2的单元为选中

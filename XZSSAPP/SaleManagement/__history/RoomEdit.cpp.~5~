@@ -1,0 +1,235 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "RoomEdit.h"
+#include <System.Ioutils.hpp>
+#include <REST.Client.hpp>
+#include "LoanCalculation.h"
+#include "SaleSubscribeMangeDetail.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseBillForm"
+#pragma resource "*.fmx"
+TfrmRoomEditForm *frmRoomEditForm;
+//---------------------------------------------------------------------------
+__fastcall TfrmRoomEditForm::TfrmRoomEditForm(TComponent* Owner,TClientBroker *clBroker,int modulecode,TClientDataSet *m_DataSet,String param)
+	: TfrmBaseBillForm(Owner,clBroker,modulecode,m_DataSet,param)
+{
+#if  defined(__ANDROID__) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
+	AppPath= System::Ioutils::TPath::GetDocumentsPath();
+#else
+	AppPath = ExtractFilePath(ParamStr(0));
+#endif
+	AppPath=System::Ioutils::TPath::Combine(AppPath, "HouseView");  //»§ÐÍÍ¼Â·¾¶
+
+	FCurID = -1;
+	FPhotoViewer = NULL;
+	FBitmapList = new TList();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmRoomEditForm::FillData()
+{
+	if(DataSet->Active)
+	{
+		FCurID = DataSet->FieldByName("ID")->AsInteger;
+		edEstateName->Text = EstateName;
+		edBuildName->Text = BuildName;
+		edRoomName->Text = DataSet->FieldByName("Name")->AsString;
+		edFloorNum->Text = DataSet->FieldByName("FloorNum")->AsString;
+		edNumber->Text = DataSet->FieldByName("Number")->AsString;
+		edStatus->Text = GetTextFromDict(DataSet->FieldByName("Status")->AsString);
+		edFunction->Text = GetTextFromDict(DataSet->FieldByName("Function")->AsString);
+		edDecoration->Text = GetTextFromDict(DataSet->FieldByName("Decoration")->AsString);
+		edHouseType->Text = GetTextFromDict(DataSet->FieldByName("HouseType")->AsString);
+		edOrientation->Text = GetTextFromDict(DataSet->FieldByName("Orientation")->AsString);
+		edLandscape->Text = GetTextFromDict(DataSet->FieldByName("Landscape")->AsString);
+		edDeliveryDate->Text = DataSet->FieldByName("DeliveryDate")->AsString;
+		edDeliveryState->Text = DataSet->FieldByName("DeliveryState")->AsString;
+		edSellType->Text = GetTextFromDict(DataSet->FieldByName("SellType")->AsString);
+		edFloorArea->Text = DataSet->FieldByName("FloorArea")->AsString;
+		edInnerArea->Text = DataSet->FieldByName("InnerArea")->AsString;
+		edFloorPreArea->Text = DataSet->FieldByName("FloorPreArea")->AsString;
+		edInnerPreArea->Text = DataSet->FieldByName("InnerPreArea")->AsString;
+		edFloorFactArea->Text = DataSet->FieldByName("FloorFactArea")->AsString;
+		edInnerFactArea->Text = DataSet->FieldByName("InnerFactArea")->AsString;
+		cbAreaType->ItemIndex = DataSet->FieldByName("AreaType")->AsInteger;
+		swIsDuplex->IsChecked = DataSet->FieldByName("IsDuplex")->AsInteger == 1;
+		edUpperArea->Text = DataSet->FieldByName("UpperArea")->AsString;
+		edLowerArea->Text = DataSet->FieldByName("LowerArea")->AsString;
+		edGardenFactArea->Text = DataSet->FieldByName("GardenFactArea")->AsString;
+		edPublicArea->Text = DataSet->FieldByName("PublicArea")->AsString;
+		edBalconyArea->Text = DataSet->FieldByName("BalconyArea")->AsString;
+		edFloorAreaPrice->Text = DataSet->FieldByName("FloorAreaPrice")->AsString;
+		edInnerAreaPrice->Text = DataSet->FieldByName("InnerAreaPrice")->AsString;
+		if(DataSet->FieldByName("SellAmt")->AsString.IsEmpty())
+			nbSellAmt->Value = 0;
+		else
+			nbSellAmt->Value = DataSet->FieldByName("SellAmt")->AsFloat;
+		if(DataSet->FieldByName("SubscribeAmt")->AsString.IsEmpty())
+			nbSubscribeAmt->Value = 0;
+		else
+			nbSubscribeAmt->Value = DataSet->FieldByName("SubscribeAmt")->AsFloat;
+		if(DataSet->FieldByName("SubsidyAmt")->AsString.IsEmpty())
+			nbSubsidyAmt->Value = 0;
+		else
+			nbSubsidyAmt->Value = DataSet->FieldByName("SubsidyAmt")->AsFloat;
+		TabControl->ActiveTab = DataTab;
+	}
+	SetUserCtrlStatus();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmRoomEditForm::SetUserCtrlStatus()
+{
+	if(DataSet->Active && DataSet->RecordCount > 0)
+	{
+		if(DataSet->FieldByName("Status")->AsString == "3633")
+			BtnReserve->Enabled = true;
+		else
+			BtnReserve->Enabled = false;
+	}
+	else
+			BtnReserve->Enabled = false;
+}
+//---------------------------------------------------------------------------
+String __fastcall TfrmRoomEditForm::GetTextFromDict(String id)
+{
+	int index = Dictionary->IndexOf(id);
+	if(index >= 0)
+		return Dictionary->Values[index];
+	else
+		return id;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmRoomEditForm::DownloadHouseView()
+{
+ 	if(DataSet->Active)
+	{
+		ClientBroker->Request->Response = tempResponse;
+		try
+		{
+			String ImagesIDs = DataSet->FieldByName("RoomImages")->AsString;
+			TStringList *ImageIDList = new TStringList();
+			ImageIDList->CommaText = ImagesIDs;
+			String mFileName;
+			ForceDirectories(AppPath);
+			for(int i=0;i<ImageIDList->Count;i++)
+			{
+				String guid = ImageIDList->Strings[i];
+				mFileName=System::Ioutils::TPath::Combine(AppPath,guid);
+				if(!FileExists(mFileName))
+				{
+					TRESTRequestParameterList *Params = new TRESTRequestParameterList(this);
+					Params->AddItem("GUID",guid);
+					GetData("/Systems/Common/GetImageByGUID",Params);
+					TMemoryStream *ms=new TMemoryStream();
+					ms->Write(tempResponse->RawBytes,tempResponse->RawBytes.Length);
+                    if(ms->Size>0)
+					{
+						ms->Position = 0;
+						ms->SaveToFile(mFileName);
+					}
+                }
+			}
+		}
+		__finally
+		{
+			ClientBroker->Request->Response = ClientBroker->Response;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmRoomEditForm::ShowHouseView()
+{
+	ImageListLayout->DeleteChildren();
+    FBitmapList->Clear();
+	if(DataSet->Active)
+	{
+     	String ImagesIDs = DataSet->FieldByName("RoomImages")->AsString;
+		TStringList *ImageIDList = new TStringList();
+		ImageIDList->CommaText = ImagesIDs;
+		String mFileName;
+		int index = 0;
+		TFileStream *mapStream;
+		for(int i=0;i<ImageIDList->Count;i++)
+		{
+			String guid = ImageIDList->Strings[i];
+			mFileName=System::Ioutils::TPath::Combine(AppPath,guid);
+			if(FileExists(mFileName))
+			{
+				mapStream = new TFileStream(mFileName,fmOpenRead);
+				try{
+					TBitmap *lbmap  = new TBitmap(mapStream);
+					TImage *tempImage = new TImage(ImageListLayout);
+					tempImage->Bitmap->Assign(lbmap);
+					tempImage->Width = 100;
+					tempImage->Height = 100;
+					tempImage->OnClick = imageClick;
+					tempImage->TagString = IntToStr(index);
+					index++;
+					ImageListLayout->AddObject(tempImage);
+					FBitmapList->Add(lbmap);
+				}
+				__finally
+				{
+					delete mapStream;
+				}
+			}
+		}
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmRoomEditForm::imageClick(TObject *Sender)
+{
+	TImage *tempImage = dynamic_cast<TImage *>(Sender);
+	if(FPhotoViewer == NULL)
+	{
+		FPhotoViewer = new TfrmPhotoViewer(this);
+		FPhotoViewer->StyleBook = this->StyleBook;
+	}
+	int index = StrToInt(tempImage->TagString);
+	FPhotoViewer->SetBitmapList(FBitmapList,index);
+    FPhotoViewer->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmRoomEditForm::TabControlChange(TObject *Sender)
+{
+	if(TabControl->ActiveTab == ImageTab)
+	{
+        try
+		{
+			WaitAniIndicator->Visible=true;
+			WaitAniIndicator->Enabled=true;
+			WaitAniIndicator->BringToFront();
+			DownloadHouseView();
+			ShowHouseView();
+		}
+		__finally
+		{
+			WaitAniIndicator->Visible=false;
+			WaitAniIndicator->Enabled=false;
+			WaitAniIndicator->SendToBack();
+		}
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmRoomEditForm::BtnLoanCalClick(TObject *Sender)
+{
+	TfrmLoanCalculation *p = new TfrmLoanCalculation(this);
+	p->SetBusinessAmt(nbSellAmt->Value);
+	p->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmRoomEditForm::BtnReserveClick(TObject *Sender)
+{
+	TfrmSaleSubscribeMangeDetail *p = new TfrmSaleSubscribeMangeDetail(this,ClientBroker,ModuleCode,DataSet,"");
+	p->EstateName = EstateName;
+	p->BuildName = BuildName;
+	p->FillData();
+	p->Show();
+}
+//---------------------------------------------------------------------------
+

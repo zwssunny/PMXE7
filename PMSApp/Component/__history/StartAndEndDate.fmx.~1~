@@ -1,0 +1,77 @@
+object StartAndEndDateFrame: TStartAndEndDateFrame
+  Height = 110.000000000000000000
+  Width = 185.000000000000000000
+  TabOrder = 0
+  object lbBegEndScope: TLabel
+    AutoSize = True
+    Height = 16.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 17.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #36873#25321#33539#22260#65306
+    Width = 60.000000000000000000
+  end
+  object cbDateRange: TComboBox
+    DisableFocusEffect = False
+    Height = 22.000000000000000000
+    Items.Strings = (
+      #20170#22825
+      #26412#21608
+      #26412#21608#33267#20170
+      #26412#26376
+      #26412#26376#33267#20170
+      #26412#23395#24230
+      #26412#23395#24230#33267#20170
+      #26412#24180
+      #26412#24180#33267#20170
+      #26152#22825
+      #19978#21608
+      #19978#21608#33267#19978#21608#20170#22825
+      #19978#26376
+      #19978#26376#33267#19978#26376#20170#22825
+      #19978#23395#24230
+      #19978#23395#24230#33267#19978#23395#24230#20170#22825
+      #21435#24180
+      #21435#24180#33267#21435#24180#20170#22825
+      #33258#23450#20041)
+    Position.X = 72.000000000000000000
+    Position.Y = 12.000000000000000000
+    TabOrder = 1
+    Width = 100.000000000000000000
+    OnClosePopup = cbDateRangeClosePopup
+  end
+  object lbBeginDate: TLabel
+    AutoSize = True
+    Height = 16.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 48.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #24320#22987#26085#26399#65306
+    Width = 60.000000000000000000
+  end
+  object lbEndDate: TLabel
+    AutoSize = True
+    Height = 16.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 77.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #32467#26463#26085#26399#65306
+    Width = 60.000000000000000000
+  end
+  object deStart: TDateEdit
+    Date = 41765.000000000000000000
+    Height = 22.000000000000000000
+    Position.X = 72.000000000000000000
+    Position.Y = 44.000000000000000000
+    TabOrder = 4
+    Width = 100.000000000000000000
+  end
+  object deEnd: TDateEdit
+    Date = 41765.000000000000000000
+    Height = 22.000000000000000000
+    Position.X = 72.000000000000000000
+    Position.Y = 76.000000000000000000
+    TabOrder = 5
+    Width = 100.000000000000000000
+  end
+end

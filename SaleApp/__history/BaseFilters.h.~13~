@@ -1,0 +1,40 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseFiltersH
+#define BaseFiltersH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "ZClientQuery.h"
+#include "ClientBroker.h"
+#include "ModuleEnum.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+typedef void __fastcall (__closure *TOnFilteredDataSet)(String Filters);
+//---------------------------------------------------------------------------
+class TBaseFiltersForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *tbarBaseFilter;
+	TButton *btQuery;
+	TButton *btCancel;
+	void __fastcall btQueryClick(TObject *Sender);
+	void __fastcall btCancelClick(TObject *Sender);
+private:	// User declarations
+	TOnFilteredDataSet FOnFilteredDataSet;
+	TClientBroker *FBroker;
+	TZClientQuery *FQuery;
+protected:
+	virtual String __fastcall BuildFilters()=0;
+	virtual void __fastcall InitControl();
+public:		// User declarations
+	__fastcall TBaseFiltersForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker);
+	virtual ~TBaseFiltersForm();
+	__property TClientBroker *ClientBroker={ read=FBroker,write=FBroker};
+	__property TZClientQuery *Query={ read=FQuery};
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TBaseFiltersForm *BaseFiltersForm;
+//---------------------------------------------------------------------------
+#endif

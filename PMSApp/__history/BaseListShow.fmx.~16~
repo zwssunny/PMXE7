@@ -1,0 +1,98 @@
+inherited frmBaseListShow: TfrmBaseListShow
+  Caption = 'frmBaseListForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object ListToolBar: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 1
+    Width = 384.000000000000000000
+    object btAdd: TButton
+      Action = AddAction
+      Align = MostRight
+      Height = 48.000000000000000000
+      Position.X = 288.000000000000000000
+      StyleLookup = 'addtoolbutton'
+      TabOrder = 1
+      Width = 48.000000000000000000
+    end
+    object btDelete: TButton
+      Action = DelAction
+      Align = MostRight
+      Height = 48.000000000000000000
+      Position.X = 192.000000000000000000
+      StyleLookup = 'trashtoolbutton'
+      TabOrder = 2
+      Width = 48.000000000000000000
+    end
+    object btQuery: TButton
+      Action = QueryAction
+      Align = MostRight
+      Height = 48.000000000000000000
+      Position.X = 336.000000000000000000
+      StyleLookup = 'searchtoolbutton'
+      TabOrder = 3
+      Width = 48.000000000000000000
+    end
+    object btLook: TButton
+      Action = LookAction
+      Align = MostRight
+      Height = 48.000000000000000000
+      Position.X = 240.000000000000000000
+      StyleLookup = 'composetoolbutton'
+      TabOrder = 4
+      Width = 48.000000000000000000
+    end
+    object btClose: TButton
+      Action = CloseAction
+      Align = MostLeft
+      Height = 48.000000000000000000
+      StyleLookup = 'arrowlefttoolbutton'
+      TabOrder = 5
+      Width = 48.000000000000000000
+    end
+  end
+  object BaseListActionList: TActionList
+    Left = 32
+    Top = 88
+    object LookAction: TAction
+      Category = 'Button'
+      Text = #25171#24320
+      Hint = #25171#24320#24403#21069#35760#24405
+      OnExecute = LookActionExecute
+    end
+    object AddAction: TAction
+      Category = 'Button'
+      Text = #26032#22686
+      Hint = #26032#22686#35760#24405
+      OnExecute = AddActionExecute
+    end
+    object DelAction: TAction
+      Category = 'Button'
+      Text = #21024#38500
+      Hint = #21024#38500#35760#24405
+      OnExecute = DelActionExecute
+    end
+    object QueryAction: TAction
+      Category = 'Button'
+      Text = #26597#35810
+      Hint = #36807#28388#26597#35810
+      OnExecute = QueryActionExecute
+    end
+    object EditAction: TAction
+      Category = 'Button'
+      Text = #32534#36753
+      Hint = #32534#36753#35760#24405
+      OnExecute = EditActionExecute
+    end
+    object CloseAction: TAction
+      Category = 'Button'
+      Text = #36820#22238
+      Hint = #36820#22238#20027#30028#38754
+      OnExecute = CloseActionExecute
+    end
+  end
+end

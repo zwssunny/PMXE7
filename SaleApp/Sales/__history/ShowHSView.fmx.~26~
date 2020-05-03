@@ -1,0 +1,96 @@
+object ShowViewForm: TShowViewForm
+  Left = 0
+  Top = 0
+  Caption = #25143#22411#22270#27983#35272
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  Touch.GestureManager = GestureManager2
+  Touch.InteractiveGestures = [Zoom]
+  OnGesture = FormGesture
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object ToolBar1: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 10
+    Width = 384.000000000000000000
+    object lbModule: TLabel
+      Align = Contents
+      Height = 48.000000000000000000
+      Text = 'lbModule'
+      Width = 384.000000000000000000
+    end
+  end
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    TabOrder = 16
+    Width = 384.000000000000000000
+    object btClose: TButton
+      Align = Left
+      Height = 48.000000000000000000
+      StyleLookup = 'arrowlefttoolbutton'
+      TabOrder = 1
+      Text = 'btClose'
+      Width = 48.000000000000000000
+      OnClick = btCloseClick
+    end
+    object btShare: TButton
+      Action = ShowShareSheetAction1
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 311.000000000000000000
+      StyleLookup = 'speedbuttonstyle'
+      TabOrder = 2
+      Width = 73.000000000000000000
+    end
+  end
+  object ScrollBox1: TScrollBox
+    Align = Client
+    Height = 471.000000000000000000
+    TabOrder = 21
+    Width = 384.000000000000000000
+    object Layout1: TLayout
+      Height = 471.000000000000000000
+      Width = 384.000000000000000000
+      TabOrder = 0
+      object Image1: TImage
+        MultiResBitmap.Height = 1004
+        MultiResBitmap.Width = 768
+        MultiResBitmap = <
+          item
+          end>
+        Align = Center
+        Height = 263.000000000000000000
+        Width = 246.000000000000000000
+        WrapMode = Stretch
+      end
+      object Memo1: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Height = 50.000000000000000000
+        Position.X = 50.000000000000000000
+        TabOrder = 1
+        Width = 100.000000000000000000
+      end
+    end
+  end
+  object GestureManager2: TGestureManager
+    Left = 80
+    Top = 64
+  end
+  object ActionList1: TActionList
+    Left = 176
+    Top = 16
+    object ShowShareSheetAction1: TShowShareSheetAction
+      CustomText = #20998#20139
+      OnBeforeExecute = ShowShareSheetAction1BeforeExecute
+    end
+  end
+end

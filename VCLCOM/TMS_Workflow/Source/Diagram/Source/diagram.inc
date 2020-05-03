@@ -1,0 +1,76 @@
+{$J+}
+{$R-}
+{$B-}
+{$C+}
+
+{$DEFINE GDIPLUS}
+
+{$IFNDEF BCB}
+{$DEFINE ISDELPHI}
+{$ENDIF}
+
+{$IF CompilerVersion >= 24}
+  {$LEGACYIFEND ON}
+{$IFEND}
+
+{$DEFINE DELPHI2_LVL}
+{$DEFINE DELPHI3_LVL}
+{$DEFINE DELPHI4_LVL}
+{$DEFINE DELPHI5_LVL}
+{$DEFINE DELPHI6_LVL}
+{$DEFINE DELPHI7_LVL}
+
+{$IF CompilerVersion >= 17}
+  {$DEFINE DELPHI9_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 18}
+  {$DEFINE DELPHI2006_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 19}
+  {$DEFINE DELPHI2007_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 20}
+  {$DEFINE DELPHI2009_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 21}
+  {$DEFINE DELPHI2010_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 22}
+  {$DEFINE DELPHI2011_LVL}
+  {$DEFINE DELPHIXE_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 23}
+  {$DEFINE DELPHI2012_LVL}
+  {$DEFINE DELPHIXE2_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 24}
+  {$DEFINE DELPHIXE3_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 25}
+  {$DEFINE DELPHIXE4_LVL}
+{$IFEND}
+
+{$IF CompilerVersion >= 26}
+  {$DEFINE DELPHIXE5_LVL}
+{$IFEND}
+
+{$IFDEF REMOVEGDIPLUS}
+  {$UNDEF GDIPLUS}
+{$ENDIF}
+
+{$IFDEF TRIAL}
+  {$DEFINE FREEWARE}
+{$ENDIF}
+
+{$IFDEF DELPHI2011_LVL}
+  {$DEFINE USEGENERICS}
+{$ENDIF}
+

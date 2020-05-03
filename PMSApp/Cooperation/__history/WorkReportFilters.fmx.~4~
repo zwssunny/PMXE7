@@ -1,0 +1,111 @@
+inherited frmWorkReportFilters: TfrmWorkReportFilters
+  Caption = #36807#28388#26597#35810
+  DesignerMasterStyle = 3
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Size.Width = 384.000000000000000000
+      Size.Height = 519.000000000000000000
+      object BillDateExpander: TExpander
+        Align = Top
+        ShowCheck = True
+        Size.Width = 384.000000000000000000
+        Size.Height = 153.000000000000000000
+        Size.PlatformDefault = False
+        Text = #26597#35810#26085#26399
+        TabOrder = 11
+        ContentSize = '128'
+        inline deFilterDate: TStartAndEndDateFrame
+          Position.X = 32.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 313.000000000000000000
+          Size.Height = 110.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          inherited Panel1: TPanel
+            Size.Width = 313.000000000000000000
+            inherited deStart: TDateEdit
+              Size.Width = 230.000000000000000000
+              Size.Height = 32.000000000000000000
+            end
+            inherited lbBeginDate: TLabel
+              Size.Width = 83.000000000000000000
+            end
+          end
+          inherited Panel2: TPanel
+            Size.Width = 313.000000000000000000
+            inherited deEnd: TDateEdit
+              Size.Width = 231.000000000000000000
+              Size.Height = 32.000000000000000000
+            end
+            inherited lbEndDate: TLabel
+              Size.Width = 82.000000000000000000
+            end
+          end
+          inherited Panel3: TPanel
+            Size.Width = 313.000000000000000000
+            inherited cbDateRange: TComboBox
+              Size.Width = 231.000000000000000000
+              Size.Height = 32.000000000000000000
+            end
+            inherited lbBegEndScope: TLabel
+              Size.Width = 82.000000000000000000
+            end
+          end
+        end
+      end
+      object BillFilterExpander: TExpander
+        Align = Top
+        Position.Y = 153.000000000000000000
+        ShowCheck = False
+        Size.Width = 384.000000000000000000
+        Size.Height = 224.000000000000000000
+        Size.PlatformDefault = False
+        Text = #36807#28388#26465#20214
+        Visible = False
+        TabOrder = 12
+        ContentSize = '199'
+        object cbBoxState: TComboBox
+          DisableFocusEffect = False
+          Items.Strings = (
+            #25152#26377
+            #26410#23457
+            #25968#37327#23457#26680
+            #21333#20215#23457#26680)
+          ItemIndex = 0
+          Position.X = 112.000000000000000000
+          Position.Y = 31.000000000000000000
+          Size.Width = 201.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+        end
+        object cbReporter: TComboBox
+          DisableFocusEffect = False
+          Position.X = 112.000000000000000000
+          Position.Y = -7.000000000000000000
+          Size.Width = 201.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+        end
+        object Label1: TLabel
+          Position.X = 40.000000000000000000
+          Size.Width = 77.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #25253#21578#20154':'
+        end
+        object Label6: TLabel
+          Position.X = 22.000000000000000000
+          Position.Y = 38.000000000000000000
+          Size.Width = 77.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #23457#26680#26631#24535':'
+        end
+      end
+    end
+  end
+end

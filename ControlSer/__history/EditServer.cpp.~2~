@@ -1,0 +1,22 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "EditServer.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfrmEditServer *frmEditServer;
+//---------------------------------------------------------------------------
+__fastcall TfrmEditServer::TfrmEditServer(TComponent* Owner,TListItem *FItem,int Status)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmEditServer::SpeedButton1Click(TObject *Sender)
+{
+  if(OpenDialog1->Execute(this->Handle))
+   edFileName->Text= OpenDialog1->FileName;
+}
+//---------------------------------------------------------------------------

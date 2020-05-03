@@ -1,0 +1,52 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseServerClassH
+#define BaseServerClassH
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include <DSServer.hpp>
+#include "LoginUserRecord.h"
+#include <Data.SqlExpr.hpp>
+#include <IndyPeerImpl.hpp>
+
+//---------------------------------------------------------------------------
+class TDMBaseServerClass : public TDSServerModule
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+		TADOConnection *__fastcall GetSysConnection();
+		TADOConnection *__fastcall GetAccConnection();
+		int __fastcall GetSysDbType();
+private:
+		TADOQuery *m_Query;
+		TADOQuery *b_Query;
+		TADOQuery *LogQuery;
+protected:
+		TLoginUserRecord * __fastcall GetCurLoginUser();
+		__property TADOConnection * SysConnection = { read = GetSysConnection };
+		__property TADOConnection * AccConnection = { read = GetAccConnection };
+		__property int SysDbType ={read = GetSysDbType};
+
+		/*********************************************************************
+		//返回的JSON字符串格式由数据(Data)和列信息(Cols)组成：
+		//{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+		// Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]
+		**********************************************************************/
+		String __fastcall DataSetToJson(String SQLText);
+		TJSONObject* __fastcall DataSetToJsonObject(String SQLText);
+		String __fastcall QuerySysToJson(String SQLText);
+		TJSONObject* __fastcall QuerySysToJsonObject(String SQLText);
+public:		// User declarations
+		__fastcall TDMBaseServerClass(TComponent* Owner);
+		__fastcall virtual ~TDMBaseServerClass();
+
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TDMBaseServerClass *DMBaseServerClass;
+//---------------------------------------------------------------------------
+#endif

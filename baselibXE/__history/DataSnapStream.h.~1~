@@ -1,0 +1,14 @@
+//---------------------------------------------------------------------------
+
+#ifndef DataSnapStreamH
+#define DataSnapStreamH
+#include <Classes.hpp>
+//---------------------------------------------------------------------------
+class PACKAGE TDataSnapStream :public TMemoryStream
+{
+public:
+   __fastcall virtual ~TDataSnapStream(void);
+   __fastcall TDataSnapStream(void);
+   void __fastcall LoadFromStream(TStream* AStream);
+};
+#endif

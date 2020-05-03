@@ -1,0 +1,1266 @@
+{***************************************************************************}
+{ Workflow Studio Components for Delphi & C++Builder                        }
+{ version 1.5.0.1                                                           }
+{                                                                           }
+{ written by TMS Software                                                   }
+{            copyright ?1997 - 2010                                        }
+{            Email : info@tmssoftware.com                                   }
+{            Web : http://www.tmssoftware.com                               }
+{                                                                           }
+{ For information about version history, check the section "What's New"     }
+{ at Workflow Studio manual.                                                }                                                                         
+{                                                                           }
+{ The source code is given as is. The author is not responsible             }
+{ for any possible damage done due to the use of this code.                 }
+{ The component can be freely used in any application. The complete         }
+{ source code remains property of the author and may not be distributed,    }
+{ published, given or sold in any form as such. No parts of the source      }
+{ code can be included in any other component or application without        }
+{ written authorization of the author.                                      }
+{***************************************************************************}
+
+unit wsBlocks;
+
+{$I wsdefs.inc} 
+
+interface
+
+Uses
+  SysUtils, Windows, Classes, Messages, Controls, Dialogs, Graphics, atDiagram,
+  {$IFDEF DELPHI6_LVL} Variants, {$ENDIF}
+  DiagramUtils,
+  DgrGdipApi, DgrGdipObj, DgrClasses, DiagramActns,
+  LiveDiagram, wsClasses, wsDiagram;
+
+type
+  {Fake component just to add workflow blocks}
+  TWorkflowToolbarBlocks = class(TComponent)
+  public
+  end;
+
+  TWorkflowBlock = class(TCustomWorkflowBlock)
+  published
+    property OnExecuteEx;
+  end;
+
+  TWorkflowStartBlock = class(TCustomWorkflowBlock)
+  private
+  protected
+    function AcceptLink(ALink: TCustomDiagramLine; LinkIndex : integer; Direction : TLinkDirection) : boolean; override;
+    procedure GetTranslatedBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer); override;
+    function BlockPolygon: TDotArray; override;
+  public
+    constructor Create(AOwner : TComponent); override;
+  published
+    property OnExecuteEx;
+  end;
+
+  TWorkflowEndBlock = class(TCustomWorkflowBlock)
+  private
+  protected
+    function AcceptLink(ALink: TCustomDiagramLine; LinkIndex : integer; Direction : TLinkDirection) : boolean; override;
+    function BlockPolygon: TDotArray; override;
+    procedure GetTranslatedBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer); override;
+  public
+    constructor Create(AOwner : TComponent); override;
+    function Link: boolean; override;
+    procedure ExecuteEx(Var ExecInfo: TExecuteNodeInfo); override;
+  published
+    property OnExecuteEx;
+  end;
+
+  TWorkflowErrorBlock = class(TCustomWorkflowBlock)
+  public
+    constructor Create(AOwner : TComponent); override;
+  published
+    property OnExecuteEx;
+  end;
+
+  TWorkflowConnectorSource = class(TLiveConnectorSource)
+  end;
+
+  TWorkflowConnectorTarget = class(TLiveConnectorTarget)
+  end;
+
+  TWorkflowLineJoin = class(TLiveLineJoin)
+  end;
+
+  TWorkflowTransition = class(TLiveWire)
+  protected
+    //function  DoTransition(Sender : TCustomLiveBlock) : boolean; override;
+  public
+    //function Transition(Sender : TCustomLiveBlock) : boolean; override;
+  end;
+
+  TWorkflowSideTransition = class(TLiveSideWire)
+  protected
+    //function  DoTransition(Sender : TCustomLiveBlock) : boolean; override;
+  public
+    //function Transition(Sender : TCustomLiveBlock) : boolean; override;
+  end;
+
+  TWorkflowArcTransition = class(TLiveArc)
+  protected
+    //function  DoTransition(Sender : TCustomLiveBlock) : boolean; override;
+  public
+    //function Transition(Sender : TCustomLiveBlock) : boolean; override;
+  end;
+
+  TWorkflowForkBlock = class(TLiveForkBlock)
+  end;
+
+  TWorkflowJoinBlock = class(TLiveJoinBlock)
+  end;
+
+  TCustomWorkflowTaskBlock = class(TCustomWorkflowBlock)
+  private
+    FTasks: TTaskDefinitions;
+    FStatusTextCell: TTextCell;
+    FStatusChange: boolean;
+    function GetStatusTextCell: TTextCell;
+    procedure SetTasks(const Value: TTaskDefinitions);
+  protected
+    function CheckTasksExpiration: TDateTime;
+    function CheckTasksFinished: boolean; virtual;
+    procedure DrawBlock(AInfo: TDiagramDrawInfo; ABlockInfo: TDiagramDrawBlockInfo); override;
+    function GetTextCellRect(ACell: TTextCell; ARect: TSquare): TSquare; override;
+    function TaskBlockOutput(ACompletionStatus: boolean=true): string; virtual;
+    property StatusTextCell: TTextCell read GetStatusTextCell;
+    property Tasks: TTaskDefinitions read FTasks write SetTasks;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    function Link: boolean; override;
+    procedure DoExecuteEx(var ExecInfo: TExecuteNodeInfo); override;
+    procedure FillOutputList(AOutputs: TStrings); override;
+  published
+    property OnExecuteEx;
+  end;
+                                                    
+  TWorkflowTaskBlock = class(TCustomWorkflowTaskBlock)
+  public
+    function EditorClass: TWorkflowBlockEditorClass; override;
+  published
+    property Tasks;
+  end;
+
+  TWorkflowTaskBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+  TWorkflowApprovalBlock = class(TCustomWorkflowTaskBlock)
+  private
+    function GetTask: TTaskDefinition;
+    procedure SetTask(const Value: TTaskDefinition);
+  protected
+    procedure InitializeApprovalTask; virtual;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    function EditorClass: TWorkflowBlockEditorClass; override;
+  published
+    property Task: TTaskDefinition read GetTask write SetTask;
+    property OnExecuteEx;
+  end;
+
+  TWorkflowApprovalBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+  TWorkflowDecisionBlock = class(TCustomWorkflowBlock)
+  private
+    FCondition: string;
+    procedure SetCondition(const Value: string);
+  protected
+    function BlockPolygon: TDotArray; override;
+    procedure GetBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer); override;
+    procedure AdjustLinkPoints; override;
+    function GetLinkPointsCount: integer; override;
+  public
+    constructor Create(AOwner : TComponent); override;
+    destructor Destroy; override;
+    procedure DoExecuteEx(var ExecInfo: TExecuteNodeInfo); override;
+    function EditorClass: TWorkflowBlockEditorClass; override;
+    procedure FillOutputList(AOutputs: TStrings); override;
+  published
+    property OnExecuteEx;
+    property Condition: string read FCondition write SetCondition;
+  end;
+
+  TWorkflowDecisionBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+  TWorkflowRunWorkflowBlock = class(TCustomWorkflowBlock)
+  private
+    FVariableMapping: TStrings;
+    FWorkflowDefinitionKey: string;
+    FWaitExecution: boolean;                              
+    procedure SetVariableMapping(const Value: TStrings);
+    procedure SetWorkflowDefinitionKey(const Value: string);
+    procedure SetWaitExecution(const Value: boolean);
+    procedure AssignWorkflowVariables(AFromVariables, AToVariables: TWorkflowVariables; AReturning: boolean);
+  protected
+    procedure GetBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer); override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure DoExecuteEx(var ExecInfo: TExecuteNodeInfo); override;
+    function EditorClass: TWorkflowBlockEditorClass; override;
+  published
+    property WorkflowDefinitionKey: string read FWorkflowDefinitionKey write SetWorkflowDefinitionKey;
+    property VariableMapping: TStrings read FVariableMapping write SetVariableMapping;
+    property WaitExecution: boolean read FWaitExecution write SetWaitExecution;
+    property OnExecuteEx;
+  end;
+
+  TWorkflowRunWorkflowBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+ TWorkflowAuditBlock = class(TCustomWorkflowBlock)
+  private
+    FStatusText: string;
+    FBillState: string;
+    procedure SetBillState(const Value: string);
+  protected
+    function BlockPolygon: TDotArray; override;
+    procedure GetTranslatedBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer); override;
+  public
+		procedure DoExecuteEx(var ExecInfo: TExecuteNodeInfo);override;
+    constructor Create(AOwner : TComponent); override;
+     function EditorClass: TWorkflowBlockEditorClass; override;
+  published
+    property OnExecuteEx;
+    property StatusText: string read FStatusText write FStatusText;
+    property BillState: string read FBillState write SetBillState;
+  end;
+
+  TWorkflowAuditBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+  TWorkflowSponsorBlock = class(TCustomWorkflowTaskBlock)
+  private
+    FCanPrint: boolean;
+    FStepNo: integer;
+    function GetTask: TTaskDefinition;
+    procedure SetTask(const Value: TTaskDefinition);
+  protected
+    procedure InitializeSponsorTask; virtual;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+		procedure DoExecuteEx(var ExecInfo: TExecuteNodeInfo); override;    
+    function EditorClass: TWorkflowBlockEditorClass; override;
+  published
+    property CanPrint: boolean read FCanPrint write FCanPrint;
+    property StepNo: integer read FStepNo write FStepNo;
+    property Task: TTaskDefinition read GetTask write SetTask;
+    property OnExecuteEx;
+  end;
+
+  TWorkflowSponsorBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+procedure Register;
+
+{$R wsBlocks.res}
+
+implementation
+
+uses
+  wsRes, wsMain, fTaskEditor, fDecisionEditor, fApprovalEditor,
+  fRunWorkflowEditor,fAuditEditor,fSponsorEditor;
+
+procedure Register;
+begin
+  RegisterNoIcon([TWorkflowBlock]);
+  RegisterNoIcon([TWorkflowStartBlock]);
+  RegisterNoIcon([TWorkflowEndBlock]);
+  RegisterNoIcon([TWorkflowErrorBlock]);
+
+  RegisterNoIcon([TWorkflowConnectorSource]);
+  RegisterNoIcon([TWorkflowConnectorTarget]);
+  RegisterNoIcon([TWorkflowLineJoin]);
+  RegisterNoIcon([TWorkflowTransition]);
+  RegisterNoIcon([TWorkflowSideTransition]);
+  RegisterNoIcon([TWorkflowArcTransition]);
+
+  RegisterNoIcon([TCustomWorkflowTaskBlock]);
+
+  RegisterNoIcon([TWorkflowAuditBlock]);
+end;
+
+{ TWorkflowStartBlock }
+
+function TWorkflowStartBlock.AcceptLink(ALink: TCustomDiagramLine;
+  LinkIndex: integer; Direction: TLinkDirection): boolean;
+begin
+  Result := ((Direction = ldOutput) and (Anchoreds(ldOutput) = 0));
+end;
+
+function TWorkflowStartBlock.BlockPolygon: TDotArray;
+var
+  P1, P2: TDot;
+  D: number;
+begin
+  with Drawer.OriginalRect do
+  begin
+    P1 := Drawer.PP(Left, Top);
+    P2 := Drawer.PP(Right, Bottom);
+  end;
+  D := P2.Y - P1.Y;
+  result := Drawer.RotPoly(GetPolyRoundRect(P1.X, P1.Y, P2.X, P2.Y, D, D));
+end;
+
+procedure TWorkflowStartBlock.GetTranslatedBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer);
+begin
+  with ADrawer.DestRect do
+    ADrawer.Canvas.AddRoundRectPath(APath, Left, Top, Right, Bottom, Bottom - Top, Bottom - Top);
+  ADrawer.RotatePath(APath);
+end;
+
+constructor TWorkflowStartBlock.Create(AOwner: TComponent);
+begin
+  inherited;
+  {visual initialization}
+  Drawer.OriginalRect := Square(0, 0, 100, 100);
+  Width := 100;
+  Height := 50;
+  TextCells[0].Text := _str(SBlockStart);
+
+  {behaviour initialization}
+  SingleOutput := true;
+  IsStartBlock := true;
+end;
+
+{ TWorkflowEndBlock }
+
+function TWorkflowEndBlock.AcceptLink(ALink: TCustomDiagramLine;
+  LinkIndex: integer; Direction: TLinkDirection): boolean;
+begin
+  Result:=(Direction=ldInput);
+end;
+
+function TWorkflowEndBlock.BlockPolygon: TDotArray;
+var
+  P1, P2: TDot;
+  D: number;
+begin
+  with Drawer.OriginalRect do
+  begin
+    P1 := Drawer.PP(Left, Top);
+    P2 := Drawer.PP(Right, Bottom);
+  end;
+  D := P2.Y - P1.Y;
+  result := Drawer.RotPoly(GetPolyRoundRect(P1.X, P1.Y, P2.X, P2.Y, D, D));
+end;
+
+procedure TWorkflowEndBlock.GetTranslatedBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer);
+begin
+  with ADrawer.DestRect do
+    ADrawer.Canvas.AddRoundRectPath(APath, Left, Top, Right, Bottom, Bottom - Top, Bottom - Top);
+  ADrawer.RotatePath(APath);
+end;
+
+constructor TWorkflowEndBlock.Create(AOwner: TComponent);
+begin
+  inherited;
+  SingleOutput := false;
+  Drawer.OriginalRect := Square(0, 0, 100, 100);
+  Width := 100;
+  Height := 50;
+  IsEndBlock:=true;
+  TextCells[0].Text := _str(SBlockEnd);
+end;
+
+procedure TWorkflowEndBlock.ExecuteEx(var ExecInfo: TExecuteNodeInfo);
+begin
+  inherited ExecuteEx(ExecInfo);
+  if ExecInfo.Error = 0 then
+    ExecInfo.Error := Sys_End_Program;
+  ExecInfo.WaitState := wsNoWait;
+end;
+
+function TWorkflowEndBlock.Link: boolean;
+begin
+  Result := Anchoreds(ldInput) > 0;
+end;
+
+{ TWorkflowErrorBlock }
+
+constructor TWorkflowErrorBlock.Create(AOwner: TComponent);
+begin
+  inherited;
+  {visual initialization}
+  TextCells[0].Text:='出错';
+
+  {behaviour initialization}
+  SingleOutput := true;
+  IsErrorHandler := true;
+end;
+
+{ TCustomWorkflowTaskBlock }
+
+function TCustomWorkflowTaskBlock.CheckTasksExpiration: TDateTime;
+var
+  i, k: integer;
+  expiration: TDateTime;
+  ti: TTaskInstance;
+  WS: TCustomWorkflowStudio;
+begin
+  result := 0;
+  WS := WorkflowDiagram.WorkflowStudio;
+
+  // check for task definitions with an expiration date/time
+  for i := 0 to FTasks.Count-1 do
+    if (FTasks[i].ExpirationDateTime > '') and (FTasks[i].ExpirationStatus > '') then
+    begin
+      for k := 0 to FTasks[i].TaskInstanceKeys.Count-1 do
+      begin
+        ti := TTaskInstance.Create(nil);
+        try
+          // load the task instance
+          ti.Key := FTasks[i].TaskInstanceKeys[k];
+          WS.TaskManager.LoadTaskInstance(ti);
+
+          // evaluate the expiration date/time for the task instance
+          expiration := WS.TaskManager.TaskExpirationDateTime(WorkflowDiagram.WorkflowInstance, ti);
+
+          if expiration > 0 then
+          begin
+            if expiration <= WS.GetNow then
+            begin
+              // register the expiration into task log
+              WS.TaskManager.LogTaskInfo(ti, Format(_str(STaskExpiredOn), [DateTimeToStr(expiration)]));
+              ti.FlowMnDtlLimitTime := expiration;
+              // set task status to expiration status
+              ti.Comments := '过期，进入超时处理！';
+              ti.Status := WS.ScriptEngine.TranslateText(FTasks[i].ExpirationStatus);
+              WS.TaskManager.UpdateTaskInstance(ti);
+            end;
+
+            // returns the lowest expiration date/time to flag workflow next run time
+            if (result = 0) or (expiration < result) then
+              result := expiration;
+          end;
+        finally
+          ti.Free;
+        end;
+      end;
+    end;
+end;
+
+function TCustomWorkflowTaskBlock.CheckTasksFinished: boolean;
+var
+  c: integer;
+  d: integer;
+begin
+  result := true;
+
+  {check if tasks are done yet}
+  for c := 0 to FTasks.Count - 1 do
+    for d := 0 to FTasks[c].TaskInstanceKeys.Count - 1 do
+    begin
+      if not WorkflowDiagram.WorkflowStudio.TaskManager.IsTaskFinished(FTasks[c].TaskInstanceKeys[d]) then
+      begin
+        result := false;
+        break;
+      end;
+    end;
+end;
+
+constructor TCustomWorkflowTaskBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  AutoHandleTrigger := false;
+  FTasks := TTaskDefinitions.Create(AOwner);
+  DefaultTextcell.Text := _str(SBlockTask);
+  SingleOutput := false;
+  FStatusChange :=false;
+end;
+
+function TCustomWorkflowTaskBlock.GetStatusTextCell: TTextCell;
+begin
+  if not Assigned(FStatusTextCell) then
+  begin
+    FStatusTextCell := TextCells.Add;
+    FStatusTextCell.Font.Style := [fsBold];
+    FStatusTextCell.Alignment := taRightJustify;
+  end;
+  result := FStatusTextCell;
+end;
+
+destructor TCustomWorkflowTaskBlock.Destroy;
+begin
+  FTasks.Free;
+  inherited;
+end;
+
+procedure TCustomWorkflowTaskBlock.DoExecuteEx(var ExecInfo: TExecuteNodeInfo);
+var
+  c: integer;
+  Finished: boolean;
+begin
+  {create the instances of the task}
+  if not Triggered then
+  begin
+    for c := 0 to FTasks.Count - 1 do
+      WorkflowDiagram.WorkflowStudio.TaskManager.CreateTaskInstance(WorkflowDiagram.WorkflowInstance, FTasks[c]);
+    Triggered := true;
+  end;
+
+  Finished := CheckTasksFinished;
+
+  // check for expiration date/time assigned to tasks
+  if not Finished then
+  begin
+    ExecInfo.NextRunTime := CheckTasksExpiration;
+    if ExecInfo.NextRunTime > 0 then
+      Finished := CheckTasksFinished;
+  end;
+
+  if Finished then
+  begin
+    ExecInfo.WaitState := wsNoWait;
+
+    {Find the next node to be executed, according to the task results}
+    Output := TaskBlockOutput;
+
+    {task is finished, "archive" taskinstancekeys in previoustaskinskeys and then empty taskinstancekeys,
+     because this block can be executed again and we don't want old tasks to influence the results}
+    for c := 0 to FTasks.Count - 1 do
+    begin
+      FTasks[c].PreviousTaskInsKeys.AddStrings(FTasks[c].TaskInstanceKeys);
+      FTasks[c].TaskInstanceKeys.Clear;
+    end;
+
+    ExecInfo.NextRunTime := 0;
+  end
+  else
+  begin
+    ExecInfo.WaitState := wsWaitAndSave;
+    ExecInfo.NextNode := Self;
+  end;
+
+  {call OnExecuteEx event}
+  inherited DoExecuteEx(ExecInfo);
+end;
+
+procedure TCustomWorkflowTaskBlock.FillOutputList(AOutputs: TStrings);
+var
+  c: integer;
+  d: integer;
+  AList: TStringList;
+begin
+  AOutputs.Clear;
+  AList := TStringList.Create;
+  try
+    for c := 0 to FTasks.Count - 1 do
+    begin
+      FTasks[c].FillStatusList(AList, True);
+      for d := 0 to AList.Count - 1 do
+      begin
+        if FTasks[c].IsCompletionStatus(AList[d]) then
+          if AOutputs.IndexOf(AList[d]) = -1 then
+            AOutputs.Add(AList[d]);
+      end;
+    end;
+  finally
+    AList.Free;
+  end;
+end;
+
+function TCustomWorkflowTaskBlock.GetTextCellRect(ACell: TTextCell; ARect: TSquare): TSquare;
+begin
+  if ACell = FStatusTextCell then
+    result := Square(Left, Bottom, Right, Bottom + ACell.Height)
+  else
+    result := inherited GetTextCellRect(ACell, ARect);
+end;
+
+function TCustomWorkflowTaskBlock.Link: boolean;
+begin
+  result := true;
+  if FTasks.Count = 0 then
+  begin
+    ShowMessage('任务模块至少要一个任务.');
+    result := false;
+  end;
+end;
+
+procedure TCustomWorkflowTaskBlock.SetTasks(const Value: TTaskDefinitions);
+begin
+  FTasks.Assign(Value);
+end;
+
+function TCustomWorkflowTaskBlock.TaskBlockOutput(ACompletionStatus: boolean): string;
+var
+  c: integer;
+  d: integer;
+  Count: integer;
+  SL: TStrings;
+  TI: TTaskInstance;
+  Idx: integer;
+begin
+  result := '';
+  Count := 0;
+
+  SL := TStringList.Create;
+  try
+    {Iterate through all finished tasks and check the status.
+     The most common status will be the output for the block}
+    for c := 0 to FTasks.Count - 1 do
+    begin
+      for d := 0 to FTasks[c].TaskInstanceKeys.Count - 1 do
+      begin
+        TI := TTaskInstance.Create(nil);
+        try
+          {load the task instance}
+          TI.Key := FTasks[c].TaskInstanceKeys[d];
+          WorkflowDiagram.WorkflowStudio.TaskManager.LoadTaskInstance(TI);
+
+          {check if the task is finished}
+          if TI.IsCompletionStatus(TI.Status) or not ACompletionStatus then
+          begin
+            {if it's finished, then add the status string to the string list}
+            Idx := SL.IndexOf(TI.Status);
+            if Idx = -1 then
+              Idx := SL.AddObject(TI.Status, TObject(0));
+
+            {if the status is already in the string list, then increment the number
+             of times that the string appears}
+            {$WARNINGS OFF}
+            SL.Objects[Idx] := TObject(integer(SL.Objects[Idx]) + 1);
+
+            {if the number of appearances is higher then the current output, then change the output}
+            if integer(SL.Objects[Idx]) > Count then
+            begin
+              result := SL[Idx];
+              Count := integer(SL.Objects[Idx]);
+            end;
+            {$WARNINGS ON}
+          end;
+        finally
+          TI.Free;
+        end;
+      end;
+    end;
+  finally
+    SL.Free;
+  end;
+end;
+
+procedure TCustomWorkflowTaskBlock.DrawBlock(AInfo: TDiagramDrawInfo; ABlockInfo: TDiagramDrawBlockInfo);
+var
+  taskStatus: string;
+begin
+  if WorkflowDiagram.DisplayTaskStatus and FStatusChange<>true then
+  begin
+    taskStatus := TaskBlockOutput(false);
+    if taskStatus = '' then // finished task
+      taskStatus := LastOutput;
+    StatusTextCell.Text := taskStatus;
+    FStatusChange :=true;
+  end;
+  inherited;
+end;
+
+{ TWorkflowTaskBlockEditor }
+
+procedure TWorkflowTaskBlockEditor.EditBlock(ABlock: TCustomWorkflowBlock);
+var
+  TaskForm: TfmTaskEditor;
+begin
+  if ABlock is TCustomWorkflowTaskBlock then
+  begin
+    {pass the owner of the block as the owner of the task editor. The owner of the block
+     is the workflow editor. Since TfmTaskEditor.Position is poOwnerFormCenter, the
+     TaskEditor form will be centered according to the workflow editor form}
+    TaskForm := TfmTaskEditor.Create(ABlock.Owner, ABlock.WorkflowDiagram.WorkflowStudio);
+    try
+      if TaskForm.EditTaskDefinitions(TCustomWorkflowTaskBlock(ABlock).Tasks, TCustomWorkflowTaskBlock(ABlock).WorkflowDiagram) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      TaskForm.Free;
+    end;
+  end;
+  Free;
+end;
+
+{ TWorkflowDecisionBlock }
+
+procedure TWorkflowDecisionBlock.AdjustLinkPoints;
+begin
+  LinkPoints[0].OrX := 50;  LinkPoints[0].OrY := 0;   LinkPoints[0].Orientation := aoUp;
+  LinkPoints[1].OrX := 100; LinkPoints[1].OrY := 50;  LinkPoints[1].Orientation := aoRight;
+  LinkPoints[2].OrX := 50;  LinkPoints[2].OrY := 100; LinkPoints[2].Orientation := aoDown;
+  LinkPoints[3].OrX := 0;   LinkPoints[3].OrY := 50;  LinkPoints[3].Orientation := aoLeft;
+end;
+
+function TWorkflowDecisionBlock.BlockPolygon: TDotArray;
+begin
+  with Drawer do
+    result := RotPoly(DotArray([
+      PP(50, 0),
+      PP(100, 50),
+      PP(50, 100),
+      PP(0, 50),
+      PP(50, 0)
+      ]));
+end;
+
+procedure TWorkflowDecisionBlock.GetBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer);
+begin
+  APath.Reset;
+  APath.AddLine(50, 0, 100, 50);
+  APath.AddLine(50, 100, 0, 50);
+  APath.CloseFigure;
+end;
+
+constructor TWorkflowDecisionBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  SingleOutput := false;
+  Drawer.OriginalRect := Square(0, 0, 100, 100);
+end;
+
+destructor TWorkflowDecisionBlock.Destroy;
+begin
+  inherited;
+end;
+
+procedure TWorkflowDecisionBlock.DoExecuteEx(var ExecInfo: TExecuteNodeInfo);
+var
+  Value: Variant;
+  IsBoolean: boolean;
+begin
+  WorkflowDiagram.WorkflowStudio.ScriptEngine.SetRuntimeContext(WorkflowDiagram.WorkflowInstance);
+  Value := WorkflowDiagram.WorkflowStudio.ScriptEngine.CalculateExpression(Condition);
+
+  case VarType(Value) of
+    varSmallint, varInteger, varByte, varError:
+      begin
+        IsBoolean := true;
+      end;
+    varSingle, varDouble, varCurrency, varDate:
+      begin
+        Value := integer(round(Value));
+        IsBoolean := true;
+      end;
+    varBoolean:
+      begin
+        if Value = true then Value := 1 else Value := 0;
+        IsBoolean := true;
+      end;
+  else
+    Value := VarToStr(Value);
+    IsBoolean := false;
+  end;
+
+  if IsBoolean then
+  begin
+    if Value <> 0 then
+      Output := _str(STrueOutput)
+    else
+      Output := _str(SFalseOutput);
+  end
+  else
+    Output := Value;
+
+  {call OnExecuteEx event}
+  inherited DoExecuteEx(ExecInfo);
+end;
+
+function TWorkflowDecisionBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowDecisionBlockEditor;
+end;
+
+procedure TWorkflowDecisionBlock.FillOutputList(AOutputs: TStrings);
+begin
+  AOutputs.Clear;
+  AOutputs.Add(_str(STrueOutput));
+  AOutputs.Add(_str(SFalseOutput));
+end;
+
+function TWorkflowDecisionBlock.GetLinkPointsCount: integer;
+begin
+  result := 4;
+end;
+
+procedure TWorkflowDecisionBlock.SetCondition(const Value: string);
+begin
+  if FCondition <> Value then
+  begin
+    FCondition := Value;
+    if DefaultTextCell.Text = '' then
+      DefaultTextCell.Text := FCondition;
+  end;
+end;
+
+{ TWorkflowDecisionBlockEditor }
+
+procedure TWorkflowDecisionBlockEditor.EditBlock(
+  ABlock: TCustomWorkflowBlock);
+var
+  DecisionForm: TfmDecisionEditor;
+begin
+  if ABlock is TWorkflowDecisionBlock then
+  begin
+    {pass the owner of the block as the owner of the editor. The owner of the block
+     is the workflow editor. Since Position is poOwnerFormCenter, the
+     Editor form will be centered according to the workflow editor form}
+    DecisionForm := TfmDecisionEditor.Create(ABlock.Owner);
+    try
+      if DecisionForm.EditDecisionBlock(TWorkflowDecisionBlock(ABlock)) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      DecisionForm.Free;
+    end;
+  end;
+  Free;
+end;
+
+{ TWorkflowTaskBlock }
+
+function TWorkflowTaskBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowTaskBlockEditor;
+end;
+
+
+{ TWorkflowApprovalBlock }
+
+constructor TWorkflowApprovalBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  DefaultTextcell.Text := _str(SBlockApproval);
+  FTasks.Clear;
+  FTasks.Add;
+  InitializeApprovalTask;
+end;
+
+destructor TWorkflowApprovalBlock.Destroy;
+begin
+  inherited;
+end;
+
+function TWorkflowApprovalBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowApprovalBlockEditor;
+end;
+
+function TWorkflowApprovalBlock.GetTask: TTaskDefinition;
+begin
+  if FTasks.Count = 0 then
+    FTasks.Add;
+  result := FTasks[0];
+end;
+
+procedure TWorkflowApprovalBlock.InitializeApprovalTask;
+begin
+  Task.Name := _str(STaskApprovalName);
+  Task.Subject := _str(STaskApprovalSubject);
+  Task.Description := _str(STaskApprovalDescription);
+  Task.StatusAdd(_str(STaskApprovalStatusOpened));
+  Task.StatusAdd(_str(STaskApprovalStatusApproved), True);
+  Task.StatusAdd(_str(STaskApprovalStatusRejected), True);
+  Task.StatusAdd('过期', True,True);
+end;
+
+procedure TWorkflowApprovalBlock.SetTask(const Value: TTaskDefinition);
+begin
+  if FTasks.Count = 0 then
+    FTasks.Add;
+  FTasks[0].Assign(Value);
+end;
+
+{ TWorkflowApprovalBlockEditor }
+
+procedure TWorkflowApprovalBlockEditor.EditBlock(ABlock: TCustomWorkflowBlock);
+var
+  ApprovalForm: TfmApprovalEditor;
+begin
+  if ABlock is TWorkflowApprovalBlock then
+  begin
+    {pass the owner of the block as the owner of the Approval editor. The owner of the block
+     is the workflow editor. Since TfmApprovalEditor.Position is poOwnerFormCenter, the
+     ApprovalEditor form will be centered according to the workflow editor form}
+    ApprovalForm := TfmApprovalEditor.Create(ABlock.Owner, ABlock.WorkflowDiagram.WorkflowStudio);
+    try
+      if ApprovalForm.EditApprovalDefinition(TWorkflowApprovalBlock(ABlock), TWorkflowApprovalBlock(ABlock).WorkflowDiagram) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      ApprovalForm.Free;
+    end;
+  end;
+  Free;
+end;
+
+{ TWorkflowRunWorkflowBlock }
+
+procedure TWorkflowRunWorkflowBlock.AssignWorkflowVariables(AFromVariables,
+  AToVariables: TWorkflowVariables; AReturning: boolean);
+var
+  map: TStrings;
+  i: integer;
+  fromVar, toVar: TWorkflowVariable;
+begin
+  map := TStringList.Create;
+  try
+    for i := 0 to VariableMapping.Count-1 do
+    begin
+      if VariableMapping.Values[VariableMapping.Names[i]] > '' then
+      begin
+        if AReturning then
+          map.Values[VariableMapping.Values[VariableMapping.Names[i]]] := VariableMapping.Names[i]
+        else
+          map.Add(VariableMapping[i]);
+      end;
+    end;
+
+    for i := 0 to map.Count-1 do
+    begin
+      fromVar := AFromVariables.FindByName(map.Names[i]);
+      toVar := AToVariables.FindByName(map.Values[map.Names[i]]);
+      if Assigned(fromVar) and Assigned(toVar) then
+        toVar.Value := fromVar.Value;
+    end;
+  finally
+    map.Free;
+  end;
+end;
+
+constructor TWorkflowRunWorkflowBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FVariableMapping := TStringList.Create;
+  SingleOutput := true;
+  Drawer.OriginalRect := Square(0, 0, 100, 100);
+end;
+
+destructor TWorkflowRunWorkflowBlock.Destroy;
+begin
+  FVariableMapping.Free;
+  inherited;
+end;
+
+procedure TWorkflowRunWorkflowBlock.DoExecuteEx(var ExecInfo: TExecuteNodeInfo);
+var
+  workIns: TWorkflowInstance;
+  WS: TCustomWorkflowStudio;
+begin
+  WS := WorkflowDiagram.WorkflowStudio;
+  ExecInfo.WaitState := wsNoWait;
+
+  if Triggered then
+  begin
+    if WorkflowDiagram.WorkflowInstance.ChildKey > '' then
+    begin
+      workIns := TWorkflowInstance.Create(nil, WS);
+      try
+        workIns.Key := WorkflowDiagram.WorkflowInstance.ChildKey;
+        WS.WorkflowManager.LoadWorkflowInstance(workIns);
+
+        if workIns.Status in [wsFinished, wsFinishedWithError] then
+          AssignWorkflowVariables(workIns.Diagram.Variables, WorkflowDiagram.Variables, true)
+        else
+        begin
+          ExecInfo.WaitState := wsWaitAndSave;
+          ExecInfo.NextNode := Self;
+        end;
+      finally
+        workIns.Free;
+      end;
+    end;
+  end
+  else
+  begin
+    workIns := WS.WorkflowManager.CreateWorkflowInstanceByKey(WorkflowDefinitionKey);
+    if workIns <> nil then
+    begin
+      AssignWorkflowVariables(WorkflowDiagram.Variables, workIns.Diagram.Variables, false);
+
+      if WaitExecution then
+      begin
+        workIns.ParentKey := WorkflowDiagram.WorkflowInstance.Key;
+        WorkflowDiagram.WorkflowInstance.ChildKey := workIns.Key;
+        ExecInfo.WaitState := wsWaitAndSave;
+        ExecInfo.NextNode := Self;
+      end;
+
+      WS.WorkflowManager.SaveWorkflowInstance(workIns);
+      WS.WorkflowEngine.RunWorkflow(workIns);
+    end;
+    Triggered := true;
+  end;
+
+  inherited DoExecuteEx(ExecInfo);
+end;
+
+function TWorkflowRunWorkflowBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowRunWorkflowBlockEditor;
+end;
+
+procedure TWorkflowRunWorkflowBlock.GetBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer);
+begin
+  inherited GetBlockPath(APath, ADrawer);
+  APath.AddLine(10, 0, 10, 100);
+  APath.CloseFigure(False);
+  APath.AddLine(90, 0, 90, 100);
+end;
+
+procedure TWorkflowRunWorkflowBlock.SetVariableMapping(const Value: TStrings);
+begin
+  FVariableMapping.Assign(Value);
+end;
+
+procedure TWorkflowRunWorkflowBlock.SetWaitExecution(const Value: boolean);
+begin
+  FWaitExecution := Value;
+end;
+
+procedure TWorkflowRunWorkflowBlock.SetWorkflowDefinitionKey(const Value: string);
+begin
+  if FWorkflowDefinitionKey <> Value then
+    FWorkflowDefinitionKey := Value;
+end;
+
+{ TWorkflowRunWorkflowBlockEditor }
+
+procedure TWorkflowRunWorkflowBlockEditor.EditBlock(ABlock: TCustomWorkflowBlock);
+var
+  editor: TfmRunWorkflowEditor;
+begin
+  if ABlock is TWorkflowRunWorkflowBlock then
+  begin
+    editor := TfmRunWorkflowEditor.Create(ABlock.Owner);
+    try
+      if editor.EditRunWorkflowBlock(TWorkflowRunWorkflowBlock(ABlock)) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      editor.Free;
+    end;
+  end;
+  Free;
+end;
+{ TWorkflowAuditBlock }
+
+
+function TWorkflowAuditBlock.BlockPolygon: TDotArray;
+var
+  P1, P2: TDot;
+  D: number;
+begin
+  with Drawer.OriginalRect do
+  begin
+    P1 := Drawer.PP(Left, Top);
+    P2 := Drawer.PP(Right, Bottom);
+  end;
+  D := P2.Y - P1.Y;
+  result := Drawer.RotPoly(GetPolyRoundRect(P1.X, P1.Y, P2.X, P2.Y, D, D));
+end;
+
+procedure TWorkflowAuditBlock.GetTranslatedBlockPath(APath: TDgrGraphicsPath; ADrawer: TDgrBlockDrawer);
+begin
+  with ADrawer.DestRect do
+    ADrawer.Canvas.AddRoundRectPath(APath, Left, Top, Right, Bottom, Bottom - Top, Bottom - Top);
+  ADrawer.RotatePath(APath);
+end;
+
+constructor TWorkflowAuditBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  SingleOutput := True;
+  Width := 80;
+  Height := 80;
+  FBillState:='0';
+  FStatusText :='未处理';
+  TextCells[0].Text := '审核单据';
+end;
+
+procedure TWorkflowAuditBlock.DoExecuteEx(var ExecInfo: TExecuteNodeInfo);
+var
+  workIns: TWorkflowInstance;
+  WS: TCustomWorkflowStudio;
+  WorkflowBiz: TWorkflowBiz;
+begin
+  WS := WorkflowDiagram.WorkflowStudio;
+  workIns := WorkflowDiagram.WorkflowInstance;
+  ExecInfo.WaitState := wsNoWait;
+
+  if (workIns.FlowMnBusWindow > '') and (workIns.FlowMnBusCode > '') then
+  begin    //审核当前业务单据
+      WorkflowBiz := TWorkflowBiz.Create(nil);
+    try
+      WorkflowBiz.BizFormID := workIns.FlowMnBusWindow;
+      WS.WorkflowManager.LoadWorkflowBiz(WorkflowBiz);
+      {更新对应业务单据字段值}  //zws20110819,先更新数据，然后再审核比较合理，这样对后续触发业务处理才准确
+      WS.WorkflowManager.UpdateWorkflowBiz(WorkflowBiz,workIns);
+      {审核单据}
+      WS.WorkflowManager.CheckWorkflowBiz(WorkflowBiz,workIns.FlowMnBusCode,FBillState);
+      FStatusText :='已处理';
+    finally
+      WorkflowBiz.Free;
+    end;
+  end;
+  TextCells[0].Text := TextCells[0].Text+'('+FStatusText+')';
+  inherited DoExecuteEx(ExecInfo);
+end;
+
+function TWorkflowAuditBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowAuditBlockEditor;
+end;
+
+procedure TWorkflowAuditBlock.SetBillState(const Value: string);
+begin
+      if FBillState<>Value then
+      begin
+          FBillState:=Value;
+          DefaultTextCell.Text:='审核单据('+FBillState+')';
+      end;
+      
+end;
+{ TWorkflowAuditBlockEditor }
+
+procedure TWorkflowAuditBlockEditor.EditBlock(
+  ABlock: TCustomWorkflowBlock);
+var
+  AuditForm: TfmAuditEditor;
+begin
+  if ABlock is TWorkflowAuditBlock then
+  begin
+    AuditForm := TfmAuditEditor.Create(ABlock.Owner);
+    try
+      if AuditForm.EditAuditBlock(TWorkflowAuditBlock(ABlock)) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      AuditForm.Free;
+    end;
+  end;
+  Free;
+end;
+
+{ TWorkflowSponsorBlock }
+
+constructor TWorkflowSponsorBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FCanPrint :=False;
+  FStepNo :=0;
+  DefaultTextcell.Text := '发起人';
+  FTasks.Clear;
+  FTasks.Add;
+  InitializeSponsorTask;
+end;
+
+destructor TWorkflowSponsorBlock.Destroy;
+begin
+  inherited;
+end;
+
+function TWorkflowSponsorBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowSponsorBlockEditor;
+end;
+
+function TWorkflowSponsorBlock.GetTask: TTaskDefinition;
+begin
+  if FTasks.Count = 0 then
+    FTasks.Add;
+  result := FTasks[0];
+end;
+
+procedure TWorkflowSponsorBlock.InitializeSponsorTask;
+begin
+  Task.Name :='Sponsor';
+  Task.Subject := '发起人确认';
+  Task.Description := _str(STaskApprovalDescription);
+  Task.StatusAdd(_str(STaskApprovalStatusOpened));
+  Task.StatusAdd(_str(STaskApprovalStatusApproved), True);
+  Task.StatusAdd(_str(STaskApprovalStatusRejected), True);
+  Task.StatusAdd('过期', True,True);
+  Task.
+end;
+
+procedure TWorkflowSponsorBlock.SetTask(const Value: TTaskDefinition);
+begin
+  if FTasks.Count = 0 then
+    FTasks.Add;
+  FTasks[0].Assign(Value);
+end;
+
+procedure TWorkflowSponsorBlock.DoExecuteEx(var ExecInfo: TExecuteNodeInfo);
+var
+  workIns: TWorkflowInstance;
+  NewUser: TTaskAssignedUser;
+begin
+  workIns := WorkflowDiagram.WorkflowInstance;
+  //获取流程发起人，把这个操作人赋给本节点任务的操作员信息中
+  ExecInfo.WaitState := wsNoWait;
+  inherited DoExecuteEx(ExecInfo);
+end;
+
+{ TWorkflowSponsorBlockEditor }
+
+procedure TWorkflowSponsorBlockEditor.EditBlock(ABlock: TCustomWorkflowBlock);
+var
+  SponsorForm: TfmSponsorEditor;
+begin
+  if ABlock is TWorkflowSponsorBlock then
+  begin
+    {pass the owner of the block as the owner of the Sponsor editor. The owner of the block
+     is the workflow editor. Since TfmSponsorEditor.Position is poOwnerFormCenter, the
+     SponsorEditor form will be centered according to the workflow editor form}
+    SponsorForm := TfmSponsorEditor.Create(ABlock.Owner, ABlock.WorkflowDiagram.WorkflowStudio);
+    try
+      if SponsorForm.EditSponsorDefinition(TWorkflowSponsorBlock(ABlock), TWorkflowSponsorBlock(ABlock).WorkflowDiagram) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      SponsorForm.Free;
+    end;
+  end;
+  Free;
+end;
+
+initialization
+  //RegisterDControl(TWorkflowBlock, '', 'Action', 'Workflow');
+  RegisterDControl(TWorkflowStartBlock,       '', _str(SToolbarStart),          _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowEndBlock,         '', _str(SToolbarEnd),            _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowErrorBlock,       '', _str(SToolbarError),          _str(SToolbarWorkflowCategory));
+
+  RegisterDControl(TWorkflowConnectorSource,  '', _str(SToolbarSourceConnect),  _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowConnectorTarget,  '', _str(SToolbarTargetConnect),  _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowLineJoin,         '', _str(SToolbarLineJoin),       _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowTransition,       '', _str(SToolbarTransition),     _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowSideTransition,   '', _str(SToolbarSideTransition), _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowArcTransition,    '', _str(SToolbarArcTransition),  _str(SToolbarWorkflowCategory));
+
+  RegisterDControl(TWorkflowForkBlock,        '', _str(SToolbarFork),           _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowJoinBlock,        '', _str(SToolbarJoin),           _str(SToolbarWorkflowCategory));
+
+  RegisterDControl(TWorkflowTaskBlock,        '', _str(SToolbarTask),           _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowApprovalBlock,    '', _str(SToolbarApproval),       _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowDecisionBlock,    '', _str(SToolbarDecision),       _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowRunWorkflowBlock, '', _str(SToolbarRunWorkflow),    _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowAuditBlock,       '', '审核业务',          _str(SToolbarWorkflowCategory));
+  RegisterDControl(TWorkflowSponsorBlock,     '', '发起人',          _str(SToolbarWorkflowCategory));
+end.
+

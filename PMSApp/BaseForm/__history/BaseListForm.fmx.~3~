@@ -1,0 +1,4 @@
+inherited frmBaseListForm: TfrmBaseListForm
+  Caption = 'frmBaseForm1'
+  DesignerMasterStyle = 3
+end

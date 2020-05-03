@@ -1,0 +1,87 @@
+object frmMain: TfrmMain
+  Left = 0
+  Top = 0
+  Caption = #20808#26234#39033#30446#31649#29702#31995#32479
+  ClientHeight = 440
+  ClientWidth = 784
+  Position = ScreenCenter
+  WindowState = wsMaximized
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
+  DesignerMobile = False
+  DesignerWidth = 0
+  DesignerHeight = 0
+  DesignerDeviceName = ''
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object pmStateBar: TStatusBar
+    Height = 22.000000000000000000
+    Position.Y = 418.000000000000000000
+    ShowSizeGrip = True
+    Width = 784.000000000000000000
+  end
+  object MainMenu: TMainMenu
+    Left = 480
+    Top = 56
+    object muFile: TMenuItem
+      StyleLookup = 'menubaritemstyle'
+      Text = #25991#20214
+      object miLogin: TMenuItem
+        Locked = True
+        Text = #30331#24405
+        OnClick = miLoginClick
+      end
+      object miLogout: TMenuItem
+        Locked = True
+        Text = #27880#38144
+        OnClick = miLogoutClick
+      end
+      object miSetting: TMenuItem
+        Locked = True
+        Text = #36830#25509#21442#25968
+        OnClick = miSettingClick
+      end
+      object miQQ: TMenuItem
+        Locked = True
+        Text = #21363#26102#36890#20449
+        OnClick = miQQClick
+      end
+      object miExit: TMenuItem
+        Locked = True
+        Text = #36864#20986#31995#32479
+        OnClick = miExitClick
+      end
+      object miTest: TMenuItem
+        Locked = True
+        Text = #25968#25454#38598#27979#35797
+        OnClick = miTestClick
+      end
+    end
+    object muHelp: TMenuItem
+      StyleLookup = 'menubaritemstyle'
+      Text = #24110#21161
+      object miForesight: TMenuItem
+        Locked = True
+        Text = #20808#26234#36719#20214
+        OnClick = miForesightClick
+      end
+      object miAbout: TMenuItem
+        Locked = True
+        Text = #20851#20110
+        OnClick = miAboutClick
+      end
+    end
+  end
+  object ModuleMenu: TPopupMenu
+    Left = 656
+    Top = 56
+  end
+  object FSTAbout1: TFSTAbout
+    Left = 616
+    Top = 224
+  end
+end

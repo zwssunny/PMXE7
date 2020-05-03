@@ -1,0 +1,65 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#ifdef _WIN32
+#include <tchar.h>
+#endif
+#pragma hdrstop
+#include <System.StartUpCopy.hpp>
+#include <FMX.MobilePreview.hpp>
+//---------------------------------------------------------------------------
+USEFORM("Filters\StuffStockInFilters.cpp", StuffStockInFiltersForm);
+USEFORM("Login.cpp", LoginForm);
+USEFORM("Filters\SelectCustomer.cpp", SelectCustomerForm);
+USEFORM("Filters\QueryFilter.cpp", QueryFilterForm);
+USEFORM("Filters\SelectPeople.cpp", SelectPeopleForm);
+USEFORM("Filters\SelectHouse.cpp", SelectHouseForm);
+USEFORM("Purchase\StuffStockInEdit.cpp", frmStuffStockInEdit);
+USEFORM("Purchase\StuffStockIn.cpp", frmStuffStockIn);
+USEFORM("System\CurrencyDataEdit.cpp", frmCurrencyDataEdit);
+USEFORM("System\CurrencyData.cpp", frmCurrencyData);
+USEFORM("MiMessage.cpp", frmMessageForm);
+USEFORM("Main.cpp", MainForm);
+USEFORM("Purchase\StockInItemEdit.cpp", frmStockInItemEdit);
+USEFORM("OA\OAChecker.cpp", frmOAChecker);
+USEFORM("Filters\HouseReserveFilters.cpp", HouseReserveFiltersForm);
+USEFORM("BaseForm\DetailBaseForm.cpp", frmDetailBaseForm);
+USEFORM("BaseForm\CommBase.cpp", CommBaseForm);
+USEFORM("BaseForm\ItemBaseForm.cpp", frmItemBaseForm);
+USEFORM("BaseForm\BaseForm.cpp", frmBaseForm);
+USEFORM("BaseForm\BaseBillForm.cpp", frmBaseBillForm);
+USEFORM("BaseForm\BaseListShow.cpp", frmBaseListShow);
+USEFORM("BaseForm\BaseListForm.cpp", frmBaseListForm);
+USEFORM("Filters\BaseFilters.cpp", BaseFiltersForm);
+USEFORM("Config.cpp", ConfigForm);
+USEFORM("Filters\HouseFilters.cpp", HouseFiltersForm);
+USEFORM("Filters\CustomerFilters.cpp", CustomerFiltersForm);
+USEFORM("Component\StartAndEndDate.cpp", StartAndEndDateFrame); /* TFrame: File Type */
+USEFORM("Purchase\SelectStuSupplyNote.cpp", SelectStuSupplyNoteForm);
+//---------------------------------------------------------------------------
+extern "C" int FMXmain()
+{
+	try
+	{
+		Application->Initialize();
+		Application->CreateForm(__classid(TMainForm), &MainForm);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

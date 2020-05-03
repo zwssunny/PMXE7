@@ -1,0 +1,10 @@
+//---------------------------------------------------------------------------
+
+#ifndef ShowBizEditFormH
+#define ShowBizEditFormH
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+//---------------------------------------------------------------------------
+void __fastcall ShowBizEditForm(TComponent* Owner,int modulecode,int Flag=3,String Param);
+#endif

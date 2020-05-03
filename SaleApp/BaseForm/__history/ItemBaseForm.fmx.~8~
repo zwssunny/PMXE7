@@ -1,0 +1,113 @@
+inherited frmItemBaseForm: TfrmItemBaseForm
+  Caption = 'frmItemBaseForm'
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object ItemVertScrollBox: TVertScrollBox
+    Align = Contents
+    Size.Width = 384.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    ShowScrollBars = False
+    object EditLayout: TLayout
+      Align = Client
+      Size.Width = 50.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+  end
+  object ItemMainToolBar: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    object btSave: TButton
+      Action = ItemSaveAction
+      Align = Center
+      Enabled = True
+      Size.Width = 79.636367797851560000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 0
+      Visible = True
+    end
+    object btBaseClose: TButton
+      Action = CloseAction
+      Align = Left
+      Enabled = True
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'backtoolbutton'
+      TabOrder = 2
+      Visible = True
+    end
+    object btEdit: TButton
+      Action = ItemEditAction
+      Align = Center
+      Enabled = True
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'composetoolbutton'
+      TabOrder = 3
+      Visible = True
+    end
+    object btNextItem: TButton
+      Action = NextItemAction
+      Align = Right
+      Enabled = True
+      Position.X = 336.000000000000000000
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'arrowdowntoolbutton'
+      TabOrder = 4
+      Visible = True
+    end
+    object btPriorItem: TButton
+      Action = PriorItemAction
+      Align = Right
+      Enabled = True
+      Position.X = 288.000000000000000000
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'arrowuptoolbutton'
+      TabOrder = 5
+      Visible = True
+    end
+  end
+  object ItemActionList: TActionList
+    Left = 304
+    Top = 48
+    object ItemEditAction: TAction
+      Text = #32534#36753
+      OnExecute = ItemEditActionExecute
+      OnUpdate = ItemEditActionUpdate
+    end
+    object ItemSaveAction: TAction
+      Text = #20445#23384
+      OnExecute = ItemSaveActionExecute
+      OnUpdate = ItemSaveActionUpdate
+    end
+    object NextItemAction: TAction
+      Text = 'NextItemAction'
+      OnExecute = NextItemActionExecute
+    end
+    object PriorItemAction: TAction
+      Text = 'PriorItemAction'
+      OnExecute = PriorItemActionExecute
+    end
+    object CloseAction: TAction
+      Text = #36820#22238
+      OnExecute = CloseActionExecute
+    end
+  end
+end

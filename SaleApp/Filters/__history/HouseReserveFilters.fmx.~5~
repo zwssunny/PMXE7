@@ -1,0 +1,125 @@
+inherited HouseReserveFiltersForm: THouseReserveFiltersForm
+  Caption = #39044#35746#26597#35810#26465#20214
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      object cbHseRsveFKID_Est: TComboBox
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Position.X = 96.000000000000000000
+        Position.Y = 24.000000000000000000
+        TabOrder = 0
+        Width = 209.000000000000000000
+        OnClosePopup = cbHseRsveFKID_EstClosePopup
+      end
+      object edClientTheName: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 3
+        Position.X = 96.000000000000000000
+        Position.Y = 224.000000000000000000
+        Width = 209.000000000000000000
+        Height = 32.000000000000000000
+      end
+      object edHseRsveNum: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 4
+        Position.X = 96.000000000000000000
+        Position.Y = 184.000000000000000000
+        Width = 209.000000000000000000
+        Height = 32.000000000000000000
+      end
+      object edHsgNum: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 5
+        Position.X = 96.000000000000000000
+        Position.Y = 144.000000000000000000
+        Width = 209.000000000000000000
+        Height = 32.000000000000000000
+      end
+      object Label1: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 32.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #27004#30424#21517#31216':'
+        Width = 77.000000000000000000
+      end
+      object Label2: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 152.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #39044#35746#25151#21495':'
+        Width = 77.000000000000000000
+      end
+      object Label3: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 192.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #39044#35746#21333#21495':'
+        Width = 77.000000000000000000
+      end
+      object Label4: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 232.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #23458#25143#21517#31216':'
+        Width = 77.000000000000000000
+      end
+      object Label5: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 72.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #27004#38401#21517#31216':'
+        Width = 77.000000000000000000
+      end
+      object cbHsgFKID_Bdg: TComboBox
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Position.X = 96.000000000000000000
+        Position.Y = 64.000000000000000000
+        TabOrder = 1
+        Width = 209.000000000000000000
+      end
+      object Label13: TLabel
+        AutoSize = True
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 112.000000000000000000
+        TextSettings.WordWrap = False
+        Text = #21333#25454#29366#24577':'
+        Width = 77.000000000000000000
+      end
+      object cbBoxHseRsveProperty: TComboBox
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Items.Strings = (
+          #25152#26377#29366#24577
+          #39044#35746
+          #35748#36141
+          #36864#35746
+          #36864#36141)
+        ItemIndex = 0
+        Position.X = 96.000000000000000000
+        Position.Y = 104.000000000000000000
+        TabOrder = 2
+        Width = 209.000000000000000000
+      end
+    end
+  end
+end

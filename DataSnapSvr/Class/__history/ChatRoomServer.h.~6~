@@ -1,0 +1,55 @@
+//---------------------------------------------------------------------------
+
+#ifndef ChatRoomServerH
+#define ChatRoomServerH
+#include <Windows.hpp>
+#include <Messages.hpp>
+#include <SysUtils.hpp>
+#include <Variants.hpp>
+#include <Classes.hpp>
+#include <Graphics.hpp>
+#include <Controls.hpp>
+#include <Forms.hpp>
+#include <Dialogs.hpp>
+#include <Generics.Collections.hpp>
+#include <StdCtrls.hpp>
+#include <DSServer.hpp>
+#include <DbxDataSnap.hpp>
+#include <DBXCommon.hpp>
+#include <DB.hpp>
+#include <SqlExpr.hpp>
+#include <Menus.hpp>
+#include <DSHTTPLayer.hpp>
+#include <DSCommonServer.hpp>
+#include <IndyPeerImpl.hpp>
+#include "LoginUserRecord.h"
+//---------------------------------------------------------------------------
+const String CHAT_ROOM_ID = "FSChatRoom";
+  /// <summary>
+  ///    Thread for broadcasting a message to all users, notifying them that
+  ///    a user has logged in or out.
+  /// </summary>
+class TUserNotifyThread :public TThread
+{
+  protected:
+	TDSServer *FServer ;
+	TLoginUserRecord* FUser;
+	bool FWasAdded;
+  public:
+	virtual __fastcall TUserNotifyThread(TDSServer *Server, TLoginUserRecord* User, bool WasAdded);
+	void __fastcall  Execute();
+};
+  /// <summary>
+  ///   Boots the user with the given name.
+  /// </summary>
+class TBootUserThread :public TThread
+{
+  protected:
+	TDSServer* FServer;
+	TLoginUserRecord* FUser;
+  public:
+	virtual __fastcall TBootUserThread(TDSServer *Server, TLoginUserRecord* User);
+	void __fastcall  Execute();
+};
+
+#endif

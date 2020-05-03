@@ -1,0 +1,59 @@
+//---------------------------------------------------------------------------
+
+#ifndef HeaderFooterTemplateH
+#define HeaderFooterTemplateH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Edit.hpp>
+#include <zxing/common/Counted.h>
+#include <zxing/Binarizer.h>
+#include <zxing/MultiFormatReader.h>
+#include <zxing/Result.h>
+#include <zxing/ReaderException.h>
+#include <zxing/common/GlobalHistogramBinarizer.h>
+#include <zxing/common/HybridBinarizer.h>
+#include <exception>
+#include <zxing/Exception.h>
+#include <zxing/common/IllegalArgumentException.h>
+#include <zxing/BinaryBitmap.h>
+#include <zxing/DecodeHints.h>
+
+#include <zxing/qrcode/QRCodeReader.h>
+#include <zxing/multi/qrcode/QRCodeMultiReader.h>
+#include <zxing/multi/ByQuadrantReader.h>
+#include <zxing/multi/MultipleBarcodeReader.h>
+#include <zxing/multi/GenericMultipleBarcodeReader.h>
+using namespace std;
+using namespace zxing;
+using namespace zxing::multi;
+using namespace zxing::qrcode;
+//---------------------------------------------------------------------------
+class THeaderFooterForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *Header;
+	TToolBar *Footer;
+	TLabel *HeaderLabel;
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TLabel *Label4;
+	TEdit *edFileName;
+	TEdit *edFormat;
+	TEdit *edResult;
+	TEdit *edError;
+	TButton *btDecode;
+private:	// User declarations
+	int read_image(Ref<LuminanceSource> source, bool hybrid,bool search_multi);
+	Ref<LuminanceSource>  BarcodePicToLuminanceSource(string filename);
+public:		// User declarations
+	__fastcall THeaderFooterForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE THeaderFooterForm *HeaderFooterForm;
+//---------------------------------------------------------------------------
+#endif

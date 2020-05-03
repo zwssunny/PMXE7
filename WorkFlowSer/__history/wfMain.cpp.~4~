@@ -1,0 +1,60 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "wfMain.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfrmWFmain *frmWFmain;
+//---------------------------------------------------------------------------
+__fastcall TfrmWFmain::TfrmWFmain(TComponent* Owner)
+	: TForm(Owner)
+{
+	 FAgentIP="127.0.0.1";
+	 FAgentPort=211;
+	 FProtocol="TCP/IP";
+	 FClientBroker=new TwfClientBroker();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmWFmain::ReadOption()
+{
+	String settingfile=ExtractFilePath(Application->ExeName)+"\\ClientConfig.xml";
+	if(!FileExists(settingfile))
+		throw Exception("找不到系统配置文件"+settingfile);
+	XMLDocument1->FileName=settingfile;
+	XMLDocument1->Active=true;
+	IXMLNodeList *NodeList=XMLDocument1->ChildNodes;
+	int count=NodeList->Count;
+	IXMLNode *selectNode=NULL;
+	for(int i=0;i<count;i++)
+	{
+		IXMLNode *curNode=NodeList->Nodes[i];
+		if(curNode->LocalName==WideString("DefaultSettings")&&(curNode->GetAttribute("Version")==String("2.0.0.2")))
+		{
+			selectNode=curNode;
+			break;
+		}
+	}
+	if(selectNode!=NULL)
+	{
+		IXMLNodeList *sNodeList=selectNode->ChildNodes;
+		for(int j=0;j<sNodeList->Count;j++)
+		{
+			IXMLNode *sNode=sNodeList->Nodes[j];
+			if(sNode->GetAttribute("Name")==String("AgentAddress"))
+				FAgentIP=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("AgentPort"))
+				FAgentPort=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("Protocol"))
+				FProtocol=sNode->GetAttribute("value");
+		}
+	}
+	XMLDocument1->Active=false;
+}
+void __fastcall TfrmWFmain::FormClose(TObject *Sender, TCloseAction &Action)
+{
+ delete FClientBroker;
+}
+//---------------------------------------------------------------------------

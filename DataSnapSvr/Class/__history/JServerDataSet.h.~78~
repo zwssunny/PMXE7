@@ -1,0 +1,214 @@
+//---------------------------------------------------------------------------
+
+#ifndef JServerDataSetH
+#define JServerDataSetH
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TJServerDataSet : public TDMBaseServerClass
+{
+private:
+	TADODataSet *m_MasterDataSet;
+	TADODataSet *m_DetailDataSet;
+	TADOStoredProc *m_StoredProc;
+	TADOQuery *m_Query;
+	TADOQuery *b_Query;
+	TADOQuery *LogQuery;
+
+	TADOConnection *m_Connection;
+	TADOQuery *m_BuildQuery;
+	TADOConnection *m_BuildConn;
+	String m_ClassCode;
+
+	bool m_Active;
+	int m_Status;
+	int m_DataSetType;
+
+	String m_MasterSQLString;
+	String m_DetailSQLString;
+	String m_MasterFixedWhereString;
+	String m_MasterWhereString;
+	String m_DetailFixedWhereString;
+	String m_DetailWhereString;
+	String m_MasterFixedOrderString;
+	String m_MasterOrderString;
+	String m_DetailFixedOrderString;
+	String m_DetailOrderString;
+	String m_MasterFixedGroupString;
+	String m_MasterGroupString;
+	String m_DetailFixedGroupString;
+	String m_DetailGroupString;
+	String m_MasterDisplayName;
+	String m_DetailDisplayName;
+	String m_MasterDisplayField;
+	String m_DetailDisplayField;
+	TStringList *m_MasterLinkFields;
+	TStringList *m_DetailLinkFields;
+	String m_MasterFilterFields;
+	String m_DetailFilterFields;
+	String m_MasterFieldAttr;
+	String m_DetailFieldAttr;
+	String m_MasterFieldExpr;
+	String m_DetailFieldExpr;
+	String m_MasterAttrType;
+	String m_DetailAttrType;
+
+	String m_MasterKeyFields;
+	String m_DetailKeyFields;
+
+	String m_ClientDataSetHandle;
+	TStringList *m_ServerBuffer;
+
+	int FSysDbType;
+	int FAccDbType;
+	String FUserCode;
+	String FUserIP;
+	String FAcckBook;
+	TJSONObject* __fastcall SendErrorMessage(int errortype, int errorcode, String errormessage);
+	TJSONObject* __fastcall SendFailMessage(int operate, String errormessage);
+	void __fastcall WriteUserLog(int type, String Desc);
+	void __fastcall InitServerDataSet(String ClassCode);
+protected:
+	String __fastcall BuildLinkStr();
+	String __fastcall BuildLinkFields();
+	void __fastcall ExtractLinkFields(String value);
+	void __fastcall BuildDetailFilter();
+	int __fastcall CheckFieldType(TField *Field);
+public:
+	__fastcall TJServerDataSet(TComponent* Owner);
+	__fastcall ~TJServerDataSet();
+
+	/*********************************************************************
+	// 返回JSONObject格式由数据(Data)、列信息(Cols)和业务类信息组成：
+	//{Master:{Data:[],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Detail:{Data:[],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Operate:,Status:,DataSetType:,MasterKeyFields:,MasterDisplayName:,
+	// MasterDisplayField:,MasterFilterFields:,MasterFieldAttr:,MasterAttrType:,MasterFieldExpr:,
+	// MasterSqlString:,MasterFixedWhere:,MasterFixedOrder:,MasterFixedGroup:,
+	// DetailKeyFields:,DetailDisplayName:,DetailDisplayField:,DetailFilterFields:,
+	// DetailFieldAttr:,DetailAttrType:,DetailFieldExpr:,DetailSqlString:,
+	// DetailFixedWhere:,DetailFixedOrder:,DetailFixedGroup,MasterLinkFields:,DetailLinkFields:}
+	**********************************************************************/
+	TJSONObject* __fastcall GetInitResult(String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	// {MasterWhere:,MasterOrder:,DetailWhere:,DetailOrder:}
+	// 返回JSONObject格式由数据(Data)和列信息(Cols)组成：
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Detail:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall Open(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Detail:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// MasterStatus:}
+	// 返回JSONObject格式由数据(Data)、列信息(Cols)和业务类信息组成：
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Detail:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall Update(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]}
+	// 返回JSONObject格式由业务类信息组成：
+	// {Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall Delete(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	// Detail:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]}
+	// 返回JSONObject格式由业务类信息组成：
+	// {Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall DeleteDetail(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	// 返回JSONObject格式由业务类信息组成：
+	// {Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall ValidateData(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	// 返回JSONObject格式由业务类信息组成：
+	// {Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall CmdExec(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]}
+	// 返回JSONObject格式由业务类信息组成：
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall Check(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]}
+	// 返回JSONObject格式由业务类信息组成：
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall CloseOff(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]}
+	// 返回JSONObject格式由业务类信息组成：
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall Revoke(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]}
+	// 返回JSONObject格式由业务类信息组成：
+	//{Master:{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	//         Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...]},
+	// Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall Tally(TJSONObject *Json, String ClassCode);
+	/*********************************************************************
+	// 传入JSONObject格式
+	// {SQLStr:}
+	// 返回JSONObject格式
+	// {Status:}
+	**********************************************************************/
+	TJSONObject* __fastcall ExecSQL(TJSONObject *Json);
+	/*********************************************************************
+	// 返回JSONObject格式
+	//{Data:[{FieldName0:FieldValue0},{FieldName1:FieldValue1},{FieldName2:FieldValue2}...],
+	// Cols:[{FieldIndex:},{FieldType:},{FieldSize:},{FieldName:},{Required:}...],
+	// ClassInfo:[{Operate:},{Status:}]}
+	**********************************************************************/
+	TJSONObject* __fastcall QueryOpen(String SQLText);
+	/*********************************************************************
+	// 返回JSONObject格式
+	// {ClassInfo:[{Operate:},{Status:},{RowsAffected:}]}
+	**********************************************************************/
+	TJSONObject* __fastcall QueryExecSQL(String SQLText);
+
+	// 执行系统库
+	TJSONObject* __fastcall QuerySysOpen(String SQLText);
+	TJSONObject* __fastcall QuerySysExecSQL(String SQLText);
+};
+#endif

@@ -1,0 +1,21 @@
+//---------------------------------------------------------------------------
+
+#ifndef CustomerH
+#define CustomerH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseListForm.h"
+//---------------------------------------------------------------------------
+class TfrmCustomer : public TfrmBaseListForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmCustomer(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmCustomer *frmCustomer;
+//---------------------------------------------------------------------------
+#endif

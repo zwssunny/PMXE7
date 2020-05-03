@@ -1,0 +1,21 @@
+//---------------------------------------------------------------------------
+
+#ifndef ItemBaseFormH
+#define ItemBaseFormH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseBillFrom.h"
+//---------------------------------------------------------------------------
+class TfrmBaseBillForm1 : public TfrmBaseBillForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmBaseBillForm1(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmBaseBillForm1 *frmBaseBillForm1;
+//---------------------------------------------------------------------------
+#endif

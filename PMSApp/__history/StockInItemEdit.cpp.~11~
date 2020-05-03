@@ -1,0 +1,61 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "StockInItemEdit.h"
+#include "CommFunc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "ItemBaseForm"
+#pragma resource "*.fmx"
+TfrmStockInItemEdit *frmStockInItemEdit;
+//---------------------------------------------------------------------------
+__fastcall TfrmStockInItemEdit::TfrmStockInItemEdit(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet *FDataSet,int DataSetStatus)
+	: TfrmItemBaseForm(Owner, clBroker,FDataSet, DataSetStatus)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmStockInItemEdit::FormInitControl()   //初始化数据控件
+{
+	FCheckFlag=GetMasterValue("StuSkInChkState");
+	FGuidBillID=GetMasterValue("StuSkInPKID");
+}
+void __fastcall TfrmStockInItemEdit::FormClearControl(int Section)   //清空控件数据,Section=2
+{
+
+}
+void __fastcall TfrmStockInItemEdit::SendDataToDataSet(int Section)  //控件数据存入数据集,Section=2
+{
+
+}
+void __fastcall TfrmStockInItemEdit::GetDataFromDataSet(int Section) //数据集数据显示在控件中,Section=2
+{
+//	FCheckFlag=GetMasterValue("StuSkInChkState");
+
+}
+void __fastcall TfrmStockInItemEdit::VerifyFieldData(int Section,int status) //保存前校验数据,Section=2，status：3-新增，4-修改
+{
+
+}
+void __fastcall TfrmStockInItemEdit::SetUserCtrlStatus()//设置用户构件状态
+{
+  bool bChecked= FCheckFlag>0;
+  bool bWriteRight=OperateRight.Pos(FR_SYSTEMWRITE)>0;
+  bool bCheckRight=FormDefRight.Pos(FR_FRMSTUFFSTOCKINLIST_CHECKRIGHT) > 0;
+  bool bPriceCheck=FormDefRight.Pos(FR_FRMSTUFFSTOCKINLIST_CHECKPRICE) > 0;
+  bool bBrowse= DetailStatus==dsBrowse;
+  ItemEditAction->Enabled= bWriteRight && !bChecked && bBrowse;
+  ItemSaveAction->Enabled=bWriteRight && !bChecked && !bBrowse;
+}
+void __fastcall TfrmStockInItemEdit::DetailDataSetBeforePost(TDataSet* DataSet)
+{
+  if(DataSet->FieldByName("StuSkInDtlFKID")->AsString == "")
+	DataSet->FieldByName("StuSkInDtlFKID")->AsString = FGuidBillID;
+  if(DataSet->FieldByName("StuSkInDtlPKID")->AsString == "")
+	DataSet->FieldByName("StuSkInDtlPKID")->AsString = GetGUIDString();
+  DataSet->FieldByName("StuSkInDtlAmt")->AsFloat =
+	DataSet->FieldByName("StuSkInDtlQty")->AsFloat*DataSet->FieldByName("StuSkInDtlPrice")->AsFloat;
+  if(FCheckFlag==0)
+	DataSet->FieldByName("StuSkInDtlCostPrice")->AsFloat = DataSet->FieldByName("StuSkInDtlPrice")->AsFloat;
+}

@@ -1,0 +1,198 @@
+inherited frmCurrencyDataEdit: TfrmCurrencyDataEdit
+  Caption = #36135#24065#32534#36753
+  DesignerMasterStyle = 2
+  inherited MainVertScrollBox: TVertScrollBox
+    inherited MainLayout: TLayout
+      inherited tcDetailControl: TTabControl
+        inherited tabDetail: TTabItem
+          inherited tcMainControl: TTabControl
+            inherited TabDetailMain: TTabItem
+              inherited EditVertScrollBox: TVertScrollBox
+                inherited EditLayout: TLayout
+                  Align = Contents
+                  Size.Height = 474.000000000000000000
+                  object GridPanelLayout1: TGridPanelLayout
+                    Align = Center
+                    Size.Width = 384.000000000000000000
+                    Size.Height = 177.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 3
+                    ColumnCollection = <
+                      item
+                        SizeStyle = Absolute
+                        Value = 100.000000000000000000
+                      end
+                      item
+                        Value = 100.000000000000000000
+                      end>
+                    ControlCollection = <
+                      item
+                        Column = 0
+                        Control = Label1
+                        Row = 0
+                      end
+                      item
+                        Column = 1
+                        Control = seCurDataPKID
+                        Row = 0
+                      end
+                      item
+                        Column = 0
+                        Control = Label2
+                        Row = 1
+                      end
+                      item
+                        Column = 1
+                        Control = seCurDataName
+                        Row = 1
+                      end
+                      item
+                        Column = 0
+                        Control = Label3
+                        Row = 2
+                      end
+                      item
+                        Column = 1
+                        Control = seCurDataExchangeRate
+                        Row = 2
+                      end
+                      item
+                        Column = 1
+                        Control = chkCurDataIsStandard
+                        Row = 3
+                      end>
+                    RowCollection = <
+                      item
+                        SizeStyle = Absolute
+                        Value = 40.000000000000000000
+                      end
+                      item
+                        SizeStyle = Absolute
+                        Value = 40.000000000000000000
+                      end
+                      item
+                        SizeStyle = Absolute
+                        Value = 40.000000000000000000
+                      end
+                      item
+                        SizeStyle = Absolute
+                        Value = 40.000000000000000000
+                      end>
+                    object Label1: TLabel
+                      Align = Right
+                      AutoSize = True
+                      Position.X = 23.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 40.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #36135#24065#20195#30721':'
+                    end
+                    object seCurDataPKID: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      TabOrder = 1
+                      KeyboardType = Alphabet
+                      Position.X = 100.000000000000000000
+                      Position.Y = 5.000000000000000000
+                      Size.Width = 207.000000000000000000
+                      Size.Height = 30.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object Label2: TLabel
+                      Align = Right
+                      AutoSize = True
+                      Position.X = 23.000000000000000000
+                      Position.Y = 40.000000000000000000
+                      Size.Width = 77.000000000000000000
+                      Size.Height = 40.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #36135#24065#21517#31216':'
+                    end
+                    object seCurDataName: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      TabOrder = 3
+                      KeyboardType = Alphabet
+                      Position.X = 100.000000000000000000
+                      Position.Y = 45.000000000000000000
+                      Size.Width = 207.000000000000000000
+                      Size.Height = 30.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object Label3: TLabel
+                      Align = Right
+                      AutoSize = True
+                      Position.X = 57.000000000000000000
+                      Position.Y = 80.000000000000000000
+                      Size.Width = 43.000000000000000000
+                      Size.Height = 40.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.WordWrap = False
+                      Text = #27719#29575':'
+                    end
+                    object seCurDataExchangeRate: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      TabOrder = 5
+                      KeyboardType = NumberPad
+                      Position.X = 100.000000000000000000
+                      Position.Y = 84.000000000000000000
+                      Size.Width = 207.000000000000000000
+                      Size.Height = 30.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object chkCurDataIsStandard: TCheckBox
+                      Align = Left
+                      Position.X = 100.000000000000000000
+                      Position.Y = 120.000000000000000000
+                      Size.Width = 100.000000000000000000
+                      Size.Height = 40.000000000000000000
+                      Size.PlatformDefault = False
+                      TabOrder = 6
+                      Text = #26412#20301#24065
+                      OnChange = chkCurDataIsStandardChange
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+        inherited tabOA: TTabItem
+          inherited tcWorkflowControl: TTabControl
+            inherited tabTaskflow: TTabItem
+              Size.Width = 96.000000000000000000
+            end
+          end
+        end
+      end
+    end
+  end
+  inherited DetailActionList: TActionList
+    Left = 320
+    Top = 104
+  end
+  inherited DetailGestureManager: TGestureManager
+    Left = 200
+    Top = 121
+    GestureData = <
+      item
+        Control = EditLayout
+        Collection = <
+          item
+            Action = MovePriorAction
+            GestureID = sgiLeft
+          end
+          item
+            Action = MoveNextAction
+            GestureID = sgiRight
+          end>
+      end
+      item
+        Control = FlowLayout
+        Collection = <>
+      end>
+  end
+end

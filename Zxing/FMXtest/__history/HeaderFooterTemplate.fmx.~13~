@@ -1,0 +1,162 @@
+object HeaderFooterForm: THeaderFooterForm
+  Left = 0
+  Top = 0
+  Caption = 'Header Footer Form'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Header: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 0
+    Width = 384.000000000000000000
+    object HeaderLabel: TLabel
+      Align = Contents
+      Height = 48.000000000000000000
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = 'Decode BarCode'
+      Width = 384.000000000000000000
+    end
+    object btDecode: TButton
+      Action = acDecode
+      Align = Left
+      Height = 48.000000000000000000
+      TabOrder = 1
+      Width = 73.000000000000000000
+    end
+    object btOpen: TButton
+      Action = TakePhotoFromLibraryAction1
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 336.000000000000000000
+      StyleLookup = 'organizetoolbutton'
+      TabOrder = 2
+      Width = 48.000000000000000000
+    end
+  end
+  object Footer: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    StyleLookup = 'bottomtoolbar'
+    TabOrder = 1
+    Width = 384.000000000000000000
+    object btCamer: TButton
+      Action = TakePhotoFromCameraAction1
+      Align = Center
+      Height = 48.000000000000000000
+      StyleLookup = 'cameratoolbutton'
+      TabOrder = 1
+      Width = 48.000000000000000000
+    end
+    object btFile: TButton
+      Align = Left
+      Height = 48.000000000000000000
+      TabOrder = 3
+      Text = 'File'
+      Width = 73.000000000000000000
+      OnClick = btFileClick
+    end
+    object btClose: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 311.000000000000000000
+      TabOrder = 5
+      Text = 'Close'
+      Width = 73.000000000000000000
+    end
+  end
+  object Label2: TLabel
+    AutoSize = True
+    Height = 22.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 75.000000000000000000
+    TextSettings.WordWrap = False
+    Text = 'format:'
+    Width = 59.000000000000000000
+  end
+  object Label3: TLabel
+    AutoSize = True
+    Height = 22.000000000000000000
+    Position.X = 16.000000000000000000
+    Position.Y = 139.000000000000000000
+    TextSettings.WordWrap = False
+    Text = 'result:'
+    Width = 51.000000000000000000
+  end
+  object Label4: TLabel
+    AutoSize = True
+    Height = 22.000000000000000000
+    Position.X = 25.000000000000000000
+    Position.Y = 195.000000000000000000
+    TextSettings.WordWrap = False
+    Text = 'error:'
+    Width = 42.000000000000000000
+  end
+  object edFormat: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 6
+    Position.X = 72.000000000000000000
+    Position.Y = 63.000000000000000000
+    Width = 281.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edResult: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 7
+    Position.X = 72.000000000000000000
+    Position.Y = 127.000000000000000000
+    Width = 281.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edError: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 8
+    Position.X = 72.000000000000000000
+    Position.Y = 181.000000000000000000
+    Width = 281.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object ImageContainer: TImage
+    MultiResBitmap = <
+      item
+      end
+      item
+        Scale = 2.000000000000000000
+      end>
+    Align = Bottom
+    EnableDragHighlight = False
+    Height = 247.000000000000000000
+    Position.Y = 272.000000000000000000
+    Width = 384.000000000000000000
+  end
+  object ActionList1: TActionList
+    Left = 320
+    Top = 96
+    object TakePhotoFromLibraryAction1: TTakePhotoFromLibraryAction
+      Category = 'Media Library'
+      OnDidFinishTaking = TakePhotoFromLibraryAction1DidFinishTaking
+    end
+    object TakePhotoFromCameraAction1: TTakePhotoFromCameraAction
+      Category = 'Media Library'
+      OnDidFinishTaking = TakePhotoFromCameraAction1DidFinishTaking
+    end
+    object acDecode: TAction
+      Category = 'Media Library'
+      Text = 'Decode'
+      OnExecute = acDecodeExecute
+    end
+    object acClose: TAction
+      Text = 'Close'
+      OnExecute = acCloseExecute
+    end
+  end
+end

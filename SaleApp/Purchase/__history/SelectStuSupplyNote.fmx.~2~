@@ -1,0 +1,15 @@
+inherited SelectStuSupplyNoteForm: TSelectStuSupplyNoteForm
+  Caption = 'SelectStuSupplyNoteForm'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+    end
+  end
+end

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2008-06-05 17:26:49.947.cbproj,D:\sdlib\ctrls\SderpCom.cbproj=D:\sdlib\ctrls\baseCom2007.cbproj</Transaction>
+    <Transaction>2008-06-18 22:12:33.125.h,D:\sdlib\ctrls\File1.h=D:\sdlib\ctrls\ColorDef.h</Transaction>
+    <Transaction>2009-09-19 13:58:52.796.pas,E:\PM2009\VclCom\ctrls\Paletteunit.pas=</Transaction>
+    <Transaction>2009-09-19 13:58:52.796.pas,E:\PM2009\VclCom\ctrls\PrjCnDate.pas=</Transaction>
+    <Transaction>2009-09-19 13:59:23.312.cpp,E:\PM2009\VclCom\ctrls\VOR.cpp=</Transaction>
+    <Transaction>2009-09-19 13:59:25.281.pas,E:\PM2009\VclCom\ctrls\XPMenu.pas=</Transaction>
+    <Transaction>2009-09-19 14:23:04.343.cpp,E:\PM2009\VclCom\ctrls\JBCommentBinding.cpp=</Transaction>
+    <Transaction>2009-09-19 14:42:20.562.cpp,E:\PM2009\VclCom\ctrls\RunExpert.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

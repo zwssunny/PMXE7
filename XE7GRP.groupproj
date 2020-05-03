@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F0D8C38A-831F-41E2-A165-FAE66D455238}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="baselibXE\BaseLibXE.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="KLLAPP\KLLApp.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="BaseLibXE">
+        <MSBuild Projects="baselibXE\BaseLibXE.cbproj"/>
+    </Target>
+    <Target Name="BaseLibXE:Clean">
+        <MSBuild Projects="baselibXE\BaseLibXE.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BaseLibXE:Make">
+        <MSBuild Projects="baselibXE\BaseLibXE.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="KLLApp">
+        <MSBuild Projects="KLLAPP\KLLApp.cbproj"/>
+    </Target>
+    <Target Name="KLLApp:Clean">
+        <MSBuild Projects="KLLAPP\KLLApp.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="KLLApp:Make">
+        <MSBuild Projects="KLLAPP\KLLApp.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="BaseLibXE;KLLApp"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="BaseLibXE:Clean;KLLApp:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="BaseLibXE:Make;KLLApp:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

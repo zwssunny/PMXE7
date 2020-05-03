@@ -1,0 +1,104 @@
+object StartAndEndDateFrame: TStartAndEndDateFrame
+  Size.Width = 185.000000000000000000
+  Size.Height = 110.000000000000000000
+  Size.PlatformDefault = False
+  TabOrder = 0
+  object Panel1: TPanel
+    Align = Bottom
+    Position.Y = 75.000000000000000000
+    Size.Width = 185.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    object deEnd: TDateEdit
+      Date = 41765.000000000000000000
+      Format = 'YYYY-MM-DD'
+      Align = Client
+      Size.Width = 130.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+    object lbEndDate: TLabel
+      Align = Left
+      AutoSize = True
+      Size.Width = 55.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #32467#26463#26085#26399':'
+    end
+  end
+  object Panel2: TPanel
+    Align = Bottom
+    Position.Y = 40.000000000000000000
+    Size.Width = 185.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object deStart: TDateEdit
+      Date = 41765.000000000000000000
+      Format = 'YYYY-MM-DD'
+      Align = Client
+      Size.Width = 129.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+    end
+    object lbBeginDate: TLabel
+      Align = Left
+      AutoSize = True
+      Size.Width = 56.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #24320#22987#26085#26399':'
+    end
+  end
+  object Panel3: TPanel
+    Align = Bottom
+    Position.Y = 5.000000000000000000
+    Size.Width = 185.000000000000000000
+    Size.Height = 35.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    object cbDateRange: TComboBox
+      Align = Client
+      DisableFocusEffect = False
+      Items.Strings = (
+        #20170#22825
+        #26412#21608
+        #26412#21608#33267#20170
+        #26412#26376
+        #26412#26376#33267#20170
+        #26412#23395#24230
+        #26412#23395#24230#33267#20170
+        #26412#24180
+        #26412#24180#33267#20170
+        #26152#22825
+        #19978#21608
+        #19978#21608#33267#19978#21608#20170#22825
+        #19978#26376
+        #19978#26376#33267#19978#26376#20170#22825
+        #19978#23395#24230
+        #19978#23395#24230#33267#19978#23395#24230#20170#22825
+        #21435#24180
+        #21435#24180#33267#21435#24180#20170#22825
+        #33258#23450#20041)
+      Size.Width = 130.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      OnClosePopup = cbDateRangeClosePopup
+    end
+    object lbBegEndScope: TLabel
+      Align = Left
+      AutoSize = True
+      Size.Width = 55.000000000000000000
+      Size.Height = 35.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.WordWrap = False
+      Text = #36873#25321#33539#22260':'
+    end
+  end
+end

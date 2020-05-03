@@ -1,0 +1,45 @@
+unit wsWorkflowReg;
+
+{$I wsdefs.inc}
+
+interface
+uses
+  Classes,
+  {$IFDEF DELPHI6_LVL}
+  DesignEditors, Variants, DesignIntf
+  {$ELSE}
+  DsgnIntf
+  {$ENDIF}
+  ;
+
+procedure Register;
+
+implementation
+uses wsBlocks, wsUserInterface, wsControls, wsMain, wsClasses,
+  wsDiagram, DiagramExtra,atDiagram,DgrCombo,DgrSelectors,DiagramActns,LiveDiagram,LiveFlowChart,
+  wsScripter,
+  wsDB;
+
+procedure Register;
+begin
+  RegisterComponents('Workflow Studio', [                                       
+    TWorkflowStudio,
+    TWorkflowDB,
+    TWorkflowDiagram,
+    TWorkDefListView,
+    TTaskListView, TAttachmentListView,
+    TTaskStatusCombo, TTaskLogListView]);
+    
+   RegisterComponents('Workflow FlowEditor', [
+    TDiagramButton,TDiagramButton,TDiagramToolBar,
+		TDiagramEditText,TDiagramSelectAll,TDiagramCopy,TDiagramCut,TDiagramPaste,TDiagramDelete,
+		TDiagramSetZoom,TDiagramViewLeftRuler,TDiagramViewTopRuler,TDiagramSetZoom,TDiagramShapeColor,
+		TDiagramLineColor,TDiagramBlockPicture,TDiagramArrowShape,TDiagramToolBar,TDiagramSendToBack,TDiagramBringToFront,
+		TDiagramControlFont,TDiagramGrid,TDiagramGradientSetting,TDiagramShadow,TDiagramUndoAction,TDiagramRedoAction,
+		TDgrZoomSelector,TDiagramConnectionId,TWorkflowDiagram,TDgrColorSelector,TDgrGradientDirectionSelector,TDgrBrushStyleSelector,
+		TDgrShadowSelector,TDgrPenStyleSelector,TDgrPenColorSelector,TDgrPenWidthSelector,TDgrTextColorSelector,
+		TDgrFontSelector,TDgrFontSizeSelector,TDgrLayerSelector,TDgrTransparencySelector,TDiagramAlign]);
+    
+end;
+
+end.

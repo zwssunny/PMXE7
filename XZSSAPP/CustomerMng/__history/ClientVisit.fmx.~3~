@@ -1,0 +1,164 @@
+inherited frmCliengVisit: TfrmCliengVisit
+  Caption = #23458#25143#26469#35775#30331#35760
+  DesignerMasterStyle = 3
+  inherited StyleBook1: TStyleBook
+    Left = 176
+    Top = 8
+  end
+  inherited MainPanel: TPanel
+    inherited ToolBarTop: TToolBar
+      inherited lbTitle: TLabel
+        Text = #23458#25143#26469#35775#30331#35760
+      end
+      object BtnQuery: TButton
+        Align = Right
+        Position.X = 280.000000000000000000
+        Position.Y = 8.000000000000000000
+        Size.Width = 32.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'searcheditbutton'
+        TabOrder = 0
+        Text = 'BtnQuery'
+      end
+      object BtnAdd: TButton
+        Align = Right
+        Position.X = 312.000000000000000000
+        Size.Width = 48.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'addtoolbutton'
+        TabOrder = 1
+        Text = 'BtnAdd'
+        OnClick = BtnAddClick
+      end
+    end
+    inherited ClientVertScrollBox: TVertScrollBox
+      object ListViewClient: TListView
+        ItemAppearanceClassName = 'TListItemAppearance'
+        ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 360.000000000000000000
+        Size.Height = 544.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        OnPaint = ListViewClientPaint
+        OnItemClick = ListViewClientItemClick
+        OnDeletingItem = ListViewClientDeletingItem
+        OnPullRefresh = ListViewClientPullRefresh
+        object QueryView: TMultiView
+          MasterButton = BtnQuery
+          Mode = Popover
+          Size.Width = 250.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          Visible = False
+          TabOrder = 0
+          object Label1: TLabel
+            Position.X = 8.000000000000000000
+            Position.Y = 34.000000000000000000
+            Size.Width = 97.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            Text = #27004'        '#30424#65306
+          end
+          object cbEstate: TComboBox
+            Position.X = 96.000000000000000000
+            Position.Y = 24.000000000000000000
+            Size.Width = 145.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+          end
+          object Label2: TLabel
+            Position.X = 8.000000000000000000
+            Position.Y = 67.000000000000000000
+            Size.Width = 97.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            Text = #20250#21592#21345#21495#65306
+          end
+          object edCard: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 6
+            Position.X = 96.000000000000000000
+            Position.Y = 56.000000000000000000
+            Size.Width = 145.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object Label3: TLabel
+            Position.X = 8.000000000000000000
+            Position.Y = 99.000000000000000000
+            Size.Width = 97.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            Text = #23458#25143#22995#21517#65306
+          end
+          object edName: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 5
+            Position.X = 96.000000000000000000
+            Position.Y = 88.000000000000000000
+            Size.Width = 145.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object Label4: TLabel
+            Position.X = 8.000000000000000000
+            Position.Y = 131.000000000000000000
+            Size.Width = 97.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            Text = #35777#20214#21495#30721#65306
+          end
+          object edNum: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 4
+            Position.X = 96.000000000000000000
+            Position.Y = 120.000000000000000000
+            Size.Width = 145.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object Label5: TLabel
+            Position.X = 8.000000000000000000
+            Position.Y = 163.000000000000000000
+            Size.Width = 97.000000000000000000
+            Size.Height = 23.000000000000000000
+            Size.PlatformDefault = False
+            Text = #32852#31995#30005#35805#65306
+          end
+          object edTel: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 3
+            Position.X = 96.000000000000000000
+            Position.Y = 152.000000000000000000
+            Size.Width = 145.000000000000000000
+            Size.Height = 32.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object BtnSearch: TButton
+            Position.X = 88.000000000000000000
+            Position.Y = 248.000000000000000000
+            Size.Width = 48.000000000000000000
+            Size.Height = 48.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'searchtoolbutton'
+            TabOrder = 10
+            Text = 'BtnSearch'
+            OnClick = BtnSearchClick
+          end
+        end
+      end
+    end
+  end
+  object Query: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 208
+    Top = 11
+  end
+end

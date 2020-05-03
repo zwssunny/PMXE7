@@ -1,0 +1,37 @@
+//---------------------------------------------------------------------------
+
+#ifndef SendWFMessageH
+#define SendWFMessageH
+#include <Messages.hpp>
+#include <SysUtils.hpp>
+#include <Classes.hpp>
+#include <SqlExpr.hpp>
+#include "wsmain.hpp"
+#include "DSClientProxy.h"
+//---------------------------------------------------------------------------
+class TSendWFMessageThread :public TThread
+{
+private:
+	TChatRoomServerMethodsClient* FChatRoomServerMethodsClient;
+	TAssignedUserType FAssignedUserType;
+	String UserID;
+//	TTaskDefinition* TaskDef;
+	String TaskRemark;
+protected:
+	TJSONArray* __fastcall GetUserList();
+	System::UnicodeString __fastcall GetHTMLEscapedString(System::UnicodeString Value);
+	bool __fastcall SendMessageToAll(System::UnicodeString Msg);
+	bool __fastcall SendMessageToUser(System::UnicodeString Msg, System::UnicodeString UserID);
+	bool __fastcall SendMessageToDepartment(System::UnicodeString Msg, System::UnicodeString DepartmentID);
+	bool __fastcall SendMessageToJob(System::UnicodeString Msg, System::UnicodeString JobID);
+	bool __fastcall SendMessageToRole(System::UnicodeString Msg, System::UnicodeString RoleID);
+	bool __fastcall SendCMDToAll(System::UnicodeString cmdStr);
+	bool __fastcall SendCMDToUser(System::UnicodeString cmdStr, System::UnicodeString UserID);
+	bool __fastcall SendCMDToDepartment(System::UnicodeString cmdStr, System::UnicodeString DepartmentID);
+	bool __fastcall SendCMDToGroup(System::UnicodeString cmdStr, System::UnicodeString GroupID);
+	bool __fastcall SendCMDToRole(System::UnicodeString cmdStr, System::UnicodeString RoleID);
+public:
+	virtual TSendWFMessageThread(TDBXConnection* DBXConnection, TTaskInstance *ATaskIns);
+	void __fastcall Execute();
+};
+#endif

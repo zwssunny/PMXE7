@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.049,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=E:\PMXE6\ControlSer\FsControlPCH.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.092,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.771,=E:\PMXE6\ControlSer\ServerContainerModule.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.003,=E:\PMXE6\ControlSer\LogQueueProc.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.767,=E:\PMXE6\ControlSer\CheckService.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.775,=E:\PMXE6\ControlSer\ServerControlMethods.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.305,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.h=E:\PMXE6\ControlSer\SerMain.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.466,=E:\PMXE6\baselibXE\ServerCtl.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.365,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj=E:\PMXE6\ControlSer\FSControlSer.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.305,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.dfm=E:\PMXE6\ControlSer\SerMain.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.119,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.305,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp=E:\PMXE6\ControlSer\SerMain.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.462,=E:\PMXE6\baselibXE\BaseFunc.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

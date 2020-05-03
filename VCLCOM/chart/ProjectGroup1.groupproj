@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{c91414f8-d3df-4d71-b17b-53aaf2e036ee}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="Chart2007.cbproj" />
+    <Projects Include="D:\PM2008\EBS2008\Client\PRJMGR\PMPrjMgr.cbproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="Chart2007">
+    <MSBuild Projects="Chart2007.cbproj" Targets="" />
+  </Target>
+  <Target Name="Chart2007:Clean">
+    <MSBuild Projects="Chart2007.cbproj" Targets="Clean" />
+  </Target>
+  <Target Name="Chart2007:Make">
+    <MSBuild Projects="Chart2007.cbproj" Targets="Make" />
+  </Target>
+  <Target Name="PMPrjMgr">
+    <MSBuild Projects="D:\PM2008\EBS2008\Client\PRJMGR\PMPrjMgr.cbproj" Targets="" />
+  </Target>
+  <Target Name="PMPrjMgr:Clean">
+    <MSBuild Projects="D:\PM2008\EBS2008\Client\PRJMGR\PMPrjMgr.cbproj" Targets="Clean" />
+  </Target>
+  <Target Name="PMPrjMgr:Make">
+    <MSBuild Projects="D:\PM2008\EBS2008\Client\PRJMGR\PMPrjMgr.cbproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="Chart2007;PMPrjMgr" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="Chart2007:Clean;PMPrjMgr:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="Chart2007:Make;PMPrjMgr:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

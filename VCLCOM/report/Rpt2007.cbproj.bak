@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{a7fcbae5-b480-4448-8896-3c3b987d4287}</ProjectGuid>
+    <ProjectType>CppPackage</ProjectType>
+    <MainSource>Rpt2007.cpp</MainSource>
+    <Config Condition="'$(Config)'==''">Debug Build</Config>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug Build' or '$(Cfg_1)'!=''">
+    <Base>true</Base>
+    <Cfg_1>true</Cfg_1>
+    <CfgParent>Base</CfgParent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release Build' or '$(Cfg_2)'!=''">
+    <Base>true</Base>
+    <Cfg_2>true</Cfg_2>
+    <CfgParent>Base</CfgParent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base)'!=''">
+    <OutputExt>bpl</OutputExt>
+    <DCC_Optimize>false</DCC_Optimize>
+    <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+    <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+    <DynamicRTL>true</DynamicRTL>
+    <ILINK_GenerateLibFile>true</ILINK_GenerateLibFile>
+    <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+    <ILINK_AppType>Windows</ILINK_AppType>
+    <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+    <ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
+    <ILINK_ObjectSearchPath>D:\FastReports4\LibD11</ILINK_ObjectSearchPath>
+    <UsePackages>true</UsePackages>
+    <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+    <DCC_MakeModifiedUnits>true</DCC_MakeModifiedUnits>
+    <BCC_ZeroLengthEmptyMemberFuncs>true</BCC_ZeroLengthEmptyMemberFuncs>
+    <FinalOutputDir>..\lib\</FinalOutputDir>
+    <PackageImports>rtl.bpi;vcl.bpi;tee.bpi</PackageImports>
+    <TASM_AdditionalSwitches> /w2</TASM_AdditionalSwitches>
+    <DCC_UnitSearchPath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_UnitSearchPath>
+    <ILINK_Description>HYWY Report Component for C++ Builder2007</ILINK_Description>
+    <BRCC_UserSuppliedOptions> -I$(BDS)\include;$(BDS)\include\vcl;..\Other;..\chart;..\ctrls;F:\sdlib;$(BDS)\include\dinkumware</BRCC_UserSuppliedOptions>
+    <ILINK_WinAppType>Package</ILINK_WinAppType>
+    <BCC_StackFrames>true</BCC_StackFrames>
+    <BCC_GenerateMultithreaded>true</BCC_GenerateMultithreaded>
+    <IncludePath>..\ctrls;..\chart;$(FASTREPORT);D:\FastReports4\LibD11</IncludePath>
+    <BCC_PCHCache>true</BCC_PCHCache>
+    <ILINK_BpiLibOutputDir>..\lib\</ILINK_BpiLibOutputDir>
+    <BCC_IntegerSizedEnums>false</BCC_IntegerSizedEnums>
+    <DCC_IncludePath>.\;$(BDS)\lib;$(BDS)\lib\obj</DCC_IncludePath>
+    <BRCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;..\Other;..\chart;..\ctrls;F:\sdlib;$(BDS)\include\dinkumware</BRCC_IncludePath>
+    <AllPackageLibs>rtl.lib;vcl.lib;tee.lib;SderpCom.lib;sdChart.lib</AllPackageLibs>
+    <TASM_IncludePath>$(BDS)\include;$(BDS)\include\vcl;..\Other;..\chart;..\ctrls;F:\sdlib;$(BDS)\include\dinkumware</TASM_IncludePath>
+    <BCC_IncludePath>$(BDS)\include;$(BDS)\include\vcl;..\Other;..\chart;..\ctrls;F:\sdlib;$(BDS)\include\dinkumware</BCC_IncludePath>
+    <ILINK_LibraryPath>$(BDS)\lib\obj;$(BDS)\lib;..\chart;..\ctrls;..\lib;$(FASTREPORT);D:\FastReports4\LibD11</ILINK_LibraryPath>
+    <BCC_ZeroLengthEmptyBaseClass>true</BCC_ZeroLengthEmptyBaseClass>
+    <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+    <Multithreaded>true</Multithreaded>
+    <TASM_Defines>_DEBUG</TASM_Defines>
+    <BRCC_Defines>_DEBUG</BRCC_Defines>
+    <BCC_Defines>NO_STRICT</BCC_Defines>
+    <TASM_Debugging>Full</TASM_Debugging>
+    <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+    <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1)'!=''">
+    <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+    <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
+    <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+    <IntermediateOutputDir>Debug_Build</IntermediateOutputDir>
+    <TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+    <ILINK_LibraryPath>$(BDS)\lib\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+    <BCC_Defines>_DEBUG;$(BCC_Defines)</BCC_Defines>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2)'!=''">
+    <DCC_Optimize>true</DCC_Optimize>
+    <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+    <BCC_InlineFunctionExpansion>true</BCC_InlineFunctionExpansion>
+    <BCC_UseRegisterVariables>Always</BCC_UseRegisterVariables>
+    <DCC_DebugInformation>false</DCC_DebugInformation>
+    <IntermediateOutputDir>Release_Build</IntermediateOutputDir>
+    <BCC_StackFrames>false</BCC_StackFrames>
+    <ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+    <BCC_Defines>NDEBUG;$(BCC_Defines)</BCC_Defines>
+    <TASM_Debugging>None</TASM_Debugging>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>CPlusPlusBuilder.Personality</Borland.Personality>
+    <Borland.ProjectType>CppPackage</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><CPlusPlusBuilder.Personality><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2052</VersionInfo><VersionInfo Name="CodePage">936</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">HYWY</VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Count">13</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item0">..\ctrls;..\chart;$(FASTREPORT)</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item1">..\ctrls;..\chart;D:\FastReports\FastReport 4\LibD11</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item2">..\ctrls;..\chart</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item3">$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls;F:\sdlib</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item4">$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls;C:\Program Files\Borland\CBuilder5\Projects</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item5">$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls;C:\Program Files\Borland\CBuilder5\Projects\</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item6">C:\Program Files\Borland\CBuilder5\Projects\;$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item7">C:\Program Files\Borland\CBuilder5\Projects;$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item8">$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item9">D:\Program Files\Borland\CBuilder5\Projects\;$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item10">D:\Program Files\Borland\CBuilder5\Projects;$(BCB)\include;$(BCB)\include\vcl;..\Other;..\chart;..\ctrls</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item11">$(BCB)\include;$(BCB)\include\vcl;F:\package\Sdlib\Other;F:\package\Sdlib\chart;F:\package\Sdlib\ctrls</HistoryLists_hlIncludePath><HistoryLists_hlIncludePath Name="Item12">$(BCB)\include;$(BCB)\include\vcl</HistoryLists_hlIncludePath></HistoryLists_hlIncludePath><HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Count">12</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item0">$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item1">$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls;C:\Program Files\Borland\CBuilder5\Projects</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item2">$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls;C:\Program Files\Borland\CBuilder5\Projects\</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item3">C:\Program Files\Borland\CBuilder5\Projects\;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item4">C:\Program Files\Borland\CBuilder5\Projects;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item5">$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item6">..\;..;D:\Program Files\Borland\CBuilder5\Projects\;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item7">..\;D:\Program Files\Borland\CBuilder5\Projects\;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item8">D:\Program Files\Borland\CBuilder5\Projects\;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item9">D:\Program Files\Borland\CBuilder5\Projects;$(BCB)\lib\obj;$(BCB)\lib;..\chart;..\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item10">$(BCB)\lib\obj;$(BCB)\lib;F:\package\Sdlib\chart;F:\package\Sdlib\ctrls</HistoryLists_hlLibraryPath><HistoryLists_hlLibraryPath Name="Item11">$(BCB)\lib\obj;$(BCB)\lib</HistoryLists_hlLibraryPath></HistoryLists_hlLibraryPath><HistoryLists_hlDebugSourcePath><HistoryLists_hlDebugSourcePath Name="Count">1</HistoryLists_hlDebugSourcePath><HistoryLists_hlDebugSourcePath Name="Item0">$(BCB)\source\vcl</HistoryLists_hlDebugSourcePath></HistoryLists_hlDebugSourcePath><HistoryLists_hlConditionals><HistoryLists_hlConditionals Name="Count">1</HistoryLists_hlConditionals><HistoryLists_hlConditionals Name="Item0">_DEBUG</HistoryLists_hlConditionals></HistoryLists_hlConditionals><HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Count">5</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item0">..</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item1">E:\projects\pack\sdlib</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item2">E:\projects\pack\sdlib\report</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item3">F:\package\Sdlib\Report\</HistoryLists_hlIntOutputDir><HistoryLists_hlIntOutputDir Name="Item4">F:\package\Sdlib\Report</HistoryLists_hlIntOutputDir></HistoryLists_hlIntOutputDir><HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Count">6</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item0">..\lib\</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item1">..\</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item2">E:\projects\pack\sdlib</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item3">E:\projects\pack\sdlib\report</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item4">F:\package\Sdlib\Report\</HistoryLists_hlFinalOutputDir><HistoryLists_hlFinalOutputDir Name="Item5">F:\package\Sdlib\Report</HistoryLists_hlFinalOutputDir></HistoryLists_hlFinalOutputDir><HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Count">6</HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Item0">E:\projects\pack\sdlib\</HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Item1">E:\projects\pack\sdlib</HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Item2">E:\projects\pack\sdlib\report\</HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Item3">E:\projects\pack\sdlib\report</HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Item4">F:\package\Sdlib\Report\</HistoryLists_hIBPIOutputDir><HistoryLists_hIBPIOutputDir Name="Item5">F:\package\Sdlib\Report</HistoryLists_hIBPIOutputDir></HistoryLists_hIBPIOutputDir><Debugging><Debugging Name="DebugSourceDirs">$(BCB)\source\vcl</Debugging></Debugging><Parameters><Parameters Name="RunParams"></Parameters><Parameters Name="Launcher"></Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="DebugCWD"></Parameters><Parameters Name="HostApplication"></Parameters><Parameters Name="RemoteHost"></Parameters><Parameters Name="RemotePath"></Parameters><Parameters Name="RemoteLauncher"></Parameters><Parameters Name="RemoteCWD"></Parameters><Parameters Name="RemoteDebug">False</Parameters><Parameters Name="RemoteParams"></Parameters><Parameters Name="UseRemoteLauncher">False</Parameters><Parameters Name="Debug Symbols Search Path"></Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Compiler><Compiler Name="ShowInfoMsgs">0</Compiler><Compiler Name="LinkDebugVcl">0</Compiler><Compiler Name="LinkCGLIB">0</Compiler></Compiler><CORBA><CORBA Name="AddServerUnit">1</CORBA><CORBA Name="AddClientUnit">1</CORBA><CORBA Name="PrecompiledHeaders">1</CORBA></CORBA><Language><Language Name="ActiveLang"></Language><Language Name="ProjectLang"></Language><Language Name="RootDir"></Language></Language><Linker><Linker Name="LibPrefix"></Linker><Linker Name="LibSuffix"></Linker><Linker Name="LibVersion"></Linker></Linker><Source><Source Name="MainSource">Rpt2007.cpp</Source></Source><ProjectProperties><ProjectProperties Name="AutoShowDeps">False</ProjectProperties><ProjectProperties Name="ManagePaths">True</ProjectProperties><ProjectProperties Name="VerifyPackages">True</ProjectProperties></ProjectProperties><HistoryLists_hlILINK_LibraryPath><HistoryLists_hlILINK_LibraryPath Name="Count">1</HistoryLists_hlILINK_LibraryPath><HistoryLists_hlILINK_LibraryPath Name="Item0">$(BDS)\lib\obj;$(BDS)\lib;..\chart;..\ctrls;..\lib;$(FASTREPORT)</HistoryLists_hlILINK_LibraryPath><HistoryLists_hlILINK_LibraryPath Name="Item1">$(BDS)\lib\obj;$(BDS)\lib;..\chart;..\ctrls;..\lib;D:\FastReports\FastReport 4\LibD11</HistoryLists_hlILINK_LibraryPath></HistoryLists_hlILINK_LibraryPath><HistoryLists_hlILINK_BpiLibOutputDir><HistoryLists_hlILINK_BpiLibOutputDir Name="Count">1</HistoryLists_hlILINK_BpiLibOutputDir><HistoryLists_hlILINK_BpiLibOutputDir Name="Item0">..\lib\</HistoryLists_hlILINK_BpiLibOutputDir></HistoryLists_hlILINK_BpiLibOutputDir><Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\bcboffice2k100.bpl">CodeGear C++Builder Office 2000 Servers Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\bcbofficexp100.bpl">CodeGear C++Builder Office XP Servers Package</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+    </Excluded_Packages></CPlusPlusBuilder.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Cpp.Targets" />
+  <ItemGroup>
+    <PackageImport Include="adortl.bpi">
+      <BuildOrder>0</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="baseCom2007.bpi">
+      <BuildOrder>1</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="bdertl.bpi">
+      <BuildOrder>2</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="Chart2007.bpi">
+      <BuildOrder>3</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="dbrtl.bpi">
+      <BuildOrder>4</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="fqb110.bpi">
+      <BuildOrder>5</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="frx11.bpi">
+      <BuildOrder>6</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="frxDB11.bpi">
+      <BuildOrder>7</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="frxe11.bpi">
+      <BuildOrder>8</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="frxTee11.bpi">
+      <BuildOrder>9</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="fs11.bpi">
+      <BuildOrder>10</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="fsDB11.bpi">
+      <BuildOrder>11</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="fsTee11.bpi">
+      <BuildOrder>12</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="rtl.bpi">
+      <BuildOrder>13</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="tee.bpi">
+      <BuildOrder>14</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="teeUI.bpi">
+      <BuildOrder>15</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="vcl.bpi">
+      <BuildOrder>16</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="vcldb.bpi">
+      <BuildOrder>17</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="vcljpg.bpi">
+      <BuildOrder>18</BuildOrder>
+    </PackageImport>
+    <PackageImport Include="vclx.bpi">
+      <BuildOrder>19</BuildOrder>
+    </PackageImport>
+    <CppCompile Include="GridReport.cpp">
+      <BuildOrder>20</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="Rpt2007.cpp">
+      <BuildOrder>21</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="RptControl.cpp">
+      <BuildOrder>23</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="ZFrxReport.cpp">
+      <BuildOrder>24</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="ZPrintView.cpp">
+      <BuildOrder>25</BuildOrder>
+    </CppCompile>
+    <CppCompile Include="ZReportbase.cpp">
+      <BuildOrder>26</BuildOrder>
+    </CppCompile>
+    <ResFiles Include="Rpt2007.res">
+      <BuildOrder>22</BuildOrder>
+    </ResFiles>
+    <BuildConfiguration Include="Debug Build">
+      <Key>Cfg_1</Key>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Release Build">
+      <Key>Cfg_2</Key>
+    </BuildConfiguration>
+  </ItemGroup>
+</Project>

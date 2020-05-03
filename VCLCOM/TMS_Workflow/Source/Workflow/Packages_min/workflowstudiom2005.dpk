@@ -1,0 +1,71 @@
+package workflowstudiom2005;
+
+{$R *.res}
+{$R '..\source\wsWorkflowReg.dcr'}
+{$R '..\source\wsADO.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'Workflow Studio components'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  vclx,
+  vcldb,
+  adortl,
+  bdertl,
+  designide;
+
+contains
+  wsWorkflowReg in '..\source\wsWorkflowReg.pas',
+  ap_wsClasses in '..\source\ap_wsClasses.pas',
+  fApprovalEditor in '..\source\fApprovalEditor.pas',
+  fAttachmentEditor in '..\source\fAttachmentEditor.pas',
+  fAttachmentFrame in '..\source\fAttachmentFrame.pas',
+  fAttachPermissions in '..\source\fAttachPermissions.pas' {frAttachPermissions: TFrame},
+  fDecisionEditor in '..\source\fDecisionEditor.pas' {fmDecisionEditor},
+  fFieldFrame in '..\source\fFieldFrame.pas',
+  fTaskEditor in '..\source\fTaskEditor.pas',
+  fTaskInstanceView in '..\source\fTaskInstanceView.pas',
+  fTaskList in '..\source\fTaskList.pas',
+  fTransitionEditor in '..\source\fTransitionEditor.pas' {fmTransitionEditor},
+  fVariableEditor in '..\source\fvariableeditor.pas',
+  fWorkDefManager in '..\source\fWorkDefManager.pas',
+  fWorkflowEditor in '..\source\fWorkflowEditor.pas',
+  wsADO in '..\source\wsADO.pas',
+  wsBlocks in '..\source\wsBlocks.pas',
+  wsClasses in '..\source\wsClasses.pas',
+  wsControls in '..\source\wsControls.pas',
+  wsDB in '..\source\wsDB.pas',
+  wsDiagram in '..\source\wsDiagram.pas',
+  wsLanguage in '..\source\wslanguage.pas',
+  wsMain in '..\source\wsMain.pas',
+  wsRes in '..\source\wsres.pas',
+  wsScripter in '..\source\wsScripter.pas',
+  wsUserInterface in '..\source\wsUserInterface.pas',
+  fScriptEditor in '..\source\fscripteditor.pas' {fmScriptEditor},
+  fRunWorkflowEditor in '..\source\fRunWorkflowEditor.pas' {TfmRunWorkflowEditor},
+  fStatusFrame in '..\source\fStatusFrame.pas',
+  fExpirationFrame in '..\source\fExpirationFrame.pas';
+
+end.

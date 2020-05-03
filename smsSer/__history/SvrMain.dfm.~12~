@@ -1,0 +1,17 @@
+object XZSmsServerXE: TXZSmsServerXE
+  OldCreateOrder = False
+  OnDestroy = ServiceDestroy
+  AllowPause = False
+  DisplayName = #20808#26234#30701#20449#26381#21153#22120'XE'
+  AfterInstall = ServiceAfterInstall
+  OnStart = ServiceStart
+  OnStop = ServiceStop
+  Height = 114
+  Width = 140
+  object Timer1: TTimer
+    Interval = 10000
+    OnTimer = Timer1Timer
+    Left = 18
+    Top = 16
+  end
+end

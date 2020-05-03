@@ -1,0 +1,98 @@
+﻿<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/> 
+  <title>先智即时通信
+</title>
+  <link rel="stylesheet" type="text/css" href="proxy/ChatRoom.css" />
+  <script type="text/javascript" src="proxy/Base64-min.js"></script>
+  <script type="text/javascript" src="proxy/json2-min.js"></script>
+  <script type="text/javascript" src="proxy/ServerFunctionExecutor-min.js"></script>
+  <script type="text/javascript" src="proxy/CallbackFramework-min.js"></script>
+  <script type="text/javascript" src="proxy/JSProxy-min.js"></script>
+  <script type="text/javascript" src="proxy/ChatRoom-min.js"></script>
+</head>
+<body>
+
+<div id="mlogin">
+  <div id="mloginoverlay"></div>
+  <div id="mlogincontent">
+    <form onsubmit="updateLoginUser(); return false;">
+      <br /> 登录用户：<input type="text" id="logincode"/><br />
+       <br /> 登录密码：<input type="text" id="loginpassword"/><br /> 
+       <br /> 
+         <input id="Submit1" type="submit" value="登录" />
+         &nbsp;&nbsp; 
+         <input type="button" value="取消" onclick="cancelLogin();return false;"/>
+    </form>
+    </div>
+</div>
+
+<div id="modal">
+  <div id="overlay"></div>
+  <div id="modalcontent">
+    <form onsubmit="sendPrivateMessage(); return false;">
+     <input type="hidden" id="chosenuser" /><br />
+      <label for="chosenuser">选择用户去发送:</label>     
+      <select id="privateusers" name="privateusers" onChange="updateChosenUser()">
+      </select><br /><br />
+      <input id="sendPrivateButton" type="submit" value="发送" />
+    </form>
+    <div id="privatecancel"><a href="" onclick="toggleModal();return false;">取消
+</a></div>
+  </div>
+</div>
+
+<div id="userlistlabel">
+<table>
+  <tr>
+    <td style="WIDTH: 195px; HEIGHT: 100px" valign="bottom"><img src="proxy/users.png" /></td>
+  </tr>
+</table>
+</div>
+
+<div id="framecontentLeft">
+  <div id="userlist">[没有用户]
+</div>
+</div>
+
+<div id="framecontentTop">
+<table>
+  <tr>
+    <td><img src="proxy/title.png" /></td>
+  </tr>
+  <tr>
+    <td>
+    <div id="loginlabel"></div>
+	</td>
+  </tr>
+</table>
+</div>
+
+<div id="framecontentBottom">
+  <table style="PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: x-small; PADDING-TOP: 0px">
+    <tr>
+      <td style="PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; PADDING-TOP: 0px">
+        <form onsubmit="return false;">
+          <input id="messageField" onkeypress="sendOnEnter(event)" style="WIDTH: 100%" />
+        </form>
+      </td>
+      <td>
+        <form onsubmit="sendMessage(); return false;">
+          <input id="sendButton" type="submit" value="发送" />
+        </form>
+      </td>
+      <td>
+        <form onsubmit="openPrivateMessageDialog(); return false;">
+          <input type="submit" value="单独发送" />
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="maincontent">
+  <div id="chatarea"><small><i>欢迎来到先智即时通信!
+</i></small><br /></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+inherited frmBaseBillForm: TfrmBaseBillForm
+  Caption = 'frmBaseForm1'
+  DesignerMasterStyle = 3
+end

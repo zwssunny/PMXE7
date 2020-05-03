@@ -1,0 +1,20 @@
+//---------------------------------------------------------------------------
+
+#ifndef fsScreenCursorH
+#define fsScreenCursorH
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+//---------------------------------------------------------------------------
+class TfsScreenCursor : public TObject
+{
+private:
+		TAniIndicator  *SaveCursor;
+		TForm *FWaitBoxForm;
+		void __fastcall FormDeactivate(TObject *Sender);
+protected:
+
+public:
+	__fastcall TfsScreenCursor();
+	__fastcall ~TfsScreenCursor();
+};
+#endif

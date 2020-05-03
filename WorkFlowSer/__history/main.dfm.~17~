@@ -1,0 +1,47 @@
+object WorkFlowServer: TWorkFlowServer
+  OldCreateOrder = False
+  OnDestroy = ServiceDestroy
+  DisplayName = 'WorkFlowServer'
+  AfterInstall = ServiceAfterInstall
+  OnStart = ServiceStart
+  OnStop = ServiceStop
+  Height = 150
+  Width = 215
+  object AccADOCon: TADOConnection
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=sql2005!@#;Persist Security Info=Tr' +
+      'ue;User ID=sa;Initial Catalog=SL_Test;Data Source=192.168.1.10'
+    LoginPrompt = False
+    Mode = cmShareDenyNone
+    Provider = 'SQLOLEDB.1'
+    Left = 88
+    Top = 80
+  end
+  object SysADOCon: TADOConnection
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=sql2005!@#;Persist Security Info=Tr' +
+      'ue;User ID=sa;Initial Catalog=SL_SYSTEM;Data Source=192.168.1.10'
+    Provider = 'SQLOLEDB.1'
+    Left = 152
+    Top = 80
+  end
+  object WorkflowAccAndSysDB1: TWorkflowAccAndSysDB
+    AccConnection = AccADOCon
+    SysConnection = SysADOCon
+    Left = 136
+    Top = 16
+  end
+  object WorkflowStudio: TWorkflowStudio
+    WorkflowDB = WorkflowAccAndSysDB1
+    Left = 40
+    Top = 16
+  end
+  object tmWorkflowTimeout: TTimer
+    Left = 24
+    Top = 80
+  end
+  object FsConnection: TSQLConnection
+    Left = 88
+    Top = 8
+  end
+end

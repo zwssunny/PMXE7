@@ -1,0 +1,188 @@
+inherited SelectHouseForm: TSelectHouseForm
+  Caption = 'BaseFiltersForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      Height = 519.000000000000000000
+      Width = 384.000000000000000000
+      object FilterExpander: TExpander
+        Align = Top
+        Height = 297.000000000000000000
+        ShowCheck = False
+        Text = #36807#28388#22120
+        Width = 384.000000000000000000
+        TabOrder = 1
+        ContentSize = '272'
+        object cbHsgDecoration: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 56.000000000000000000
+          Position.Y = 129.000000000000000000
+          TabOrder = 3
+          Width = 97.000000000000000000
+        end
+        object cbHsgFKID_Bdg: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+          Position.Y = 42.000000000000000000
+          TabOrder = 1
+          Width = 209.000000000000000000
+        end
+        object cbHsgFKID_Est: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 104.000000000000000000
+          TabOrder = 0
+          Width = 209.000000000000000000
+          OnClosePopup = cbHsgFKID_EstClosePopup
+        end
+        object cbHsgHouseType: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 64.000000000000000000
+          Position.Y = 84.000000000000000000
+          TabOrder = 2
+          Width = 89.000000000000000000
+        end
+        object cbHsgLandscape: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 216.000000000000000000
+          Position.Y = 131.000000000000000000
+          TabOrder = 5
+          Width = 97.000000000000000000
+        end
+        object cbHsgOrientation: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Position.X = 216.000000000000000000
+          Position.Y = 86.000000000000000000
+          TabOrder = 4
+          Width = 97.000000000000000000
+        end
+        object cbHsgSellArea: TComboBox
+          DisableFocusEffect = False
+          Height = 32.000000000000000000
+          Items.Strings = (
+            #25152#26377#38754#31215
+            #23567#20110#31561#20110'100'#24179#26041#31859
+            #22823#20110'100'#24179#26041#31859#23567#20110#31561#20110'200'#24179#26041#31859
+            #22823#20110'200'#24179#26041#31859#23567#20110#31561#20110'300'#24179#26041#31859
+            #22823#20110'300'#24179#26041#31859)
+          ItemIndex = 0
+          Position.X = 56.000000000000000000
+          Position.Y = 173.000000000000000000
+          TabOrder = 6
+          Width = 257.000000000000000000
+        end
+        object edHsgNum: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 7
+          Position.X = 80.000000000000000000
+          Position.Y = 216.000000000000000000
+          Width = 233.000000000000000000
+          Height = 32.000000000000000000
+          object SearchEditButton1: TSearchEditButton
+            CanFocus = False
+            Cursor = crArrow
+            Height = 32.000000000000000000
+            TabOrder = 0
+            Width = 32.000000000000000000
+            OnClick = SearchEditButton1Click
+          end
+        end
+        object Label1: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 8.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #27004#30424#21517#31216#65306
+          Width = 90.000000000000000000
+        end
+        object Label2: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 51.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #27004#38401#21517#31216#65306
+          Width = 90.000000000000000000
+        end
+        object Label3: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 94.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #25143#22411#65306
+          Width = 54.000000000000000000
+        end
+        object Label4: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 162.000000000000000000
+          Position.Y = 95.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #26397#21521#65306
+          Width = 54.000000000000000000
+        end
+        object Label5: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 137.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #35013#20462#65306
+          Width = 54.000000000000000000
+        end
+        object Label6: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 8.000000000000000000
+          Position.Y = 225.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #21333#20803#21495#65306
+          Width = 72.000000000000000000
+        end
+        object Label7: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 10.000000000000000000
+          Position.Y = 182.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #38754#31215#65306
+          Width = 54.000000000000000000
+        end
+        object Label8: TLabel
+          AutoSize = True
+          Height = 23.000000000000000000
+          Position.X = 162.000000000000000000
+          Position.Y = 140.000000000000000000
+          TextSettings.WordWrap = False
+          Text = #26223#35266#65306
+          Width = 54.000000000000000000
+        end
+      end
+      object lvHouseList: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Height = 222.000000000000000000
+        TabOrder = 0
+        Width = 384.000000000000000000
+        ItemAppearanceObjects.ItemObjects.Accessory.Visible = False
+        ItemAppearanceObjects.ItemObjects.Image.Visible = False
+        CanSwipeDelete = False
+      end
+    end
+  end
+end

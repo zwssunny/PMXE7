@@ -1,0 +1,398 @@
+unit wsScripter;
+
+{$I wsdefs.inc}
+
+interface
+
+uses
+  SysUtils, Dialogs, Classes, Contnrs, wsMain, atScript, atPascal, wsClasses,
+  ap_wsClasses,
+  {$IFDEF DELPHI6_LVL} Variants, {$ENDIF}
+  LiveDiagram, wsBlocks;
+
+type
+  EWorkflowScriptException = class(EWorkflowException);
+
+  TScripterEngine = class(TWorkflowScriptEngine)
+  private
+    FScripter: TatCustomScripter;
+    FVarProps: TObjectList;
+    procedure GetInsVariableProp(AMachine: TatVirtualMachine);
+    procedure SetInsVariableProp(AMachine: TatVirtualMachine);
+    procedure UnknownElementEvent(Sender: TObject; var Context: TElementContext);
+    procedure GetDefVariableProp(AMachine: TatVirtualMachine);
+    procedure SetDefVariableProp(AMachine: TatVirtualMachine);
+    procedure GetVariableProp(AMachine: TatVirtualMachine; ADiagram: TCustomWorkflowDiagram);
+    procedure SetVariableProp(AMachine: TatVirtualMachine; ADiagram: TCustomWorkflowDiagram);
+    procedure GetDefDiagramProp(AMachine: TatVirtualMachine);
+    procedure GetInsDiagramProp(AMachine: TatVirtualMachine);
+    procedure GetInsTaskProp(AMachine: TatVirtualMachine);
+  protected
+    procedure RunContextChanged; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    function CalculateExpression(Expr: string): Variant; override;
+    property Scripter: TatCustomScripter read FScripter;
+  end;
+
+  TWorkflowScriptBlock = class(TCustomWorkflowBlock)
+  private
+    FSourceCode: string;
+    FEngine: TScripterEngine;
+    FForceRecompile: boolean;
+    procedure SetSourceCode(const Value: string);
+    procedure PrepareAndCompile;
+  protected
+    function ScanTransitions: TCustomLiveBlock; override;
+  public
+    constructor Create(AOwner : TComponent); override;
+    function Link: boolean; override;
+    destructor Destroy; override;
+    procedure Loaded; override;
+    procedure DoExecuteEx(var ExecInfo: TExecuteNodeInfo); override;
+    function EditorClass: TWorkflowBlockEditorClass; override;
+    property Engine: TScripterEngine read FEngine;
+  published
+    property SourceCode: string read FSourceCode write SetSourceCode;
+    property OnExecuteEx;
+  end;
+
+  TWorkflowScriptBlockEditor = class(TWorkflowBlockEditor)
+  public
+    procedure EditBlock(ABlock: TCustomWorkflowBlock); override;
+  end;
+
+implementation
+
+uses
+  wsRes, atDiagram, fScriptEditor, wsDiagram;
+
+{$R wsScripter.RES}
+
+{ TScripterEngine }
+
+function TScripterEngine.CalculateExpression(Expr: string): Variant;
+begin
+  FScripter.SourceCode.Text := Format('result := %s;', [Expr]);
+  FScripter.Compile;
+  result := FScripter.Execute;
+end;
+
+constructor TScripterEngine.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FScripter := TatPascalScripter.Create(Self);
+  FScripter.OnUnknownElement := UnknownElementEvent;
+  FScripter.OptionExplicit := true;
+  FScripter.ShortBooleanEval := true;
+  FScripter.AddLibrary(TatwsClassesLibrary);
+  FVarProps := TObjectList.Create(true);
+end;
+
+destructor TScripterEngine.Destroy;
+begin
+  FVarProps.Free;
+  FScripter.Free;
+  inherited;
+end;
+
+procedure TScripterEngine.GetVariableProp(AMachine: TatVirtualMachine; ADiagram: TCustomWorkflowDiagram);
+var
+  WorkVar: TWorkflowVariable;
+  Found: boolean;
+begin
+  Found := false;
+  With AMachine do
+  begin
+    if ADiagram <> nil then
+    begin
+      WorkVar := ADiagram.Variables.FindByName(CurrentPropertyName);
+      if WorkVar <> nil then
+      begin
+        ReturnOutputArg(WorkVar.Value);
+        Found := true;
+      end;
+    end;
+    if not Found then
+      raise EWorkflowScriptException.Create(Format(_str(SErrorUndefinedVariable), [CurrentPropertyName]));
+  end;
+end;
+
+procedure TScripterEngine.SetVariableProp(AMachine: TatVirtualMachine; ADiagram: TCustomWorkflowDiagram);
+var
+  WorkVar: TWorkflowVariable;
+  Found: boolean;
+begin
+  Found := false;
+  With AMachine do
+  begin
+    if ADiagram <> nil then
+    begin
+      WorkVar := ADiagram.Variables.FindByName(CurrentPropertyName);
+      if WorkVar <> nil then
+      begin
+        WorkVar.Value := GetInputArg(0);
+        Found := true;
+      end;
+    end;
+    if not Found then
+      raise EWorkflowScriptException.Create(Format(_str(SErrorUndefinedVariable), [CurrentPropertyName]));
+  end;
+end;
+
+procedure TScripterEngine.GetDefVariableProp(AMachine: TatVirtualMachine);
+begin
+  GetVariableProp(AMachine, Diagram);
+end;
+
+procedure TScripterEngine.SetDefVariableProp(AMachine: TatVirtualMachine);
+begin
+  SetVariableProp(AMachine, Diagram);
+end;
+
+procedure TScripterEngine.UnknownElementEvent(Sender: TObject; var Context: TElementContext);
+var
+  scripter: TatCustomScripter;
+begin
+  if Sender is TatCustomScripter then
+    scripter := TatCustomScripter(sender)
+  else
+    exit;
+
+  if not Context.HasArgList and not Context.HasUpnode and not Context.HasSubNode then
+  begin
+    Case RunContext of
+      scRuntimeInstance:
+        scripter.DefineProp(Context.ElementName, tkVariant, GetInsVariableProp, SetInsVariableProp);
+      scDesignDiagram:
+        scripter.DefineProp(Context.ElementName, tkVariant, GetDefVariableProp, SetDefVariableProp);
+    end;
+    Context.RepeatChecking := true;
+  end
+  else if SameText(Context.ElementName, '_Workflow') and not Context.HasUpnode then
+  begin
+    case RunContext of
+      scRuntimeInstance:
+        scripter.DefineProp('_Workflow', tkClass, GetInsDiagramProp, nil, TWorkflowDiagram);
+      scDesignDiagram:
+        scripter.DefineProp('_Workflow', tkClass, GetDefDiagramProp, nil, TWorkflowDiagram);
+    end;
+    Context.RepeatChecking := true;
+  end
+  else if SameText(Context.ElementName, '_Task') and not Context.HasUpNode then
+  begin
+    if RunContext = scRuntimeInstance then
+    begin
+      scripter.DefineProp('_Task', tkClass, GetInsTaskProp, nil, TTaskInstance);
+      Context.RepeatChecking := true;
+    end;
+  end;
+end;
+
+procedure TScripterEngine.GetInsVariableProp(AMachine: TatVirtualMachine);
+begin
+  if (WorkflowInstance <> nil) then
+    GetVariableProp(AMachine, WorkflowInstance.Diagram);
+end;
+
+procedure TScripterEngine.SetInsVariableProp(AMachine: TatVirtualMachine);
+begin
+  if (WorkflowInstance <> nil) then
+    SetVariableProp(AMachine, WorkflowInstance.Diagram);
+end;
+
+procedure TScripterEngine.RunContextChanged;
+var
+  c: integer;
+begin
+  {destroy variables}
+  FVarProps.Clear;
+
+  {create new variables}
+  case RunContext of
+    scRuntimeInstance:
+      begin
+        if (WorkflowInstance <> nil) and (WorkflowInstance.Diagram <> nil) then
+        begin
+          with WorkflowInstance.Diagram do
+          begin
+            for c := 0 to Variables.Count - 1 do
+              FVarProps.Add(FScripter.DefineProp(Variables[c].Name, tkVariant, GetInsVariableProp, SetInsVariableProp));
+
+            if WorkflowStudio <> nil then
+              WorkflowStudio.InitializeScriptEngine(Self);
+          end;
+
+          FScripter.DefineProp('_Workflow', tkClass, GetInsDiagramProp, nil, TWorkflowDiagram);
+        end;
+
+        if TaskInstance <> nil then
+          FScripter.DefineProp('_Task', tkClass, GetInsTaskProp, nil, TTaskInstance);
+      end;
+    scDesignDiagram:
+      begin
+        if Diagram <> nil then
+          with Diagram do
+          begin
+            for c := 0 to Variables.Count - 1 do
+              FVarProps.Add(FScripter.DefineProp(Variables[c].Name, tkVariant, GetDefVariableProp, SetDefVariableProp));
+
+            if WorkflowStudio <> nil then
+              WorkflowStudio.InitializeScriptEngine(Self);
+          end;
+
+        FScripter.DefineProp('_Workflow', tkClass, GetDefDiagramProp, nil, TWorkflowDiagram);
+      end;
+  end;
+end;
+
+procedure TScripterEngine.GetDefDiagramProp(AMachine: TatVirtualMachine);
+begin
+  AMachine.ReturnOutputArg(integer(Diagram));
+end;
+
+procedure TScripterEngine.GetInsDiagramProp(AMachine: TatVirtualMachine);
+begin
+  AMachine.ReturnOutputArg(integer(WorkflowInstance.Diagram));
+end;
+
+procedure TScripterEngine.GetInsTaskProp(AMachine: TatVirtualMachine);
+begin
+  AMachine.ReturnOutputArg(integer(TaskInstance));
+end;
+
+{ TWorkflowScriptBlock }
+
+constructor TWorkflowScriptBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FEngine := TScripterEngine.Create(nil);
+  FForceRecompile := true;
+  DefaultTextcell.Text := _str(SBlockScript);
+  SingleOutput := false;
+end;
+
+destructor TWorkflowScriptBlock.Destroy;
+begin
+  FEngine.Free;
+  inherited;
+end;
+
+procedure TWorkflowScriptBlock.DoExecuteEx(var ExecInfo: TExecuteNodeInfo);
+var
+  VarOutput: Variant;
+begin
+  PrepareAndCompile;
+  VarOutput := FEngine.Scripter.Execute;
+
+  {There is an option for the end-user to return a string from the script. In this case,
+   the script block can choose a different path based on the result. In most cases, the output
+   will be empty, and the script block will continue its execution flow normally trough the
+   default transition}
+  if not VarIsEmpty(VarOutput) and not VarIsNull(VarOutput) then
+    Output := VarToStr(VarOutput);
+
+  inherited DoExecuteEx(ExecInfo);
+end;
+
+function TWorkflowScriptBlock.EditorClass: TWorkflowBlockEditorClass;
+begin
+  result := TWorkflowScriptBlockEditor;
+end;
+
+function TWorkflowScriptBlock.Link: boolean;
+begin
+  result := inherited Link;
+  if result then
+  begin
+    try
+      PrepareAndCompile;
+    except
+      on E: Exception do
+      begin
+        //ShowMessage(_str(SErrorScriptBlockCompile) + ' ' + chr(13) + chr(10) + E.Message);
+        result := false;
+      end;
+    end;
+  end;
+end;
+
+procedure TWorkflowScriptBlock.Loaded;
+begin
+  inherited;
+  FEngine.SetRuntimeContext(WorkflowDiagram.WorkflowInstance);
+end;
+
+procedure TWorkflowScriptBlock.PrepareAndCompile;
+begin
+  if FForceRecompile or not FEngine.Scripter.Compiled then
+  begin
+    FEngine.Scripter.SourceCode.Text := FSourceCode;
+    FEngine.Scripter.Compile;
+    FForceRecompile := false;
+  end;
+end;
+
+function TWorkflowScriptBlock.ScanTransitions: TCustomLiveBlock;
+var
+  i: integer;
+begin
+  result := inherited ScanTransitions;
+
+  // if the next state was not defined in TCustomWorkflowBlock and script have not
+  // returned anything, then go through the first transition which has no text in it
+  if ((result = Self) or (result = nil)) and (Trim(Output) = '') then
+    for i:=0 to NextStates.Count-1 do
+      if Trim(NextStates.Transition[i].DefaultTextCell.Text) = '' then
+      begin
+        result := NextStates.Block[i];
+        exit;
+      end;
+end;
+
+procedure TWorkflowScriptBlock.SetSourceCode(const Value: string);
+begin
+  if FSourceCode <> Value then
+  begin
+    FSourceCode := Value;
+
+    {set source code just to force recompilation. The source code will be set
+     again at a proper time}
+    FEngine.Scripter.SourceCode.Text := FSourceCode;
+    FForceRecompile := true;
+  end;
+end;
+
+{ TWorkflowScriptBlockEditor }
+
+procedure TWorkflowScriptBlockEditor.EditBlock(
+  ABlock: TCustomWorkflowBlock);
+var
+  ScriptForm: TfmScriptEditor;
+begin
+  if ABlock is TWorkflowScriptBlock then
+  begin
+    ScriptForm := TfmScriptEditor.Create(ABlock.Owner);
+    try
+      TWorkflowScriptBlock(ABlock).Engine.SetDesignContext(ABlock.WorkflowDiagram);
+
+      if ScriptForm.EditScriptBlock(TWorkflowScriptBlock(ABlock)) then
+        if Assigned(ABlock.Diagram) then
+          ABlock.Diagram.Modified;
+    finally
+      ScriptForm.Free;
+    end;
+  end;
+  Free;
+end;
+
+initialization
+{支持中国式日期格式}
+  //DateSeparator := '-';
+  //ShortDateFormat :='yyyy-mm-dd';
+  ScriptEngineClass := TScripterEngine;
+  RegisterDControl(TWorkflowScriptBlock, '', _str(SToolbarScript), _str(SToolbarWorkflowCategory));
+
+end.
+

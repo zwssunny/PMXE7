@@ -1,0 +1,77 @@
+inherited HouseReserveFiltersForm: THouseReserveFiltersForm
+  Caption = 'BaseFiltersForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 567
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Label1: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 32.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #27004#30424#21517#31216#65306
+    Width = 90.000000000000000000
+  end
+  object Label2: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 72.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #39044#35746#25151#21495#65306
+    Width = 90.000000000000000000
+  end
+  object Label3: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 112.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #39044#35746#21333#21495#65306
+    Width = 90.000000000000000000
+  end
+  object Label4: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 152.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #23458#25143#21517#31216#65306
+    Width = 90.000000000000000000
+  end
+  object edHsgNum: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 6
+    Position.X = 96.000000000000000000
+    Position.Y = 64.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edHseRsveNum: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 7
+    Position.X = 96.000000000000000000
+    Position.Y = 104.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edClientTheName: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 8
+    Position.X = 96.000000000000000000
+    Position.Y = 144.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object cbHseRsveFKID_Est: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Position.X = 96.000000000000000000
+    Position.Y = 24.000000000000000000
+    TabOrder = 9
+    Width = 233.000000000000000000
+  end
+end

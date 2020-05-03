@@ -1,0 +1,46 @@
+//---------------------------------------------------------------------------
+#ifndef mainH
+#define mainH
+//---------------------------------------------------------------------------
+#include <SysUtils.hpp>
+#include <Classes.hpp>
+#include <SvcMgr.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "wsAccAndSysDB.hpp"
+#include "wsClasses.hpp"
+#include "wsDB.hpp"
+#include "wsMain.hpp"
+#include <ExtCtrls.hpp>
+#include <Data.SqlExpr.hpp>
+#include "wfClientBroker.h"
+//---------------------------------------------------------------------------
+class TWorkFlowServer : public TService
+{
+__published:    // IDE-managed Components
+
+	void __fastcall ServiceStart(TService *Sender, bool &Started);
+	void __fastcall ServiceStop(TService *Sender, bool &Stopped);
+	void __fastcall ServiceDestroy(TObject *Sender);
+	void __fastcall ServiceAfterInstall(TService *Sender);
+private:	   // User declarations
+	int FWaitLong; //间隔时间 毫秒为单位 默认 10000；
+	String FAgentIP;
+	int FAgentPort;
+	String FProtocol;
+	String FOaAdmin;
+	String FOaPassword;
+	TwfClientBroker * FClientBroker ;
+	void __fastcall ReadOption();
+	void __fastcall RunWFServer();
+	void  __fastcall WritErrorLog(String ErrorLong);
+public:         // User declarations
+	__fastcall TWorkFlowServer(TComponent* Owner);
+	TServiceController __fastcall GetServiceController(void);
+
+	friend void __stdcall ServiceController(unsigned CtrlCode);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TWorkFlowServer *WorkFlowServer;
+//---------------------------------------------------------------------------
+#endif

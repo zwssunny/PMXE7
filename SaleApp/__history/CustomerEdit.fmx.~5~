@@ -1,0 +1,94 @@
+inherited CustomerEditForm: TCustomerEditForm
+  Caption = #23458#25143#36164#26009#35814#24773
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  inherited MainVertScrollBox: TVertScrollBox
+    inherited MainLayout: TLayout
+      Height = 567.000000000000000000
+      Width = 384.000000000000000000
+      inherited tcDetailControl: TTabControl
+        Height = 567.000000000000000000
+        Width = 384.000000000000000000
+        inherited tabDetail: TTabItem
+          Width = 128.000000000000000000
+          inherited tcMainControl: TTabControl
+            Height = 518.000000000000000000
+            Width = 384.000000000000000000
+            inherited TabDetailMain: TTabItem
+              inherited DetailMainToolBar: TToolBar
+                Position.Y = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited btMainNext: TButton
+                  Position.X = 336.000000000000000000
+                end
+              end
+              inherited EditVertScrollBox: TVertScrollBox
+                Height = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited EditLayout: TLayout
+                  Width = 384.000000000000000000
+                end
+              end
+            end
+            inherited TabDetailItem: TTabItem
+              inherited ItemToolBar: TToolBar
+                Position.Y = 470.000000000000000000
+                Width = 384.000000000000000000
+                inherited btDeleteItem: TButton
+                  Position.X = 288.000000000000000000
+                end
+                inherited btAddItem: TButton
+                  Position.X = 336.000000000000000000
+                end
+                inherited btBrowsItem: TButton
+                  Position.X = 240.000000000000000000
+                end
+              end
+            end
+          end
+        end
+        inherited tabOA: TTabItem
+          Width = 128.000000000000000000
+          inherited TaskStringGrid: TStringGrid
+            Width = 384.000000000000000000
+          end
+          inherited tcWorkflowControl: TTabControl
+            Height = 293.000000000000000000
+            Width = 384.000000000000000000
+            inherited TabCheckExec: TTabItem
+              Width = 192.000000000000000000
+            end
+            inherited TabCheckStare: TTabItem
+              Width = 190.000000000000000000
+            end
+          end
+        end
+        inherited tabFlow: TTabItem
+          Width = 128.000000000000000000
+          inherited tcflowLogControl: TTabControl
+            Height = 518.000000000000000000
+            Width = 384.000000000000000000
+            inherited tabTaskLog: TTabItem
+              Width = 192.000000000000000000
+              inherited TaskLogStringGrid: TStringGrid
+                Height = 469.000000000000000000
+                Width = 384.000000000000000000
+              end
+            end
+            inherited tabTaskflow: TTabItem
+              Width = 192.000000000000000000
+              inherited WorkflowImage: TImage
+                Height = 469.000000000000000000
+                Width = 384.000000000000000000
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

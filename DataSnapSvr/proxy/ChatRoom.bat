@@ -1,0 +1,1 @@
+java -jar compiler.jar --js=ChatRoom.js  --js_output_file=ChatRoom-min.js

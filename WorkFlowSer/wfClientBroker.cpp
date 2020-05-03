@@ -1,0 +1,595 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+#include <Xml.XMLDoc.hpp>
+#include <Xml.xmldom.hpp>
+#include <Xml.XMLIntf.hpp>
+#include "wfClientBroker.h"
+#include "SHConst.h"
+#include "DSClientProxy.h"
+#include "Version.h"
+#include "SendWFMessage.h"
+#include "LogoutThread.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+__fastcall TwfClientBroker::TwfClientBroker(TComponent* Owner)
+	:TComponent(Owner)
+{
+	FSysDbType = 1;
+	FAccDbType = 1;
+	ClientBrokerStatus = 0; // -1-系统错误,0-尚未注册,1-尚未登录,2-系统准备好
+	FcurrAcckIndex=0;
+	FAppConnected = false;
+	 FAgentAddress="127.0.0.1";
+	 FAgentPort=211;
+	 FCommunicationProtocol="TCP/IP";
+	 FOaAdmin="OaAdmin";
+	 FOaPassword="123456";
+	FAccBooks = new TCZDataSet;
+
+	FAccBooks->AddField("accbookcode");
+	FAccBooks->AddField("accbookname");
+	FAccBooks->AddField("accbookconnstring");
+	FAccBooks->KeyField = "accbookcode";
+
+	SysConnection=new TADOConnection(NULL);
+	SysConnection->LoginPrompt = false;
+
+	SysQuery = new TADOQuery(NULL);
+	SysQuery->Connection = SysConnection;
+
+	AccConnection=new TADOConnection(NULL);
+	AccConnection->LoginPrompt = false;
+	m_Query=new TADOQuery(NULL);
+	m_Query->Connection = AccConnection;
+
+	//临界值
+//	wfCriticalSection=new TRTLCriticalSection();
+//	InitializeCriticalSection(wfCriticalSection);
+
+	FWorkflowZClientDB  = new TWorkflowAccAndSysDB(NULL);
+	FWorkflowZClientDB->SysConnection = SysConnection;
+	FWorkflowZClientDB->AccConnection = AccConnection;
+
+	LoginUserClient       = NULL;
+	DSConnection          = new TSQLConnection(NULL);
+	LChannelManager       = NULL;
+	wfCallBack            = NULL;
+
+
+	tmWorkflowTimeout=new TTimer(NULL);
+	tmWorkflowTimeout->Enabled=false;
+	tmWorkflowTimeout->Interval=10000;
+	tmWorkflowTimeout->OnTimer=OnTimer;      //先测试通过后放开
+	FRunPendProc=RunPendingWorkflow;
+	FEvent=new TEvent(false);
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::ReadOption()
+{
+	String settingfile=ExtractFilePath(Forms::Application->ExeName)+"\\wfDefault.xml";
+	if(!FileExists(settingfile))
+	{
+		WritLog("找不到系统配置文件"+settingfile);
+		return;
+	}
+	try{
+			 CoInitialize(NULL);
+
+	_di_IXMLDocument xdoc=NewXMLDocument();
+	xdoc->LoadFromFile(settingfile);
+	xdoc->Active=true;
+	IXMLNodeList *NodeList=xdoc->ChildNodes;
+	int count=NodeList->Count;
+	IXMLNode *selectNode=NULL;
+	for(int i=0;i<count;i++)
+	{
+		IXMLNode *curNode=NodeList->Nodes[i];
+		if(curNode->LocalName==WideString("DefaultSettings")&&(curNode->GetAttribute("Version")==String("2.0.0.2")))
+		{
+			selectNode=curNode;
+			break;
+		}
+	}
+	if(selectNode!=NULL)
+	{
+		IXMLNodeList *sNodeList=selectNode->ChildNodes;
+		for(int j=0;j<sNodeList->Count;j++)
+		{
+			IXMLNode *sNode=sNodeList->Nodes[j];
+			if(sNode->GetAttribute("Name")==String("AgentAddress"))
+				FAgentAddress=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("AgentPort"))
+				FAgentPort=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("Protocol"))
+				FCommunicationProtocol=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("OaAdmin"))
+				FOaAdmin=sNode->GetAttribute("value");
+			else if(sNode->GetAttribute("Name")==String("OaPassword"))
+				FOaPassword=sNode->GetAttribute("value");
+		}
+	}
+	xdoc->Active=false;
+	CoUninitialize();
+	}
+ catch(Exception &e)
+ {
+   WritLog("读取参数错误,"+e.Message);
+ }
+}
+TDBXConnection* __fastcall TwfClientBroker::GetDBXConnection()
+{
+	return DSConnection->DBXConnection;
+}
+TWorkflowStudio* __fastcall TwfClientBroker::CreateWorkFlowStudio(String FUserEmpID,String FUserCode)
+{
+	   TWorkflowStudio*	FWorkflowStudioClient = new TWorkflowStudio(this);
+		FWorkflowStudioClient->WorkflowDB = FWorkflowZClientDB;
+		FWorkflowStudioClient->OnTaskCreated=OnTaskCreate;
+		FWorkflowStudioClient->OnRunFinished=OnWorkInsFinished;
+		InitWorkFlowStudio(FWorkflowStudioClient,FUserEmpID,FUserCode);
+		return FWorkflowStudioClient;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::InitWorkFlowStudio(TWorkflowStudio*   FWorkflowStudioClient, String FUserEmpID,String FUserCode )
+{
+
+	// ftp连接信息
+		// 需要创建连接,才能利用事件发送来收发文件，附件暂时还没完善
+		CoInitialize(NULL);
+		FWorkflowStudioClient->FromEmail = FSendEMail;
+		FWorkflowStudioClient->FtpInformation.HostName     = FftpInternetIP;
+		FWorkflowStudioClient->FtpInformation.UserName     = FftpUserName;
+		FWorkflowStudioClient->FtpInformation.Password     = FftpPassword;
+		FWorkflowStudioClient->FtpInformation.Port         = FftpPort;
+		FWorkflowStudioClient->FtpInformation.Passive      = FftpPassive;
+		FWorkflowStudioClient->FtpInformation.Root         = "/";
+		FWorkflowStudioClient->FtpInformation.FtpDirectory = "FlowAttachment";
+		FWorkflowStudioClient->UserManager->LoadWorkflowUsers();
+		FWorkflowStudioClient->UserManager->LoadWorkflowGroups();
+		FWorkflowStudioClient->UserManager->LoadWorkflowJobs();
+		FWorkflowStudioClient->UserManager->LoadWorkflowDepartments();
+		FWorkflowStudioClient->UserManager->LoggedUserId   = FUserEmpID;
+		FWorkflowStudioClient->UserManager->LoggedUserCode = FUserCode;
+		CoUninitialize();
+
+}
+// ---------------------------------------------------------------------------
+TWorkflowInstance* __fastcall TwfClientBroker::GetWorkIns(TWorkflowStudio*  FWorkflowStudioClient, String FlowDefID, String WorkInsID)
+{
+	TWorkflowInstance* FWorkIns=NULL;
+	if(WorkInsID>"")
+		FWorkIns = FWorkflowStudioClient->WorkflowManager->FindWorkflowInstanceByKey(WorkInsID);
+	if(FWorkIns==NULL&& (FlowDefID>""))
+	{
+		FWorkIns=FWorkflowStudioClient->WorkflowManager->CreateWorkflowInstanceByKey(FlowDefID);
+	}
+	return FWorkIns;
+}
+// ---------------------------------------------------------------------------
+String __fastcall TwfClientBroker::ServerWorkFlowStart(TWorkflowStudio* FWorkflowStudioClient,TJSONObject* Arg)
+{
+	TWorkflowInstance *AWorkIns;
+	TWorkflowBiz *WorkBiz = NULL;
+	TWorkflowVariable *wsVar;
+	TWorkflowVariables *wsVarList;
+	TWorkInsBindary *WorkInsBindary = FWorkflowStudioClient->WorkflowDB->WorkInsBindary;// new TWorkInsBindary(this);
+	String FFlowID = "";
+	String FlowDefID="";
+	TField *AField;
+	try
+	{
+		if(Arg->Count > 1)
+			FlowDefID = Arg->GetValue(WorkInsBindary->FlowMnFKID_FlowField)->Value();
+		AWorkIns = GetWorkIns(FWorkflowStudioClient,FlowDefID, "");  //创建工作流实例
+
+		if(AWorkIns != NULL)
+		{
+			FFlowID = AWorkIns->Key;
+			AWorkIns->FlowMnSubject   = Arg->GetValue(WorkInsBindary->FlowMnSubjectField)->Value(); // Subject;
+			AWorkIns->FlowMnContent   = Arg->GetValue(WorkInsBindary->FlowMnContentField)->Value(); // Content;
+			AWorkIns->FlowMnBusWindow = Arg->GetValue(WorkInsBindary->FlowMnBusWindowField)->Value(); // BusWindow;
+			AWorkIns->FlowMnBusCode   = Arg->GetValue(WorkInsBindary->FlowMnBusCodeField)->Value(); // BusCode;
+			AWorkIns->FlowMnRank      = Arg->GetValue(WorkInsBindary->FlowMnRankField)->Value().ToInt(); // Rank;
+			AWorkIns->FlowMnPrjID     = Arg->GetValue(WorkInsBindary->FlowMnPrjIDField)->Value(); // PrjID;
+			AWorkIns->FlowMnReport    = Arg->GetValue(WorkInsBindary->FlowMnReportField)->Value(); // Report;
+
+			// 初始化流程实例变量值
+			WorkBiz = new TWorkflowBiz(NULL);
+			WorkBiz->BizFormID = AWorkIns->FlowMnBusWindow;
+			FWorkflowStudioClient->WorkflowManager->LoadWorkflowBiz(WorkBiz);
+			if(WorkBiz->BizTableName > "")
+			{
+				m_Query->Close();
+				m_Query->SQL->Clear();
+				m_Query->SQL->Text = "select * from " + WorkBiz->BizTableName + " where " + WorkBiz->BizKey + "=" + QuotedStr(AWorkIns->FlowMnBusCode);
+				m_Query->Open();
+				if(m_Query->RecordCount > 0)
+				{
+					wsVarList = AWorkIns->Diagram->Variables;
+					for (int i = 0; i < wsVarList->Count; i++)
+					{
+						wsVar = wsVarList->Items[i];
+						if(wsVar->Interaction) // 需要交互的值
+						{
+							AField = m_Query->FindField(wsVar->Name);
+							if(AField != NULL)
+								wsVar->Value = AField->Value;
+						}
+					}
+				}
+				m_Query->Close();
+			}
+			FWorkflowStudioClient->WorkflowManager->SaveWorkflowInstance(AWorkIns);
+			FWorkflowStudioClient->WorkflowManager->SignalWorkflowInstance(AWorkIns->Key);
+			if(WorkBiz)
+			delete WorkBiz;
+			// AWorkIns=NULL;
+		}
+	}
+	catch(Exception &e)
+	{
+		WritLog(e.Message);
+	}
+   return FFlowID;
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TwfClientBroker::ServerWorkFlowExec(TWorkflowStudio* FWorkflowStudioClient,TJSONObject* Arg)
+{
+	TWorkflowAttachment *AAttach;
+	TWorkflowInstance *AWorkIns;
+	TTaskInstance *ATaskIns;
+	TTaskInsBindary * TaskInsBindary=FWorkflowStudioClient->WorkflowDB->TaskInsBindary;
+	String FlowDefID;
+	String WorkInsID;
+	String TaskInsID;
+	String TskStatus;
+	String TskComments;
+	TJSONArray *VariableList;
+	bool retSucce=false;
+	try
+	{
+			 FlowDefID=Arg->GetValue("flowdefid")->Value();
+			 WorkInsID=Arg->GetValue(TaskInsBindary->FlowMnDtlFKIDField)->Value();
+			 TaskInsID=Arg->GetValue(TaskInsBindary->KeyField)->Value();
+			 TskStatus=Arg->GetValue(TaskInsBindary->FlowMnDtlStateField)->Value();
+			 TskComments=Arg->GetValue(TaskInsBindary->FlowMnDtlCommentsField)->Value();
+			 VariableList=(TJSONArray *)Arg->GetValue("variables");
+			// {GetValue the workflowinstance related to the task}
+			AWorkIns = GetWorkIns(FWorkflowStudioClient,FlowDefID,WorkInsID);
+			ATaskIns = new TTaskInstance(NULL);
+			ATaskIns->Key = TaskInsID;
+
+			FWorkflowStudioClient->WorkflowDB->TaskInstanceLoad(ATaskIns);
+
+			if(AWorkIns != NULL && ATaskIns != NULL)
+			{
+				//{Save the fields}
+				TWorkflowVariable* WorkflowVar;
+				TCustomWorkflowDiagram* ADiagram = AWorkIns->Diagram;
+				try
+				{
+					for(int i=0;i<VariableList->Count;i++)
+					{						TJSONObject *rcdOject = (TJSONObject *)VariableList->Items[i];						String VariableName=rcdOject->GetValue("VarName")->Value();						String VariableValue=rcdOject->GetValue("VarValue")->Value();						int readOnly=rcdOject->GetValue("ReadOnly")->Value().ToInt();						if(readOnly==0)						{							WorkflowVar = ADiagram->Variables->FindByName(VariableName);							if(WorkflowVar != NULL)								WorkflowVar->Value = VariableValue;						}					}
+				}
+				__finally
+				{
+					delete VariableList;
+				}
+
+				//{Save the workflow instance}
+				FWorkflowStudioClient->WorkflowManager->SaveWorkflowInstance(AWorkIns);
+
+//				{Save the task instance. WARNING - this should be done after any saving code, because
+//				it loads the workflowinstance and signal it (run it again). So, it must be executed
+//				after all processing so it gets the most up to date workflow instance object}
+				ATaskIns->Status = TskStatus;
+				ATaskIns->Comments = TskComments;
+				FWorkflowStudioClient->TaskManager->SaveTaskInstance(ATaskIns);
+				retSucce = true;
+			}
+
+	}
+	catch(Exception &e)
+	{
+		WritLog(e.Message);
+	}
+	return retSucce;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::SetHookCallBack(THookWFCallback Value)
+{
+	if(wfCallBack)
+		wfCallBack->HookCallBack = Value;
+}
+// ---------------------------------------------------------------------------
+THookWFCallback __fastcall TwfClientBroker::GetHookCallBack()
+{
+	if(wfCallBack)
+		return wfCallBack->HookCallBack;
+	else
+		return NULL;
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TwfClientBroker::InitClientComm()
+{
+	String NL = "\r\n";
+	String ConnectionStr = "DriverName=Datasnap"+NL+		 "DriverUnit=Data.DBXDataSnap"+NL+		 "HostName="+FAgentAddress+NL+		 "Port="+IntToStr(FAgentPort)+NL+		 "CommunicationProtocol="+FCommunicationProtocol+NL+		 "DatasnapContext=datasnap/"+NL+		 "DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland.Data.DbxClientDriver,Version=16.0.0.0,Culture=neutral,PublicKeyToken=91d62ebb5b0d1b1b"+NL+		 "DSAuthenticationUser="+FOaAdmin+NL+		 "DSAuthenticationPassword="+FOaPassword+NL;	DSConnection->DriverName      = "Datasnap";	DSConnection->Params->Text    = ConnectionStr;	DSConnection->LoginPrompt     = false;	DSConnection->KeepConnection  = true;	DSConnection->AfterConnect    = AppOnConnect;	DSConnection->AfterDisconnect = AppOnDisConnect;	try{	DSConnection->Open();	}	catch(Exception &e)	{	 WritLog(L"连接服务器错误"+e.Message);
+    }	return DSConnection->Connected;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::AppOnConnect(TObject * Sender)
+{
+	ClientBrokerStatus = 1;
+	LoginUserClient = new TLoginUserClient(DSConnection->DBXConnection,false);
+//	FSysConnectiongString=LoginUserClient->GetSysConnectionString();
+	GetAccInforJSON();
+	FAppConnected = true;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::AppOnDisConnect(TObject * Sender)
+{
+	FAppConnected   = false;
+	//LoginUserClient = NULL;
+	tmWorkflowTimeout->Enabled=false;
+}
+// ---------------------------------------------------------------------------
+__fastcall TwfClientBroker::~TwfClientBroker()
+{
+	ClientCommTerminate(NULL);
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::ClientCommTerminate(TObject *Sender)
+{
+  try
+  {
+	UnRegCallBack();
+	delete SysConnection;
+	delete AccConnection;
+	delete FEvent;
+	delete DSConnection;
+	WritLog(L"工作流服务结束");
+  }
+  catch(Exception &e)
+  {
+	  WritLog(L"工作流服务结束时出错"+e.Message);
+  }
+}
+void __fastcall TwfClientBroker::GetAccInforJSON()
+{
+	TJSONObject *ms = LoginUserClient->GetAccInforJSON();
+	GetAccInforJSONBack((TJSONObject*)ms->Clone());
+	TJSONObject *us= LoginUserClient->GetCurUserJSON();
+	if(us!=NULL)
+	  GetCurUserBack((TJSONObject*)us->Clone());
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::GetCurUserBack(TJSONObject *jdata) // 读取当前用户
+{
+ if(jdata->Count>0)
+ {
+   FOaUserID= jdata->GetValue("userid")->Value();
+ }
+	tmWorkflowTimeout->Enabled=true;//自动处理过期任务
+}
+// ---------------------------------------------------------------------------
+// 接收账套数据
+void __fastcall TwfClientBroker::GetAccInforJSONBack(TJSONObject *fdata)
+{
+	String s;
+	try
+	{
+		if(fdata->GetValue("status")->Value() == "f")
+		{
+			s = fdata->GetValue("errormessage")->Value();
+			WritLog(s);
+			return;
+		}
+//		FModuleList     = fdata->GetValue("modulelist")->Value();
+//		FAdmin       = fdata->GetValue("fadmin")->Value();
+//		FPassword        = fdata->GetValue("fpassword")->Value();
+
+		FftpInteranetIP = fdata->GetValue("ftpInteranetIP")->Value();
+		FftpInternetIP  = fdata->GetValue("ftpInternetIP")->Value();
+		FftpUserName    = fdata->GetValue("ftpUserName")->Value();
+		FftpPassword    = fdata->GetValue("ftpPassword")->Value();
+		FftpPort        = fdata->GetValue("ftpPort")->Value().ToInt();
+		FftpNeedFTP     = fdata->GetValue("ftpNeedFTP")->Value() == 1;
+		FftpPassive     = fdata->GetValue("ftpPassive")->Value() == 1;
+		FUpdateURL      = fdata->GetValue("updateurl")->Value();
+
+		// mail
+		FMailServer     = fdata->GetValue("mailServer")->Value();
+		FSendEMail      = fdata->GetValue("sendEmail")->Value();
+		FMailUserName   = fdata->GetValue("mailUserName")->Value();
+		FMailPassword   = fdata->GetValue("mailPassword")->Value();
+		FMailPort       = fdata->GetValue("mailPort")->Value().ToInt();
+		FSysConnectiongString = fdata->GetValue("sysdbconstring")->Value();
+		FAccConnectiongString = fdata->GetValue("accdbconstring")->Value();
+
+		String sdbType = fdata->GetValue("sysdbtype")->Value();
+		if(!sdbType.IsEmpty())
+		{
+			FSysDbType = sdbType.ToInt();
+		}
+		String adbType = fdata->GetValue("accdbtype")->Value();
+		if(!adbType.IsEmpty())
+		{
+			FAccDbType = adbType.ToInt();
+		}
+		delete fdata;
+
+		SysConnection->Close();
+		SysConnection->ConnectionString=FSysConnectiongString;
+		AccConnection->Close();
+		AccConnection->ConnectionString=FAccConnectiongString;
+
+	}
+	catch (Exception &e)
+	{
+	WritLog(e.Message);
+	}
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TwfClientBroker::RegCallBack()
+{
+	bool regCallBack=false;
+	if(DSConnection->Connected)
+	{
+		if(LChannelManager==NULL)
+		{
+			LChannelManager = new TDSClientCallbackChannelManager(NULL);
+			LChannelManager->ChannelName = SWFCallback;
+			LChannelManager->DSHostname  = DSConnection->Params->Values["HostName"];
+			LChannelManager->DSPort      = DSConnection->Params->Values["Port"];
+			LChannelManager->CommunicationProtocol = DSConnection->Params->Values["CommunicationProtocol"];
+			LChannelManager->UserName =GetSysAdmin();// DSConnection->Params->Values["DSAuthenticationUser"];
+			LChannelManager->Password =GetSysPassWord();// DSConnection->Params->Values["DSAuthenticationPassword"];
+			wfCallBack = new TWFCallbackClient(LChannelManager,SWFCallback);
+			wfCallBack->HookCallBack=wfCallBackHook;
+			ClientBrokerStatus=2;
+			regCallBack=true;
+			WritLog("工作流服务开始");
+		}
+	}
+	return regCallBack;
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::UnRegCallBack()
+{
+        tmWorkflowTimeout->Enabled=false;
+		ClientBrokerStatus = 0;
+		if(LChannelManager)
+		{
+			wfCallBack->HookCallBack=NULL;
+			LChannelManager->CloseClientChannel();
+			delete  LChannelManager;
+			LChannelManager = NULL;
+			wfCallBack=NULL;
+		}
+		if(FWorkflowZClientDB != NULL)
+		{
+			delete FWorkflowZClientDB;
+			FWorkflowZClientDB = NULL;
+		}
+		if(LoginUserClient)
+		{
+		   //避免等待阻塞,注销和关闭连接都在线程里做
+		  FEvent->ResetEvent();
+		  TLogOutThread *logOutTread=new TLogOutThread(DSConnection, LoginUserClient,FEvent);
+		  if(FEvent->WaitFor(2000)!=System::Syncobjs::wrSignaled)
+		  {
+			 DSConnection->Close();
+			 delete LoginUserClient;
+			 LoginUserClient=NULL;
+		  }
+		}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::wfCallBackHook(TJSONObject* Arg,TJSONObject* Ret) // 接收消息
+{
+
+   if(Arg->Count<=1) //数据有问题
+   {
+		Ret->AddPair("result","false");
+		return;
+   }
+   String notyType=Arg->GetValue("notificationType")->Value();
+   if(notyType!="workflow") //非法命令
+   {
+	   Ret->AddPair("result","false");
+	   return;
+   }
+   String msgType=Arg->GetValue("msgtype")->Value();
+   String FAccBookID=Arg->GetValue("accbookid")->Value();
+   String FUserEmpID=Arg->GetValue("from")->Value();
+   String FUserCode=Arg->GetValue("fromusrcode")->Value();
+   TJSONObject *msgJson=(TJSONObject*)Arg->GetValue("message");
+   TWorkflowStudio * FWorkflowStudio=CreateWorkFlowStudio(FUserEmpID,FUserCode);
+	if(FWorkflowStudio!=NULL)
+	{
+	 try{
+	   if(msgType=="start")  //发起
+	   {
+		 Ret->AddPair("result","true");
+		 String FlowID=ServerWorkFlowStart(FWorkflowStudio,msgJson);
+		 Ret->AddPair("returnvalue",FlowID);
+	   }
+	   else  if(msgType=="exec") //执行
+	   {
+		 Ret->AddPair("result","true");
+		 bool retsucc=ServerWorkFlowExec(FWorkflowStudio,msgJson);
+		 if(retsucc)
+			 Ret->AddPair("returnvalue","true");
+		  else
+			Ret->AddPair("returnvalue","false");
+	   }
+	   else
+		 Ret->AddPair("result","false");
+	   }
+	   catch(Exception &e)
+	   {
+		  WritLog(e.Message);
+       }
+
+	}
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::RunPendingWorkflow()
+{
+   TWorkflowStudio * FWorkflowStudioClient=CreateWorkFlowStudio(FOaUserID,FOaAdmin);
+   if(FWorkflowStudioClient!=NULL)
+   {
+   try{
+		tmWorkflowTimeout->Enabled=false;
+		FWorkflowStudioClient->WorkflowEngine->RunPendingWorkflowInstances();
+		if(ClientBrokerStatus==2)
+			tmWorkflowTimeout->Enabled=true;
+   }
+   __finally
+   {
+	 delete FWorkflowStudioClient;
+   }
+   }
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::OnTimer(TObject *Sender)
+{
+   TThreadProcedure* methProc(static_cast<TThreadProcedure*>(new TRunPendQueueProc(FRunPendProc)));
+   TThread::Queue(0, methProc);
+}
+// ---------------------------------------------------------------------------
+bool __fastcall TwfClientBroker::GetConnected()
+{
+  return DSConnection->Connected;
+}
+// ---------------------------------------------------------------------------
+void  __fastcall TwfClientBroker::WritLog(String ErrorLong)
+{
+   String Errorfile=ExtractFilePath(Forms::Application->ExeName)+FormatDateTime("YYYYMM",Now())+"WFLong.txt";
+   AnsiString  strLong = DateTimeToStr(Now())+"  "+ErrorLong+"\r\n";
+   int iFileHandle;
+   try
+   {
+	   if (FileExists(Errorfile))
+		   iFileHandle = FileOpen(Errorfile,fmOpenWrite);
+	   else
+		   iFileHandle = FileCreate(Errorfile);
+	   FileSeek(iFileHandle,0,2);
+	  FileWrite(iFileHandle,strLong.c_str(),strLong.Length());
+   }
+   __finally
+   {
+	   FileClose(iFileHandle);
+   }
+}
+// ---------------------------------------------------------------------------
+void __fastcall TwfClientBroker::OnTaskCreate(TObject *Sender, TTaskInstance *ATaskIns)
+{
+	TSendWFMessageThread *wfMessageSend=new TSendWFMessageThread(DBXConnection,ATaskIns);
+}
+void __fastcall TwfClientBroker::OnWorkInsFinished(System::TObject* Sender, TWorkflowInstance* AWorkIns)
+{
+	TSendWFMessageThread *wfMessageSend=new TSendWFMessageThread(DBXConnection,AWorkIns);
+}

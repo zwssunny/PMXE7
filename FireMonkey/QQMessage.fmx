@@ -1,0 +1,107 @@
+object frmQQMessage: TfrmQQMessage
+  Left = 0
+  Top = 0
+  Caption = #28040#24687#31383#20307
+  ClientHeight = 400
+  ClientWidth = 654
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  OnClose = FormClose
+  DesignerMobile = False
+  DesignerWidth = 0
+  DesignerHeight = 0
+  DesignerDeviceName = ''
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object plRight: TPanel
+    Align = Right
+    Height = 400.000000000000000000
+    Position.X = 502.000000000000000000
+    Width = 152.000000000000000000
+    TabOrder = 0
+    object lbvirate: TLabel
+      Height = 15.000000000000000000
+      Position.X = 64.000000000000000000
+      Position.Y = 280.000000000000000000
+      Text = #38663#21160
+      Visible = False
+      Width = 120.000000000000000000
+    end
+    object lbRing: TLabel
+      Height = 15.000000000000000000
+      Position.X = 64.000000000000000000
+      Position.Y = 328.000000000000000000
+      Text = #21709#38083
+      Visible = False
+      Width = 120.000000000000000000
+    end
+  end
+  object plMain: TPanel
+    Align = Client
+    Height = 400.000000000000000000
+    Width = 502.000000000000000000
+    TabOrder = 1
+    object plBottom: TPanel
+      Align = Bottom
+      Height = 100.000000000000000000
+      Position.Y = 300.000000000000000000
+      Width = 502.000000000000000000
+      TabOrder = 0
+      object Panel1: TPanel
+        Align = Right
+        Height = 100.000000000000000000
+        Position.X = 336.000000000000000000
+        Width = 166.000000000000000000
+        TabOrder = 0
+        object sbViration: TSpeedButton
+          Height = 22.000000000000000000
+          Position.X = 8.000000000000000000
+          Position.Y = 8.000000000000000000
+          Text = #38663#21160
+          Width = 49.000000000000000000
+          OnClick = sbVirationClick
+        end
+        object sbRing: TSpeedButton
+          Height = 22.000000000000000000
+          Position.X = 80.000000000000000000
+          Position.Y = 8.000000000000000000
+          Text = #21709#38083
+          Width = 57.000000000000000000
+          OnClick = sbRingClick
+        end
+        object bbtSend: TButton
+          Height = 30.000000000000000000
+          Position.X = 24.000000000000000000
+          Position.Y = 48.000000000000000000
+          TabOrder = 2
+          Text = #21457#36865'(Ctl+Enter)'
+          Width = 105.000000000000000000
+          OnClick = bbtSendClick
+        end
+      end
+      object memMsgEdit: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Align = Client
+        Height = 100.000000000000000000
+        TabOrder = 1
+        Width = 336.000000000000000000
+        OnKeyDown = memMsgEditKeyDown
+      end
+    end
+    object memMsg: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      Align = Client
+      Height = 300.000000000000000000
+      TabOrder = 1
+      Width = 502.000000000000000000
+      ReadOnly = True
+    end
+    object Timer1: TTimer
+      Enabled = False
+      OnTimer = Timer1Timer
+      Left = 56
+      Top = 16
+    end
+  end
+end

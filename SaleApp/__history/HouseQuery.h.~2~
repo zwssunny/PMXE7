@@ -1,0 +1,30 @@
+//---------------------------------------------------------------------------
+
+#ifndef HouseQueryH
+#define HouseQueryH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseListShow.h"
+#include <Data.Bind.Components.hpp>
+#include <Data.Bind.DBScope.hpp>
+#include <Data.Bind.EngExt.hpp>
+#include <FMX.ActnList.hpp>
+#include <Fmx.Bind.DBEngExt.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <System.Actions.hpp>
+//---------------------------------------------------------------------------
+class TfrmHouseQuery : public TfrmBaseListShow
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmHouseQuery(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,
+							 String WhereStr);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmHouseQuery *frmHouseQuery;
+//---------------------------------------------------------------------------
+#endif

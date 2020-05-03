@@ -1,0 +1,35 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ShellApi.h"
+#ifdef MACOS
+#include <Macapi.CoreFoundation.hpp>	// Pascal unit
+#include <Macapi.Foundation.hpp>	// Pascal unit
+#include <Macapi.AppKit.hpp>	// Pascal unit
+#endif MACOS
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+void __fastcall NSOpenURL(const String AUrl)
+{
+  CFStringRef  CF1, CF2;
+  NSURL URLObj;
+  NSWorkspace Workspace;
+	CF1 = CFStringCreateWithCharactersNoCopy(NULL, PChar(AUrl),
+	Length(AURL), kCFAllocatorNull);
+  try
+  {
+	CF2 = CFURLCreateStringByAddingPercentEscapes(
+      kCFAllocatorDefault, CF1, nil, nil, kCFStringEncodingUTF8);
+	Workspace = TNSWorkspace.Wrap(TNSWorkspace.OCClass.sharedWorkspace);
+	URLObj = TNSURL.Wrap(TNSURL.OCClass.URLWithString(TNSString.Wrap(CF2)));
+    Workspace.openURL(URLObj);
+  }
+  __finally
+  {
+	if (CF2 != NULL)
+	 CFRelease(CF2);
+	if (CF1 != NULL)
+	 CFRelease(CF1);
+  }
+}

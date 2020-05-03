@@ -1,0 +1,182 @@
+object ConfigForm: TConfigForm
+  Left = 0
+  Top = 0
+  Caption = #36830#25509#26381#21153#22120#21442#25968
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object MainVertScrollBox: TVertScrollBox
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object MainLayout: TLayout
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 567.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object Footer: TToolBar
+        Align = Bottom
+        Position.Y = 519.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object btSave: TButton
+          Align = MostLeft
+          Size.Width = 73.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'donetoolbutton'
+          TabOrder = 0
+          Text = #20445#23384
+          OnClick = btSaveClick
+        end
+        object btCancel: TButton
+          Align = MostRight
+          ModalResult = 2
+          Position.X = 311.000000000000000000
+          Size.Width = 73.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'deletetoolbutton'
+          TabOrder = 1
+          Text = #20851#38381
+          OnClick = btCancelClick
+        end
+      end
+      object Header: TToolBar
+        Size.Width = 384.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object HeaderLabel: TLabel
+          Align = Contents
+          Size.Width = 384.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'toollabel'
+          TextSettings.HorzAlign = Center
+          Text = #36830#25509#26381#21153#22120#21442#25968
+        end
+      end
+      object Panel1: TPanel
+        Align = Client
+        Size.Width = 384.000000000000000000
+        Size.Height = 471.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        object cbProtocol: TComboBox
+          DisableFocusEffect = False
+          Items.Strings = (
+            'TCP/IP'
+            'HTTP')
+          ItemIndex = 0
+          Position.X = 160.000000000000000000
+          Position.Y = 232.000000000000000000
+          Size.Width = 100.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          Visible = False
+        end
+        object edAgentIP: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 2
+          Text = 'http://192.168.1.15:9000'
+          Position.X = 128.000000000000000000
+          Position.Y = 120.000000000000000000
+          Size.Width = 225.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object edAgentPort: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 3
+          KeyboardType = NumberPad
+          Position.X = 160.000000000000000000
+          Position.Y = 176.000000000000000000
+          Size.Width = 100.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          Visible = False
+        end
+        object lableport: TLabel
+          AutoSize = True
+          Position.X = 57.000000000000000000
+          Position.Y = 187.000000000000000000
+          Size.Width = 90.000000000000000000
+          Size.Height = 24.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #26381#21153#31471#21475#65306
+          Visible = False
+        end
+        object lbProtocol: TLabel
+          AutoSize = True
+          Position.X = 57.000000000000000000
+          Position.Y = 239.000000000000000000
+          Size.Width = 90.000000000000000000
+          Size.Height = 24.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #36890#20449#21327#35758#65306
+          Visible = False
+        end
+        object Label2: TLabel
+          Position.X = 24.000000000000000000
+          Position.Y = 160.000000000000000000
+          Size.Width = 169.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #21830#19994#36151#27454#22522#20934#21033#24687#65306
+        end
+        object Label1: TLabel
+          Position.X = 29.000000000000000000
+          Position.Y = 128.000000000000000000
+          Size.Width = 114.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #26381#21153#22120#22320#22336#65306
+        end
+        object nbBaseBusiRate: TNumberBox
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 7
+          Cursor = crIBeam
+          ValueType = Float
+          Position.X = 184.000000000000000000
+          Position.Y = 152.000000000000000000
+          Size.Width = 169.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object Label3: TLabel
+          Position.X = 8.000000000000000000
+          Position.Y = 192.000000000000000000
+          Size.Width = 185.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          Text = #20844#31215#37329#36151#27454#22522#20934#21033#24687#65306
+        end
+        object nbBaseAccuRate: TNumberBox
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 6
+          Cursor = crIBeam
+          ValueType = Float
+          Position.X = 184.000000000000000000
+          Position.Y = 184.000000000000000000
+          Size.Width = 169.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+        end
+      end
+    end
+  end
+end

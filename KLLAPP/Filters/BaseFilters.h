@@ -1,0 +1,54 @@
+//---------------------------------------------------------------------------
+
+#ifndef BaseFiltersH
+#define BaseFiltersH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "ZClientQuery.h"
+#include "ClientBroker.h"
+#include "ModuleEnum.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Layouts.hpp>
+typedef void __fastcall (__closure *TOnFilteredDataSet)(String Filters);
+//---------------------------------------------------------------------------
+class TBaseFiltersForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *tbarBaseFilter;
+	TButton *btQuery;
+	TButton *btCancel;
+	TVertScrollBox *ItemVertScrollBox;
+	TLayout *EditLayout;
+	TAniIndicator *WaitAniIndicator;
+	void __fastcall btQueryClick(TObject *Sender);
+	void __fastcall btCancelClick(TObject *Sender);
+	void __fastcall FormVirtualKeyboardShown(TObject *Sender, bool KeyboardVisible,
+          const TRect &Bounds);
+	void __fastcall FormVirtualKeyboardHidden(TObject *Sender, bool KeyboardVisible,
+          const TRect &Bounds);
+	void __fastcall FormFocusChanged(TObject *Sender);
+private:	// User declarations
+	TOnFilteredDataSet FOnFilteredDataSet;
+	TClientBroker *FBroker;
+	TZClientQuery *FQuery;
+	void __fastcall RestorePosition();
+	void __fastcall UpdateKBBounds();
+	void __fastcall CalcContentBoundsProc(TObject * Sender, System::Types::TRectF &ContentBounds);
+	System::Types::TRectF FKBBounds;
+	bool FNeedOffset;
+protected:
+	virtual String __fastcall BuildFilters()=0;
+	virtual void __fastcall InitControl(){};
+public:		// User declarations
+	__fastcall TBaseFiltersForm(TComponent* Owner,TOnFilteredDataSet AOnFilteredDataSet,TClientBroker * ABroker);
+	virtual __fastcall ~TBaseFiltersForm();
+	__property TClientBroker *ClientBroker={ read=FBroker,write=FBroker};
+	__property TZClientQuery *Query={ read=FQuery};
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TBaseFiltersForm *BaseFiltersForm;
+//---------------------------------------------------------------------------
+#endif

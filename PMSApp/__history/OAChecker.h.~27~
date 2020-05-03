@@ -1,0 +1,141 @@
+//---------------------------------------------------------------------------
+
+#ifndef OACheckerH
+#define OACheckerH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseListForm.h"
+#include "StartAndEndDate.h"
+#include <FMX.ActnList.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.Grid.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.ListBox.hpp>
+#include <FMX.Memo.hpp>
+#include <FMX.Objects.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.TabControl.hpp>
+#include <FMX.Types.hpp>
+#include <System.Actions.hpp>
+#include <System.Rtti.hpp>
+#include <Data.Bind.Components.hpp>
+#include <Data.Bind.DBScope.hpp>
+#include <Data.Bind.EngExt.hpp>
+#include <Fmx.Bind.DBEngExt.hpp>
+#include <Fmx.Bind.Editors.hpp>
+#include <System.Bindings.Outputs.hpp>
+#include "DetailBaseForm.h"
+//---------------------------------------------------------------------------
+class TfrmOAChecker : public TfrmBaseListForm
+{
+__published:	// IDE-managed Components
+	TTabControl *tcOAControl;
+	TTabItem *tabTask;
+	TTabItem *tabSearch;
+	TToolBar *tbTask;
+	TButton *btCheck;
+	TButton *btSearch;
+	TActionList *OAActionList;
+	TAction *CheckAction;
+	TAction *SearchAction;
+	TAction *SearchOkAction;
+	TToolBar *tbSearch;
+	TButton *btOk;
+	TStringGrid *TaskStringGrid;
+	TStringColumn *wtNoColumn;
+	TStringColumn *wtNameColumn;
+	TStringColumn *wtStatusColumn;
+	TStringColumn *wtReceiverColumn;
+	TStringColumn *wtCreateTimeColumn;
+	TStringColumn *wtOperaterColumn;
+	TStringColumn *wtResultsColumn;
+	TStringColumn *wtFinishTimeColumn;
+	TStringColumn *wtStepColumn;
+	TTabControl *tcTaskControl;
+	TTabItem *tabCheck;
+	TTabItem *tabTaskLog;
+	TTabItem *tabflowChart;
+	TLabel *lbTaskDes;
+	TMemo *mmFlowMnDtlRemark;
+	TLabel *lbTaskComment;
+	TEdit *edFlowMnDtlComments;
+	TLabel *lbTastResult;
+	TComboBox *cbFlowMnDtlResults;
+	TLabel *lbWorkTitle;
+	TLabel *lbWorkTitleText;
+	TStringGrid *TaskLogStringGrid;
+	TStringColumn *TaskLogNum;
+	TStringColumn *FlowTaskLogTaskNameColumn;
+	TStringColumn *FlowTaskLogDateColumn;
+	TStringColumn *FlowTaskLogOperationColumn;
+	TStringColumn *FlowTaskLogUserNameColumn;
+	TStringColumn *FlowTaskLogInfoColumn;
+	TImage *WorkflowImage;
+	TLabel *lbBillType;
+	TLabel *lbTaskStatus;
+	TComboBox *cbBillType;
+	TComboBox *cbTaskStatus;
+	TLabel *lbBillTitle;
+	TEdit *edBillTitle;
+	TStartAndEndDateFrame *StartAndEndDateFrame1;
+	TBindSourceDB *TaskLogBindSourceDB;
+	TBindSourceDB *TaskBindSourceDB;
+	TBindingsList *DetailBindingsList;
+	TBindGridLink *TaskBindGridLink;
+	TBindLink *FlowMnDtlCommentsBindLink;
+	TBindLink *FlowMnDtlRemarkBindLink;
+	TBindLink *FlowMnDtlResultsBindLink;
+	TBindGridLink *TaskLogBindGridLink;
+	TBindLink *WorkTitleTextBindLink;
+	TButton *btClose;
+	TTabItem *tabWork;
+	TLabel *lbWorkflowContent;
+	TMemo *mmWorkflowContent;
+	TLabel *lbWorkflowLeve;
+	TComboBox *cbWorkflowLeve;
+	TLabel *lbWorkflowStatus;
+	TComboBox *cbWorkflowStatus;
+	TLabel *lbCreator;
+	TLabel *lbCreatorName;
+	TLabel *lbTaskTitle;
+	TLabel *lbTaskTitleText;
+	TBindLink *TaskTitleTextBindLink;
+	TBindLink *CreatorNameBindLink;
+	TBindLink *WorkflowContentBindLink;
+	TBindLink *WorkflowLeveBindLink;
+	TBindLink *WorkflowStatusBindLink;
+	TButton *btBack;
+	TLabel *Label1;
+	TLabel *Label2;
+	void __fastcall tcTaskControlChange(TObject *Sender);
+	void __fastcall SearchActionExecute(TObject *Sender);
+	void __fastcall SearchOkActionExecute(TObject *Sender);
+	void __fastcall CheckActionExecute(TObject *Sender);
+	void __fastcall btCloseClick(TObject *Sender);
+	void __fastcall btBackClick(TObject *Sender);
+	void __fastcall TaskTitleTextBindLinkAssignedValue(TObject *Sender, TBindingAssignValueRec &AssignValueRec,
+          const TValue &Value);
+private:	// User declarations
+	void __fastcall SetOptCtrlStatus(int status);  //÷ÿ‘ÿ–È∫Ø ˝£¨…Ë÷√¥∞ÃÂ◊¥Ã¨
+	void __fastcall TaskStringGridSelectedRowChanged();
+	void __fastcall FillBillTypeItems();
+	String __fastcall GetOtherConditon();
+  	void __fastcall LoadTaskData();
+	void __fastcall LoadTaskLogData();
+	void __fastcall ShowFlowChart();
+	TClientDataSet *TaskDefListDs;
+  	TZClientQuery *TaskQuery;
+	TZClientQuery *TaskLogQuery;
+	String TaskSelected;
+	TWorkFlowExec FOnBeforWorkFlowExec;
+public:		// User declarations
+	__property TWorkFlowExec OnBeforWorkFlowExec = {read=FOnBeforWorkFlowExec, write=FOnBeforWorkFlowExec};
+	__fastcall TfrmOAChecker(TComponent* Owner,TClientBroker * clBroker,int ModuleCode,String Param);
+	virtual __fastcall ~TfrmOAChecker();
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmOAChecker *frmOAChecker;
+//---------------------------------------------------------------------------
+#endif

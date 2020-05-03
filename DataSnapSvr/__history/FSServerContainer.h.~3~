@@ -1,0 +1,243 @@
+//----------------------------------------------------------------------------
+
+#ifndef FSServerContainerH
+#define FSServerContainerH
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include <DSCommonServer.hpp>
+#include <DSServer.hpp>
+#include <DSTCPServerTransport.hpp>
+#include <DSAuth.hpp>
+#include <DSHTTP.hpp>
+#include <DSHTTPCommon.hpp>
+#include <ExtCtrls.hpp>
+#include "LoginUserRecord.h"
+#include <Datasnap.DSClientMetadata.hpp>
+#include <Datasnap.DSHTTPServiceProxyDispatcher.hpp>
+#include <Datasnap.DSProxyJavaScript.hpp>
+#include <Datasnap.DSProxyJavaAndroid.hpp>
+#include <Datasnap.DSProxyJavaBlackBerry.hpp>
+#include <Datasnap.DSProxyCsharpSilverlight.hpp>
+#include <Datasnap.DSProxyObjectiveCiOS.hpp>
+#include <IndyPeerImpl.hpp>
+#include <DBClient.hpp>
+#include "MsgStream.h"
+#include <Datasnap.DSMetadata.hpp>
+#include <Datasnap.DSServerMetadata.hpp>
+#include <IPPeerServer.hpp>
+//----------------------------------------------------------------------------
+class TDMServerContainer : public TDataModule
+{
+__published:	// IDE-managed Components
+	TDSServer *FSDSServer;
+	TDSHTTPService *FSDSHTTPService;
+	TDSAuthenticationManager *FSDSAuthenticationManager;
+	TADOConnection *SysADOConnection;
+	TADOQuery *SysADOQuery;
+	TTimer *TrialTimer;
+	TTimer *ADOConnTimer;
+	TDSServerClass *DSLoginUser;
+	TDSServerClass *DSSyAccBook;
+	TDSServerClass *DSServerDataSet;
+	TDSServerClass *DSServerQuery;
+	TDSServerMetaDataProvider *FSDSServerMetaDataProvider;
+	TDSProxyGenerator *FSDSProxyGenerator;
+	TDSHTTPServiceProxyDispatcher *FSDSHTTPServiceProxyDispatcher;
+	TDSHTTPServiceFileDispatcher *FSDSHTTPServiceFileDispatcher;
+	TDSTCPServerTransport *FSDSTCPServerTransport;
+	TDSServerClass *DSJSeverDataSet;
+	TDSServerClass *DSJServerQuery;
+	TDSServerClass *DSWorkFlowServer;
+	TDSServerClass *DSMessageManage;
+	TDSServerClass *DSContractProject;
+	TADOConnection *AccADOConnection;
+	TDSServerClass *DSHouseView;
+	TDSServerClass *DSSendUserMessage;
+	void __fastcall FSDSAuthenticationManagerUserAuthenticate(TObject *Sender, const UnicodeString Protocol, const UnicodeString Context, const UnicodeString User, const UnicodeString Password, bool &valid,  TStrings *UserRoles);
+	void __fastcall DataModuleCreate(TObject *Sender);
+	void __fastcall DataModuleDestroy(TObject *Sender);
+	void __fastcall FSDSServerConnect(TDSConnectEventObject *DSConnectEventObject);
+	void __fastcall ADOConnTimerTimer(TObject *Sender);
+	void __fastcall SysADOConnectionAfterConnect(TObject *Sender);
+	void __fastcall SysADOConnectionAfterDisconnect(TObject *Sender);
+	void __fastcall DSSyAccBookGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSLoginUserGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSServerDataSetGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSServerQueryGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSJSeverDataSetGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSJServerQueryGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSWorkFlowServerGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSContractProjectGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSMessageManageGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall FSDSCertFilesGetPEMFilePasskey(TObject *ASender, AnsiString &APasskey);
+	void __fastcall DSHouseViewGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+	void __fastcall DSSendUserMessageGetClass(TDSServerClass *DSServerClass, TPersistentClass &PersistentClass);
+
+
+
+private:	// User declarations
+	bool ServerUsersDestroyed;
+	TStringList *ConnectionList;
+	TStringList *SysConnectionList;
+	TStringList *UserList;
+	TStringList *WorkFlowSerList;
+	TStringList *SmsSerList;
+	TADOQuery *m_DataSet;
+	TADOQuery *LogQuery;
+	TADOQuery *m_Query;
+	TADOQuery *AccQuery;
+
+	String m_SysTag;
+	String m_ConnStr;
+	String m_FileName;
+	int FDbType;
+	int FAccDbType;
+	String m_ModuleList;
+	HANDLE FEventLog;
+
+	int FPrjLevel;
+	String FDBConnectString;
+	String FAccDBConnectString;
+	int FTCPIPPort;
+	int FHttpPort;
+	int FHttpsPort;
+	int FMaxUserCount;
+
+	String FAdminName;
+	String FSPassWord;
+	int FLicenseKey;
+
+	bool IsUpdateMenu;
+	TDateTime FDevEndDate;
+	bool FTestOverTimes;
+	bool IsTrial;
+	bool FSoftDog;
+	int FVersion;
+	TDateTime FBeginRunTime;
+	TFormatSettings fmtSettings;
+
+	String FftpInteranetIP;
+	String FftpInternetIP;
+	String FftpUserName;
+	String FftpPassword;
+	int FftpPort;
+	bool FftpNeedFTP;
+	bool FftpPassive;
+
+	String FUpdateURL;
+
+	int FLogUnigue;
+	double BeginTime;
+	int FMaxOAUserCount;
+	// mail
+	String FMailServer;
+	String FSendEMail;
+	String FMailUserName;
+	String FMailPassword;
+	int FMailPort;
+	String AppPath;
+	String ProxyPath;
+
+	double __fastcall GetRemainTimes();
+	void __fastcall LoadSetting();
+	void __fastcall LoadFtpSetting();
+	void __fastcall LoadMailSetting();
+	void __fastcall LogMessage(String Message, unsigned EventType = 1, int Category = 0, int ID = 0);
+	void __fastcall WriteUserLog(String UserID, String IPAddress,String ClassCode, String AcckBook,int type, String Desc);
+	bool __fastcall InitServer();
+	bool __fastcall InitConnData();
+	bool __fastcall CheckDog(); // 检查软件狗
+	void __fastcall FlashSystemMenu();
+	void __fastcall InputData(TADOQuery * mQuery, String tablename);
+	void __fastcall UpdateModuleData();
+	void __fastcall UpdateWindow();
+	void __fastcall UpdateUserDefRight();
+	void __fastcall UpdateUserDefFunc();
+	void __fastcall UpdateLibFile();
+	void __fastcall UpdateSystemRight();
+	bool __fastcall IsValidUser(String UserLoginCode,String strPassword,String &msg);
+	bool __fastcall IsValidAdmin(String UserLoginCode,String strPassword,String &msg);
+	bool __fastcall TestClientConnection(String CallBackClientID,String AccBookID);
+	TLoginUserRecord * __fastcall GetCurLoginUser();
+	void __fastcall CallbackTunnelEvent(TObject *Sender,const TDSCallbackTunnelEventItem &EventItem);
+public:		// User declarations
+	__fastcall TDMServerContainer(TComponent* Owner);
+
+	void __fastcall StartServer();
+	void __fastcall Shutdown();
+	//写日志记录
+	void __fastcall NotifyWriteLog(String UserID, String IPAddress, String AcckBook,String ClassCode, int type, String Desc);
+	void __fastcall	NotifyUserChange(TLoginUserRecord *user, bool WasAdded);
+	TADOConnection* __fastcall GetConnection();
+	void __fastcall SetConnection(int SessionID);
+	TADOConnection* __fastcall GetSysConnection();
+	void __fastcall SetSysConnection(int SessionID);
+	void __fastcall UpdateCurUserRecord(String UserID,String UserLoginCode,String UserCode,String UserName);
+	TLoginUserRecord * __fastcall GetLoginUser(String UserID,String AccbookID);
+	void __fastcall ListOfLoginUser(TCustomClientDataSet *DataSet,bool bAll=true);
+	TMsgStream* __fastcall GetAccInformation();
+	void __fastcall RemoveUser(int threadSessionId);
+	//工作流服务器
+	void __fastcall AddWorkflowSer(const TDSCallbackTunnelEventItem &EventItem);
+	void __fastcall RemoveWorkflowSer(const TDSCallbackTunnelEventItem &EventItem);
+	TJSONArray*  GetWorkFlowServerList();
+	//短信服务器
+	void __fastcall AddSMSSer(const TDSCallbackTunnelEventItem &EventItem);
+	void __fastcall RemoveSMSSer(const TDSCallbackTunnelEventItem &EventItem);
+	TJSONArray*  GetSmsServerList();
+
+	TJSONArray*  __fastcall GetLoginUserList(bool bAll=true);
+	TJSONObject* __fastcall GetAccInforJSON();  // 产品信息，ftp,mail,账套信息和系统库链接串
+	TJSONObject* __fastcall GetAccListJSON(); //简单返回账套列表消息
+
+	// 初始化服务器
+	__property int TCPIPPort          = {read = FTCPIPPort, write = FTCPIPPort};
+	__property int HttpPort           = {read = FHttpPort, write = FHttpPort};
+	__property int HttpsPort          = {read = FHttpsPort, write = FHttpsPort};
+	__property int DbType             = {read = FDbType, write = FDbType};
+	__property int PrjLevel           = {read = FPrjLevel, write = FPrjLevel};
+	__property String DBConnectString = {read = FDBConnectString, write = FDBConnectString};
+	__property int MaxUserCount       = {read = FMaxUserCount, write = FMaxUserCount};
+	__property String AdminName       = {read = FAdminName, write = FAdminName};
+	__property String SPassWord       = {read = FSPassWord, write = FSPassWord};
+	__property int LogUnigue          = {read = FLogUnigue, write = FLogUnigue};
+
+	// 试用版用，剩余持续时间
+	__property double RemainTimes     = {read = GetRemainTimes};
+	__property String SysTag          = {read = m_SysTag};
+	__property int Version            = {read = FVersion, write = FVersion};
+	__property bool Trial             = {read = IsTrial};
+	__property bool TestOverTimes     = {read = FTestOverTimes};
+	__property bool SoftDog    		  = {read = FSoftDog};
+	__property TDateTime BeginRunTime = {read = FBeginRunTime};
+	__property TDateTime DevEndDate   = {read = FDevEndDate};
+	// ftp
+	__property String ftpInteranetIP  = {read = FftpInteranetIP, write = FftpInteranetIP};
+	__property String ftpInternetIP   = {read = FftpInternetIP, write = FftpInternetIP};
+	__property String ftpUserName     = {read = FftpUserName, write = FftpUserName};
+	__property String ftpPassword     = {read = FftpPassword, write = FftpPassword};
+	__property int ftpPort            = {read = FftpPort, write = FftpPort};
+	__property bool ftpNeedFTP        = {read = FftpNeedFTP, write = FftpNeedFTP};
+	__property bool ftpPassive        = {read = FftpPassive, write = FftpPassive};
+
+	// UpdateURL
+	__property String UpdateURL       = {read = FUpdateURL, write = FUpdateURL};
+
+	// OA User
+	__property int MaxOAUserCount     = {read = FMaxOAUserCount, write = FMaxOAUserCount};
+
+	// 邮件发送服务
+	__property String MailServer      = {read = FMailServer, write = FMailServer};
+	__property String ESendMail       = {read = FSendEMail, write = FSendEMail};
+	__property String MailUserName    = {read = FMailUserName, write = FMailUserName};
+	__property String MailPassword    = {read = FMailPassword, write = FMailPassword};
+	__property int MailPort           = {read = FMailPort, write = FMailPort};
+	__property TLoginUserRecord *CurLoginUser = {read=GetCurLoginUser};
+};
+//----------------------------------------------------------------------------
+extern PACKAGE TDMServerContainer *DMServerContainer;
+//----------------------------------------------------------------------------
+#endif
+

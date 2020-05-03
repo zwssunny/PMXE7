@@ -1,0 +1,401 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{12836B76-82B9-4158-9A74-673B3E3E32CB}</ProjectGuid>
+			<ProjectVersion>13.4</ProjectVersion>
+			<MainSource>baseComXE2.cpp</MainSource>
+			<Base>True</Base>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<AppType>Library</AppType>
+			<FrameworkType>VCL</FrameworkType>
+			<Platform Condition="'$(Platform)'==''">Win32</Platform>
+			<TargetedPlatforms>1</TargetedPlatforms>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+			<Base_Win32>true</Base_Win32>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+			<Cfg_1_Win32>true</Cfg_1_Win32>
+			<CfgParent>Cfg_1</CfgParent>
+			<Cfg_1>true</Cfg_1>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<VerInfo_Locale>2052</VerInfo_Locale>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+			<DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Winapi;Vcl;FMX.ASE;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+			<ILINK_Description>Foresight Software BaseCom</ILINK_Description>
+			<FinalOutputDir>..\lib\</FinalOutputDir>
+			<ProjectType>CppPackage</ProjectType>
+			<LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
+			<_TCHARMapping>wchar_t</_TCHARMapping>
+			<ILINK_GenerateLibFile>true</ILINK_GenerateLibFile>
+			<ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
+			<Multithreaded>true</Multithreaded>
+			<OutputExt>bpl</OutputExt>
+			<BPILibOutputDir>..\lib\</BPILibOutputDir>
+			<AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
+			<ILINK_LibraryPath>..\lib\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+			<DynamicRTL>true</DynamicRTL>
+			<UsePackages>true</UsePackages>
+			<IntermediateOutputDir>.\$(Config)\$(Platform)</IntermediateOutputDir>
+			<BCC_wpar>false</BCC_wpar>
+			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+			<BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
+			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base_Win32)'!=''">
+			<IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+			<Icon_MainIcon>baseComXE_Icon.ico</Icon_MainIcon>
+			<DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+			<VerInfo_Locale>1033</VerInfo_Locale>
+			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+			<BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+			<DCC_Optimize>false</DCC_Optimize>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<Defines>_DEBUG;$(Defines)</Defines>
+			<BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+			<BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+			<DCC_Define>DEBUG</DCC_Define>
+			<BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+			<TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+			<BCC_StackFrames>true</BCC_StackFrames>
+			<ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+			<TASM_Debugging>Full</TASM_Debugging>
+			<BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+			<ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+			<ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+			<LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<Defines>NDEBUG;$(Defines)</Defines>
+			<TASM_Debugging>None</TASM_Debugging>
+		</PropertyGroup>
+		<ItemGroup>
+			<CppCompile Include="baseComXE2.cpp">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="CnCalendar.cpp">
+				<DependentOn>CnCalendar.h</DependentOn>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="copyright.cpp">
+				<DependentOn>copyright.h</DependentOn>
+				<BuildOrder>65</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Cplexer.cpp">
+				<BuildOrder>4</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="designide.bpi">
+				<BuildOrder>55</BuildOrder>
+			</PackageImport>
+			<CppCompile Include="DynamicGrid.cpp">
+				<DependentOn>DynamicGrid.h</DependentOn>
+				<BuildOrder>5</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Errmsgs.cpp">
+				<DependentOn>Errmsgs.h</DependentOn>
+				<BuildOrder>6</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="fpanel.cpp">
+				<DependentOn>fpanel.h</DependentOn>
+				<BuildOrder>7</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Istream.cpp">
+				<DependentOn>Istream.h</DependentOn>
+				<BuildOrder>8</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Lexer.cpp">
+				<BuildOrder>10</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="MathLexer.cpp">
+				<BuildOrder>11</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="MathParser.cpp">
+				<BuildOrder>12</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="rmb.cpp">
+				<DependentOn>rmb.h</DependentOn>
+				<BuildOrder>13</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="rtl.bpi">
+				<BuildOrder>1</BuildOrder>
+			</PackageImport>
+			<CppCompile Include="StrMap.cpp">
+				<BuildOrder>15</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="SymTable.cpp">
+				<BuildOrder>16</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Tokstr.cpp">
+				<DependentOn>Tokstr.h</DependentOn>
+				<BuildOrder>17</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="TransPanel.cpp">
+				<DependentOn>TransPanel.h</DependentOn>
+				<BuildOrder>18</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="vcl.bpi">
+				<BuildOrder>54</BuildOrder>
+			</PackageImport>
+			<PackageImport Include="vclactnband.bpi">
+				<BuildOrder>57</BuildOrder>
+			</PackageImport>
+			<CppCompile Include="vclComFunc.cpp">
+				<DependentOn>vclComFunc.h</DependentOn>
+				<BuildOrder>19</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="vclx.bpi">
+				<BuildOrder>58</BuildOrder>
+			</PackageImport>
+			<CppCompile Include="VOR.cpp">
+				<DependentOn>VOR.h</DependentOn>
+				<BuildOrder>20</BuildOrder>
+			</CppCompile>
+			<PackageImport Include="xmlrtl.bpi">
+				<BuildOrder>56</BuildOrder>
+			</PackageImport>
+			<DelphiCompile Include="XPButton.pas">
+				<BuildOrder>63</BuildOrder>
+			</DelphiCompile>
+			<DelphiCompile Include="XPMenu.pas">
+				<BuildOrder>60</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="ZBitBtn.cpp">
+				<DependentOn>ZBitBtn.h</DependentOn>
+				<BuildOrder>21</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZButton.cpp">
+				<DependentOn>ZButton.h</DependentOn>
+				<BuildOrder>22</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZCalculator.cpp">
+				<DependentOn>ZCalculator.h</DependentOn>
+				<BuildOrder>23</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZCheckBox.cpp">
+				<DependentOn>ZCheckBox.h</DependentOn>
+				<BuildOrder>24</BuildOrder>
+			</CppCompile>
+			<DelphiCompile Include="ZCnDate.pas">
+				<BuildOrder>61</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="ZColorSet.cpp">
+				<DependentOn>ZColorSet.h</DependentOn>
+				<BuildOrder>25</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZComboBox.cpp">
+				<DependentOn>ZComboBox.h</DependentOn>
+				<BuildOrder>26</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZDateEdit.cpp">
+				<DependentOn>ZDateEdit.h</DependentOn>
+				<BuildOrder>27</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZDropDown.cpp">
+				<DependentOn>ZDropDown.h</DependentOn>
+				<BuildOrder>28</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZEdit.cpp">
+				<DependentOn>ZEdit.h</DependentOn>
+				<BuildOrder>29</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="Zgrid.cpp">
+				<DependentOn>Zgrid.h</DependentOn>
+				<BuildOrder>30</BuildOrder>
+			</CppCompile>
+			<DelphiCompile Include="Zgrids.pas">
+				<BuildOrder>62</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="ZGroupBox.cpp">
+				<DependentOn>ZGroupBox.h</DependentOn>
+				<BuildOrder>31</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZImage.cpp">
+				<DependentOn>ZImage.h</DependentOn>
+				<BuildOrder>32</BuildOrder>
+			</CppCompile>
+			<DelphiCompile Include="ZImagePanel.pas">
+				<BuildOrder>63</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="ZLabel.cpp">
+				<DependentOn>ZLabel.h</DependentOn>
+				<BuildOrder>33</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZLine.cpp">
+				<DependentOn>ZLine.h</DependentOn>
+				<BuildOrder>34</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZListBox.cpp">
+				<DependentOn>ZListBox.h</DependentOn>
+				<BuildOrder>35</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZListView.cpp">
+				<DependentOn>ZListView.h</DependentOn>
+				<BuildOrder>36</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZMaskEdit.cpp">
+				<DependentOn>ZMaskEdit.h</DependentOn>
+				<BuildOrder>37</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZMemo.cpp">
+				<DependentOn>ZMemo.h</DependentOn>
+				<BuildOrder>38</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZMonthCalendar.cpp">
+				<DependentOn>ZMonthCalendar.h</DependentOn>
+				<BuildOrder>39</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZPageControl.cpp">
+				<DependentOn>ZPageControl.h</DependentOn>
+				<BuildOrder>40</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZPanel.cpp">
+				<DependentOn>ZPanel.h</DependentOn>
+				<BuildOrder>41</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZRadioButton.cpp">
+				<DependentOn>ZRadioButton.h</DependentOn>
+				<BuildOrder>42</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZRichEdit.cpp">
+				<DependentOn>ZRichEdit.h</DependentOn>
+				<BuildOrder>43</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZScale.cpp">
+				<DependentOn>ZScale.h</DependentOn>
+				<BuildOrder>44</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZShape.cpp">
+				<DependentOn>ZShape.h</DependentOn>
+				<BuildOrder>45</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZSpeedButton.cpp">
+				<DependentOn>ZSpeedButton.h</DependentOn>
+				<BuildOrder>46</BuildOrder>
+			</CppCompile>
+			<DelphiCompile Include="ZSplitter.pas">
+				<BuildOrder>64</BuildOrder>
+			</DelphiCompile>
+			<CppCompile Include="ZStaticText.cpp">
+				<DependentOn>ZStaticText.h</DependentOn>
+				<BuildOrder>47</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZStatusBar.cpp">
+				<DependentOn>ZStatusBar.h</DependentOn>
+				<BuildOrder>48</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZTabControl.cpp">
+				<DependentOn>ZTabControl.h</DependentOn>
+				<BuildOrder>49</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZToolBar.cpp">
+				<DependentOn>ZToolBar.h</DependentOn>
+				<BuildOrder>50</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZTreeView.cpp">
+				<DependentOn>ZTreeView.h</DependentOn>
+				<BuildOrder>51</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZUpDown.cpp">
+				<DependentOn>ZUpDown.h</DependentOn>
+				<BuildOrder>52</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="ZWeekGrid.cpp">
+				<DependentOn>ZWeekGrid.h</DependentOn>
+				<BuildOrder>53</BuildOrder>
+			</CppCompile>
+			<DelphiCompile Include="ZXPTab.pas">
+				<BuildOrder>65</BuildOrder>
+			</DelphiCompile>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')" Project="$(BDS)\Bin\CodeGear.Cpp.Targets"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+		<ProjectExtensions>
+			<Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+			<Borland.ProjectType>CppPackage</Borland.ProjectType>
+			<BorlandProject>
+				<CPlusPlusBuilder.Personality>
+					<Source>
+						<Source Name="MainSource">baseComXE2.cpp</Source>
+					</Source>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">2052</VersionInfo>
+						<VersionInfo Name="CodePage">936</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<ProjectProperties>
+						<ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
+						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+					</ProjectProperties>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\fmidesigner160.bpl">FMI Form designer and property and component editors</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\bcboffice2k160.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\bcbofficexp160.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
+				</CPlusPlusBuilder.Personality>
+				<Platforms>
+					<Platform value="OSX32">False</Platform>
+					<Platform value="Win32">True</Platform>
+				</Platforms>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

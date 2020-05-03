@@ -1,0 +1,19 @@
+//---------------------------------------------------------------------------
+
+#ifndef WaitThreadH
+#define WaitThreadH
+#include <System.SyncObjs.hpp>
+//---------------------------------------------------------------------------
+class TWaitThread : public  TThread
+{
+private:
+	TFmxObject *FParent;
+	TAniIndicator *FAniIndicator;
+public:
+	virtual TWaitThread(TFmxObject *Parent);
+	virtual ~TWaitThread();
+	void __fastcall Execute();
+	void __fastcall Show();
+	void __fastcall Hide();
+};
+#endif

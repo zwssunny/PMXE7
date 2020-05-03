@@ -1,0 +1,163 @@
+//{$HPPEMIT '#pragma link "ZXingNative"'}
+unit ZXingNative;
+
+interface
+
+type
+
+  TOnGetResult = procedure(AExecute: Boolean; AResultText: string; ABarcodeFormat: string) of object;
+
+  TZXingScanMode = (smPRODUCT_MODE, smQR_CODE_MODE, smSCAN_MODE);
+
+  IZXing = interface
+    ['{369FB004-47C3-41A6-9AD7-03600E1F325B}']
+    procedure DoCapture(AOnGetResult: TOnGetResult; AScanMode: TZXingScanMode = smSCAN_MODE);
+  end;
+
+function ZXing: IZXing;
+procedure UnRegisterOnActivityResult;
+implementation
+uses
+  System.Classes,
+  Androidapi.JNI,
+  Androidapi.JNI.JavaTypes,
+  Androidapi.JNIBridge,
+  Androidapi.JNI.App,
+  Androidapi.JNI.GraphicsContentViewText,
+  Androidapi.NativeActivity,
+  FMX.Helpers.Android,
+  Androidapi.Helpers;
+type
+
+  TZXing = class(TInterfacedObject, IZXing)
+  private const
+    ZXing_JavaClass = 'com.google.zxing.client.android.CaptureActivity';
+    ZXing_CodeModes: array[TZXingScanMode] of string = ('PRODUCT_MODE', 'QR_CODE_MODE', 'SCAN_MODE');
+    ZXing_RequestCode = 0;
+  protected
+    constructor Create;
+  public
+    procedure DoCapture(AOnGetResult: TOnGetResult; AScanMode: TZXingScanMode);
+  end;
+
+var
+  FRNRequestCode,
+  FRNResultCode: Integer;
+  FRNData: JIntent;
+  FRNResult: Boolean;
+  FRegistered: Boolean;
+  FOnGetResult: TOnGetResult;
+  FScanning: Boolean;
+
+var
+  InnerZXing: IZXing;
+
+function OnActivityResult(ARequestCode, AResultCode: Integer;
+  Data: JIntent): Boolean;
+var
+  LScanContent,
+  LScanFormat: string;
+begin
+  Result := False;
+  try
+    if not Assigned(FOnGetResult) or (ARequestCode <> TZXing.ZXing_RequestCode) then
+      Exit;
+
+    if (AResultCode = TJActivity.JavaClass.RESULT_OK) then
+    begin
+      if Assigned(Data) then
+      begin
+        LScanContent := JStringToString(Data.getStringExtra(StringToJString('SCAN_RESULT')));
+        LScanFormat := JStringToString(Data.getStringExtra(StringToJString('SCAN_RESULT_FORMAT')));
+        FOnGetResult(True, LScanContent, LScanFormat);
+      end;
+    end else
+    if (AResultCode = TJActivity.JavaClass.RESULT_CANCELED) then
+      FOnGetResult(False, '', '');
+
+    Result := True;
+  finally
+    FScanning := False;
+  end;
+end;
+
+procedure OnActivityResultThreadSwitcher;
+begin
+  FRNResult:=OnActivityResult(FRNRequestCode, FRNResultCode, FRNData);
+end;
+
+function OnActivityResultNative(APEnv: PJNIEnv; AThis: JNIObject;
+  ARequestCode, ResultCode: Integer; AdataIntent: JNIObject): Boolean; cdecl;
+begin
+  FRNRequestCode := ARequestCode;
+  FRNResultCode := resultCode;
+  FRNData := nil;
+  FRNResult:=False;
+  if Assigned(AdataIntent) then
+    FRNData := TJIntent.Wrap(AdataIntent);
+  TThread.Synchronize(nil, OnActivityResultThreadSwitcher);
+  Result := FRNResult;
+end;
+
+procedure RegisterOnActivityResult;
+var
+  LPEnv: PJNIEnv;
+  LActivityClass: JNIClass;
+  LNativeMethods: array[0..0] of JNINativeMethod;
+begin
+  if FRegistered then
+    Exit;
+
+  LPEnv := TJNIResolver.GetJNIEnv;
+  LNativeMethods[0].Name := 'onActivityResultNative';
+  LNativeMethods[0].Signature := '(IILandroid/content/Intent;)Z';
+  LNativeMethods[0].FnPtr := @OnActivityResultNative;
+  LActivityClass := LPEnv^.GetObjectClass(
+    LPEnv, PANativeActivity(System.DelphiActivity).clazz);
+  LPEnv^.RegisterNatives(LPEnv, LActivityClass, @LNativeMethods[0], Length(LNativeMethods));
+  LPEnv^.DeleteLocalRef(LPEnv, LActivityClass);
+
+  FRegistered := True;
+end;
+procedure UnRegisterOnActivityResult;
+var
+  LPEnv: PJNIEnv;
+  LActivityClass: JNIClass;
+begin
+     if FRegistered then
+     begin
+      LPEnv := TJNIResolver.GetJNIEnv;
+      LActivityClass := LPEnv^.GetObjectClass(
+      LPEnv, PANativeActivity(System.DelphiActivity).clazz);
+      LPEnv^.UnregisterNatives(LPEnv, LActivityClass);
+     end;
+end;
+{ TZXing }
+
+constructor TZXing.Create;
+begin
+  Assert(TClassLoader.Create.LoadClass(ZXing_JavaClass) <> nil);
+  RegisterOnActivityResult;
+end;
+
+procedure TZXing.DoCapture(AOnGetResult: TOnGetResult; AScanMode: TZXingScanMode);
+var
+  LIntent: JIntent;
+begin
+  if FScanning then
+    Exit;
+  FOnGetResult := AOnGetResult;
+  LIntent := TJIntent.JavaClass.init;
+  LIntent.setClassName(SharedActivityContext, StringToJString(ZXing_JavaClass));
+  LIntent.putExtra(StringToJString('SCAN_MODE'), StringToJString(ZXing_CodeModes[AScanMode]));
+  SharedActivity.startActivityForResult(LIntent, ZXing_RequestCode);
+end;
+
+function ZXing: IZXing;
+begin
+  if not Assigned(InnerZXing) then
+    InnerZXing := TZXing.Create;
+  Result := InnerZXing;
+end;
+end.
+

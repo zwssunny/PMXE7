@@ -1,0 +1,155 @@
+//---------------------------------------------------------------------------
+
+#ifndef ClientVisitEditH
+#define ClientVisitEditH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include "BaseBillForm.h"
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.Controls.Presentation.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.ListBox.hpp>
+#include <FMX.DateTimeCtrls.hpp>
+#include <FMX.Memo.hpp>
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+#include <FMX.EditBox.hpp>
+#include <FMX.NumberBox.hpp>
+#include <Data.Bind.Components.hpp>
+#include <Data.Bind.ObjectScope.hpp>
+#include <REST.Client.hpp>
+#include <FMX.Objects.hpp>
+#include <FMX.TabControl.hpp>
+#include <FMX.ListView.hpp>
+#include <FMX.ListView.Types.hpp>
+#include "ClientVisitDetailEdit.h"
+#include <FMX.ScrollBox.hpp>
+//---------------------------------------------------------------------------
+class TfrmClientVisitEdit : public TfrmBaseBillForm
+{
+__published:	// IDE-managed Components
+	TVertScrollBox *VertScrollBox1;
+	TPanel *Panel1;
+	TLabel *Label1;
+	TEdit *edNum;
+	TPanel *Panel2;
+	TLabel *Label2;
+	TEdit *edName;
+	TPanel *Panel3;
+	TLabel *Label3;
+	TEdit *edPhone;
+	TPanel *Panel7;
+	TLabel *Label7;
+	TPanel *Panel8;
+	TLabel *Label8;
+	TComboBox *cbSex;
+	TPanel *Panel9;
+	TLabel *Label9;
+	TComboBox *cbVisitType;
+	TPanel *Panel10;
+	TLabel *Label10;
+	TEdit *edAddress;
+	TPanel *Panel11;
+	TLabel *Label11;
+	TEdit *edContactAdd;
+	TPanel *Panel12;
+	TLabel *Label12;
+	TComboBox *cbWork;
+	TPanel *Panel13;
+	TLabel *Label13;
+	TComboBox *cbProperty;
+	TPanel *Panel14;
+	TLabel *Label14;
+	TPanel *Panel15;
+	TLabel *Label15;
+	TComboBox *cbVehicle;
+	TPanel *Panel0;
+	TPanel *Panel16;
+	TLabel *Label16;
+	TComboBox *cbPapersType;
+	TPanel *Panel17;
+	TLabel *Label17;
+	TEdit *edPapersNum;
+	TPanel *Panel18;
+	TLabel *Label18;
+	TPanel *Panel19;
+	TLabel *Label19;
+	TPanel *Panel20;
+	TLabel *Label20;
+	TPanel *Panel21;
+	TLabel *Label21;
+	TComboBox *cbFunctions;
+	TPanel *Panel22;
+	TLabel *Label22;
+	TPanel *Panel23;
+	TLabel *Label23;
+	TPanel *Panel24;
+	TLabel *Label24;
+	TComboBox *cbArea;
+	TPanel *Panel25;
+	TLabel *Label25;
+	TComboBox *cbFloor;
+	TPanel *Panel26;
+	TLabel *Label26;
+	TComboBox *cbOrientation;
+	TPanel *Panel27;
+	TLabel *Label27;
+	TComboBox *cbDecoration;
+	TPanel *Panel29;
+	TLabel *Label29;
+	TPanel *Panel30;
+	TMemo *mmRemark;
+	TClientDataSet *Query;
+	TNumberBox *nbAge;
+	TButton *BtnSave;
+	TImage *PhooneCall;
+	TTabControl *TabControl;
+	TTabItem *InfoTab;
+	TTabItem *RecoTab;
+	TComboBox *cbMotive;
+	TDateEdit *deFirstVisitDate;
+	TDateEdit *deRecentVisitDate;
+	TComboBox *cbInformPath;
+	TComboBox *cbHouseType;
+	TComboBox *cbAmt;
+	TListView *ListViewVisit;
+	TButton *BtnAddDetail;
+	void __fastcall BtnSaveClick(TObject *Sender);
+	void __fastcall DataChange(TObject *Sender);
+	void __fastcall PhooneCallClick(TObject *Sender);
+	void __fastcall ListViewVisitDeletingItem(TObject *Sender, int AIndex, bool &ACanDelete);
+	void __fastcall ListViewVisitItemClick(TObject * const Sender, TListViewItem * const AItem);
+	void __fastcall TabControlChange(TObject *Sender);
+	void __fastcall BtnAddDetailClick(TObject *Sender);
+	void __fastcall ListViewVisitPullRefresh(TObject *Sender);
+
+
+
+
+private:	// User declarations
+	String FID,FClientID;
+	int FTtype;
+	bool FDataChanged,FNeedFreshList;
+	String deletingID;
+	TfrmClientVisitDetailEdit* EditForm;
+	void __fastcall InitComboBox();
+	bool __fastcall VerifyData();
+	void __fastcall SaveData();
+	void __fastcall deleteDetail(System::Uitypes::TModalResult AResult);
+	void __fastcall EditFormClose(TObject *Sender, TCloseAction &Action);
+public:		// User declarations
+	__fastcall TfrmClientVisitEdit(TComponent* Owner,TClientBroker *clBroker,int modulecode,String param);
+	void __fastcall FillData(String id);
+	void __fastcall FillDetailData(int index);
+	void __fastcall ClearData();
+	__property bool NeedFreshList={ read=FNeedFreshList};
+	__property int Ttype={ read=FTtype,write=FTtype};
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmClientVisitEdit *frmClientVisitEdit;
+//---------------------------------------------------------------------------
+#endif

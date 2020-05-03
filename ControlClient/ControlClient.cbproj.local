@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.851,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.291,=E:\PMXE6\ControlClient\Proxy.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.281,=E:\PMXE6\ControlClient\main.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.952,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.217,=E:\PMXE6\ControlClient\loginShowMethod.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.210,=E:\PMXE6\ControlClient\Login.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.351,E:\PMXE6\ControlClient\ControlClient.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.603,=E:\PMXE7\ControlClient\FSTMessageDlg.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.175,=E:\PMXE6\ControlClient\Config.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.018,=E:\PMXE6\baselibXE\CallbackClient.cpp</Transaction>
+  </Transactions>
+	<MobileDevice>DU2TDM14B8002095</MobileDevice>
+</BorlandProject>

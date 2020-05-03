@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.889,=E:\PMXE6\tethering\Zxing\zxing\qrcode\detector\FinderPattern.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.888,=E:\PMXE6\tethering\Zxing\zxing\qrcode\decoder\BitMatrixParser.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.879,=E:\PMXE6\tethering\Zxing\zxing\qrcode\detector\Detector.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.899,=E:\PMXE6\tethering\Zxing\zxing\qrcode\detector\FinderPatternFinder.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.181,C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj=E:\PMXE6\tethering\Zxing\zxing\qrcode\QRCodelib.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.905,=E:\PMXE6\tethering\Zxing\zxing\qrcode\decoder\DataMask.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.592,=E:\PMXE6\tethering\Zxing\zxing\qrcode\QRCodeReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.906,=E:\PMXE6\tethering\Zxing\zxing\qrcode\detector\FinderPatternInfo.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.858,=E:\PMXE6\tethering\Zxing\zxing\qrcode\detector\AlignmentPattern.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.923,=E:\PMXE6\tethering\Zxing\zxing\qrcode\decoder\Decoder.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.869,=E:\PMXE6\tethering\Zxing\zxing\qrcode\detector\AlignmentPatternFinder.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.512,=E:\PMXE6\tethering\Zxing\zxing\qrcode\ErrorCorrectionLevel.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.725,=E:\PMXE6\tethering\Zxing\win32\Debug\ZxingCommon.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.915,=E:\PMXE6\tethering\Zxing\zxing\qrcode\decoder\DecodedBitStreamParser.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.932,=E:\PMXE6\tethering\Zxing\zxing\qrcode\decoder\Mode.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.574,=E:\PMXE6\tethering\Zxing\zxing\qrcode\FormatInformation.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.898,=E:\PMXE6\tethering\Zxing\zxing\qrcode\decoder\DataBlock.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.649,=E:\PMXE6\tethering\Zxing\zxing\qrcode\Version.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,145 @@
+object frmZhengQiGuoLu: TfrmZhengQiGuoLu
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 3
+  object ToolBar1: TToolBar
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object Label1: TLabel
+      StyledSettings = [Size, FontColor]
+      Position.X = 16.000000000000000000
+      Position.Y = 11.000000000000000000
+      Size.Width = 185.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = #24494#36719#38597#40657
+      TextSettings.Font.Style = [fsBold]
+      Text = #33976#27773#38149#28809#26085#24120#20445#20859#26816#26597
+    end
+    object btLook: TButton
+      Align = MostRight
+      Position.X = 336.000000000000000000
+      Size.Width = 48.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'infotoolbutton'
+      TabOrder = 4
+      OnClick = btLookClick
+    end
+  end
+  object ToolBar2: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object btClose: TButton
+      Align = MostLeft
+      Size.Width = 49.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'backtoolbutton'
+      TabOrder = 1
+      Text = #36820#22238
+      OnClick = btCloseClick
+    end
+  end
+  object StringGrid1: TStringGrid
+    Touch.InteractiveGestures = [Zoom, Pan, TwoFingerTap]
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 471.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    ReadOnly = True
+    RowCount = 100
+    RowHeight = 30.000000000000000000
+    object StringColumn1: TStringColumn
+      Header = #27969#36716#29366#24577
+      Size.Width = 65.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+    object StringColumn2: TStringColumn
+      Touch.InteractiveGestures = [TwoFingerTap]
+      Header = #27969#27700#21495
+      Position.X = 65.000000000000000000
+      Size.Width = 200.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+    end
+    object StringColumn3: TStringColumn
+      Header = #20351#29992#39033#30446
+      Position.X = 265.000000000000000000
+      Size.Width = 200.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+    end
+    object StringColumn4: TStringColumn
+      Header = #20351#29992#37096#38376
+      Position.X = 465.000000000000000000
+      Size.Width = 200.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+    end
+    object StringColumn5: TStringColumn
+      Header = #20351#29992#22320#22336
+      Position.X = 665.000000000000000000
+      Size.Width = 250.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+    end
+    object StringColumn6: TStringColumn
+      Header = #22635#21333#20154
+      Position.X = 915.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+    end
+    object StringColumn7: TStringColumn
+      Header = #22635#21333#26085#26399
+      Position.X = 1015.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+    end
+    object StringColumn8: TStringColumn
+      Position.X = 1115.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 7
+      Visible = False
+    end
+    object StringColumn9: TStringColumn
+      Position.X = 1115.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 450.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 8
+      Visible = False
+    end
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 248
+    Top = 208
+  end
+end

@@ -1,0 +1,107 @@
+//---------------------------------------------------------------------------
+
+#ifndef MainH
+#define MainH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.StdCtrls.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.MobilePreview.hpp>
+#include "ClientBroker.h"
+#include "ZClientQuery.h"
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+#include <FMX.Menus.hpp>
+#include <Data.SqlExpr.hpp>
+#include <Datasnap.DSConnect.hpp>
+#include <Data.DBXCommon.hpp>
+#include <Data.DBXDataSnap.hpp>
+#include <IPPeerClient.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.TreeView.hpp>
+#include <FMX.Ani.hpp>
+#include <FMX.Objects.hpp>
+#include <FMX.Ani.hpp>
+#include <FMX.Objects.hpp>
+#include <FMX.TabControl.hpp>
+#include <FMX.ListView.hpp>
+#include <FMX.ListView.Types.hpp>
+#include <FMX.Notification.hpp>
+#include "MiDefine.h"
+#include <FMX.ListBox.hpp>
+//---------------------------------------------------------------------------
+class TMainForm : public TForm
+{
+__published:	// IDE-managed Components
+	TToolBar *mainFooter;
+	TLabel *UserLabel;
+	TButton *btSetup;
+	TButton *btLogin;
+	TButton *btLogOff;
+	TTreeView *tvMenu;
+	TImage *FoldImage;
+	TImage *NodeImage;
+	TTabControl *tcMainControl;
+	TTabItem *tabMain;
+	TTabItem *tabMI;
+	TTabControl *TabGroup;
+	TTabItem *TabCompany;
+	TTreeView *tvCompany;
+	TTabItem *TabGroupItem;
+	TStyleBook *fstStyle;
+	TImage *CompanyImage;
+	TImage *DepartImage;
+	TImage *UserImage;
+	TImage *OnlineImage;
+	TListBox *GroupListBox;
+	void __fastcall btSetupClick(TObject *Sender);
+	void __fastcall btLoginClick(TObject *Sender);
+	void __fastcall miAboutClick(TObject *Sender);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall btLogOffClick(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall GroupLisBoxItemClick(const TCustomListBox *Sender, const TListBoxItem *Item);
+
+
+
+private:	// User declarations
+	TClientBroker *FClientBroker;
+	TZClientQuery* MsgQuery;
+	String FAgentAddress;
+	int FAgentPort;
+	String FCommunicationProtocol;
+	String settingfile;
+	String AppPath;
+	TTreeViewItem* CompanyItem;
+	void __fastcall MenuItemClick(TObject* Sender);
+	void __fastcall DoApplyStyleLookup(TObject* Sender);
+	void __fastcall DoCompanyApplyStyleLookup(TObject* Sender);
+	void __fastcall DoCompanyInfoClick(TObject* Sender);
+	void __fastcall DoListItemApplyStyleLookup(TObject* Sender);
+	void __fastcall DoGroupInfoClick(TObject* Sender);
+	void __fastcall LoadConnectSetting();
+	void __fastcall ShowClientForm(int modulecode);
+
+	void __fastcall FillCompanyTv();
+	void __fastcall FillGroupView();
+	void __fastcall tvCompanyDeletion();
+	void __fastcall DeleteGroupItems();
+	void __fastcall MessageCallBackHook(TJSONObject* Arg); // 接收消息
+	TTreeViewItem* __fastcall LocateCompanyTVNode(TTreeViewItem* CurItem,TQQUserType AUserType,String AID );
+	TListBoxItem* __fastcall LocateGroupNode(String AID);
+	void __fastcall UpdateLoginUserNode();
+
+public:		// User declarations
+	__fastcall TMainForm(TComponent* Owner);
+	__fastcall ~TMainForm();
+	void __fastcall ChangeControlState();
+	void __fastcall LoadStudioPane();
+	void __fastcall CreateMsgDataSet();
+	__property TClientBroker *ClientBroker={read=FClientBroker,write=FClientBroker};
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TMainForm *MainForm;
+//---------------------------------------------------------------------------
+#endif

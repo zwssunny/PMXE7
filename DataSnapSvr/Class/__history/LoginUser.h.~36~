@@ -1,0 +1,66 @@
+//---------------------------------------------------------------------------
+
+#ifndef LoginUserH
+#define LoginUserH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TLoginUser : public TDMBaseServerClass
+{
+private:
+		TADODataSet *FLoginListDataSet;
+		TADOQuery *m_Query;
+		TADOQuery *b_Query;
+		TADOQuery *LogQuery;
+protected:
+		void __fastcall CreateLoginListDataSet();
+public:
+		__fastcall TLoginUser(TComponent* Owner);
+		__fastcall ~TLoginUser();
+public:
+		String __fastcall GetSysConnectionString();
+		bool __fastcall IsValidUser(String UserCode,String Password,String AccbookID,String &msg);
+		bool __fastcall ChangePassword(String UserCode,String OldPassword,String NewPassword,String &msg);
+		bool __fastcall UpdateCurUserCallbackClientID(String const Value);
+		void __fastcall Logout();
+
+		void __fastcall SetUsersToFollow(TJSONArray* Users);
+		bool __fastcall SendMessageToFollow(String const Msg);
+		bool __fastcall SendMessageToAll(String const Msg);
+		bool __fastcall SendMessageToUser(String const Msg, String const UserID);
+		bool __fastcall SendMessageToDepartment(String const Msg, String const DepartmentID);
+		bool __fastcall SendMessageToGroup(String const Msg, String const GroupID);
+		bool __fastcall SendCMDToFollow(String const cmdStr);
+		bool __fastcall SendCMDToAll(String const cmdStr);
+		bool __fastcall SendCMDToUser(String const cmdStr, String const UserID);
+		bool __fastcall SendCMDToDepartment(String const cmdStr, String const DepartmentID);
+		bool __fastcall SendCMDToGroup(String const cmdStr, String const GroupID);
+
+		TStream* __fastcall GetAccList();
+		TStream* __fastcall GetCurUserInfo();
+		TStream* __fastcall ListOfLoginUser();
+		TStream* __fastcall ListOfAllLoginUser();
+		TStream* __fastcall GetClassList();
+		TStream* __fastcall GetAutoCodeFields();
+		TStream* __fastcall GetModuleData();
+		TStream* __fastcall RefreshGlobeVar();
+		TStream* __fastcall GetModuleRight();
+
+		TJSONObject* __fastcall GetAccListJSON();
+		TJSONObject* __fastcall GetCurUserJSON();
+		TJSONArray*  __fastcall GetUserList();
+		TJSONArray*  __fastcall GetAllUserList();
+		TJSONObject* __fastcall GetClassListJO();
+		TJSONObject* __fastcall GetAutoCodeFieldsJO();
+		TJSONObject* __fastcall GetModuleDataJO();
+		TJSONObject* __fastcall RefreshGlobeVarJO();
+		TJSONObject* __fastcall GetModuleRightJO();
+		TJSONArray*  __fastcall GetDepartmentAndUsersList();
+		TJSONObject* __fastcall GetAccInforJSON();
+		String __fastcall UserIdToName(String UserId);
+};
+#endif

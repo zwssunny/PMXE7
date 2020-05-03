@@ -1,0 +1,39 @@
+2011-05-19
+1、数据表tbFlowMain增加字段
+FlowMnPrjID  varchar(40)   null default '',关联项目ID
+相应在类TWorkInstance中增加了属性FlowMnPrjID:string;业务发起时，有关项目可以给它赋值。
+2、数据表tbFlowMain_Detail增加两字段
+FlowMnDtlNeedPrjRight tinyint    not null default 0,
+FlowMnDtlPrjID  varchar(40)   null default '',
+相应在任务实例类中增加了两属性NeedPrjRight:boolean,FlowMnDtlPrjID:string;生成实例时构件自动维护赋值
+3、增加存储过程GetProjectRight用于判断用户ID，是否有项目ID的访问权限，将在生成任务和查询任务时进行校验。
+CREATE PROCEDURE GetProjectRight
+ @UserID varchar(40),
+ @ProjectID varchar(40)
+WITH ENCRYPTION
+AS
+
+DECLARE  @retPrjRight int; 
+ --人员
+ select @retPrjRight=Count(*)  from tbSysData_Rights where SysDRUserType=3 and SysDROrigin=1 and SysDRDataID=@ProjectID  and SysDrUser=(select EmpNum from tbEmployeeData where EmpPKID=@UserID );
+ if(@retPrjRight=0)
+ begin
+        --部门   
+        select @retPrjRight=Count(*) from tbSysData_Rights where SysDRUserType=2 and SysDROrigin=1 and SysDRDataID=@ProjectID  and SysDRUser=(select EmpDeptCodeFKID from tbEmployeeData where EmpPKID=@UserID );
+        if(@retPrjRight=0)
+        begin
+                --角色
+                select @retPrjRight=Count(*) from tbSysData_Rights where SysDRUserType=1 and SysDROrigin=1 and SysDRDataID=@ProjectID and SysDRUser in (select RERolePK_FKID from tbRoleEmp where REEmpPK_FKID=@UserID);
+                if(@retPrjRight=0)
+                begin
+                        --项目创建者
+                        select @retPrjRight=Count(*)  from tbProject where PrjPKID=@ProjectID and PrjCreator=(select EmpNum from tbEmployeeData where EmpPKID=@UserID);
+                end
+        end
+ end 
+ select  @retPrjRight;
+4、相应在代吗中增加了过程BelongsToProject(AUserID,AProjectID:string),用于调用上面存储过程，进行判断项目的访问权限。
+5、需要更新baselib.bpl,否则会报错，我也不知道为何需要重新编译baselib.
+truncate table tbFlowMain
+truncate table tbFlowMain_Detail
+truncate table tbFlowTaskLog

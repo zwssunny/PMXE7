@@ -1,0 +1,85 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#ifdef _WIN32
+#include <tchar.h>
+#endif
+#pragma hdrstop
+#include <System.StartUpCopy.hpp>
+#include <FMX.MobilePreview.hpp>
+//---------------------------------------------------------------------------
+USEFORM("Main.cpp", MainForm);
+USEFORM("Config.cpp", ConfigForm);
+USEFORM("Login.cpp", LoginForm);
+USEFORM("MiMessage.cpp", frmMessageForm);
+USEFORM("BaseForm\BaseForm.cpp", frmBaseForm);
+USEFORM("BaseForm\BaseListForm.cpp", frmBaseListForm);
+USEFORM("BaseForm\BaseListShow.cpp", frmBaseListShow);
+USEFORM("BaseForm\BaseBillForm.cpp", frmBaseBillForm);
+USEFORM("BaseForm\DetailBaseForm.cpp", frmDetailBaseForm);
+USEFORM("BaseForm\ItemBaseForm.cpp", frmItemBaseForm);
+USEFORM("Component\StartAndEndDate.cpp", StartAndEndDateFrame); /* TFrame: File Type */
+USEFORM("Filters\BaseFilters.cpp", BaseFiltersForm);
+USEFORM("Filters\CustomerFilters.cpp", CustomerFiltersForm);
+USEFORM("Filters\HouseFilters.cpp", HouseFiltersForm);
+USEFORM("Filters\HouseReserveFilters.cpp", HouseReserveFiltersForm);
+USEFORM("Filters\SelectCustomer.cpp", SelectCustomerForm);
+USEFORM("Filters\SelectHouse.cpp", SelectHouseForm);
+USEFORM("Filters\SelectPeople.cpp", SelectPeopleForm);
+USEFORM("OA\OAChecker.cpp", frmOAChecker);
+USEFORM("Sales\Customer.cpp", frmCustomer);
+USEFORM("Sales\CustomerEdit.cpp", CustomerEditForm);
+USEFORM("Sales\HouseInformation.cpp", HouseInformationForm);
+USEFORM("Sales\HouseQuery.cpp", frmHouseQuery);
+USEFORM("Sales\HouseReserve.cpp", frmHouseReserve);
+USEFORM("Sales\HouseReserveEdit.cpp", HouseReserveEditForm);
+//---------------------------------------------------------------------------
+extern "C" int FMXmain()
+{
+	try
+	{
+		Application->Initialize();
+		Application->CreateForm(__classid(TMainForm), &MainForm);
+		Application->CreateForm(__classid(TConfigForm), &ConfigForm);
+		Application->CreateForm(__classid(TLoginForm), &LoginForm);
+		Application->CreateForm(__classid(TfrmMessageForm), &frmMessageForm);
+		Application->CreateForm(__classid(TfrmBaseForm), &frmBaseForm);
+		Application->CreateForm(__classid(TfrmBaseListForm), &frmBaseListForm);
+		Application->CreateForm(__classid(TfrmBaseListShow), &frmBaseListShow);
+		Application->CreateForm(__classid(TfrmBaseBillForm), &frmBaseBillForm);
+		Application->CreateForm(__classid(TfrmDetailBaseForm), &frmDetailBaseForm);
+		Application->CreateForm(__classid(TfrmItemBaseForm), &frmItemBaseForm);
+		Application->CreateForm(__classid(TBaseFiltersForm), &BaseFiltersForm);
+		Application->CreateForm(__classid(TCustomerFiltersForm), &CustomerFiltersForm);
+		Application->CreateForm(__classid(THouseFiltersForm), &HouseFiltersForm);
+		Application->CreateForm(__classid(THouseReserveFiltersForm), &HouseReserveFiltersForm);
+		Application->CreateForm(__classid(TSelectCustomerForm), &SelectCustomerForm);
+		Application->CreateForm(__classid(TSelectHouseForm), &SelectHouseForm);
+		Application->CreateForm(__classid(TSelectPeopleForm), &SelectPeopleForm);
+		Application->CreateForm(__classid(TfrmOAChecker), &frmOAChecker);
+		Application->CreateForm(__classid(TfrmCustomer), &frmCustomer);
+		Application->CreateForm(__classid(TCustomerEditForm), &CustomerEditForm);
+		Application->CreateForm(__classid(THouseInformationForm), &HouseInformationForm);
+		Application->CreateForm(__classid(TfrmHouseQuery), &frmHouseQuery);
+		Application->CreateForm(__classid(TfrmHouseReserve), &frmHouseReserve);
+		Application->CreateForm(__classid(THouseReserveEditForm), &HouseReserveEditForm);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

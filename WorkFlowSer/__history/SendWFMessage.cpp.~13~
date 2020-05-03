@@ -1,0 +1,106 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "SendWFMessage.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+//---------------------------------------------------------------------------
+TSendWFMessageThread::TSendWFMessageThread(TDBXConnection* DBXConnection, TTaskInstance *ATaskIns)
+{
+  FChatRoomServerMethodsClient = new TMessageManageClient(DBXConnection);
+  FAssignedUserType = ATaskIns->AssignedUserType;
+  UserID = ATaskIns->UserID;
+  TaskRemark = L"系统提醒您有新的任务:"+ATaskIns->FlowMnDtlRemark;
+}
+TSendWFMessageThread::TSendWFMessageThread(TDBXConnection* DBXConnection, TWorkflowInstance* AWorkIns)
+{
+  FChatRoomServerMethodsClient = new TMessageManageClient(DBXConnection);
+  FAssignedUserType = autUser;
+  UserID = AWorkIns->FlowMnCreator;
+ if(AWorkIns->Status==TWorkflowStatus::wsFinished)
+	TaskRemark = L"系统提醒您提交的审批任务已结束:\r\n"+AWorkIns->FlowMnSubject;
+ else
+   	TaskRemark = L"系统提醒您提交的审批任务已终止:\r\n"+AWorkIns->FlowMnSubject;
+}
+//---------------------------------------------------------------------------
+void __fastcall TSendWFMessageThread::Execute()
+{
+  FreeOnTerminate=true;
+	switch(FAssignedUserType)
+	{
+		case autGroup:
+		  SendMessageToRole(TaskRemark,UserID);
+			break;
+		case autJob:
+			SendMessageToJob(TaskRemark,UserID);
+			break;
+		case autDepartment:
+			SendMessageToDepartment(TaskRemark,UserID);
+			break;
+		default:  //autUser:autDepartmentManager:
+			SendMessageToUser(TaskRemark,UserID);
+	}
+}
+//---------------------------------------------------------------------------
+TJSONArray* __fastcall TSendWFMessageThread::GetUserList()
+{
+		  return FChatRoomServerMethodsClient->GetUserList();
+}
+//---------------------------------------------------------------------------
+System::UnicodeString __fastcall TSendWFMessageThread::GetHTMLEscapedString(System::UnicodeString Value)
+{
+		  return FChatRoomServerMethodsClient->GetHTMLEscapedString(Value);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendMessageToAll(System::UnicodeString Msg)
+{
+   return FChatRoomServerMethodsClient->SendMessageToAll(Msg);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendMessageToUser(System::UnicodeString Msg, System::UnicodeString UserID)
+{
+  return FChatRoomServerMethodsClient->SendMessageToUser(Msg,UserID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendMessageToDepartment(System::UnicodeString Msg, System::UnicodeString DepartmentID)
+{
+   return FChatRoomServerMethodsClient->SendMessageToDepartment(Msg,DepartmentID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendMessageToJob(System::UnicodeString Msg, System::UnicodeString JobID)
+{
+   return FChatRoomServerMethodsClient->SendMessageToJob(Msg,JobID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendMessageToRole(System::UnicodeString Msg, System::UnicodeString RoleID)
+{
+   return FChatRoomServerMethodsClient->SendMessageToRole(Msg,RoleID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendCMDToAll(System::UnicodeString cmdStr)
+{
+  return FChatRoomServerMethodsClient->SendCMDToAll(cmdStr);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendCMDToUser(System::UnicodeString cmdStr, System::UnicodeString UserID)
+{
+   return FChatRoomServerMethodsClient->SendCMDToUser(cmdStr,UserID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendCMDToDepartment(System::UnicodeString cmdStr, System::UnicodeString DepartmentID)
+{
+  return FChatRoomServerMethodsClient->SendCMDToDepartment(cmdStr,DepartmentID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendCMDToGroup(System::UnicodeString cmdStr, System::UnicodeString GroupID)
+{
+  return FChatRoomServerMethodsClient->SendCMDToGroup(cmdStr,GroupID);
+}
+//---------------------------------------------------------------------------
+bool __fastcall TSendWFMessageThread::SendCMDToRole(System::UnicodeString cmdStr, System::UnicodeString RoleID)
+{
+  return FChatRoomServerMethodsClient->SendCMDToRole(cmdStr,RoleID);
+}
+//---------------------------------------------------------------------------
+

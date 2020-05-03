@@ -1,0 +1,48 @@
+﻿// CodeGear C++Builder
+// Copyright (c) 1995, 2014 by Embarcadero Technologies, Inc.
+// All rights reserved
+
+// (DO NOT EDIT: machine generated header) 'ZXingNative.pas' rev: 28.00 (Android)
+
+#ifndef ZxingnativeHPP
+#define ZxingnativeHPP
+
+#pragma delphiheader begin
+#pragma option push
+#pragma option -w-      // All warnings off
+#pragma option -Vx      // Zero-length empty class member 
+#pragma pack(push,8)
+#include <System.hpp>	// Pascal unit
+#include <SysInit.hpp>	// Pascal unit
+
+//-- user supplied -----------------------------------------------------------
+
+namespace Zxingnative
+{
+//-- type declarations -------------------------------------------------------
+typedef void __fastcall (__closure *TOnGetResult)(bool AExecute, System::UnicodeString AResultText, System::UnicodeString ABarcodeFormat);
+
+enum DECLSPEC_DENUM TZXingScanMode : unsigned char { smSCAN_MODE, smONE_D_MODE, smQR_CODE_MODE };
+
+__interface IZXing;
+typedef System::DelphiInterface<IZXing> _di_IZXing;
+__interface  INTERFACE_UUID("{369FB004-47C3-41A6-9AD7-03600E1F325B}") IZXing  : public System::IInterface 
+{
+	
+public:
+	virtual void __fastcall DoCapture(TOnGetResult AOnGetResult, TZXingScanMode AScanMode = (TZXingScanMode)(0x0)) = 0 ;
+};
+
+//-- var, const, procedure ---------------------------------------------------
+extern DELPHI_PACKAGE void __fastcall UnRegisterOnActivityResult(void);
+extern DELPHI_PACKAGE _di_IZXing __fastcall ZXing(void);
+}	/* namespace Zxingnative */
+#if !defined(DELPHIHEADER_NO_IMPLICIT_NAMESPACE_USE) && !defined(NO_USING_NAMESPACE_ZXINGNATIVE)
+using namespace Zxingnative;
+#endif
+#pragma pack(pop)
+#pragma option pop
+
+#pragma delphiheader end.
+//-- end unit ----------------------------------------------------------------
+#endif	// ZxingnativeHPP

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.443,C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Unit1.h=F:\fmtest\DateEdit_Bug\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.737,C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Project1.cbproj=F:\fmtest\DateEdit_Bug\DateEdit_Bug.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.443,C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Unit1.cpp=F:\fmtest\DateEdit_Bug\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.974,=C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.422,F:\fmtest\DateEdit_Bug\DateEdit_BugPCH1.h=F:\fmtest\DateEdit_Bug\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.418,F:\fmtest\DateEdit_Bug\Project1PCH1.h=F:\fmtest\DateEdit_Bug\DateEdit_BugPCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.443,C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Unit1.fmx=F:\fmtest\DateEdit_Bug\Unit1.fmx</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.031,=C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.712,C:\Users\ChenSC.HYWYDEV\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=F:\fmtest\DateEdit_Bug\Project1PCH1.h</Transaction>
+  </Transactions>
+	<MobileDevice>DU2TDM14B8002095</MobileDevice>
+</BorlandProject>

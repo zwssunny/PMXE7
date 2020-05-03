@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.051,=E:\PMXE6\WorkFlowSer\wfClientBroker.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.666,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.650,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.650,=E:\PMXE6\baselibXE\LogoutThread.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.193,=E:\PMXE6\baselibXE\SendWFMessage.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.041,=E:\PMXE6\WorkFlowSer\wfCallback.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.826,=E:\PMXE6\VCLCOM\TMS_Workflow\lib\XZWorkflowXE6.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.465,=E:\PMXE6\WorkFlowSer\wfMain.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.031,E:\PMXE7\baselibXE\SerLib.lib=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.362,=E:\PMXE7\baselibXE\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.741,E:\PMXE6\WorkFlowSer\wfApp.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.642,=E:\PMXE6\WorkFlowSer\SendWFMessage.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.904,=E:\PMXE7\VCLCOM\TMS_Workflow\lib\XZWorkflowXE7.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.646,=E:\PMXE6\baselibXE\DSClientProxy.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.521,=E:\PMXE6\baselibXE\SerLib.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.845,E:\PMXE6\WorkFlowSer\wfPCH.h=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+  </Transactions>
+</BorlandProject>

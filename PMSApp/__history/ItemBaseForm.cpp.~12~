@@ -1,0 +1,139 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "ItemBaseForm.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseBillForm"
+#pragma resource "*.fmx"
+TfrmItemBaseForm *frmItemBaseForm;
+//---------------------------------------------------------------------------
+__fastcall TfrmItemBaseForm::TfrmItemBaseForm(TComponent* Owner,TClientBroker * clBroker,TZClientDataSet *FDataSet,int DataSetStatus)
+	:TfrmBaseBillForm(Owner, clBroker,FDataSet, DataSetStatus)
+{
+	ItemVertScrollBox->OnCalcContentBounds = CalcContentBoundsProc;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmItemBaseForm::SetOptCtrlStatus(int status)    //重载函数，设置窗体状态
+{
+  OperateStatus = status;
+  if(OperateRight.Pos(FR_SYSTEMWRITE) <= 0 && OperateRight.Pos(FR_SYSTEMREAD) > 0) //只读权限
+  {
+		ItemEditAction->Enabled = false;
+		ItemSaveAction->Enabled = false;
+  }
+  else
+  {
+    switch(status) //窗体状态控制
+    {
+      case 0: //浏览
+		ItemEditAction->Enabled = true;
+		ItemSaveAction->Enabled = false;
+		break;
+	  case 3: //新增
+		ItemEditAction->Enabled = false;
+		ItemSaveAction->Enabled = true;
+		break;
+	  case 4: //编辑
+		ItemEditAction->Enabled = true;
+		ItemSaveAction->Enabled = false;
+		break;
+	  default:
+		break;
+    }
+  }
+  SetUserCtrlStatus();    //按状态设置用户构件状态
+}
+void __fastcall TfrmItemBaseForm::ItemEditActionExecute(TObject *Sender)
+{
+	 this->EditItemData();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::ItemSaveActionExecute(TObject *Sender)
+{
+     this->SaveItemData();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::ItemEditActionUpdate(TObject *Sender)
+{
+  btEdit->Visible=ItemEditAction->Enabled;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::ItemSaveActionUpdate(TObject *Sender)
+{
+	btSave->Visible=ItemSaveAction->Enabled;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::btBaseCloseClick(TObject *Sender)
+{
+ Close();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmItemBaseForm::CalcContentBoundsProc(TObject * Sender, System::Types::TRectF &ContentBounds)
+{
+	if (FNeedOffset && FKBBounds.Top > 0) {
+		ContentBounds.Bottom = Max(ContentBounds.Bottom, 2 * ClientHeight - FKBBounds.Top);
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::FormFocusChanged(TObject *Sender)
+{
+	this->UpdateKBBounds();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::FormVirtualKeyboardHidden(TObject *Sender, bool KeyboardVisible,
+          const TRect &Bounds)
+{
+	FKBBounds = TRectF(0,0,0,0);
+	FNeedOffset = False;
+	RestorePosition();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::FormVirtualKeyboardShown(TObject *Sender, bool KeyboardVisible,
+          const TRect &Bounds)
+{
+	FKBBounds = TRectF(Bounds);
+	FKBBounds = TRectF(ScreenToClient(FKBBounds.TopLeft()),ScreenToClient(FKBBounds.BottomRight()));
+	UpdateKBBounds();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::UpdateKBBounds()
+{
+	FNeedOffset = false;
+	if (Focused != NULL) {
+		TControl * LFocused = static_cast<TControl*>(Focused->GetObject());
+		TRectF LFocusRect = LFocused->AbsoluteRect;
+		LFocusRect.Offset(ItemVertScrollBox->ViewportPosition.X, ItemVertScrollBox->ViewportPosition.Y);
+		if (LFocusRect.IntersectsWith(FKBBounds) && LFocusRect.Bottom > FKBBounds.Top) {
+			FNeedOffset = true;
+			EditLayout->Align = TAlignLayout::Horizontal;
+			ItemVertScrollBox->RealignContent();
+			Application->ProcessMessages();
+			ItemVertScrollBox->ViewportPosition = PointF(ItemVertScrollBox->ViewportPosition.X,
+				LFocusRect.Bottom - FKBBounds.Top);
+		}
+	}
+	if (!FNeedOffset) {
+		RestorePosition();
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmItemBaseForm::RestorePosition()
+{
+	ItemVertScrollBox->ViewportPosition = PointF(ItemVertScrollBox->ViewportPosition.X, 0);
+	EditLayout->Align = TAlignLayout::Client;
+	ItemVertScrollBox->RealignContent();
+}
+//---------------------------------------------------------------------------
+

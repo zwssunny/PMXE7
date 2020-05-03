@@ -1,0 +1,142 @@
+object frmMessageForm: TfrmMessageForm
+  Left = 0
+  Top = 0
+  Caption = #32842#22825#31383#21475
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnClose = FormClose
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 2
+  object MsgTimer: TTimer
+    Enabled = False
+    OnTimer = MsgTimerTimer
+    Left = 112
+    Top = 64
+  end
+  object MediaPlayer: TMediaPlayer
+    Left = 40
+    Top = 64
+  end
+  object VertScrollBox1: TVertScrollBox
+    Align = Contents
+    Size.Width = 384.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 8
+    object MainLayout1: TLayout
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 567.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object memMsg: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        Align = Client
+        Size.Width = 384.000000000000000000
+        Size.Height = 432.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ReadOnly = True
+      end
+      object MsgBottomToolBar: TToolBar
+        Align = Bottom
+        Position.Y = 523.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object sbViration: TSpeedButton
+          Align = Right
+          Position.X = 238.000000000000000000
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          Text = #38663#21160
+          OnClick = sbVirationClick
+        end
+        object sbRing: TSpeedButton
+          Align = Right
+          Position.X = 311.000000000000000000
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          Text = #21709#38083
+          OnClick = sbRingClick
+        end
+        object btClose: TButton
+          Align = Left
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'backtoolbutton'
+          TabOrder = 4
+          Text = #36820#22238
+          OnClick = btCloseClick
+        end
+      end
+      object MsgTopToolBar: TToolBar
+        Size.Width = 384.000000000000000000
+        Size.Height = 44.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        object UserLabel: TLabel
+          Align = Left
+          AutoSize = True
+          Size.Width = 78.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = 'UserLabel'
+        end
+        object btLateMsg: TButton
+          Align = Right
+          Position.X = 340.000000000000000000
+          Size.Width = 44.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'arrowuptoolbutton'
+          TabOrder = 2
+          Text = #21382#21490#28040#24687
+          OnClick = btLateMsgClick
+        end
+      end
+      object SendPanel: TPanel
+        Align = Bottom
+        Padding.Top = 2.000000000000000000
+        Position.Y = 476.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 47.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 3
+        object memMsgEdit: TMemo
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          Align = Client
+          Size.Width = 311.000000000000000000
+          Size.Height = 45.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Caret.Color = claSlateblue
+          Caret.Interval = 2
+          Caret.Width = 2
+        end
+        object btSend: TButton
+          Align = Right
+          Position.X = 311.000000000000000000
+          Position.Y = 2.000000000000000000
+          Size.Width = 73.000000000000000000
+          Size.Height = 44.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'speedbuttonstyle'
+          TabOrder = 1
+          Text = #21457#36865
+          OnClick = btSendClick
+        end
+      end
+    end
+  end
+end

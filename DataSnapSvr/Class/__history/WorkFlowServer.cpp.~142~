@@ -1,0 +1,610 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "WorkFlowServer.h"
+#include "DBJson.hpp"
+#include "FSServerContainer.h"
+#include "SHConst.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "BaseServerClass"
+#pragma link "wsClasses"
+#pragma link "wsDB"
+#pragma link "wsAccAndSysDB"
+#pragma link "wsMain"
+TDMWorkFlowServer *DMWorkFlowServer;
+//---------------------------------------------------------------------------
+__fastcall TDMWorkFlowServer::TDMWorkFlowServer(TComponent* Owner)
+	: TDMBaseServerClass(Owner)
+{
+	InitWorkFlowStudio();
+	m_Query = new TADOQuery(NULL);
+	m_Query->ParamCheck = false;
+	m_Query->EnableBCD = false;
+	m_Query->CommandTimeout = 60;
+	m_Query->Connection  = AccConnection;
+}
+//---------------------------------------------------------------------------
+__fastcall TDMWorkFlowServer::~TDMWorkFlowServer()
+{
+	delete m_Query;
+	delete WorkflowStudio;
+	delete WorkflowAccAndSysDB;
+}
+//---------------------------------------------------------------------------
+void __fastcall TDMWorkFlowServer::InitWorkFlowStudio()
+{
+	WorkflowAccAndSysDB = new TWorkflowAccAndSysDB(this);
+	WorkflowAccAndSysDB->AccConnection = AccConnection;
+	WorkflowAccAndSysDB->SysConnection = SysConnection;
+
+	WorkflowStudio = new TWorkflowStudio(this);
+	WorkflowStudio->WorkflowDB = WorkflowAccAndSysDB;
+
+	TLoginUserRecord *UserRec = GetCurLoginUser();
+	WorkflowStudio->UserManager->LoggedUserId   = UserRec->UserID;
+	WorkflowStudio->UserManager->LoggedUserCode = UserRec->UserCode;
+	WorkflowStudio->UserManager->LoadWorkflowUsers();
+	WorkflowStudio->UserManager->LoadWorkflowGroups();
+	WorkflowStudio->UserManager->LoadWorkflowJobs();
+	WorkflowStudio->UserManager->LoadWorkflowDepartments();
+}
+//---------------------------------------------------------------------------
+TWorkflowInstance* __fastcall TDMWorkFlowServer::GetWorkIns(String FlowDefID, String WorkInsID)
+{
+	TWorkflowInstance* FWorkIns=NULL;
+	if(!WorkInsID.Trim().IsEmpty())
+		FWorkIns = WorkflowStudio->WorkflowManager->FindWorkflowInstanceByKey(WorkInsID);
+	if(FWorkIns==NULL&& (FlowDefID>""))
+	{
+		FWorkIns=WorkflowStudio->WorkflowManager->CreateWorkflowInstanceByKey(FlowDefID);
+	}
+	return FWorkIns;
+}
+//----------------------------------------------------------------------------
+String  TDMWorkFlowServer::ServerWorkFlowStart(String FlowDefID, String Subject, String Content, String BusWindow, String BusCode, int Rank, String PrjID, String Report)
+{
+ /*	TWorkflowInstance *AWorkIns;
+	TWorkflowBiz *WorkBiz = NULL;
+	TWorkflowVariable *wsVar;
+	TWorkflowVariables *wsVarList;
+	String FFlowID = "";
+	TField *AField;
+	try
+	{
+		AWorkIns = GetWorkIns(FlowDefID, "");
+
+		if(AWorkIns != NULL)
+		{
+			FFlowID = AWorkIns->Key;
+			AWorkIns->FlowMnSubject   = Subject;
+			AWorkIns->FlowMnContent   = Content;
+			AWorkIns->FlowMnBusWindow = BusWindow;
+			AWorkIns->FlowMnBusCode   = BusCode;
+			AWorkIns->FlowMnRank      = Rank;
+			AWorkIns->FlowMnPrjID     = PrjID;
+			AWorkIns->FlowMnReport    = Report;
+
+			// 初始化流程实例变量值
+			WorkBiz = new TWorkflowBiz(NULL);
+			WorkBiz->BizFormID = AWorkIns->FlowMnBusWindow;
+			WorkflowStudio->WorkflowManager->LoadWorkflowBiz(WorkBiz);
+			if(WorkBiz->BizTableName > "")
+			{
+				m_Query->Close();
+				m_Query->SQL->Clear();
+				m_Query->SQL->Text = "select * from " + WorkBiz->BizTableName + " where " + WorkBiz->BizKey + "=" + QuotedStr(AWorkIns->FlowMnBusCode);
+				m_Query->Open();
+				if(m_Query->RecordCount > 0)
+				{
+					wsVarList = AWorkIns->Diagram->Variables;
+					for (int i = 0; i < wsVarList->Count; i++)
+					{
+						wsVar = wsVarList->Items[i];
+						if(wsVar->Interaction) // 需要交互的值
+						{
+							AField = m_Query->FindField(wsVar->Name);
+							if(AField != NULL)
+								wsVar->Value = AField->Value;
+						}
+					}
+				}
+				m_Query->Close();
+			}
+			WorkflowStudio->WorkflowManager->SaveWorkflowInstance(AWorkIns);
+			WorkflowStudio->WorkflowManager->SignalWorkflowInstance(AWorkIns->Key);
+		}
+	}
+	__finally
+	{
+		if(WorkBiz)
+			delete WorkBiz;
+		 AWorkIns=NULL;
+	}
+ return FFlowID;   */
+
+	   TJSONObject* jsonValue=new TJSONObject();
+	   TWorkInsBindary *WorkInsBindary=WorkflowStudio->WorkflowDB->WorkInsBindary;
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnFKID_FlowField,FlowDefID));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnSubjectField,Subject));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnContentField,Content));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnBusWindowField,BusWindow));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnBusCodeField,BusCode));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnRankField,IntToStr(Rank)));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnPrjIDField,PrjID));
+	   jsonValue->AddPair(new TJSONPair(WorkInsBindary->FlowMnReportField,Report));
+	return  ServerWorkFlowStartJSON(jsonValue);
+}
+String TDMWorkFlowServer::ServerWorkFlowStartJSON(TJSONObject* jsonValue)
+{
+	//调用工作流服务器
+	String FFlowID="";
+	bool retNotify=false;
+	TLoginUserRecord *curUser = GetCurLoginUser();
+	TList__1<String> *CallbackIDList=DMServerContainer->FSDSServer->GetAllChannelClientId(SWFCallback);
+
+	TJSONValue * RetJson;
+	TJSONObject * SendJson=new TJSONObject();
+	SendJson->AddPair(new TJSONPair("notificationType", "workflow"));
+	SendJson->AddPair(new TJSONPair("from", curUser->UserID));
+	SendJson->AddPair(new TJSONPair("fromusrcode",curUser->UserCode));
+	SendJson->AddPair(new TJSONPair("fromusrname", curUser->UserName));
+	SendJson->AddPair(new TJSONPair("msgtype", "start"));  //发起
+	SendJson->AddPair(new TJSONPair("to", "workflowser"));
+	SendJson->AddPair(new TJSONPair("accbookid", curUser->AccBookID));
+	SendJson->AddPair(new TJSONPair("datetime", Now().FormatString("YYYY-mm-DD HH:mm:ss")));
+	SendJson->AddPair(new TJSONPair("message", (TJSONObject*)jsonValue->Clone()));
+	for (int i=0; i < CallbackIDList->Count; i++)
+	{
+		String WFCallBackClientID=(String)CallbackIDList->Items[i];
+		retNotify=DMServerContainer->FSDSServer->NotifyCallback(WFCallBackClientID, SWFCallback,(TJSONObject *)SendJson->Clone(), RetJson);
+		if(retNotify)
+		{
+		   if(RetJson!=NULL)
+		   {
+			   TJSONObject * retJSON=(TJSONObject *)RetJson;
+			   if(retJSON->Size()>1)
+			   {
+				 if(retJSON->Get("result")->JsonValue->Value()=="true")
+				   FFlowID= retJSON->Get("returnvalue")->JsonValue->Value();
+			   }
+			   RetJson->Free();
+		   }
+		   break;
+		}
+
+   }
+	return FFlowID;
+
+}
+bool TDMWorkFlowServer::ServerWorkFlowExec(String FlowDefID, String WorkInsID, String TaskInsID, String TskStatus, String TskComments, TJSONArray *VariableList)
+{
+/*	TWorkflowAttachment *AAttach;
+	TWorkflowInstance *AWorkIns;
+	TTaskInstance *ATaskIns;
+	bool retSucce=false;
+	try
+	{
+		// {Get the workflowinstance related to the task}
+			AWorkIns = GetWorkIns(FlowDefID,WorkInsID);
+			ATaskIns = new TTaskInstance(NULL);
+			ATaskIns->Key = TaskInsID;
+
+			WorkflowStudio->WorkflowDB->TaskInstanceLoad(ATaskIns);
+
+			if(AWorkIns != NULL && ATaskIns != NULL)
+			{
+				//{Save the fields}
+				TWorkflowVariable* WorkflowVar;
+				TCustomWorkflowDiagram* ADiagram = AWorkIns->Diagram;
+				try
+				{
+					for(int i=0;i<VariableList->Size();i++)
+					{						String TempStr = VariableList->Get(i)->Value();						int iPos = TempStr.Pos("=");						if(iPos > 0)						{							String VariableName  = TempStr.SubString(1,iPos-1);							String VariableValue = TempStr.SubString(iPos+1,TempStr.Length()-iPos);							WorkflowVar = ADiagram->Variables->FindByName(VariableName);							if(WorkflowVar != NULL)								WorkflowVar->Value = VariableValue;						}					}
+				}
+				__finally
+				{
+					delete VariableList;
+				}
+
+				//{Save the workflow instance}
+				WorkflowStudio->WorkflowManager->SaveWorkflowInstance(AWorkIns);
+
+//				{Save the task instance. WARNING - this should be done after any saving code, because
+//				it loads the workflowinstance and signal it (run it again). So, it must be executed
+//				after all processing so it gets the most up to date workflow instance object}
+				ATaskIns->Status = TskStatus;
+				ATaskIns->Comments = TskComments;
+				WorkflowStudio->TaskManager->SaveTaskInstance(ATaskIns);
+				retSucce = true;
+			}
+
+	}
+	__finally
+	{
+		ATaskIns=NULL;
+		AWorkIns=NULL;
+	}
+ return retSucce; */
+
+ TJSONObject * jsonValue=new TJSONObject();
+  TTaskInsBindary * TaskInsBindary=WorkflowStudio->WorkflowDB->TaskInsBindary;
+  jsonValue->AddPair(new TJSONPair("flowdefid",FlowDefID));
+  jsonValue->AddPair(new TJSONPair(TaskInsBindary->FlowMnDtlFKIDField,WorkInsID));
+  jsonValue->AddPair(new TJSONPair(TaskInsBindary->KeyField,TaskInsID));
+  jsonValue->AddPair(new TJSONPair(TaskInsBindary->FlowMnDtlStateField,TskStatus));
+  jsonValue->AddPair(new TJSONPair(TaskInsBindary->FlowMnDtlCommentsField,TskComments));
+  jsonValue->AddPair(new TJSONPair("variables",(TJSONArray*)VariableList->Clone()));
+  return ServerWorkFlowExecJSON(jsonValue);
+}
+//----------------------------------------------------------------------------
+bool  TDMWorkFlowServer::ServerWorkFlowExecJSON(TJSONObject* jsonValue)
+{
+	//调用工作流服务器
+	bool retSucce=false;
+	bool retNotify=false;
+	TLoginUserRecord *curUser = GetCurLoginUser();
+	TList__1<String> *CallbackIDList=DMServerContainer->FSDSServer->GetAllChannelClientId(SWFCallback);
+	TJSONValue * RetJson;
+	TJSONObject * SendJson=new TJSONObject();
+	SendJson->AddPair(new TJSONPair("notificationType", "workflow"));
+	SendJson->AddPair(new TJSONPair("from", curUser->UserID));
+	SendJson->AddPair(new TJSONPair("fromusrcode",curUser->UserCode));
+	SendJson->AddPair(new TJSONPair("fromusrname", curUser->UserName));
+	SendJson->AddPair(new TJSONPair("msgtype", "exec"));  //审批
+	SendJson->AddPair(new TJSONPair("to", "workflowser"));
+	SendJson->AddPair(new TJSONPair("accbookid", curUser->AccBookID));
+	SendJson->AddPair(new TJSONPair("datetime", Now().FormatString("YYYY-mm-DD HH:mm:ss")));
+	SendJson->AddPair(new TJSONPair("message", (TJSONObject*)jsonValue->Clone()));
+	for (int i = 0; i < CallbackIDList->Count; i++)
+	{
+		String WFCallBackClientID=(String)CallbackIDList->Items[i];
+		retNotify=DMServerContainer->FSDSServer->NotifyCallback(WFCallBackClientID, SWFCallback,(TJSONObject *)SendJson->Clone(), RetJson);
+		if(retNotify) //只要成功则返回
+		{
+		  if(RetJson!=NULL)
+		  {
+			   TJSONObject * retJSON=(TJSONObject *)RetJson;
+			   if(retJSON->Size()>1)
+			   {
+				if(retJSON->Get("result")->JsonValue->Value()=="true")
+				   retSucce=retJSON->Get("returnvalue")->JsonValue->Value()=="true";
+			   }
+			   RetJson->Free();
+		   }
+		   break;
+		}
+	}
+
+	return retSucce;
+}
+
+//----------------------------------------------------------------------------
+TJSONObject* TDMWorkFlowServer::GetTaskList(String AUserID, int ACompletedState, String AOtherCondition)
+{
+	TWorkflowInstance *FTempList;
+	TTaskInstanceList *FTaskList = new TTaskInstanceList(__classid(TTaskInstanceItem));
+	String FUserID,Subject,Content,BusWindow,BusCode,CreateTime,Creator;
+	FUserID = AUserID;
+	if(FUserID.IsEmpty())
+		FUserID = WorkflowStudio->UserManager->LoggedUserId;
+
+	WorkflowStudio->WorkflowDB->TaskInstanceLoadList(FTaskList,tfUser,FUserID,ACompletedState,WorkflowStudio,AOtherCondition);
+	TClientDataSet *FMasterDataSet = new TClientDataSet(NULL);
+	m_Query->Close();
+	m_Query->SQL->Clear();
+	m_Query->SQL->Text = " select FlowMnCreateTime,FlowMnCreator,FlowMnSubject,FlowMnContent,FlowMnBusWindow,FlowMnBusCode,FlowMnDtlPKID,FlowMnDtlFKID,FlowMnDtlNum,FlowMnDtlSender,"
+											 " FlowMnDtlReceiver,FlowMnDtlSendTime,FlowMnDtlChkTime,FlowMnDtlLimitTime,FlowMnDtlComments,"
+											 " FlowMnDtlState,FlowMnDtlResults,FlowMnDtlStateChgTime,FlowMnDtlPrintRight,FlowMnDtlRemark,"
+											 " FlowMnDtlName,FlowMnDtlUserType,FlowMnDtlStep,FlowMnDtlNeedPrjRight,FlowMnDtlPrjID"
+											 " from tbFlowMain_Detail,tbFlowMain where FlowMnPKID= FlowMnDtlFKID and 1=2";
+	m_Query->Open();
+	FMasterDataSet->FieldDefs->Clear();
+	for(int i=0;i<m_Query->FieldCount;i++)
+	{
+		TField *TempField = m_Query->Fields->Fields[i];
+		FMasterDataSet->FieldDefs->Add(TempField->FieldName,TempField->DataType,TempField->Size,TempField->Required);
+	}
+		FMasterDataSet->FieldDefs->Add("ReceiverName",ftString,50,false);//增加操作者名称
+	FMasterDataSet->CreateDataSet();
+	m_Query->Close();
+
+//	TClientDataSet *FDetailDataSet = new TClientDataSet(NULL);
+//	FDetailDataSet->FieldDefs->Clear();
+//	FDetailDataSet->FieldDefs->Add("TaskInsID",ftString,40,true);
+//	FDetailDataSet->FieldDefs->Add("Status",ftString,40,true);
+//	FDetailDataSet->FieldDefs->Add("IsHidden",ftInteger);
+//	FDetailDataSet->CreateDataSet();
+//
+//	TClientDataSet *FFieldsDataSet = new TClientDataSet(NULL);
+//	FFieldsDataSet->FieldDefs->Clear();
+//	FFieldsDataSet->FieldDefs->Add("TaskInsID",ftString,40,true);
+//	FFieldsDataSet->FieldDefs->Add("Caption",ftString,400,true);
+//	FFieldsDataSet->FieldDefs->Add("VarName",ftString,400,true);
+//	FFieldsDataSet->FieldDefs->Add("VarValue",ftString,400,true);
+//	FFieldsDataSet->FieldDefs->Add("ReadOnly",ftInteger);
+//	FFieldsDataSet->FieldDefs->Add("Required",ftInteger);
+//	FFieldsDataSet->CreateDataSet();
+
+	for(int i=0;i<FTaskList->Count;i++)
+	{
+		TTaskInstance *TempTask = FTaskList->Items[i]->Task;
+		FTempList = GetWorkIns(NULL,TempTask->WorkInsKey);
+		if(FTempList!=NULL)
+		{
+			Subject = FTempList->FlowMnSubject;
+			Content = FTempList->FlowMnContent;
+			BusWindow = FTempList->FlowMnBusWindow;
+			BusCode = FTempList->FlowMnBusCode;
+			CreateTime = FTempList->FlowMnCreateTime;
+			Creator = FTempList->FlowMnCreator;
+		}
+		String TaskKey		= TempTask->Key;
+		String WorkInsKey = TempTask->WorkInsKey;
+		int TaskNum			  = TempTask->FlowMnDtlNum;
+		String Receiver		= TempTask->UserID;
+		TWorkflowUser *AUser = WorkflowStudio->UserManager->Users->FindById(TempTask->UserID);
+		String Operater		= TempTask->FlowMnDtlReceiver;
+		String SendTime 	= DateTimeToStr(TempTask->CreatedOn);
+		String ChkTime		= DateTimeToStr(TempTask->FlowMnDtlChkTime);
+		String LimTime		= DateTimeToStr(TempTask->FlowMnDtlLimitTime);
+		String Comments		= TempTask->Comments;
+		int State			    = TempTask->Completed ? 1 : 0;
+		String Results		= TempTask->Status;
+		String ChgTime		= DateTimeToStr(TempTask->FlowMnDtlStateChgTime);
+		int PrintRight		= TempTask->CanPrint ? 1 : 0;
+		String Remark		  = TempTask->FlowMnDtlRemark;
+		String TaskName		= TempTask->TaskDef->Name;
+		int UserType		  = TempTask->AssignedUserType;
+		int StepNum			  = TempTask->FlowMnDtlStepDefin;
+		int NeedPrjRight	= TempTask->NeedPrjRight ? 1 : 0;
+		String ProjectID	= TempTask->FlowMnDtlProjectID;
+
+		FMasterDataSet->Append();
+		FMasterDataSet->FieldValues["FlowMnDtlPKID"]			   = TaskKey;
+		FMasterDataSet->FieldValues["FlowMnDtlFKID"]			   = WorkInsKey;
+		FMasterDataSet->FieldValues["FlowMnDtlNum"]				   = TaskNum;
+		FMasterDataSet->FieldValues["FlowMnDtlSender"]			 = Receiver;
+		FMasterDataSet->FieldValues["FlowMnDtlReceiver"]		 = Operater;
+		FMasterDataSet->FieldValues["FlowMnDtlSendTime"]		 = SendTime;
+		FMasterDataSet->FieldValues["FlowMnDtlChkTime"]			 = ChkTime;
+		FMasterDataSet->FieldValues["FlowMnDtlLimitTime"]		 = LimTime;
+		FMasterDataSet->FieldValues["FlowMnDtlComments"]		 = Comments;
+		FMasterDataSet->FieldValues["FlowMnDtlState"]			   = State;
+		FMasterDataSet->FieldValues["FlowMnDtlResults"]			 = Results;
+		FMasterDataSet->FieldValues["FlowMnDtlStateChgTime"] = ChgTime;
+		FMasterDataSet->FieldValues["FlowMnDtlPrintRight"]	 = PrintRight;
+		FMasterDataSet->FieldValues["FlowMnDtlRemark"]			 = Remark;
+		FMasterDataSet->FieldValues["FlowMnDtlName"]			   = TaskName;
+		FMasterDataSet->FieldValues["FlowMnDtlUserType"]		 = UserType;
+		FMasterDataSet->FieldValues["FlowMnDtlStep"]			   = StepNum;
+		FMasterDataSet->FieldValues["FlowMnDtlNeedPrjRight"] = NeedPrjRight;
+		FMasterDataSet->FieldValues["FlowMnDtlPrjID"]			   = ProjectID;
+		FMasterDataSet->FieldValues["FlowMnSubject"]			   = Subject;
+		FMasterDataSet->FieldValues["FlowMnContent"]			   = Content;
+		FMasterDataSet->FieldValues["FlowMnBusWindow"]			 = BusWindow;
+		FMasterDataSet->FieldValues["FlowMnBusCode"]			   = BusCode;
+		FMasterDataSet->FieldValues["FlowMnCreateTime"]			 = CreateTime;
+		FMasterDataSet->FieldValues["FlowMnCreator"]			   = Creator;
+		if(AUser!=NULL)
+		  FMasterDataSet->FieldValues["ReceiverName"]			 = AUser->UserName;
+		FMasterDataSet->Post();
+
+//		TTaskDefinition* FTaskDef = TempTask->TaskDef;
+//		for(int j=0;j<FTaskDef->StatusCount;j++)
+//		{
+//			FDetailDataSet->Append();
+//			FDetailDataSet->FieldValues["TaskInsID"]	= TaskKey;
+//			FDetailDataSet->FieldValues["Status"]		  = FTaskDef->StatusName[j];
+//			FDetailDataSet->FieldValues["IsHidden"]		= FTaskDef->StatusHidden[j] ? 1 : 0;
+//			FDetailDataSet->Post();
+//		}
+
+//		TWorkflowInstance *FWorkIns = GetWorkIns("",WorkInsKey);
+//		String FValue;
+//		TWorkflowVariable* WorkflowVar;
+//		for(int k=0;k<FTaskDef->Fields->Count;k++)
+//		{
+//			TTaskField *TempField = FTaskDef->Fields->Items[k];
+//			if(FWorkIns)
+//				WorkflowVar = FWorkIns->Diagram->Variables->FindByName(TempField->WorkflowVarName);
+//			else
+//				WorkflowVar = NULL;
+//
+//			if(WorkflowVar)
+//				 FValue = VarToStr(WorkflowVar->Value);
+//			else
+//				continue;
+//
+//			FFieldsDataSet->Append();
+//			FFieldsDataSet->FieldValues["TaskInsID"]= TaskKey;
+//			FFieldsDataSet->FieldValues["Caption"]	= TempField->Caption;
+//			FFieldsDataSet->FieldValues["VarName"]	= TempField->WorkflowVarName;
+//			FFieldsDataSet->FieldValues["VarValue"]	= FValue;
+//			FFieldsDataSet->FieldValues["ReadOnly"]	= TempField->ReadOnly ? 1 : 0;
+//			FFieldsDataSet->FieldValues["Required"]	= TempField->Required ? 1 : 0;
+//			FFieldsDataSet->Post();
+//		}
+
+	}
+
+	String MasterJson = TTableJson::DataSetToJson(FMasterDataSet);
+//	String DetailJson = TTableJson::DataSetToJson(FDetailDataSet);
+//	String FieldsJson = TTableJson::DataSetToJson(FFieldsDataSet);
+
+	TJSONObject *TasksObject = new TJSONObject();
+	TasksObject->AddPair("MasterDataSet",MasterJson);
+//	TasksObject->AddPair("DetailDataSet",DetailJson);
+//	TasksObject->AddPair("FieldsDataSet",FieldsJson);
+
+
+	return TasksObject;
+}
+//---------------------------------------------------------------------------
+TJSONObject* TDMWorkFlowServer::GetTaskdefList(String TaskInsID)
+{
+   TTaskInstance *ATaskIns;
+   ATaskIns = new TTaskInstance(NULL);
+   ATaskIns->Key = TaskInsID;
+   TJSONObject *TasksObject = new TJSONObject();
+   WorkflowStudio->WorkflowDB->TaskInstanceLoad(ATaskIns);
+   if(ATaskIns==NULL) return TasksObject;
+   TClientDataSet *FDetailDataSet = new TClientDataSet(NULL);
+   FDetailDataSet->FieldDefs->Clear();
+   FDetailDataSet->FieldDefs->Add("TaskInsID",ftString,40,true);
+   FDetailDataSet->FieldDefs->Add("Status",ftString,40,true);
+   FDetailDataSet->FieldDefs->Add("IsHidden",ftInteger);
+   FDetailDataSet->CreateDataSet();
+
+   TTaskDefinition* FTaskDef = ATaskIns->TaskDef;
+		for(int j=0;j<FTaskDef->StatusCount;j++)
+		{
+			FDetailDataSet->Append();
+			FDetailDataSet->FieldValues["TaskInsID"]	= TaskInsID;
+			FDetailDataSet->FieldValues["Status"]		  = FTaskDef->StatusName[j];
+			FDetailDataSet->FieldValues["IsHidden"]		= FTaskDef->StatusHidden[j] ? 1 : 0;
+			FDetailDataSet->Post();
+		}
+  String DetailJson = TTableJson::DataSetToJson(FDetailDataSet);
+
+  TasksObject->AddPair("DetailDataSet",DetailJson);
+  return TasksObject;
+}
+//---------------------------------------------------------------------------
+TJSONObject* TDMWorkFlowServer::GetVariableList(String TaskInsID)
+{
+   TTaskInstance *ATaskIns;
+   ATaskIns = new TTaskInstance(NULL);
+   ATaskIns->Key = TaskInsID;
+   TJSONObject *TasksObject = new TJSONObject();
+   WorkflowStudio->WorkflowDB->TaskInstanceLoad(ATaskIns);
+
+   TTaskDefinition* FTaskDef = ATaskIns->TaskDef;
+   TWorkflowInstance *FWorkIns = GetWorkIns("",ATaskIns->WorkInsKey);
+   String FValue;
+   TWorkflowVariable* WorkflowVar;
+
+   if(ATaskIns==NULL||FTaskDef==NULL||FWorkIns==NULL)
+	  return TasksObject;
+
+   TClientDataSet *FFieldsDataSet = new TClientDataSet(NULL);
+   FFieldsDataSet->FieldDefs->Clear();
+   FFieldsDataSet->FieldDefs->Add("TaskInsID",ftString,40,true);
+   FFieldsDataSet->FieldDefs->Add("Caption",ftString,400,true);
+   FFieldsDataSet->FieldDefs->Add("VarName",ftString,400,true);
+   FFieldsDataSet->FieldDefs->Add("VarValue",ftString,400,true);
+   FFieldsDataSet->FieldDefs->Add("ReadOnly",ftInteger);
+   FFieldsDataSet->FieldDefs->Add("Required",ftInteger);
+   FFieldsDataSet->CreateDataSet();
+
+
+   for(int k=0;k<FTaskDef->Fields->Count;k++)
+   {
+	  TTaskField *TempField = FTaskDef->Fields->Items[k];
+	  if(FWorkIns)
+		  WorkflowVar = FWorkIns->Diagram->Variables->FindByName(TempField->WorkflowVarName);
+	  else
+		  WorkflowVar = NULL;
+
+	  if(WorkflowVar)
+		 FValue = VarToStr(WorkflowVar->Value);
+	  else
+		 continue;
+
+	  FFieldsDataSet->Append();
+	  FFieldsDataSet->FieldValues["TaskInsID"]  = TaskInsID;
+	  FFieldsDataSet->FieldValues["Caption"]	= TempField->Caption;
+	  FFieldsDataSet->FieldValues["VarName"]	= TempField->WorkflowVarName;
+	  FFieldsDataSet->FieldValues["VarValue"]	= FValue;
+	  FFieldsDataSet->FieldValues["ReadOnly"]	= TempField->ReadOnly ? 1 : 0;
+	  FFieldsDataSet->FieldValues["Required"]	= TempField->Required ? 1 : 0;
+	  FFieldsDataSet->Post();
+   }
+
+  String DetailJson = TTableJson::DataSetToJson(FFieldsDataSet);
+
+  TasksObject->AddPair("FieldsDataSet",DetailJson);
+  return TasksObject;
+}
+//---------------------------------------------------------------------------
+String TDMWorkFlowServer::GetLogList(int ALogFilterType, String AFilterKey)
+{
+	String SQLStr;
+	if(ALogFilterType == 1)
+		SQLStr = "select * from tbFlowTaskLog where FlowTaskLogFlowInsID='"+AFilterKey+"' order by FlowTaskLogDate";
+	else
+		SQLStr = "select * from tbFlowTaskLog where FlowTaskLogTaskInsID='"+AFilterKey+"' order by FlowTaskLogDate";
+
+	return DataSetToJson(SQLStr);
+}
+//---------------------------------------------------------------------------
+String TDMWorkFlowServer::GetDiagram(int ADiagramType,String ADiagramKey)
+{
+	String SQLStr, FDiagramString;
+	if(ADiagramType == 0)
+		SQLStr = "select Diagram=FlowDnContent from tbFlowDefin where FlowDnPKID='"+ADiagramKey+"'";
+	else if(ADiagramType == 1)
+		SQLStr = "select Diagram=FlowMnFlowContent from tbFlowMain where FlowMnPKID='"+ADiagramKey+"'";
+	else
+		SQLStr = "select Diagram=FlowMnDtlTaskContent from tbFlowMain_Detail where FlowMnDtlPKID='"+ADiagramKey+"'";
+
+	m_Query->Close();
+	m_Query->SQL->Text = SQLStr;
+	m_Query->Open();
+	if(m_Query->RecordCount > 0)
+		FDiagramString = VarToStr(m_Query->FieldValues["Diagram"]);
+	else
+		FDiagramString = "";
+	m_Query->Close();
+	return FDiagramString;
+}
+//---------------------------------------------------------------------------
+TStream* TDMWorkFlowServer::GetWorkFlowChart(String FlowID,bool isDef)
+{
+   if(FlowID.Trim().IsEmpty())
+	return NULL;
+   TStream* ExpPicture  =new TMemoryStream();
+   if(isDef)     //返回流程图定义
+   {
+		TWorkflowDefinition* CurWorkDef =new  TWorkflowDefinition(WorkflowStudio);
+		CurWorkDef->Key = FlowID;
+		WorkflowStudio->WorkflowManager->LoadWorkflowDefinition(FlowID,CurWorkDef);
+		if(CurWorkDef)
+		{
+			CurWorkDef->Diagram->ExportAsJPGStream(ExpPicture,esStandard);
+			delete CurWorkDef;
+		}
+   }
+   else     //返回执行实例的流程图
+   {
+		TWorkflowInstance* FWorkIns = new TWorkflowInstance(NULL,WorkflowStudio);
+		FWorkIns->Key= FlowID;
+		WorkflowStudio->WorkflowManager->LoadWorkflowInstance(FWorkIns);
+		if(FWorkIns)
+		{
+		   //显示状态
+			FWorkIns->Diagram->DisplayTaskStatus = true;
+			switch(FWorkIns->Status)
+			{
+			  case wsNotStarted:
+				FWorkIns->Diagram->ViewStateMode = vmStart;
+				break;
+			  case wsFinished:
+			  case wsFinishedWithError:
+				FWorkIns->Diagram->ViewStateMode = vmEnd;
+			   break;
+			  default:
+				FWorkIns->Diagram->ViewStateMode = vmRun;
+			}
+			FWorkIns->Diagram->State = dsView;
+			FWorkIns->Diagram->MakeActiveNodeVisible();
+			FWorkIns->Diagram->ExportAsJPGStream(ExpPicture,esStandard);
+
+			delete FWorkIns;
+		}
+   }
+   ExpPicture->Position=0;
+   return ExpPicture;
+}

@@ -1,0 +1,16 @@
+dsnap180.bpl
+IndyIPClient180.bpl
+IndyIPCommon180.bpl
+IndySystem180.bpl
+CustomIPTransport180.bpl
+DbxClientDriver180.bpl
+DbxCommonDriver180.bpl
+dbexpress180.bpl
+dbrtl180.bpl
+rtl180.bpl
+BaseLibXE.bpl
+xmlrtl180.bpl
+IndyCore180.bpl
+IndyProtocols180.bpl
+DataSnapCommon180.bpl
+fmx180.bpl

@@ -1,0 +1,52 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "smsMain.h"
+#include "DecEnc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TfrmSmsMain *frmSmsMain;
+//---------------------------------------------------------------------------
+__fastcall TfrmSmsMain::TfrmSmsMain(TComponent* Owner)
+	: TForm(Owner)
+{
+  smsClient=new TSmsClientBroker();
+  ServiceStart();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmSmsMain::ServiceStart()
+{
+	Timer1Timer(NULL);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfrmSmsMain::ServiceStop()
+{
+	Timer1->Enabled=false;
+   smsClient->ServiceStop();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmSmsMain::FormClose(TObject *Sender, TCloseAction &Action)
+{
+
+	ServiceStop();
+  delete smsClient;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmSmsMain::Timer1Timer(TObject *Sender)
+{
+	if(!smsClient->Connected)
+	{
+		if(smsClient->InitClientComm())
+		{
+			smsClient->RegCallBack();
+		    smsClient->ServiceStart();
+        }
+
+	}
+}
+//---------------------------------------------------------------------------
+

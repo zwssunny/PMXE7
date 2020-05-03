@@ -1,0 +1,631 @@
+object frmLoanCalculation: TfrmLoanCalculation
+  Left = 0
+  Top = 0
+  Caption = #25151#36151#35745#31639#22120
+  ClientHeight = 600
+  ClientWidth = 400
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object MainVertScrollBox: TVertScrollBox
+    Align = Client
+    Size.Width = 400.000000000000000000
+    Size.Height = 600.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 13
+    object MainLayout: TLayout
+      Align = Client
+      Size.Width = 400.000000000000000000
+      Size.Height = 600.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object Panel1: TPanel
+        Align = Client
+        Size.Width = 400.000000000000000000
+        Size.Height = 504.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object TabControl1: TTabControl
+          Align = Client
+          FullSize = True
+          Size.Width = 400.000000000000000000
+          Size.Height = 504.000000000000000000
+          Size.PlatformDefault = False
+          TabHeight = 49.000000000000000000
+          TabIndex = 0
+          TabOrder = 15
+          TabPosition = PlatformDefault
+          object TabItem1: TTabItem
+            CustomIcon = <
+              item
+              end>
+            IsSelected = True
+            Size.Width = 200.000000000000000000
+            Size.Height = 49.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Text = #35745#31639#22120
+            object VertScrollBox1: TVertScrollBox
+              Align = Client
+              Size.Width = 400.000000000000000000
+              Size.Height = 455.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              object GridPanelLayout1: TGridPanelLayout
+                Align = Client
+                Size.Width = 400.000000000000000000
+                Size.Height = 455.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                ColumnCollection = <
+                  item
+                    Value = 30.000000000000000000
+                  end
+                  item
+                    Value = 70.000000000000000000
+                  end>
+                ControlCollection = <
+                  item
+                    Column = 0
+                    Control = Label1
+                    Row = 0
+                  end
+                  item
+                    Column = 1
+                    Control = cbPayWay
+                    Row = 0
+                  end
+                  item
+                    Column = -1
+                    Row = 1
+                  end
+                  item
+                    Column = 1
+                    Row = 1
+                  end
+                  item
+                    Column = 0
+                    Control = Label4
+                    Row = 2
+                  end
+                  item
+                    Column = 1
+                    Control = cbLoanType
+                    Row = 2
+                  end
+                  item
+                    Column = 0
+                    Control = Label5
+                    Row = 3
+                  end
+                  item
+                    Column = 1
+                    Control = nbBusinessAmt
+                    Row = 3
+                  end
+                  item
+                    Column = 0
+                    Control = Label6
+                    Row = 4
+                  end
+                  item
+                    Column = 1
+                    Control = nbAccumulation
+                    Row = 4
+                  end
+                  item
+                    Column = 0
+                    Control = Label7
+                    Row = 5
+                  end
+                  item
+                    Column = 1
+                    Control = cbCycle
+                    Row = 5
+                  end
+                  item
+                    Column = 0
+                    Control = Label8
+                    Row = 6
+                  end
+                  item
+                    Column = 1
+                    Control = cbRate
+                    Row = 6
+                  end
+                  item
+                    Column = 0
+                    Control = Label9
+                    Row = 7
+                  end
+                  item
+                    Column = 1
+                    Control = edAccu
+                    Row = 7
+                  end
+                  item
+                    Column = 0
+                    ColumnSpan = 2
+                    Control = btCalculation
+                    Row = 8
+                  end
+                  item
+                    Column = 0
+                    Control = Label10
+                    Row = 9
+                  end
+                  item
+                    Column = 0
+                    Control = Label11
+                    Row = 10
+                  end
+                  item
+                    Column = 0
+                    Control = Label12
+                    Row = 11
+                  end
+                  item
+                    Column = 1
+                    Control = edPrincipal
+                    Row = 9
+                  end
+                  item
+                    Column = 1
+                    Control = edInterest
+                    Row = 10
+                  end
+                  item
+                    Column = 1
+                    Control = edTotalPay
+                    Row = 11
+                  end
+                  item
+                    Column = 0
+                    Control = Label13
+                    Row = 12
+                  end
+                  item
+                    Column = 1
+                    Control = edMonthPay
+                    Row = 12
+                  end>
+                RowCollection = <
+                  item
+                    SizeStyle = Auto
+                    Value = 16.666666666666670000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 20.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 25.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 33.333333333333340000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 50.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 100.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 100.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 16.666666666666670000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 20.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 25.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 33.333333333333340000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 50.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 100.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 100.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 100.000000000000000000
+                  end
+                  item
+                    SizeStyle = Auto
+                    Value = 100.000000000000000000
+                  end>
+                object Label1: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  Text = #36824#27454#26041#24335#65306
+                end
+                object cbPayWay: TComboBox
+                  Align = Client
+                  Items.Strings = (
+                    #31561#39069#26412#24687
+                    #31561#39069#26412#37329)
+                  ItemIndex = 0
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  OnChange = cbPayWayChange
+                end
+                object Label3: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = #35745#31639#26041#24335#65306
+                  Visible = False
+                end
+                object cbCalWay: TComboBox
+                  Align = Client
+                  Items.Strings = (
+                    #25353#36151#27454#24635#39069
+                    #25353#36141#25151#24635#20215)
+                  ItemIndex = 0
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  Visible = False
+                end
+                object Label4: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  Text = #36151#27454#31867#21035#65306
+                end
+                object cbLoanType: TComboBox
+                  Align = Client
+                  Items.Strings = (
+                    #32431#21830#36151
+                    #20844#31215#37329
+                    #32452#21512#36151)
+                  ItemIndex = 0
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                  OnChange = cbLoanTypeChange
+                end
+                object nbBusinessAmt: TNumberBox
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 9
+                  Cursor = crIBeam
+                  Max = 999999995904.000000000000000000
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  object FloatAnimation1: TFloatAnimation
+                    Duration = 0.200000002980232200
+                    PropertyName = 'Max'
+                    StartValue = 0.000000000000000000
+                    StopValue = 0.000000000000000000
+                  end
+                end
+                object Label5: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  Text = #21830#36151#37329#39069#65306
+                end
+                object Label6: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  Text = #20844#31215#37329#39069#65306
+                end
+                object nbAccumulation: TNumberBox
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 8
+                  Cursor = crIBeam
+                  Max = 999999995904.000000000000000000
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object Label7: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #36151#27454#24180#38480#65306
+                end
+                object cbCycle: TComboBox
+                  Align = Client
+                  Items.Strings = (
+                    '1'#24180
+                    '2'#24180
+                    '3'#24180
+                    '4'#24180
+                    '5'#24180
+                    '6'#24180
+                    '7'#24180
+                    '8'#24180
+                    '9'#24180
+                    '10'#24180
+                    '11'#24180
+                    '12'#24180
+                    '13'#24180
+                    '14'#24180
+                    '15'#24180
+                    '16'#24180
+                    '17'#24180
+                    '18'#24180
+                    '19'#24180
+                    '20'#24180
+                    '21'#24180
+                    '22'#24180
+                    '23'#24180
+                    '24'#24180
+                    '25'#24180
+                    '26'#24180
+                    '27'#24180
+                    '28'#24180
+                    '29'#24180
+                    '30'#24180)
+                  ItemIndex = 19
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 6
+                end
+                object Label8: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #21830#36151#21033#29575#65306
+                end
+                object cbRate: TComboBox
+                  Align = Client
+                  Items.Strings = (
+                    '8'#25240
+                    '8.5'#25240
+                    '9'#25240
+                    '9.5'#25240
+                    #22522#20934'     6.15%'
+                    '1.05'#20493
+                    '1.1'#20493)
+                  ItemIndex = 4
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                end
+                object Label9: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #20844#31215#37329#21033#29575#65306
+                end
+                object edAccu: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 11
+                  Text = '4.25%'
+                  Enabled = False
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object btCalculation: TButton
+                  Align = Center
+                  Size.Width = 145.000000000000000000
+                  Size.Height = 48.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'donetoolbutton'
+                  TabOrder = 12
+                  Text = #35745#31639
+                  OnClick = btCalculationClick
+                end
+                object Label10: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #36151#27454#24635#39069#65306
+                end
+                object Label11: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #25903#20184#21033#24687#65306
+                end
+                object Label12: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #36824#27454#24635#39069#65306
+                end
+                object edPrincipal: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 13
+                  ReadOnly = True
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object edInterest: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 14
+                  ReadOnly = True
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object edTotalPay: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 16
+                  ReadOnly = True
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object Label13: TLabel
+                  Align = Client
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.HorzAlign = Trailing
+                  TextSettings.WordWrap = False
+                  Text = #27599#26376#36824#27454#65306
+                end
+                object edMonthPay: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  TabOrder = 15
+                  ReadOnly = True
+                  Size.Width = 280.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                end
+              end
+            end
+          end
+          object TabItem2: TTabItem
+            CustomIcon = <
+              item
+              end>
+            IsSelected = False
+            Size.Width = 200.000000000000000000
+            Size.Height = 49.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Text = #36824#27454#26126#32454
+            object DetailPayGrid: TStringGrid
+              Align = Client
+              Size.Width = 400.000000000000000000
+              Size.Height = 455.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              ReadOnly = True
+              RowCount = 100
+              RowHeight = 32.000000000000000000
+              object StringColumn1: TStringColumn
+                Header = #26399#25968
+                Size.Width = 49.000000000000000000
+                Size.Height = 480.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+              end
+              object StringColumn2: TStringColumn
+                Header = #26412#26376#24212#36824#26412#37329
+                Position.X = 49.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 480.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+              end
+              object StringColumn3: TStringColumn
+                Header = #26412#26376#24212#36824#21033#24687
+                Position.X = 149.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 480.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+              end
+              object StringColumn4: TStringColumn
+                Header = #26412#26376#24212#36824#27454
+                Position.X = 249.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 448.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 3
+              end
+            end
+          end
+        end
+      end
+      object ToolBar1: TToolBar
+        Size.Width = 400.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object Label2: TLabel
+          StyledSettings = [Size, FontColor]
+          Position.X = 16.000000000000000000
+          Position.Y = 11.000000000000000000
+          Size.Width = 185.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = #24494#36719#38597#40657
+          TextSettings.Font.Style = [fsBold]
+          Text = #25151#36151#35745#31639#22120
+        end
+      end
+      object ToolBar2: TToolBar
+        Align = Bottom
+        Position.Y = 552.000000000000000000
+        Size.Width = 400.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        object btClose: TButton
+          Align = MostLeft
+          Size.Width = 65.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'backtoolbutton'
+          TabOrder = 1
+          Text = #36820#22238
+          OnClick = btCloseClick
+        end
+      end
+    end
+  end
+end

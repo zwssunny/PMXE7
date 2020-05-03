@@ -1,0 +1,352 @@
+unit wsLanguage;
+
+interface
+
+implementation
+uses wsRes;
+
+const LanguageStr = 
+'[strings]' + #13#10 +
+'SAttachment=附件         ' + #13#10 +
+'SConfirmDeleteItems=A您确定要删除选中的节点吗?' + #13#10 +
+'SConfirmDeleteAttachments=您确定要删除要移除选中的附件吗?' + #13#10 +
+'SConfirmOpenMoreThanOneFile=您需要同时打开多个文件吗?' + #13#10 +
+'SCurrentWorkflow=当前工作流' + #13#10 +
+'SFileName=文件名' + #13#10 +
+'SEnterStatusName=输入状态名称' + #13#10 +
+'SEnterVariableCaption=输入变量标题' + #13#10 +
+'SExpiration=过期' + #13#10 +
+'SStatusList=状态列表' + #13#10 +
+'SVariables=变量' + #13#10 +
+'STask=任务' + #13#10 +
+'SVariable=变量' + #13#10 +
+'SColumnKey=序号' + #13#10 +
+'SColumnName=名称' + #13#10 +
+'SColumnWorkflow=工作流' + #13#10 +
+'SColumnSubject=标题' + #13#10 +
+'SColumnStatus=状态' + #13#10 +
+'SColumnUser=接收者' + #13#10 +
+'STabFields=字段' + #13#10 +
+'STabTask=任务' + #13#10 +
+'STabWorkflow=流程图' + #13#10 +
+'STabLog=日志' + #13#10 +
+'SConfirmDeleteWorkDef=您确定要删除选中的工作流定义吗?' + #13#10 +
+'SConfirmCloseAndDiscard=关闭窗体，忽略所做的修改?' + #13#10 +
+'SModified=已修改' + #13#10 +
+'SAllObjects=所有对象' + #13#10 +
+'SConfirmNewDiagramAndDiscard=创建新流程图，忽略目前所做的修改?' + #13#10 +
+'SConfirmOpenDiagramAndDiscard=打开新流程图，忽略目前所做的修改?' + #13#10 +
+'SWorkflowCorrect=工作流程图是正确的.' + #13#10 +
+'SWorkflowDefinition=工作流程图定义' + #13#10 +
+'STypeWorkDefName=输入所设计的流程图的名称' + #13#10 +
+'SErrorParamNotFound=在打开工作流时找不到参数 "%s".' + #13#10 +
+'STrueOutput=是' + #13#10 +
+'SFalseOutput=否' + #13#10 +
+'SBlockStart=开始' + #13#10 +
+'SBlockEnd=结束' + #13#10 +
+'SBlockTask=任务组块' + #13#10 +
+'SBlockApproval=审批节点' + #13#10 +
+'SBlockScript=脚本节点' + #13#10 +
+'STaskApprovalName=审批' + #13#10 +
+'STaskApprovalSubject=审批' + #13#10 +
+'STaskApprovalDescription=请批准或驳回.' + #13#10 +
+'STaskApprovalStatusOpened=打开' + #13#10 +
+'STaskApprovalStatusApproved=同意' + #13#10 +
+'STaskApprovalStatusRejected=驳回' + #13#10 +
+'SToolbarStart=开始' + #13#10 +
+'SToolbarEnd=结束' + #13#10 +
+'SToolbarError=出错处理器' + #13#10 +
+'SToolbarSourceConnect=源连接器' + #13#10 +
+'SToolbarTargetConnect=目标连接器' + #13#10 +
+'SToolbarLineJoin=线连接器' + #13#10 +
+'SToolbarTransition=直连接' + #13#10 +
+'SToolbarSideTransition=则连接' + #13#10 +
+'SToolbarArcTransition=弧形连接' + #13#10 +
+'SToolbarFork=分叉' + #13#10 +
+'SToolbarJoin=连接' + #13#10 +
+'SToolbarTask=任务' + #13#10 +
+'SToolbarApproval=审批' + #13#10 +
+'SToolbarDecision=判断' + #13#10 +
+'SToolbarWorkflowCategory=工作流' + #13#10 +
+'SToolbarRunWorkflow=运行工作流' + #13#10 +
+'SToolbarScript=脚本' + #13#10 +
+'SErrorFileAlreadyOpen=文件已经打开.' + #13#10 +
+'SConfirmUpdateModifiedAttachment=文件"%s"已经修改，您想更新到附件中吗?' + #13#10 +
+'SWarningFieldValueRequired=需要给"%s" 赋值.' + #13#10 +
+'SErrorInsertCannotGetKey=在 %s 插入时出错.不能返回主键值.' + #13#10 +
+'SErrorRecordNotFoundKey=在数据库中找不到%s . 主键值: %s' + #13#10 +
+'SErrorUpdateEmptyKey=不能更新数据 %s到数据库. 空主键值.' + #13#10 +
+'SErrorDeleteEmptyKey=从数据库中不能删除 %s . 空主键值.' + #13#10 +
+'SErrorUndefinedVariable=变量 "%s" 不存在.' + #13#10 +
+'SErrorScriptBlockCompile=编译脚本节点出错.' + #13#10 +
+'SLogColOperation=操作' + #13#10 +
+'SLogColDate=日期' + #13#10 +
+'SLogColTime=时间' + #13#10 +
+'SLogColUserId=用户' + #13#10 +
+'SLogColInfo=信息' + #13#10 +
+'STaskExpiredOn=任务过期于 %s' + #13#10 +
+'STaskLogCreate=创建' + #13#10 +
+'STaskLogInfo=信息' + #13#10 +
+'STaskLogUpdate=更新' + #13#10 +
+'STaskLogStatusChange=状态改变' + #13#10 +
+'SStatusChangeInfo=从 "%s" 到 "%s"' + #13#10 +
+'SWorkInsExecutionError1=工作流执行过程出错. 工作流已经结束.\#13#10\#13#10出错信息为: "%s"+ #13#10 +
+'SWorkInsExecutionError2=%s\#13#10\#13#10任务节点信息引起出错:\#13#10类型: %s\#13#10名称: %s\#13#10描述: \#13#10"%s"' + #13#10 +
+'SNextBlockUndefined=下个节点未定义. 不能继续执行.' + #13#10 +
+'STaskNotCreatedUserNotFound=任务实例不能创建，因为关联操作者("%s")不存在.' + #13#10 +
+'' + #13#10 +
+'[fApprovalEditor]' + #13#10 +
+'fmApprovalEditor.Self.Caption=审批' + #13#10 +
+'fmApprovalEditor.tsGeneral.Caption=通常' + #13#10 +
+'fmApprovalEditor.lbSubject.Caption=标题' + #13#10 +
+'fmApprovalEditor.lbDescription.Caption=描述' + #13#10 +
+'fmApprovalEditor.lbAssignment.Caption=关联' + #13#10 +
+'fmApprovalEditor.cbMailNotification.Caption=发送通知邮件' + #13#10 +
+'fmApprovalEditor.tsStatus.Caption=状态' + #13#10 +
+'fmApprovalEditor.lbStatusList.Caption=状态列表("*"开头标志为完成状态' + #13#10 +
+'fmApprovalEditor.tsAttachments.Caption=附件' + #13#10 +
+'fmApprovalEditor.tsFields.Caption=字段' + #13#10 +
+'fmApprovalEditor.btCancel.Caption=取消' + #13#10 +
+'fmApprovalEditor.btOk.Caption=确定' + #13#10 +
+'fmApprovalEditor.tsExpiration.Caption=过期' + #13#10 +
+'' + #13#10 +
+'[fAttachmentEditor]' + #13#10 +
+'fmAttachmentEditor.Self.Caption=附件' + #13#10 +
+'fmAttachmentEditor.tsAttachments.Caption=通常' + #13#10 +
+'fmAttachmentEditor.btAdd.Caption=增加(&A)' + #13#10 +
+'fmAttachmentEditor.btDelete.Caption=删除(&D)' + #13#10 +
+'fmAttachmentEditor.btCancel.Caption=取消' + #13#10 +
+'fmAttachmentEditor.btOk.Caption=确定' + #13#10 +
+'' + #13#10 +
+'[fAttachmentFrame]' + #13#10 +
+'frAttachmentFrame.OpenDialog1.Filter=所有文件(*.*)|*.*' + #13#10 +
+'frAttachmentFrame.OpenDialog1.Title=插入附件' + #13#10 +
+'frAttachmentFrame.miOpen.Caption=(&O)打开附件...' + #13#10 +
+'frAttachmentFrame.miInsert.Caption=(&I)新增附件...' + #13#10 +
+'frAttachmentFrame.miRemove.Caption=(&R)移除附件' + #13#10 +
+'frAttachmentFrame.acInsert.Hint=新增附件' + #13#10 +
+'frAttachmentFrame.acRemove.Hint=移除附件' + #13#10 +
+'frAttachmentFrame.acOpen.Hint=打开附件' + #13#10 +
+'frAttachmentFrame.acLargeIcons.Caption=大图标' + #13#10 +
+'frAttachmentFrame.acLargeIcons.Hint=大图标' + #13#10 +
+'frAttachmentFrame.acSmallIcons.Caption=小图标' + #13#10 +
+'frAttachmentFrame.acSmallIcons.Hint=小图标' + #13#10 +
+'frAttachmentFrame.acList.Caption=列表' + #13#10 +
+'frAttachmentFrame.acList.Hint=列表' + #13#10 +
+'frAttachmentFrame.acReport.Caption=报告' + #13#10 +
+'frAttachmentFrame.acReport.Hint=报告' + #13#10 +
+'' + #13#10 +
+'[fAttachPermissions]' + #13#10 +
+'frAttachPermissions.cbShowAttachments.Caption=显示附件' + #13#10 +
+'frAttachPermissions.cbDelAttachment.Caption=允许移除附件' + #13#10 +
+'frAttachPermissions.cbInsAttachment.Caption=允许插入附件' + #13#10 +
+'frAttachPermissions.cbEditAttachment.Caption=允许修改附件' + #13#10 +
+'' + #13#10 +
+'[fDecisionEditor]' + #13#10 +
+'fmDecisionEditor.Self.Caption=判断' + #13#10 +
+'fmDecisionEditor.TabSheet1.Caption=通常' + #13#10 +
+'fmDecisionEditor.Label1.Caption=条件表达式' + #13#10 +
+'fmDecisionEditor.btCancel.Caption=取消' + #13#10 +
+'fmDecisionEditor.btOk.Caption=确定' + #13#10 +
+'' + #13#10 +
+'[fExpirationFrame]' + #13#10 +
+'frExpirationFrame.rbExpNever.Caption=任务不过期' + #13#10 +
+'frExpirationFrame.rbExpTerm.Caption=过期类型(&T):' + #13#10 +
+'frExpirationFrame.cbTermType.Items0=天数' + #13#10 +
+'frExpirationFrame.cbTermType.Items1=周数' + #13#10 +
+'frExpirationFrame.cbTermType.Items2=月数' + #13#10 +
+'frExpirationFrame.rbExpDate.Caption=过期日期时间:' + #13#10 +
+'frExpirationFrame.rbExpCustom.Caption=过期时间表达式(&C):' + #13#10 +
+'frExpirationFrame.lbStatus.Caption=过期状态(&S):' + #13#10 +
+'' + #13#10 +
+'[fFieldFrame]' + #13#10 +
+'frFieldFrame.Label1.Caption=文本标题:' + #13#10 +
+'frFieldFrame.Label2.Caption=工作流变量:' + #13#10 +
+'frFieldFrame.cbReadOnly.Caption=只读' + #13#10 +
+'frFieldFrame.cbRequired.Caption=必修' + #13#10 +
+'frFieldFrame.btAdd.Caption=增加' + #13#10 +
+'frFieldFrame.btDelete.Caption=删除' + #13#10 +
+'' + #13#10 +
+'[fStatusFrame]' + #13#10 +
+'frStatusFrame.lbStatusName.Caption=状态名称:' + #13#10 +
+'frStatusFrame.chCompletion.Caption=结束' + #13#10 +
+'frStatusFrame.chHidden.Caption=隐藏' + #13#10 +
+'frStatusFrame.btAdd.Caption=增加' + #13#10 +
+'frStatusFrame.btDelete.Caption=删除' + #13#10 +
+'' + #13#10 +
+'[fscripteditor]' + #13#10 +
+'fmScriptEditor.Self.Caption=脚本' + #13#10 +
+'fmScriptEditor.tsScript.Caption=脚本代码' + #13#10 +
+'fmScriptEditor.btCancel.Caption=取消' + #13#10 +
+'fmScriptEditor.btOk.Caption=确定' + #13#10 +
+'' + #13#10 +
+'[fTaskEditor]' + #13#10 +
+'fmTaskEditor.Self.Caption=任务组' + #13#10 +
+'fmTaskEditor.tsGeneral.Caption=通常' + #13#10 +
+'fmTaskEditor.Label1.Caption=标题' + #13#10 +
+'fmTaskEditor.Label2.Caption=描述' + #13#10 +
+'fmTaskEditor.Label3.Caption=关联' + #13#10 +
+'fmTaskEditor.cbMailNotification.Caption=发送通知邮件' + #13#10 +
+'fmTaskEditor.TabSheet2.Caption=状态' + #13#10 +
+'fmTaskEditor.Label4.Caption=状态列表("*"开头标志为完成状态)' + #13#10 +
+'fmTaskEditor.tsAttachment.Caption=附件' + #13#10 +
+'fmTaskEditor.tsFields.Caption=字段' + #13#10 +
+'fmTaskEditor.btAdd.Caption=(&A)增加' + #13#10 +
+'fmTaskEditor.btDelete.Caption=(&D)删除' + #13#10 +
+'fmTaskEditor.btCancel.Caption=取消' + #13#10 +
+'fmTaskEditor.btOk.Caption=确定' + #13#10 +
+'fmTaskEditor.tsExpiration.Caption=过期' + #13#10 +
+'' + #13#10 +
+'[fTaskInstanceView]' + #13#10 +
+'frTaskInstanceView.Label1.Caption=标题:' + #13#10 +
+'frTaskInstanceView.Label2.Caption=状态:' + #13#10 +
+'' + #13#10 +
+'[ftasklist]' + #13#10 +
+'fmTaskList.Self.Caption=任务列表' + #13#10 +
+'fmTaskList.btSaveChanges.Caption=(&S)保存修改' + #13#10 +
+'fmTaskList.acShowOnlyOpen.Caption=只显示执行中任务' + #13#10 +
+'fmTaskList.acShowAllTasks.Caption=显示所有任务' + #13#10 +
+'fmTaskList.miView.Caption=(&V)视图' + #13#10 +
+'' + #13#10 +
+'[fTransitionEditor]' + #13#10 +
+'fmTransitionEditor.Self.Caption=流转连接' + #13#10 +
+'fmTransitionEditor.TabSheet1.Caption=通常' + #13#10 +
+'fmTransitionEditor.Label1.Caption=条件表达式' + #13#10 +
+'fmTransitionEditor.btCancel.Caption=取消' + #13#10 +
+'fmTransitionEditor.btOk.Caption=确定' + #13#10 +
+'' + #13#10 +
+'[fvariableeditor]' + #13#10 +
+'fmVariableEditor.Self.Caption=变量' + #13#10 +
+'fmVariableEditor.TabSheet1.Caption=通常' + #13#10 +
+'fmVariableEditor.Label1.Caption=值' + #13#10 +
+'fmVariableEditor.btAdd.Caption=(&A)增加' + #13#10 +
+'fmVariableEditor.btDelete.Caption=(&D)删除' + #13#10 +
+'fmVariableEditor.btCancel.Caption=取消' + #13#10 +
+'fmVariableEditor.btOk.Caption=确定' + #13#10 +
+'' + #13#10 +
+'[fWorkDefManager]' + #13#10 +
+'fmWorkDefManager.Self.Caption=工作流定义' + #13#10 +
+'fmWorkDefManager.btAdd.Caption=(&A)新增' + #13#10 +
+'fmWorkDefManager.btEdit.Caption=(&E)修改' + #13#10 +
+'fmWorkDefManager.btDelete.Caption=(&D)删除' + #13#10 +
+'fmWorkDefManager.btRefresh.Caption=(&R)刷新' + #13#10 +
+'fmWorkDefManager.btRunNew.Caption=运行新流程' + #13#10 +
+'fmWorkDefManager.acImport.Caption=(&I)导入定义...' + #13#10 +
+'fmWorkDefManager.acExport.Caption=(&x)导出定义...' + #13#10 +
+'fmWorkDefManager.OpenDialog1.Filter=工作流定义 (*.wfd)|*.wfd' + #13#10 +
+'fmWorkDefManager.OpenDialog1.Title=导入工作流定义' + #13#10 +
+'fmWorkDefManager.SaveDialog1.Filter=工作流定义 (*.wfd)|*.wfd' + #13#10 +
+'fmWorkDefManager.SaveDialog1.Title=导出工作流定义' + #13#10 +
+'' + #13#10 +
+'[fWorkflowEditor]' + #13#10 +
+'fmWorkflowEditor.Self.Caption=流程图设计器' + #13#10 +
+'fmWorkflowEditor.ToolBar1.Caption=工具栏1' + #13#10 +
+'fmWorkflowEditor.btCheck.Caption=检查流程图' + #13#10 +
+'fmWorkflowEditor.ToolBar2.Caption=工具栏2' + #13#10 +
+'fmWorkflowEditor.DgrColorSelector1.Hint=图形颜色' + #13#10 +
+'fmWorkflowEditor.DgrGradientDirectionSelector1.Hint=渐变' + #13#10 +
+'fmWorkflowEditor.DgrBrushStyleSelector1.Hint=填充风格' + #13#10 +
+'fmWorkflowEditor.DgrShadowSelector1.Hint=背影' + #13#10 +
+'fmWorkflowEditor.DgrPenStyleSelector1.Hint=线风格' + #13#10 +
+'fmWorkflowEditor.DgrPenColorSelector1.Hint=线颜色' + #13#10 +
+'fmWorkflowEditor.DgrPenWidthSelector1.Hint=线宽度' + #13#10 +
+'fmWorkflowEditor.DgrTextColorSelector1.Hint=文本颜色' + #13#10 +
+'fmWorkflowEditor.DiagramToolBar2.Category=工作流' + #13#10 +
+'fmWorkflowEditor.File1.Caption=(&F)文件' + #13#10 +
+'fmWorkflowEditor.Edit2.Caption=(&E编辑' + #13#10 +
+'fmWorkflowEditor.Copyasimage1.Caption=复制为图片' + #13#10 +
+'fmWorkflowEditor.View1.Caption=(&V)视图' + #13#10 +
+'fmWorkflowEditor.Zoom1.Caption=(&Z)缩放' + #13#10 +
+'fmWorkflowEditor.Edittext1.Caption=(&O)对象' + #13#10 +
+'fmWorkflowEditor.Sourcearrow2.Caption=源箭头' + #13#10 +
+'fmWorkflowEditor.Targetarrow2.Caption=目标箭头' + #13#10 +
+'fmWorkflowEditor.Workflow1.Caption=(&W)工作流' + #13#10 +
+'fmWorkflowEditor.Variables1.Caption=(&V)变量...' + #13#10 +
+'fmWorkflowEditor.Attachments1.Caption=(&A)附件...' + #13#10 +
+'fmWorkflowEditor.DiagramCut1.Caption=剪切(&t)' + #13#10 +
+'fmWorkflowEditor.DiagramCut1.Hint=剪切|剪切到剪贴板' + #13#10 +
+'fmWorkflowEditor.DiagramCopy1.Caption=(&C)复制' + #13#10 +
+'fmWorkflowEditor.DiagramCopy1.Hint=复制|复制到剪贴板' + #13#10 +
+'fmWorkflowEditor.DiagramPaste1.Caption=(&P)粘贴' + #13#10 +
+'fmWorkflowEditor.DiagramPaste1.Hint=粘贴|从剪贴板粘贴' + #13#10 +
+'fmWorkflowEditor.DiagramSelectAll1.Caption=选中所有(&l)' + #13#10 +
+'fmWorkflowEditor.DiagramSelectAll1.Hint=选中所有|选中所有对象' + #13#10 +
+'fmWorkflowEditor.DiagramDelete1.Caption=(&D)删除' + #13#10 +
+'fmWorkflowEditor.DiagramDelete1.Hint=删除对象|删除选中对象' + #13#10 +
+'fmWorkflowEditor.DiagramEditText1.Caption=编辑 文本(&t)' + #13#10 +
+'fmWorkflowEditor.DiagramEditText1.Hint=编辑 文本' + #13#10 +
+'fmWorkflowEditor.DiagramViewLeftRuler1.Caption=(&L)左边标尺' + #13#10 +
+'fmWorkflowEditor.DiagramViewLeftRuler1.Hint=显示/隐藏左边标尺' + #13#10 +
+'fmWorkflowEditor.DiagramViewTopRuler1.Caption=(&T)顶部标尺' + #13#10 +
+'fmWorkflowEditor.DiagramViewTopRuler1.Hint=显示/隐藏顶部标尺' + #13#10 +
+'fmWorkflowEditor.DiagramShapeColor1.Caption=图形颜色...' + #13#10 +
+'fmWorkflowEditor.DiagramShapeColor1.Hint=图形颜色' + #13#10 +
+'fmWorkflowEditor.DiagramLineColor1.Caption=线颜色...' + #13#10 +
+'fmWorkflowEditor.DiagramLineColor1.Hint=线颜色' + #13#10 +
+'fmWorkflowEditor.DiagramBlockPicture1.Caption=图片...' + #13#10 +
+'fmWorkflowEditor.DiagramBlockPicture1.Hint=任务图片' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape1.Caption=没有' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape2.Caption=实箭头' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape3.Caption=线箭头' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape4.Caption=圆型' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape5.Caption=方形' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape6.Caption=倒三角形' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape7.Caption=没有' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape8.Caption=实箭头' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape9.Caption=线箭头' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape10.Caption=圆型' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape11.Caption=方形' + #13#10 +
+'fmWorkflowEditor.DiagramArrowShape12.Caption=倒三角型' + #13#10 +
+'fmWorkflowEditor.DiagramBringToFront1.Caption=置于前面' + #13#10 +
+'fmWorkflowEditor.DiagramBringToFront1.Hint=置于前面' + #13#10 +
+'fmWorkflowEditor.acNewDiagram.Caption=(&N)新流程图...' + #13#10 +
+'fmWorkflowEditor.acNewDiagram.Hint=新流程图|创建新流程图' + #13#10 +
+'fmWorkflowEditor.acOpenDiagram.Caption=(&O)打开流程图...' + #13#10 +
+'fmWorkflowEditor.acOpenDiagram.Hint=打开流程图|打开已存在流程图' + #13#10 +
+'fmWorkflowEditor.acSaveDiagram.Caption=(&S)保存流程图...' + #13#10 +
+'fmWorkflowEditor.acSaveDiagram.Hint=保存流程图|保存当前流程图' + #13#10 +
+'fmWorkflowEditor.acPrintDiagram.Caption=(&P)打印...' + #13#10 +
+'fmWorkflowEditor.acPrintDiagram.Hint=打印流程图|打印当前流程图' + #13#10 +
+'fmWorkflowEditor.acPreviewDiagram.Caption=打印预览(&v)...' + #13#10 +
+'fmWorkflowEditor.acPreviewDiagram.Hint=打印预览|打印预览当前流程图' + #13#10 +
+'fmWorkflowEditor.DiagramSendToBack1.Caption=置于后面' + #13#10 +
+'fmWorkflowEditor.DiagramSendToBack1.Hint=置于后面' + #13#10 +
+'fmWorkflowEditor.DiagramControlFont1.Caption=字体...' + #13#10 +
+'fmWorkflowEditor.DiagramControlFont1.Hint=改变文本字体' + #13#10 +
+'fmWorkflowEditor.DiagramGrid1.Caption=底方格' + #13#10 +
+'fmWorkflowEditor.DiagramGrid1.Hint=显示/隐藏底方格' + #13#10 +
+'fmWorkflowEditor.DiagramGradientSetting1.Caption=渐变设置 ...' + #13#10 +
+'fmWorkflowEditor.DiagramGradientSetting1.Hint=选择渐变' + #13#10 +
+'fmWorkflowEditor.DiagramShadow1.Caption=背影设置 ...' + #13#10 +
+'fmWorkflowEditor.DiagramShadow1.Hint=背影设置' + #13#10 +
+'fmWorkflowEditor.DiagramUndoAction1.Caption=撤销' + #13#10 +
+'fmWorkflowEditor.DiagramRedoAction1.Caption=重做' + #13#10 +
+'fmWorkflowEditor.acAutomaticNodes.Caption=(&A)自动布点' + #13#10 +
+'fmWorkflowEditor.DiagramConnectionId1.Caption=流转' + #13#10 +
+'fmWorkflowEditor.DiagramConnectionId1.Hint=流转' + #13#10 +
+'fmWorkflowEditor.DiagramConnectionId2.Caption=侧流转' + #13#10 +
+'fmWorkflowEditor.DiagramConnectionId2.Hint=侧流转' + #13#10 +
+'fmWorkflowEditor.DiagramConnectionId3.Caption=弧流转' + #13#10 +
+'fmWorkflowEditor.DiagramConnectionId3.Hint=弧流转' + #13#10 +
+'fmWorkflowEditor.OpenDialog1.Filter=流程图文件 (*.dgr)|*.dgr|All files (*.*)|*.*' + #13#10 +
+'fmWorkflowEditor.OpenDialog1.Title=选择流程图文件' + #13#10 +
+'fmWorkflowEditor.SaveDialog1.Filter=流程图文件 (*.dgr)|*.dgr|All files (*.*)|*.*' + #13#10 +
+'fmWorkflowEditor.SaveDialog1.Title=选择流程图文件' + #13#10 +
+'fmWorkflowEditor.Sourcearrow1.Caption=源箭头' + #13#10 +
+'fmWorkflowEditor.Targetarrow1.Caption=目标箭头' + #13#10 +
+'' + #13#10 +
+'[fWorkflowEditor]' + #13#10 +
+'fmRunWorkflowEditor.Self.Caption=执行工作流' + #13#10 +
+'fmRunWorkflowEditor.tsGeneral.Caption=通常' + #13#10 +
+'fmRunWorkflowEditor.lbWorkflowDefinition.Caption=工作流定义' + #13#10 +
+'fmRunWorkflowEditor.lbVariableMapping.Caption=变量对应表' + #13#10 +
+'fmRunWorkflowEditor.chWaitExecution.Caption=等待到结束' + #13#10 +
+'fmRunWorkflowEditor.btCancel.Caption=取消' + #13#10 +
+'fmRunWorkflowEditor.btOk.Caption=确认' + #13#10 +
+'' + #13#10 +
+'';
+
+initialization
+  _ResAddStrings(LanguageStr);
+
+end.

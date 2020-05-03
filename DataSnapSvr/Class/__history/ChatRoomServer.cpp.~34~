@@ -1,0 +1,107 @@
+// ---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ChatRoomServer.h"
+#include "MessageManage.h"
+#include "SHConst.h"
+// ---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+// ---------------------------------------------------------------------------
+TUserNotifyThread::TUserNotifyThread(TDSServer *Server, TLoginUserRecord* User,
+	bool WasAdded) {
+	FServer = Server;
+	AccBookID = User->AccBookID;
+	UserID = User->UserID;
+	UserName = User->UserName;
+	CallBackClientID = User->CallBackClientID;
+	FWasAdded = WasAdded;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TUserNotifyThread::Execute() {
+	TJSONObject *Msg;
+	String EventType;
+	FreeOnTerminate = true;
+	if (AccBookID == NULL)
+		return;
+	if (FWasAdded)
+		EventType = "user_login";
+	else
+		EventType = "user_logout";
+
+	// create a JSON object with a message describing the user login/logout event
+	Msg = new TJSONObject();
+	Msg->AddPair(new TJSONPair("notificationType", EventType));
+	Msg->AddPair(new TJSONPair("from", UserID));
+	Msg->AddPair(new TJSONPair("fromusrname", UserName));
+	Msg->AddPair(new TJSONPair("datetime",
+		Now().FormatString("YYYY-mm-DD HH:mm:ss")));
+	Msg->AddPair(new TJSONPair("accbookid", AccBookID));
+	Msg->AddPair(new TJSONPair("callbackclientid", CallBackClientID));
+	try {
+		// give time for the client's callback to be added or removed
+		Sleep(1000);
+		// send a message to all clients that a user either logged in, or logged out
+		bool result = FServer->BroadcastMessage(SMessageChannel + AccBookID,
+			SMsgCallback, Msg);
+	}
+	catch (...) {
+	}
+}
+
+// ---------------------------------------------------------------------------
+TBootUserThread::TBootUserThread(TDSServer *Server, TLoginUserRecord* User) {
+	FServer = Server;
+	FUser = User;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TBootUserThread::Execute() {
+	TDSCallbackTunnel *Tunnel;
+	String OldSecurityToken;
+	String SecurityToken;
+	FreeOnTerminate = true;
+	if ((FServer == NULL) || (FUser->CallBackClientID == EmptyStr))
+		return;
+	Tunnel = FServer->GetCallbackTunnel(FUser->CallBackClientID);
+	if (Tunnel != NULL) {
+		SecurityToken = "ThisCanBeAnything";
+		OldSecurityToken = Tunnel->SecurityToken;
+		// change SecurityToken on the tunnel so the server can kill the callback
+		// and nobody else can do anything with it in the meantime.
+		Tunnel->SecurityToken = SecurityToken;
+		// unregister the callback
+		FServer->UnregisterChannelCallback(FUser->CallBackClientID,
+			SMsgCallback, SecurityToken);
+		// remvoe the user from the user list
+		// RemoveUser(FUserName); ÒÆ³ýÓÃ»§
+	}
+}
+// ---------------------------------------------------------------------------
+TSendMissMessageThread::TSendMissMessageThread(TDSServer *Server, TLoginUserRecord* User, TADOConnection *AccConn)
+ {
+	FServer = Server;
+	FAccConn = AccConn;
+	AccBookID = User->AccBookID;
+	UserID = User->UserID;
+	UserName = User->UserName;
+	CallBackClientID = User->CallBackClientID;
+
+	AccQuery = new TADOQuery(NULL);
+	AccQuery->ParamCheck = false;
+	AccQuery->EnableBCD = false;
+	AccQuery->CommandTimeout = 60;
+	AccQuery->Connection = FAccConn;
+
+	Query = new TADOQuery(NULL);
+	Query->ParamCheck = false;
+	Query->EnableBCD = false;
+	Query->CommandTimeout = 60;
+	Query->Connection = FAccConn;
+}
+void __fastcall  TSendMissMessageThread::Execute()
+{
+  	FreeOnTerminate = true;
+}

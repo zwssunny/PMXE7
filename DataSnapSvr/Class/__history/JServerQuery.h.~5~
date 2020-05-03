@@ -1,0 +1,37 @@
+//---------------------------------------------------------------------------
+
+#ifndef JServerQueryH
+#define JServerQueryH
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TJServerQuery : public TDMBaseServerClass
+{
+	private:
+		int FSysDbType;
+		int FAccDbType;
+		String FUserCode;
+		String FUserIP;
+		String FAcckBook;
+		TADOQuery *m_Query;
+		TADOQuery *b_Query;
+		TADOQuery *LogQuery;
+		TADOConnection *m_Connection;
+		TADOConnection *m_BuildConn;
+		void __fastcall WriteUserLog(int type, String Desc);
+		TJSONObject* __fastcall SendFailMessage(int operate, String errormessage);
+		TJSONObject* __fastcall SendErrorMessage(int errortype, int errorcode, String errormessage);
+	public:
+		__fastcall TJServerQuery(TComponent* Owner);
+		__fastcall ~TJServerQuery();
+	public:
+		TJSONObject* __fastcall QueryOpen(String SQLText);
+		TJSONObject* __fastcall QueryUpdate(TJSONObject *Json);
+		int __fastcall QueryExecSQL(String SQLText);
+
+		// Ö´ÐÐÏµÍ³¿â
+		TJSONObject* __fastcall QuerySysOpen(String SQLText);
+		int __fastcall QuerySysExecSQL(String SQLText);
+};
+#endif

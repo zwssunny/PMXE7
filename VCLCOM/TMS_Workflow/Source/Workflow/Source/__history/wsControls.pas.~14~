@@ -1,0 +1,1551 @@
+unit wsControls;
+
+{$I wsdefs.inc}
+
+interface
+
+uses
+  Windows, Dialogs, Graphics, Messages, Classes, Forms, StdCtrls, Controls, ComCtrls, wsMain, wsClasses,
+  {$IFDEF DELPHI6_LVL}
+  Variants,
+  {$ENDIF}
+  {$WARNINGS OFF}
+  FileCtrl,
+  {$WARNINGS ON}
+  SysUtils,
+  wsDB, wsDiagram;
+
+type
+  TLVWorkflowDefinitions = class(TWorkflowDefinitions)
+  protected
+    procedure Update(Item: TCollectionItem); override;
+  end;
+
+  TWorkflowListView = class(TListView)
+  private
+    FWorkflowStudio: TWorkflowStudio;
+    function GetWorkflowStudio: TWorkflowStudio;
+    procedure SetWorkflowStudio(const Value: TWorkflowStudio); virtual;
+  protected
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+  public
+    property WorkflowStudio: TWorkflowStudio read GetWorkflowStudio write SetWorkflowStudio;
+  end;
+
+  TWorkDefListView = class(TWorkflowListView)
+  private
+    FWorkDefs: TWorkflowDefinitions;
+    procedure UpdateWorkflowItem(AItem: TListItem; AWorkDef: TWorkflowDefinition);
+    function GetSelectedWorkDef: TWorkflowDefinition;
+    procedure SelectItemByKey(AKey: string);
+    procedure UpdateItems;
+    procedure SetWorkflowStudio(const Value: TWorkflowStudio); override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure SelectItemByWorkDef(AWorkDef: TWorkflowDefinition);
+    procedure LoadFromDatabase;
+    function AddWorkDefItem: TListItem;
+    function WorkDefFromItem(AItem: TListItem): TWorkflowDefinition;
+    property SelectedWorkDef: TWorkflowDefinition read GetSelectedWorkDef;
+    property WorkDefs: TWorkflowDefinitions read FWorkDefs;
+  published
+    property WorkflowStudio;
+  end;
+
+  TTaskStatusCombo = class(TComboBox)
+  private
+    FTask: TTaskInstance;
+    procedure SetTask(const Value: TTaskInstance);
+    procedure FillStatusItems;
+    procedure SetStatus(AStatus: string);
+    function GetStatus: string;
+  protected
+   { procedure Change; override;}
+  public
+    constructor Create(AOwner: TComponent); override;
+    property TaskInstance: TTaskInstance read FTask write SetTask;
+    property Status: string read GetStatus write SetStatus;
+  published
+    property Style default csDropDownList;
+  end;
+
+  TTaskListView = class(TWorkflowListView)
+  private
+    FTasks: TTaskInstanceList;
+   // FWorkDefs: TWorkflowDefinitions;
+    FFilterType: TTaskFilterType;
+    FFilterKey: string;
+    FOtherCondition: string;
+    FCompletedState: integer; {0-open,1-completed,2-all}
+    procedure UpdateTaskItem(AItem: TListItem; ATask: TTaskInstance);
+    function GetSelectedTask: TTaskInstance;
+    procedure SelectItemByTask(ATask: TTaskInstance);
+    procedure SelectItemByKey(AKey: string);
+    procedure UpdateColumns;
+    procedure UpdateDefinitionNames;
+    procedure SetWorkflowStudio(const Value: TWorkflowStudio); override;
+  protected
+    procedure Loaded; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    function TaskFromItem(AItem: TListItem): TTaskInstance;
+    procedure UpdateItems;
+    procedure LoadFromDatabase;
+    property SelectedTask: TTaskInstance read GetSelectedTask;
+    property TaskInstances: TTaskInstanceList read FTasks;
+    property FilterType: TTaskFilterType read FFilterType write FFilterType;
+    property FilterKey: string read FFilterKey write FFilterKey;
+    property CompletedState: integer read FCompletedState write FCompletedState;
+    property OtherCondition: string read FOtherCondition write FOtherCondition;
+  published
+    property Columns stored false;
+    property WorkflowStudio;
+  end;
+
+  TLVAttachmentItems = class(TAttachmentItems)
+  protected
+    procedure Update(Item: TCollectionItem); override;
+  end;
+
+  TAttachmentListView = class(TWorkflowListView)
+  private
+    FAttachs: TAttachmentItems;
+    FLargeImages: TImageList;
+    FLargeExts: TStrings;
+    FSmallImages: TImageList;
+    FSmallExts: TStrings;
+    FAllowDropFiles: boolean;
+    procedure UpdateAttachmentItem(AItem: TListItem; AAttach: TAttachmentItem);
+    function GetSelectedAttachment: TAttachmentItem;
+    procedure SetAttachments(const Value: TAttachmentItems);
+    procedure DropMsg(var msg: TWMDropFiles); message WM_DROPFILES;
+
+    procedure SelectItemByAttachment(AAttach: TAttachmentItem);
+    //function AddAttachmentItem: TListItem;
+    function AttachmentFromItem(AItem: TListItem): TAttachmentItem;
+    property SelectedAttachment: TAttachmentItem read GetSelectedAttachment;
+    function ImageIndexByExt(AExt: string): integer;
+    procedure AdjustColumns;
+    procedure SetFAllowDropFiles(const Value: boolean);
+    procedure SetWorkflowStudio(const Value: TWorkflowStudio); override;
+  protected
+    procedure CreateWnd; override;
+    procedure Loaded; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure UpdateItems;
+    function AddFile(AFileName: string): TAttachmentItem;
+    procedure DeleteSelecteds;
+    procedure OpenSelecteds(AllowEdit: boolean);
+    property Attachments: TAttachmentItems read FAttachs write SetAttachments;
+    property AllowDropFiles: boolean read FAllowDropFiles write SetFAllowDropFiles;
+  published
+    property Columns stored false;
+    property WorkflowStudio;
+  end;
+
+  TTaskFieldPanel = class;
+
+  TTaskFieldCustomControl = class
+  private
+    FControl: TWinControl;
+    FPanel: TTaskFieldPanel;
+    FModified: boolean;
+  protected
+    procedure SetReadOnly(AValue: boolean); virtual;
+    function CreateControl(AOwner: TComponent): TWinControl; virtual; abstract;
+    procedure SetValue(AValue: Variant); virtual; abstract;
+    function GetValue: Variant; virtual; abstract;
+    function IsEmpty: boolean; virtual; abstract;
+
+    procedure Change;
+    procedure EditorChange(Sender: TObject);
+    property Panel: TTaskFieldPanel read FPanel;
+  public
+    constructor Create(AOwner: TTaskFieldPanel);
+    destructor Destroy; override;
+    property Control: TWinControl read FControl;
+  end;
+
+  TTaskFieldEdit = class(TTaskFieldCustomControl)
+  protected
+    procedure SetReadOnly(AValue: boolean); override;
+    function CreateControl(AOwner: TComponent): TWinControl; override;
+    procedure SetValue(AValue: Variant); override;
+    function GetValue: Variant; override;
+    function IsEmpty: boolean; override;
+
+    function EditControl: TEdit;
+  end;
+
+  TTaskFieldEditor = class(TCollectionItem)
+  private
+    FLabel: TLabel;
+    FEditor: TTaskFieldCustomControl;
+    FField: TTaskField;
+  public
+    destructor Destroy; override;
+  end;
+
+  TTaskFieldEditors = class(TCollection)
+  private
+    function GetItem(Index: integer): TTaskFieldEditor;
+  public
+    function Add: TTaskFieldEditor;
+    property Items[Index: integer]: TTaskFieldEditor read GetItem; default;
+  end;
+
+  TFieldErrorInfo = record
+    Editor: TTaskFieldEditor;
+    msg: string;
+  end;
+
+  TTaskFieldPanel = class(TScrollBox)
+  private
+    FFields: TTaskFields;
+    FEditors: TTaskFieldEditors;
+    FVertInterspace: integer;
+    FVertMargin: integer;
+    FHorzInterspace: integer;
+    FHorzMargin: integer;
+    FUpdatingVars: integer;
+    FModified: boolean;
+    FErrorInfo: TFieldErrorInfo;
+    FReadOnly: boolean;
+    procedure SetFields(const Value: TTaskFields);
+    procedure UpdateVarControls;
+    procedure CreateControl(AField: TTaskField);
+    procedure DestroyControls;
+    procedure ArrangeControls;
+    procedure ArrangeLabelsVertical;
+    procedure SetReadOnly(const Value: boolean);
+  protected
+    procedure Resize; override;
+    procedure PaintWindow(DC: HDC); override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure LoadDiagramVariables(ADiagram: TCustomWorkflowDiagram);
+    procedure SaveDiagramVariables(ADiagram: TCustomWorkflowDiagram);
+
+    function ValidateValues: boolean;
+    procedure FocusLastError;
+    property ErrorInfo: TFieldErrorInfo read FErrorInfo;
+
+    property Fields: TTaskFields read FFields write SetFields;
+    property HorzMargin: integer read FHorzMargin write FHorzMargin;
+    property VertMargin: integer read FVertMargin write FVertMargin;
+    property HorzInterSpace: integer read FHorzInterspace write FHorzInterspace;
+    property VertInterSpace: integer read FVertInterspace write FVertInterspace;
+    property ReadOnly: boolean read FReadOnly write SetReadOnly;
+  end;
+
+  TTaskLogListView = class(TWorkflowListView)
+  private
+    FFilterType: TLogFilterType;
+    FFilterKey: string;
+    FLogItems: TTaskLogItems;
+    FTasks: TTaskInstanceList;
+    procedure UpdateLogItem(AItem: TListItem; ALogItem: TTaskLogItem);
+    procedure UpdateColumns;
+    function LogOperationText(AOperation: TTaskLogOperation): string;
+  protected
+    procedure Loaded; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure UpdateItems;
+    procedure LoadFromDatabase;
+    property FilterType: TLogFilterType read FFilterType write FFilterType;
+    property FilterKey: string read FFilterKey  write FFilterKey;
+    property TaskInstances: TTaskInstanceList read FTasks ;
+  published
+    property Columns stored false;
+    property WorkflowStudio;
+  end;
+
+implementation
+
+uses
+  wsRes,
+  shellapi, imglist, contnrs;
+
+type
+  TIconType = (itSmall, itLarge);
+
+function GetExtIcon(const FileName: string; AIconType: TIconType): TIcon;
+var
+  FileInfo : SHFILEINFO;
+  IconFlag: word;
+begin
+  if AIconType = itLarge then
+    IconFlag := SHGFI_LARGEICON
+  else
+    IconFlag := SHGFI_SMALLICON;
+    
+  Result := TIcon.Create;
+  {$WARNINGS OFF}
+  SHGetFileInfo(PChar(FileName),
+    FILE_ATTRIBUTE_NORMAL,
+    FileInfo,
+    SizeOf(FileInfo),
+    SHGFI_USEFILEATTRIBUTES or SHGFI_ICON or IconFlag);
+  {$WARNINGS ON}
+  Result.Handle := FileInfo.hIcon;
+end;
+
+{ TWorkDefListView }
+
+function TWorkDefListView.AddWorkDefItem: TListItem;
+var
+  NewWorkDef: TWorkflowDefinition;
+begin
+  FWorkDefs.BeginUpdate;
+  try
+    NewWorkDef := FWorkDefs.Add;
+    NewWorkDef.Name := FWorkDefs.FindNewName;
+  finally
+    FWorkDefs.EndUpdate;
+  end;
+  SelectItemByWorkDef(NewWorkDef);
+  result := Selected;
+end;
+
+constructor TWorkDefListView.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FWorkDefs := TLVWorkflowDefinitions.Create(Self);
+end;
+
+destructor TWorkDefListView.Destroy;
+begin
+  FWorkDefs.Free;
+  inherited;
+end;
+
+function TWorkDefListView.GetSelectedWorkDef: TWorkflowDefinition;
+begin
+  result := nil;
+  if SelCount = 1 then
+    result := WorkDefFromItem(Selected);
+end;
+
+procedure TWorkDefListView.SelectItemByKey(AKey: string);
+var
+  c: integer;
+begin
+  Selected := nil;
+  for c := 0 to Items.Count - 1 do
+    if Assigned(WorkDefFromItem(Items[c])) and
+      (WorkDefFromItem(Items[c]).Key = AKey) then
+    begin
+      Selected := Items[c];
+      break;
+    end;
+end;
+
+procedure TWorkDefListView.SelectItemByWorkDef(AWorkDef: TWorkflowDefinition);
+var
+  c: integer;
+begin
+  Selected := nil;
+  for c := 0 to Items.Count - 1 do
+    if Assigned(WorkDefFromItem(Items[c])) and
+      (WorkDefFromItem(Items[c]) = AWorkDef) then
+    begin
+      Selected := Items[c];
+      break;
+    end;
+end;
+
+procedure TWorkDefListView.UpdateItems;
+var
+  c: integer;
+  AWorkDef: TWorkflowDefinition;
+begin
+  Items.BeginUpdate;
+  try
+    {Save the old selected workflow definition}
+    AWorkDef := SelectedWorkDef;
+
+    {clear and recreate the items}
+    Items.Clear;
+    for c := 0 to FWorkDefs.Count - 1 do
+      UpdateWorkflowItem(Items.Add, FWorkDefs[c]);
+
+    {recover the previously selected workflow definition, if it's the same}
+    SelectItemByWorkDef(AWorkDef);
+  finally
+    Items.EndUpdate;
+  end;
+end;
+
+procedure TWorkDefListView.LoadFromDatabase;
+var
+  AKey: string;
+begin
+  AKey := 'xxx';
+  if SelectedWorkDef <> nil then
+    AKey := SelectedWorkDef.Key;
+  FWorkDefs.BeginUpdate;
+  try
+    WorkflowStudio.WorkflowManager.LoadWorkflowDefinitionList(FWorkDefs);
+  finally
+    FWorkDefs.EndUpdate;
+  end;
+  SelectItemByKey(AKey);
+end;
+
+procedure TWorkDefListView.UpdateWorkflowItem(AItem: TListItem;
+  AWorkDef: TWorkflowDefinition);
+begin
+  AItem.Caption := AWorkDef.Name;
+  {$WARNINGS OFF}
+  AItem.Data := AWorkDef;
+  {$WARNINGS ON}
+end;
+
+function TWorkDefListView.WorkDefFromItem(
+  AItem: TListItem): TWorkflowDefinition;
+begin
+  {$WARNINGS OFF}
+  result := TWorkflowDefinition(AItem.Data);
+  {$WARNINGS ON}
+end;
+
+procedure TWorkDefListView.SetWorkflowStudio(const Value: TWorkflowStudio);
+begin
+  inherited;
+  FWorkDefs.WorkflowStudio := Value;
+end;
+
+{ TLVWorkflowDefinitions }
+
+procedure TLVWorkflowDefinitions.Update(Item: TCollectionItem);
+begin
+  if GetOwner is TWorkDefListView then
+    TWorkDefListView(GetOwner).UpdateItems;
+end;
+
+{ TTaskStatusCombo }
+                     {有问题}
+{*procedure TTaskStatusCombo.Change;   
+begin
+  if FTask <> nil then
+    FTask.Status := GetStatus;
+  inherited;
+end;
+*}
+constructor TTaskStatusCombo.Create(AOwner: TComponent);
+begin
+  inherited;
+  Style := csDropDownList;
+end;
+
+procedure TTaskStatusCombo.FillStatusItems;
+begin
+  Items.Clear;
+  if FTask <> nil then
+    FTask.TaskDef.FillStatusList(Items);
+end;
+
+function TTaskStatusCombo.GetStatus: string;
+begin
+  if ItemIndex >= 0 then
+    result := Items[ItemIndex]
+  else
+    result := '';
+end;
+
+procedure TTaskStatusCombo.SetStatus(AStatus: string);
+begin
+  ItemIndex := Items.IndexOf(AStatus);
+end;
+
+procedure TTaskStatusCombo.SetTask(const Value: TTaskInstance);
+begin
+  FTask := Value;
+  FillStatusItems;
+  if FTask <> nil then
+    SetStatus(FTask.Status)
+  else
+    SetStatus('');
+end;
+
+{ TTaskListView }
+
+constructor TTaskListView.Create(AOwner: TComponent);
+begin
+  inherited;
+//  FWorkDefs := TWorkflowDefinitions.Create(Self);
+  FTasks := TTaskInstanceList.Create(TTaskInstanceItem);
+  FCompletedState := 0;   //0-open,1-completed,2-all
+  ViewStyle := vsReport;
+  HideSelection := false;
+  RowSelect := true;
+end;
+
+destructor TTaskListView.Destroy;
+begin
+//  FWorkDefs.Free;
+  FTasks.Free;
+  inherited;
+end;
+
+procedure TTaskListView.UpdateColumns;
+begin
+  Columns.Clear;
+  With Columns.Add do
+  begin
+    Caption := _str(SColumnKey);
+    Width := 40;
+  end;
+  with Columns.Add do
+  begin
+    Caption := _str(SColumnName);
+    Width := 100;
+  end;
+  with Columns.Add do
+  begin
+    Caption :=  '流程业务'; //_str(SColumnWorkflow);
+    Width := 100;
+  end;
+  with Columns.Add do
+  begin
+    Caption := _str(SColumnSubject);
+    Width := 200;
+  end;
+  with Columns.Add do
+  begin
+    Caption := _str(SColumnStatus);
+    Width := 60;
+  end;
+  with Columns.Add do
+  begin
+    Caption := _str(SColumnUser);
+    Width := 60;
+  end;
+  with Columns.Add do
+  begin
+    Caption := '生成时间';
+    Width := 140;
+  end;
+  with Columns.Add do
+  begin
+    Caption := '操作者';
+    Width := 60;
+  end;
+  with Columns.Add do
+  begin
+    Caption := '结束';
+    Width := 50;
+  end;
+  with Columns.Add do
+  begin
+    Caption := '完成时间';
+    Width := 140;
+  end;
+  with Columns.Add do
+  begin
+    Caption := '过期时间';
+    Width := 140;
+  end;
+end;
+
+function TTaskListView.GetSelectedTask: TTaskInstance;
+begin
+  result := nil;
+  if SelCount = 1 then
+    result := TaskFromItem(Selected);
+end;
+
+procedure TTaskListView.LoadFromDatabase;
+var
+  AKey: string;
+begin
+  UpdateDefinitionNames;
+
+  AKey := 'xxx';
+  if SelectedTask <> nil then
+    AKey := SelectedTask.Key;
+  FTasks.Clear; 
+  WorkflowStudio.TaskManager.LoadTaskInstanceList(FTasks, FFilterType, FFilterKey, FCompletedState,FOtherCondition);
+  UpdateItems;
+  SelectItemByKey(AKey);
+end;
+
+procedure TTaskListView.UpdateDefinitionNames;
+begin
+//  WorkflowStudio.WorkflowManager.LoadWorkflowDefinitionList(FWorkDefs);
+end;
+
+procedure TTaskListView.SelectItemByKey(AKey: string);
+var
+  c: integer;
+begin
+  Selected := nil;
+  for c := 0 to Items.Count - 1 do
+    if (TaskFromItem(Items[c]) <> nil) and
+      (TaskFromItem(Items[c]).Key = AKey) then
+    begin
+      Selected := Items[c];
+      break;
+    end;
+end;
+
+procedure TTaskListView.SelectItemByTask(ATask: TTaskInstance);
+var
+  c: integer;
+begin
+  Selected := nil;
+  for c := 0 to Items.Count - 1 do
+    if (TaskFromItem(Items[c]) <> nil) and
+      (TaskFromItem(Items[c]) = ATask) then
+    begin
+      Selected := Items[c];
+      break;
+    end;
+end;
+
+function TTaskListView.TaskFromItem(AItem: TListItem): TTaskInstance;
+begin
+  {$WARNINGS OFF}
+  result := TTaskInstance(AItem.Data);
+  {$WARNINGS ON}
+end;
+
+procedure TTaskListView.UpdateItems;
+var
+  c: integer;
+  ATask: TTaskInstance;
+begin
+  Items.BeginUpdate;
+  try
+    {Save the old selected task}
+    ATask := SelectedTask;
+
+    {clear and recreate the items}
+    Items.Clear;
+    for c := 0 to FTasks.Count - 1 do
+      UpdateTaskItem(Items.Add, FTasks[c].Task);
+
+    {recover the previously selected workflow definition, if it's the same}
+    SelectItemByTask(ATask);
+  finally
+    Items.EndUpdate;
+  end;
+end;
+
+procedure TTaskListView.UpdateTaskItem(AItem: TListItem;
+  ATask: TTaskInstance);
+var
+  WorkDef: TWorkflowDefinition;
+  AUser: TWorkflowUser;
+  AGroup: TWorkflowGroup;
+  ADepartment: TWorkflowDepartment;
+  AJob: TWorkflowJob;
+begin
+  AItem.Caption := IntToStr(ATask.FlowMnDtlNum);
+  AItem.SubItems.Add(ATask.TaskDef.Name);
+
+ {* WorkDef := FWorkDefs.FindByKey(ATask.DefinitionKey);
+  if WorkDef <> nil then
+    AItem.SubItems.Add(WorkDef.Name)
+  else
+    AItem.SubItems.Add('');   *}
+  AItem.SubItems.Add(ATask.FlowMnDtlRemark);
+  AItem.SubItems.Add(ATask.TaskDef.Subject);
+  AItem.SubItems.Add(ATask.Status);
+
+  {ATask.UserId can be an id for user or group}
+  case ATask.AssignedUserType of
+      autUser:
+        begin
+          AUser := WorkflowStudio.UserManager.Users.FindById(ATask.UserID);
+          if AUser <> nil then
+            AItem.SubItems.Add(AUser.UserName)
+          else
+             AItem.SubItems.Add(ATask.UserId);
+        end;
+      autGroup:
+        begin
+          AGroup := WorkflowStudio.UserManager.Groups.FindById(ATask.UserId);
+          if AGroup <> nil then
+            AItem.Subitems.Add(AGroup.GroupName)
+          else
+            AItem.SubItems.Add(ATask.UserId);
+        end;
+      autJob:
+        begin
+          AJob := WorkflowStudio.UserManager.Jobs.FindByID(ATask.UserId);
+          if AJob <> nil then
+            AItem.Subitems.Add(AJob.JobName)
+          else
+            AItem.SubItems.Add(ATask.UserId);
+         end;
+      autDepartment:
+        begin
+          ADepartment := WorkflowStudio.UserManager.Departments.FindByID(ATask.UserId);
+          if ADepartment <> nil then
+            AItem.Subitems.Add(ADepartment.DepartmentName)
+          else
+            AItem.SubItems.Add(ATask.UserId);
+        end;
+  end;
+  AItem.SubItems.Add(DateTimeToStr(ATask.CreatedOn));
+  {操作者，操作时间}
+  AUser := WorkflowStudio.UserManager.Users.FindById(ATask.FlowMnDtlReceiver);
+  if AUser <> nil then
+     AItem.SubItems.Add(AUser.UserName)
+    else
+     AItem.SubItems.Add(ATask.FlowMnDtlReceiver);
+     {完成时间}
+  if ATask.Completed  then
+  begin
+    AItem.SubItems.Add('是');
+    AItem.SubItems.Add(DateTimeToStr(ATask.FlowMnDtlChkTime));
+  end
+   else
+    begin
+     AItem.SubItems.Add('否');
+     AItem.SubItems.Add('');
+    end;
+    {过期时间}
+    if ATask.FlowMnDtlLimitTime>0 then
+         AItem.SubItems.Add(DateTimeToStr(ATask.FlowMnDtlLimitTime));
+  {$WARNINGS OFF}
+  AItem.Data := ATask;
+  {$WARNINGS ON}
+end;
+
+procedure TTaskListView.Loaded;
+begin
+  inherited;
+  UpdateColumns;
+end;
+
+procedure TTaskListView.SetWorkflowStudio(const Value: TWorkflowStudio);
+begin
+  inherited;
+  //FWorkDefs.WorkflowStudio := Value;
+end;
+
+{ TLVAttachmentItems }
+
+procedure TLVAttachmentItems.Update(Item: TCollectionItem);
+begin
+  if GetOwner is TAttachmentListView then
+    TAttachmentListView(GetOwner).UpdateItems;
+end;
+
+{ TAttachmentListView }
+
+(*function TAttachmentListView.AddAttachmentItem: TListItem;
+var
+  NewAttachment: TAttachmentItem;
+begin
+  FAttachs.BeginUpdate;
+  try
+    NewAttachment := FAttachs.Add;
+    //NewAttachment.Name := FWorkDefs.FindNewName;
+  finally
+    FAttachs.EndUpdate;
+  end;
+  SelectItemByAttachment(NewAttachment);
+  result := Selected;
+end;*)
+
+function TAttachmentListView.AttachmentFromItem(
+  AItem: TListItem): TAttachmentItem;
+begin
+  {$WARNINGS OFF}
+  result := TAttachmentItem(AItem.Data);
+  {$WARNINGS ON}
+end;
+
+constructor TAttachmentListView.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FLargeExts := TStringList.Create;
+  FLargeImages := TImageList.Create(Self);
+  FLargeImages.Width := 32;
+  FLargeImages.Height := 32;
+  LargeImages := FLargeImages;
+  FSmallExts := TStringList.Create;
+  FSmallImages := TImageList.Create(Self);
+  FSmallImages.Width := 16;
+  FSmallImages.Height := 16;
+  SmallImages := FSmallImages;
+  FAttachs := TLVAttachmentItems.Create(Self);
+  MultiSelect := true;
+end;
+
+procedure TAttachmentListView.CreateWnd;
+begin
+  inherited;
+  DragAcceptFiles(Handle, FAllowDropFiles);
+end;
+
+destructor TAttachmentListView.Destroy;
+begin
+  FLargeExts.Free;
+  FLargeImages.Free;
+  FSmallExts.Free;
+  FSmallImages.Free;
+  FAttachs.Free;
+  inherited;
+end;
+
+procedure TAttachmentListView.DropMsg(var msg: TWMDropFiles);
+const
+  Max_Buf = 255;
+var
+  FileCount: integer;
+  i: integer;
+  FileBuffer: array[0..Max_Buf] of char;
+  FileName : string;
+begin
+  FileCount := DragQueryFile(Msg.Drop, $FFFFFFFF, nil, 0);
+
+  for i := 0 to FileCount - 1 do
+  begin
+    //FileName := copy(Files, 0, DragQueryFile(Msg.Drop, i, Files, 255));
+    DragQueryFile(msg.Drop, i, FileBuffer, Max_Buf);
+    FileName := FileBuffer;
+    AddFile(FileName);
+    //  Do something
+  end;
+
+  msg.Result:=0;
+  DragFinish(msg.Drop);
+end;
+
+function TAttachmentListView.AddFile(AFileName: string): TAttachmentItem;
+begin
+  result := nil;
+  if FileExists(AFileName) and (FAttachs <> nil) then
+  begin
+    FAttachs.BeginUpdate;
+    try
+      result := FAttachs.AddFile(AFileName);
+    finally
+      FAttachs.EndUpdate;
+    end;
+    SelectItemByAttachment(result);
+  end;
+end;
+
+function TAttachmentListView.GetSelectedAttachment: TAttachmentItem;
+begin
+  result := nil;
+  if SelCount = 1 then
+    result := AttachmentFromItem(Selected);
+end;
+
+procedure TAttachmentListView.SelectItemByAttachment(
+  AAttach: TAttachmentItem);
+var
+  c: integer;
+begin
+  Selected := nil;
+  for c := 0 to Items.Count - 1 do
+    if Assigned(AttachmentFromItem(Items[c])) and
+      (AttachmentFromItem(Items[c]) = AAttach) then
+    begin
+      Selected := Items[c];
+      break;
+    end;
+end;
+
+procedure TAttachmentListView.SetAttachments(
+  const Value: TAttachmentItems);
+begin
+  FAttachs.Assign(Value);
+end;
+
+procedure TAttachmentListView.UpdateAttachmentItem(AItem: TListItem;
+  AAttach: TAttachmentItem);
+begin
+  AItem.Caption := AAttach.Name;
+  {$WARNINGS OFF}
+  AItem.Data := AAttach;
+  {$WARNINGS ON}
+  AItem.ImageIndex := ImageIndexByExt(AAttach.Extension);
+end;
+
+function TAttachmentListView.ImageIndexByExt(AExt: string): integer;
+var
+  i: integer;
+  AImageList: TCustomImageList;
+  AImageExts: TStrings;
+  AIconType: TIconType;
+  AIcon: TIcon;
+begin
+  result := -1;
+  Case ViewStyle of
+    vsIcon:
+      begin
+        AImageList := LargeImages;
+        AImageExts := FLargeExts;
+        AIconType := itLarge;
+      end;
+    vsSmallIcon, vsList, vsReport:
+      begin
+        AImageList := SmallImages;
+        AImageExts := FSmallExts;
+        AIconType := itSmall;
+      end;
+  else
+    Exit;
+  end;
+
+  if not Assigned(AImageList) or not Assigned(AImageExts) then
+    Exit;
+
+  i := AImageExts.IndexOf(AExt);
+  {if it doesn't exist in the list, then add it}
+  if i = -1 then
+  begin
+    AIcon := GetExtIcon(AExt, AIconType);
+
+    (*{set image size if it's the first image}
+    if AImageList.Count = 0 then
+    begin
+      AImageList.Width := AIcon.Width;
+      AImageList.Height := AIcon.Height;
+    end;*)
+
+    result := AImageList.AddIcon(AIcon);
+    AIcon.Free;
+  end else
+  begin
+    {$WARNINGS OFF}
+    result := integer(AImageExts.Objects[i]);
+    {$WARNINGS ON}
+  end;
+end;
+
+procedure TAttachmentListView.UpdateItems;
+var
+  c: integer;
+  AAttach: TAttachmentItem;
+begin
+  if FAttachs <> nil then
+  begin
+    Items.BeginUpdate;
+    try
+      {Save the old selected attachment item}
+      AAttach := SelectedAttachment;
+
+      {clear and recreate the items}
+      Items.Clear;
+      for c := 0 to FAttachs.Count - 1 do
+        UpdateAttachmentItem(Items.Add, FAttachs[c]);
+
+      {recover the previously selected attachment item, if it's the same}
+      SelectItemByAttachment(AAttach);
+    finally
+      Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure TAttachmentListView.DeleteSelecteds;
+var
+  c: integer;
+  AList: TObjectList;
+begin
+  FAttachs.BeginUpdate;
+  AList := TObjectList.Create(false);
+  try
+    for c := 0 to Items.Count - 1 do
+      if Items[c].Selected then
+        AList.Add(AttachmentFromItem(Items[c]));
+
+    for c := 0 to AList.Count - 1 do
+      AList.Items[c].Free;
+      //TAttachmentItem(AList[c]).Free;
+  finally
+    AList.Free;
+    FAttachs.EndUpdate;
+  end;
+end;
+
+procedure TAttachmentListView.Loaded;
+begin
+  inherited Loaded;
+  LargeImages := FLargeImages;
+  SmallImages := FSmallImages;
+  AdjustColumns;
+end;
+
+procedure TAttachmentListView.AdjustColumns;
+begin
+  Columns.Clear;
+  with Columns.Add do
+  begin
+    Caption := _str(SFileName);
+    Width := 150;
+    AutoSize := true;
+  end;
+end;
+
+procedure TAttachmentListView.OpenSelecteds(AllowEdit: boolean);
+var
+  c: integer;
+  TempPath: string;
+  Buffer: string;
+  Temp: string;
+begin
+  SetLength(Buffer, MAX_PATH);
+  SetLength(Temp, MAX_PATH);
+  SetLength(Buffer, GetTempPath(MAX_PATH, PChar(Buffer)));
+  GetTempFileName(PChar(Buffer), 'ws', 0, PChar(Temp));
+  SetLength(Temp, StrLen(PChar(Temp)));
+  TempPath := ChangeFileExt(Temp, '');
+  if ForceDirectories(TempPath) then
+  begin
+    for c := 0 to Items.Count - 1 do
+      if Items[c].Selected then
+        AttachmentFromItem(Items[c]).Open(AllowEdit, TempPath);
+  end;
+end;
+
+procedure TAttachmentListView.SetFAllowDropFiles(const Value: boolean);
+begin
+  FAllowDropFiles := Value;
+  if Handle <> 0 then
+    DragAcceptFiles(Handle, FAllowDropFiles);
+end;
+
+{ TTaskFieldPanel }
+
+constructor TTaskFieldPanel.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FFields := TTaskFields.Create(nil, TTaskField);
+  FEditors := TTaskFieldEditors.Create(TTaskFieldEditor);
+  FHorzMargin := 5;
+  FVertMargin := 5;
+  FHorzInterSpace := 5;
+  FVertInterSpace := 5;
+end;
+
+destructor TTaskFieldPanel.Destroy;
+begin
+  FEditors.Free;
+  FFields.Free;
+  inherited;
+end;
+
+procedure TTaskFieldPanel.SetFields(const Value: TTaskFields);
+begin
+  FFields.Assign(Value);
+  UpdateVarControls;
+end;
+
+procedure TTaskFieldPanel.UpdateVarControls;
+var
+  c: integer;
+begin
+  inc(FUpdatingVars);
+  try
+    DestroyControls;
+    for c := 0 to FFields.Count - 1 do
+    begin
+      CreateControl(FFields[c]);
+    end;
+    ArrangeControls;
+  finally
+    dec(FUpdatingVars);
+    FModified := false;
+  end;
+end;
+
+procedure TTaskFieldPanel.ArrangeControls;
+begin
+  ArrangeLabelsVertical;
+end;
+
+procedure TTaskFieldPanel.DestroyControls;
+begin
+  FEditors.Clear;
+end;
+
+procedure TTaskFieldPanel.CreateControl(AField: TTaskField);
+var
+  NewEditor: TTaskFieldEditor;
+begin
+  NewEditor := FEditors.Add;
+  With NewEditor do
+  begin
+    FField := AField;
+
+    FLabel := TLabel.Create(Self);
+    FEditor := TTaskFieldEdit.Create(Self);
+    FEditor.FControl := FEditor.CreateControl(Self);
+    FLabel.Parent := Self;
+    FEditor.FControl.Parent := Self;
+    FLabel.FocusControl := FEditor.Control;
+    FLabel.Caption := AField.Caption;
+    if AField.Required then
+      FLabel.Caption := FLabel.Caption + ' (*)';
+    FEditor.SetReadOnly(FField.ReadOnly or Self.ReadOnly);
+    FEditor.SetValue(Null);
+  end;
+end;
+
+procedure TTaskFieldPanel.ArrangeLabelsVertical;
+Var
+  MaxLabelWidth, MaxControlWidth: integer;
+  c, x, y: integer;
+  CurLab: TLabel;
+  CurCtrl: TWinControl;
+
+  function GetLabelTop(Lab: TLabel; OffY: integer): integer;
+  begin
+    if Assigned(Lab.FocusControl) and (Lab.FocusControl.Height > Lab.Height) then
+      result := Offy + (Lab.FocusControl.Height div 2) - (Lab.Height div 2)
+    else
+      result := OffY;
+  end;
+
+  function GetControlTop(Lab: TLabel;OffY: integer): integer;
+  begin
+    if Assigned(Lab.FocusControl) and (Lab.FocusControl.Height < Lab.Height) then
+      result := Offy + (Lab.Height div 2) - (Lab.FocusControl.Height div 2)
+    else
+      result := OffY;
+  end;
+
+  function GetLineHeight(Lab: TLabel): integer;
+  begin
+    result := Lab.Height;
+    if Assigned(Lab.FocusControl) and (Lab.FocusControl.Height > result) then
+      result := Lab.FocusControl.Height;
+  end;
+
+begin
+  MaxLabelWidth := 0;
+  MaxControlWidth := 0;
+
+  {Get max width of labels and controls, and set tab order}
+  for c := 0 to FEditors.Count - 1 do With FEditors[c] do
+  begin
+     if Assigned(FEditor.FControl) then FEditor.FControl.TabOrder := c;
+     if FLabel.Canvas.TextWidth(FLabel.Caption) > MaxLabelWidth then MaxLabelWidth := FLabel.Canvas.TextWidth(FLabel.Caption);
+     if FLabel.Width > MaxControlWidth then MaxControlWidth := FLabel.Width;
+  end;
+
+  x := MaxLabelWidth + FHorzMargin + FHorzInterSpace;
+  y := FVertMargin;
+  for c := 0 to FEditors.Count - 1 do
+  begin
+     CurLab := FEditors[c].FLabel;
+     CurLab.Top := GetLabelTop(CurLab, y);
+     Case CurLab.Alignment of
+       taLeftJustify:  CurLab.Left := FHorzMargin;
+       taRightJustify: CurLab.Left := x - FHorzInterSpace - CurLab.Width;
+       taCenter: CurLab.Left := FHorzMargin + ((x - FHorzMargin - FHorzInterspace) div 2) - (CurLab.Width div 2);
+     end;
+     CurCtrl := FEditors[c].FEditor.FControl;
+     CurCtrl.Top := GetControlTop(CurLab, y);
+     CurCtrl.Left := x;
+     CurCtrl.Width := CurLab.Width;
+     if CurCtrl.Left + Width> Self.Width - FHorzMargin then
+       CurCtrl.Width := Self.ClientWidth - FHorzMargin - CurCtrl.Left;
+     y := y + GetLineHeight(CurLab) + FVertInterSpace;
+  end;
+end;
+
+procedure TTaskFieldPanel.Resize;
+begin
+  inherited;
+  if not (csDestroying in ComponentState) then
+    ArrangeControls;
+end;
+
+procedure TTaskFieldPanel.LoadDiagramVariables(ADiagram: TCustomWorkflowDiagram);
+var
+  c: integer;
+  WorkflowVar: TWorkflowVariable;
+begin
+  for c := 0 to FEditors.Count - 1 do
+    if FEditors[c].FField <> nil then
+    begin
+      WorkflowVar := ADiagram.Variables.FindByName(FEditors[c].FField.WorkflowVarName);
+      if WorkflowVar <> nil then
+        FEditors[c].FEditor.SetValue(WorkflowVar.Value);
+    end;
+end;
+
+procedure TTaskFieldPanel.SaveDiagramVariables(ADiagram: TCustomWorkflowDiagram);
+var
+  c: integer;
+  WorkflowVar: TWorkflowVariable;
+begin
+  for c := 0 to FEditors.Count - 1 do
+    if FEditors[c].FEditor.FModified and (FEditors[c].FField <> nil) then
+    begin
+      WorkflowVar := ADiagram.Variables.FindByName(FEditors[c].FField.WorkflowVarName);
+      if WorkflowVar <> nil then
+        WorkflowVar.Value := FEditors[c].FEditor.GetValue;
+    end;
+end;
+
+function TTaskFieldPanel.ValidateValues: boolean;
+var
+  c: integer;
+begin
+  result := true;
+  for c := 0 to FEditors.Count - 1 do
+    if FEditors[c].FField <> nil then
+    begin
+      {check required}
+      if FEditors[c].FField.Required and FEditors[c].FEditor.IsEmpty then
+      begin
+        FErrorInfo.Editor := FEditors[c];
+        FErrorInfo.Msg := Format(_str(SWarningFieldValueRequired), [FEditors[c].FField.Caption]);
+        result := false;
+        exit;
+      end;
+    end;
+end;
+
+procedure TTaskFieldPanel.FocusLastError;
+begin
+  if (ErrorInfo.Editor <> nil) and (ErrorInfo.Editor.FEditor <> nil) and
+    (ErrorInfo.Editor.FEditor.FControl <> nil) and ErrorInfo.Editor.FEditor.FControl.CanFocus then
+    ErrorInfo.Editor.FEditor.FControl.SetFocus;
+end;
+
+procedure TTaskFieldPanel.SetReadOnly(const Value: boolean);
+var
+  c: integer;
+begin
+  if FReadOnly <> Value then
+  begin
+    FReadOnly := Value;
+    {Update readonly}
+    for c := 0 to FEditors.Count - 1 do
+      FEditors[c].FEditor.SetReadOnly(FReadOnly or FEditors[c].FField.ReadOnly);
+  end;
+end;
+
+procedure TTaskFieldPanel.PaintWindow(DC: HDC);
+begin
+  // workaround for Delphi 7 paint bug when using XP manifest
+  if DC <> 0 then
+    exit
+  else
+    inherited;
+end;
+
+{ TTaskFieldEditors }
+
+function TTaskFieldEditors.Add: TTaskFieldEditor;
+begin
+  result := TTaskFieldEditor(inherited Add);
+end;
+
+function TTaskFieldEditors.GetItem(Index: integer): TTaskFieldEditor;
+begin
+  result := TTaskFieldEditor(inherited Items[Index]);
+end;
+
+{ TTaskFieldCustomControl }
+
+procedure TTaskFieldCustomControl.Change;
+begin
+  if (FPanel <> nil) and (FPanel.FUpdatingVars = 0) then
+  begin
+    FModified := true;
+  end;
+end;
+
+constructor TTaskFieldCustomControl.Create(AOwner: TTaskFieldPanel);
+begin
+  FPanel := AOwner;
+end;
+
+destructor TTaskFieldCustomControl.Destroy;
+begin
+  if FControl <> nil then
+  begin
+    FControl.Free;
+    FControl := nil;
+  end;
+  inherited;
+end;
+
+procedure TTaskFieldCustomControl.EditorChange(Sender: TObject);
+begin
+  Change;
+end;
+
+procedure TTaskFieldCustomControl.SetReadOnly(AValue: boolean);
+begin
+  if FControl <> nil then
+    FControl.Enabled := AValue;
+end;
+
+{ TTaskFieldEdit }
+
+function TTaskFieldEdit.CreateControl(AOwner: TComponent): TWinControl;
+var
+  AEdit: TEdit;
+begin
+  AEdit := TEdit.Create(AOwner);
+  AEdit.OnChange := EditorChange;
+  result := AEdit;
+end;
+
+function TTaskFieldEdit.EditControl: TEdit;
+begin
+  result := TEdit(Control);
+end;
+
+function TTaskFieldEdit.GetValue: Variant;
+begin
+  result := EditControl.Text;
+end;
+
+function TTaskFieldEdit.IsEmpty: boolean;
+begin
+  result := Trim(EditControl.Text) = '';
+end;
+
+procedure TTaskFieldEdit.SetReadOnly(AValue: boolean);
+begin
+  EditControl.ReadOnly := AValue;
+  EditControl.Enabled := not AValue;
+end;
+
+procedure TTaskFieldEdit.SetValue(AValue: Variant);
+begin
+  EditControl.Text := VarToStr(AValue);
+end;
+
+{ TTaskFieldEditor }
+
+destructor TTaskFieldEditor.Destroy;
+begin
+  if FLabel <> nil then
+  begin
+    FLabel.Free;
+    FLabel := nil;
+  end;
+
+  if FEditor <> nil then
+  begin
+    FEditor.Free;
+    FEditor := nil;
+  end;
+
+  inherited;
+end;
+
+{ TTaskLogListView }
+
+constructor TTaskLogListView.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FLogItems := TTaskLogItems.Create(nil, TTaskLogItem);
+  ViewStyle := vsReport;
+  HideSelection := false;
+  FTasks := TTaskInstanceList.Create(TTaskInstanceItem);
+  RowSelect := true;
+  UpdateColumns;
+end;
+
+destructor TTaskLogListView.Destroy;
+begin
+  FLogItems.Clear;
+  FLogItems.Free;
+  inherited;
+end;
+
+procedure TTaskLogListView.Loaded;
+begin
+  inherited;
+  UpdateColumns;
+end;
+
+procedure TTaskLogListView.LoadFromDatabase;
+var
+  //AKey: string;
+  ATaskInsItem: TTaskInstanceItem;
+begin
+  {AKey := 'xxx';
+  if SelectedTask <> nil then
+    AKey := SelectedTask.Key;}
+  FTasks.Clear;
+  if FFilterType=lfWorkIns then
+    WorkflowStudio.WorkflowDB.TaskInstanceLoadList(FTasks,tfWorkIns,FFilterKey,2,WorkflowStudio,'')
+  else if FFilterKey<>'' then
+   begin
+    ATaskInsItem := TTaskInstanceItem.Create(FTasks);
+    ATaskInsItem.Task.Key := FFilterKey;
+    WorkflowStudio.WorkflowDB.TaskInstanceLoad(ATaskInsItem.Task);
+   end;
+  FLogItems.Clear;
+  WorkflowStudio.WorkflowDB.TaskLogLoadList(FLogItems,FFilterType, FFilterKey);
+  UpdateItems;
+  //SelectItemByKey(AKey);
+end;
+
+procedure TTaskLogListView.UpdateColumns;
+begin
+  Columns.Clear;
+  With Columns.Add do
+  begin
+    Caption := '序号';
+    Width := 50;
+  end;
+  With Columns.Add do
+  begin
+    Caption := '任务名称';
+    Width := 100;
+  end;
+  With Columns.Add do
+  begin
+    Caption := _str(SLogColOperation);
+    Width := 100;
+  end;
+  With Columns.Add do
+  begin
+    Caption := _str(SLogColDate);
+    Width := 90;
+  end;
+  With Columns.Add do
+  begin
+    Caption := _str(SLogColTime);
+    Width := 70;
+  end;
+  With Columns.Add do
+  begin        
+    Caption := _str(SLogColUserId);
+    Width := 100;
+  end;
+  With Columns.Add do
+  begin
+    Caption := _str(SLogColInfo);
+    Width := 200;
+  end;
+end;
+
+procedure TTaskLogListView.UpdateItems;
+var
+  c: integer;
+begin
+  Items.BeginUpdate;
+  try
+    {Save the old selected log item}
+    //ATask := SelectedTask;
+
+    {clear and recreate the items}
+    Items.Clear;
+    for c := 0 to FLogItems.Count - 1 do
+      UpdateLogItem(Items.Add, FLogItems[c]);
+
+    {recover the previously selected log item, if it's the same}
+    //SelectItemByTask(ATask);
+  finally
+    Items.EndUpdate;
+  end;
+end;
+
+function TTaskLogListView.LogOperationText(AOperation: TTaskLogOperation): string;
+begin
+  Case AOperation of
+    tlCreate:
+      result := _str(STaskLogCreate);
+    tlStatusChange:
+      result := _str(STaskLogStatusChange);
+    tlUpdate:
+      result := _str(STaskLogUpdate); 
+    tlInfo:
+      result := _str(STaskLogInfo);
+  else
+    result := '';
+  end;
+end;
+
+procedure TTaskLogListView.UpdateLogItem(AItem: TListItem;
+  ALogItem: TTaskLogItem);
+var
+  AUser: TWorkflowUser;
+  AInfo: string;
+  ATaskInsItem: TTaskInstanceItem;
+begin
+  AItem.Caption := IntToStr(ALogItem.IndexID);
+  ATaskInsItem := nil;
+  if FTasks <> nil then
+     ATaskInsItem :=FTasks.FindByKey(ALogItem.TaskInsKey);
+  if ATaskInsItem <> nil then
+    AItem.SubItems.Add(ATaskInsItem.Task.TaskDef.Subject) {任务名称}
+  else
+    AItem.SubItems.Add(ALogItem.TaskInsKey); {任务名称}
+  AItem.SubItems.Add(LogOperationText(ALogItem.Operation));
+  AItem.SubItems.Add(DateToStr(ALogItem.EventDate));
+  AItem.SubItems.Add(TimeToStr(ALogItem.EventDate));
+
+  AUser := WorkflowStudio.UserManager.Users.FindById(ALogItem.UserID);
+  if AUser <> nil then
+    AItem.SubItems.Add(AUser.UserName)
+  else
+    AItem.SubItems.Add(ALogItem.UserId);
+
+  case ALogItem.Operation of
+    tlStatusChange:
+      AInfo := Format(_str(SStatusChangeInfo), [ALogItem.Info, ALogItem.Info2]);
+    tlInfo:
+      AInfo := ALogItem.Info;
+  else
+    AInfo := '';
+  end;
+  AItem.SubItems.Add(AInfo);
+
+  {$WARNINGS OFF}
+  AItem.Data := ALogItem;
+  {$WARNINGS ON}
+end;
+
+{ TWorkflowListView }
+
+function TWorkflowListView.GetWorkflowStudio: TWorkflowStudio;
+begin
+  if not ((csDesigning in ComponentState) or (csWriting in ComponentState)) and (FWorkflowStudio = nil) then
+    raise EWorkflowException.CreateFmt('WorkflowStudio property not specified in %s object.', [ClassName])
+  else
+    result := FWorkflowStudio;
+end;
+
+procedure TWorkflowListView.Notification(AComponent: TComponent; Operation: TOperation);
+begin
+  inherited;
+  if (Operation = opRemove) and (AComponent = FWorkflowStudio) then
+    FWorkflowStudio := nil;
+end;
+
+procedure TWorkflowListView.SetWorkflowStudio(const Value: TWorkflowStudio);
+begin
+  if FWorkflowStudio <> Value then
+  begin
+    FWorkflowStudio := Value;
+    if Value <> nil then
+      Value.FreeNotification(Self);
+  end;
+end;
+
+procedure TAttachmentListView.SetWorkflowStudio(const Value: TWorkflowStudio);
+begin
+  inherited;
+  FAttachs.WorkflowStudio := Value;
+end;
+
+end.
+

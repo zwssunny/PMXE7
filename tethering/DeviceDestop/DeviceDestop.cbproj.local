@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.174,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.897,=E:\PMXE6\tethering\DeviceDestop\LocateQueueProc.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.277,E:\PMXE6\tethering\DeviceDestop\DeviceDestop.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.142,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.986,E:\PMXE6\tethering\DeviceDestop\frmDBMain.cpp=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.230,E:\PMXE6\tethering\DeviceDestop\DecicePCH.h=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.986,E:\PMXE6\tethering\DeviceDestop\frmDBMain.h=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.986,E:\PMXE6\tethering\DeviceDestop\frmDBMain.dfm=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.433,E:\PMXE6\tethering\DeviceDestop\DBMain.dfm=E:\PMXE6\tethering\DeviceDestop\frmDBMain.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.433,E:\PMXE6\tethering\DeviceDestop\DBMain.h=E:\PMXE6\tethering\DeviceDestop\frmDBMain.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.433,E:\PMXE6\tethering\DeviceDestop\DBMain.cpp=E:\PMXE6\tethering\DeviceDestop\frmDBMain.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

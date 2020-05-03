@@ -1,0 +1,101 @@
+inherited frmWorkFlowBrowseForm: TfrmWorkFlowBrowseForm
+  Caption = ''
+  DesignerMasterStyle = 3
+  inherited StyleBook1: TStyleBook
+    Top = 256
+  end
+  inherited MainVertScrollBox: TVertScrollBox
+    inherited MainPanel: TPanel
+      inherited ToolBarTop: TToolBar
+        object BtnSearch: TButton
+          Align = Right
+          Position.X = 312.000000000000000000
+          Size.Width = 48.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'searchtoolbutton'
+          TabOrder = 0
+          Text = '<<'
+        end
+        object BtnShowInfo: TButton
+          Align = Right
+          Position.X = 264.000000000000000000
+          Size.Width = 48.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'infotoolbutton'
+          TabOrder = 1
+          OnClick = BtnShowInfoClick
+        end
+      end
+      inherited ClientVertScrollBox: TVertScrollBox
+        object ContentPanel: TPanel
+          Align = Client
+          Size.Width = 360.000000000000000000
+          Size.Height = 544.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object BrowseGrid: TStringGrid
+            Align = Client
+            Size.Width = 360.000000000000000000
+            Size.Height = 544.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            Options = [ColumnResize, ColumnMove, ColLines, RowLines, RowSelect, Tabs, Header, HeaderClick]
+            RowCount = 0
+            RowHeight = 35.000000000000000000
+          end
+          object QueryView: TMultiView
+            MasterButton = BtnSearch
+            Mode = Popover
+            SplitViewOptions.Placement = Right
+            Size.Width = 250.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Visible = False
+            TabOrder = 0
+            object cbStatusFilter: TComboBox
+              Position.X = 80.000000000000000000
+              Position.Y = 19.000000000000000000
+              Size.Width = 153.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+            end
+            object Label1: TLabel
+              Position.X = 8.000000000000000000
+              Position.Y = 24.000000000000000000
+              Size.Width = 81.000000000000000000
+              Size.Height = 23.000000000000000000
+              Size.PlatformDefault = False
+              Text = #19994#21153#29366#24577#65306
+            end
+            object btnQuery: TButton
+              Position.X = 88.000000000000000000
+              Position.Y = 120.000000000000000000
+              Size.Width = 48.000000000000000000
+              Size.Height = 48.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = 'searchtoolbutton'
+              TabOrder = 2
+              Text = #26597#35810
+              OnClick = btnQueryClick
+            end
+          end
+        end
+      end
+    end
+  end
+  object Query: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 56
+    Top = 137
+  end
+  object BusinessDataSet: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 288
+    Top = 257
+  end
+end

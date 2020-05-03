@@ -1,0 +1,53 @@
+//---------------------------------------------------------------------------
+
+#include <fmx.h>
+#pragma hdrstop
+
+#include "Login.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.fmx"
+TfrmLogin *frmLogin;
+//---------------------------------------------------------------------------
+__fastcall TfrmLogin::TfrmLogin(TComponent* Owner)
+	: TForm(Owner)
+{
+
+}
+//---------------------------------------------------------------------------
+String __fastcall TfrmLogin::get_LogonCode()
+{
+   return edUserLoginCode->Text;
+}
+//---------------------------------------------------------------------------
+String __fastcall TfrmLogin::get_Password()
+{
+   return edPassword->Text;
+}
+//---------------------------------------------------------------------------
+String __fastcall TfrmLogin::get_AccBook()
+{
+  return CombAccBook->Selected->Text;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfrmLogin::btOkClick(TObject *Sender)
+{
+  if(edUserLoginCode->Text.Trim()=="")
+  {
+	edUserLoginCode->Text="";
+	ShowMessage("ÇëÊäÈëµÇÂ¼ÓÃ»§Ãû.");
+	edUserLoginCode->SetFocus();
+	return;
+  }
+  if(CombAccBook->ItemIndex==-1)
+  {
+	ShowMessage("ÇëÑ¡ÔñµÇÂ¼ÕËÌ×ºÅ.");
+	CombAccBook->SetFocus();
+    return;
+  }
+  ModalResult=mrOk;
+}
+//---------------------------------------------------------------------------
+
+
+

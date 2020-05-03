@@ -1,0 +1,23 @@
+//---------------------------------------------------------------------------
+
+#ifndef MainFormH
+#define MainFormH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <VCL.Controls.hpp>
+#include <VCL.StdCtrls.hpp>
+#include <VCL.Forms.hpp>
+#include <IPPeerServer.hpp>
+//---------------------------------------------------------------------------
+class TfrmMainForm : public TForm
+{
+__published:	// IDE-managed Components
+private:	// User declarations
+public:		// User declarations
+	__fastcall TfrmMainForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TfrmMainForm *frmMainForm;
+//---------------------------------------------------------------------------
+#endif
+

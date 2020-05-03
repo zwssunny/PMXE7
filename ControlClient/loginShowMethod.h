@@ -1,0 +1,25 @@
+//---------------------------------------------------------------------------
+
+#ifndef loginShowMethodH
+#define loginShowMethodH
+#include "main.h"
+#include "Login.h"
+//---------------------------------------------------------------------------
+class TLoginMethodReference : public TCppInterfacedObject<TProc__1<TModalResult> > {
+public:
+  TLoginForm *dlg;
+  TfrmMain *OwerForm;
+
+  void __fastcall Invoke(TModalResult ModalResult) {
+	if (ModalResult == mrOk)
+	{
+	   OwerForm->UserCode=dlg->LogonCode;
+	   OwerForm->Password=dlg->Password;
+	   OwerForm->Remember=dlg->Remember;
+	   OwerForm->AutoLogin=dlg->AutoLogin;
+	   OwerForm->InitClientComm();
+       OwerForm->SaveSetting();
+	}
+  }
+};
+#endif

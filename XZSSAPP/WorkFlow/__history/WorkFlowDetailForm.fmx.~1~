@@ -1,0 +1,30 @@
+inherited frmWorkFlowDetailForm: TfrmWorkFlowDetailForm
+  Caption = 'frmBaseBillForm1'
+  DesignerMasterStyle = 3
+  inherited MainPanel: TPanel
+    inherited ToolBarBottom: TToolBar
+      object BtnCommit: TButton
+        Align = Right
+        Position.X = 214.000000000000000000
+        Size.Width = 73.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'toolbuttonleft'
+        TabOrder = 3
+        Text = #25552#20132
+        OnClick = BtnCommitClick
+      end
+      object BtnNotPass: TButton
+        Align = Right
+        Position.X = 287.000000000000000000
+        Size.Width = 73.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        StyleLookup = 'toolbuttonright'
+        TabOrder = 2
+        Text = #19981#36890#36807
+        OnClick = BtnNotPassClick
+      end
+    end
+  end
+end

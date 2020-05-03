@@ -1,0 +1,147 @@
+inherited HouseViewForm: THouseViewForm
+  Caption = #25143#22411#22270
+  DesignerMasterStyle = 3
+  inherited ItemVertScrollBox: TVertScrollBox
+    inherited EditLayout: TLayout
+      object FilterExpander: TExpander
+        Align = Top
+        ShowCheck = False
+        Size.Width = 50.000000000000000000
+        Size.Height = 137.000000000000000000
+        Size.PlatformDefault = False
+        Text = #36807#28388#22120
+        TabOrder = 1
+        ContentSize = '112'
+        object cbHsgFKID_Bdg: TComboBox
+          DisableFocusEffect = False
+          Position.X = 104.000000000000000000
+          Position.Y = 34.000000000000000000
+          Size.Width = 209.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+        end
+        object cbHsgFKID_Est: TComboBox
+          DisableFocusEffect = False
+          Position.X = 104.000000000000000000
+          Size.Width = 209.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          OnClosePopup = cbHsgFKID_EstClosePopup
+        end
+        object cbHsgHouseType: TComboBox
+          DisableFocusEffect = False
+          Position.X = 104.000000000000000000
+          Position.Y = 68.000000000000000000
+          Size.Width = 177.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+        end
+        object Label1: TLabel
+          AutoSize = True
+          Position.X = 10.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 82.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #27004#30424#21517#31216':'
+        end
+        object Label2: TLabel
+          AutoSize = True
+          Position.X = 10.000000000000000000
+          Position.Y = 43.000000000000000000
+          Size.Width = 82.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #27004#38401#21517#31216':'
+        end
+        object Label3: TLabel
+          AutoSize = True
+          Position.X = 45.000000000000000000
+          Position.Y = 78.000000000000000000
+          Size.Width = 46.000000000000000000
+          Size.Height = 23.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.WordWrap = False
+          Text = #25143#22411':'
+        end
+        object sbSearch: TSpeedButton
+          Action = SearchAction
+          Enabled = True
+          Position.X = 304.000000000000000000
+          Position.Y = 72.000000000000000000
+          Size.Width = 32.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'searcheditbutton'
+          Visible = True
+        end
+      end
+      object lvHouseList: TListView
+        ItemAppearanceClassName = 'TImageListItemBottomDetailRightButtonAppearance'
+        ItemEditAppearanceClassName = 'TImageListItemBottomDetailRightButtonShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 50.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ItemAppearanceObjects.ItemObjects.Image.Visible = False
+        ItemAppearanceObjects.ItemObjects.TextButton.Text = #26597#30475
+        CanSwipeDelete = False
+        OnButtonClick = lvHouseListButtonClick
+        object WaitAniIndicator: TAniIndicator
+          Align = Center
+          Cursor = crHourGlass
+          Size.Width = 30.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+        end
+      end
+    end
+  end
+  inherited tbarBaseFilter: TToolBar
+    inherited btClose: TButton
+      StyleLookup = 'backtoolbutton'
+      Text = #36820#22238
+    end
+    inherited lbTitle: TLabel
+      Text = #25143#22411#22270
+    end
+    object btDown: TButton
+      Action = DownLoadAction
+      Align = Right
+      Enabled = True
+      Position.X = 304.000000000000000000
+      Size.Width = 80.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'toolbutton'
+      TabOrder = 2
+      Visible = True
+    end
+  end
+  object MediaPlayer1: TMediaPlayer
+    Left = 24
+    Top = 136
+  end
+  object HVActionList: TActionList
+    Left = 320
+    Top = 16
+    object DownLoadAction: TAction
+      Category = 'button'
+      Text = #19979#36733#26356#26032
+      Hint = #25143#22411#22270#19979#36733#26356#26032#21040#26412#22320
+      OnExecute = DownLoadActionExecute
+    end
+    object SearchAction: TAction
+      Category = 'button'
+      Text = 'SearchAction'
+      OnExecute = SearchActionExecute
+    end
+  end
+end

@@ -1,0 +1,94 @@
+#include <vcl.h>
+#pragma hdrstop
+//---------------------------------------------------------------------------
+#include "SvrMain.h"
+#include <msxmldom.hpp>
+#include <XMLDoc.hpp>
+#include <xmldom.hpp>
+#include <XMLIntf.hpp>
+#include <registry.hpp>
+#include "Basefunc.h"
+#include "DecEnc.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+#pragma resource "*.dfm"
+
+TSmsServerXE *SmsServerXE;
+//---------------------------------------------------------------------------
+__fastcall TSmsServerXE::TSmsServerXE(TComponent* Owner)
+	: TService(Owner)
+{
+  smsClient=new TSmsClientBroker();
+  OleInitialize(NULL);
+}
+//---------------------------------------------------------------------------
+TServiceController __fastcall TSmsServerXE::GetServiceController(void)
+{
+	return (TServiceController) ServiceController;
+}
+//---------------------------------------------------------------------------
+void __stdcall ServiceController(unsigned CtrlCode)
+{
+	SmsServerXE->Controller(CtrlCode);
+}
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+void __fastcall TSmsServerXE::ServiceStart(TService *Sender,
+	  bool &Started)
+{
+	Timer1->Enabled=true;
+    Started=true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TSmsServerXE::ServiceStop(TService *Sender, bool &Stopped)
+{
+ 	Timer1->Enabled=false;
+   smsClient->ServiceStop();
+}
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
+void __fastcall TSmsServerXE::ServiceDestroy(TObject *Sender)
+{
+         delete smsClient;
+		 OleUninitialize();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TSmsServerXE::ServiceAfterInstall(TService *Sender)
+{
+	TRegistry *reg;
+	reg = new TRegistry();
+	reg->RootKey = HKEY_LOCAL_MACHINE;
+	try
+	{
+		reg->OpenKey("SYSTEM",false);
+		reg->OpenKey("CurrentControlSet",false);
+		reg->OpenKey("Services",false);
+		reg->OpenKey("XZSmsServerXE",true);
+		reg->WriteString("Description","先智软件短信发送服务XE");
+		reg->CloseKey();
+	}
+	__finally
+	{
+		reg->Free();
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TSmsServerXE::Timer1Timer(TObject *Sender)
+{
+	if(!smsClient->Connected)
+	{
+		if(smsClient->InitClientComm())
+		{
+  		  smsClient->RegCallBack();
+		  smsClient->ServiceStart();
+		}
+	}
+}
+//---------------------------------------------------------------------------
+

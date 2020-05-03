@@ -1,0 +1,58 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <System.IniFiles.hpp>
+#include <FMX.Controls.hpp>
+#include <FMX.Forms.hpp>
+#include <FMX.Layouts.hpp>
+#include <FMX.Memo.hpp>
+#include <FMX.Menus.hpp>
+#include <FMX.Types.hpp>
+#include <FMX.Edit.hpp>
+#include <FMX.TreeView.hpp>
+#include <FMX.ExtCtrls.hpp>
+#include <Data.Bind.Components.hpp>
+#include <Data.Bind.DBLinks.hpp>
+#include <Data.Bind.DBScope.hpp>
+#include <Data.Bind.EngExt.hpp>
+#include <Fmx.Bind.DBEngExt.hpp>
+#include <Fmx.Bind.DBLinks.hpp>
+#include <Fmx.Bind.Editors.hpp>
+#include <Fmx.Bind.Navigator.hpp>
+#include <Data.DB.hpp>
+#include <Datasnap.DBClient.hpp>
+#include <FMX.Objects.hpp>
+#include <FMX.TabControl.hpp>
+#include <FMX.ListBox.hpp>
+
+//** Converted to FireMonkey with Mida BASIC 252     http://www.midaconverter.com
+
+
+//** Original VCL Uses section : 
+
+
+// #include <Data.DB.hpp>
+// #include <Data.DBXCommon.hpp>
+// #include <Data.SqlExpr.hpp>
+// #include <DBXDataSnap.hpp>
+// #include <IndyPeerImpl.hpp>
+// #include <Datasnap.DSHTTPCommon.hpp>
+// #include <IPPeerClient.hpp>
+// #include <IPPeerServer.hpp>
+//---------------------------------------------------------------------------
+class TDataModule1 : public TDataModule
+{
+__published:	// IDE-managed Components
+	TSQLConnection *SQLConnection2;
+	TDSClientCallbackChannelManager *DSClientCallbackChannelManager1;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TDataModule1(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TDataModule1 *DataModule1;
+//---------------------------------------------------------------------------
+#endif

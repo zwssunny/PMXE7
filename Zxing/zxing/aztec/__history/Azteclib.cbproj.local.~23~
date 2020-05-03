@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.607,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.663,=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.243,=E:\PMXE6\tethering\Zxing\zxing\aztec\decoder\Decoder.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.526,E:\PMXE6\tethering\Zxing\zxing\aztec\Azteclib.cbproj=C:\Users\zhanws\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.562,=E:\PMXE6\tethering\Zxing\win32\Debug\ZxingCommon.lib</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.762,=E:\PMXE6\tethering\Zxing\zxing\aztec\AztecReader.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.242,=E:\PMXE6\tethering\Zxing\zxing\aztec\detector\Detector.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.753,=E:\PMXE6\tethering\Zxing\zxing\aztec\AztecDetectorResult.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

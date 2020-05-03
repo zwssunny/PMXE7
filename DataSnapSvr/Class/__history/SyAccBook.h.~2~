@@ -1,0 +1,20 @@
+//---------------------------------------------------------------------------
+#ifndef SyAccBookH
+#define SyAccBookH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include <Dialogs.hpp>
+#include <ADODB.hpp>
+#include <DB.hpp>
+#include "BaseServerClass.h"
+//---------------------------------------------------------------------------
+class TSyAccBook : public TDMBaseServerClass
+{
+private:
+protected:
+public:
+	__fastcall TSyAccBook(TComponent* Owner);
+	TStream * __fastcall GetAllAccBook();
+	TStream * __fastcall GetActiveAccBook();
+};
+#endif

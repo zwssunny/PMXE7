@@ -1,0 +1,1370 @@
+{***************************************************************************}
+{ Diagram Studio                                                            }
+{ for Delphi & C++Builder                                                   }
+{ version 4.0.2                                                             }
+{                                                                           }
+{ written by TMS Software                                                   }
+{            copyright ?2003-2010                                          }
+{            Email : info@tmssoftware.com                                   }
+{            Web : http://www.tmssoftware.com                               }
+{                                                                           }
+{ The source code is given as is. The author is not responsible             }
+{ for any possible damage done due to the use of this code.                 }
+{ The components can be freely used in any application. The complete        }
+{ source code remains property of the author and may not be distributed,    }
+{ published, given or sold in any form as such. No parts of the source      }
+{ code can be included in any other component or application without        }
+{ written authorization of the author.                                      }
+{***************************************************************************}
+
+unit DiagramActns;
+
+interface
+
+uses
+  Windows, SysUtils, Classes, ActnList, atDiagram, DiagramGradient, DiagramShadow, Graphics;
+
+type
+  TDiagramAction = class(TAction)
+  private
+    FDiagram: TatDiagram;
+    procedure SetDiagram(Value: TatDiagram);
+  protected
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+  published
+    property Diagram: TatDiagram read FDiagram write SetDiagram;
+  end;
+
+  TDiagramDelete = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramEditText = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramSelectAll = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TKeepInsertingMode = (
+  kmNever, /// Keep inserting is never on. End-user must always click the button to insert a new block.
+  kmAlways, /// Keep inserting is always on. To stop inserting blocks, end-user must click the arrow block (cancel inserting).
+  kmOnShiftPressed, /// Keep inserting is enabled when user clicks the button with Shift key pressed.
+  kmLinesOnly
+  );
+
+  TDiagramInsertBlock = class(TDiagramAction)
+  private
+    FDControlID: string;
+    FKeepInsertingMode: TKeepInsertingMode;
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  published
+    property DControlID: string read FDControlID write FDControlID;
+    property KeepInsertingMode: TKeepInsertingMode read FKeepInsertingMode write FKeepInsertingMode;
+  end;
+
+  TDiagramCancelInsert = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramCut = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramCopy = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramPaste = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramUndo = class(TDiagramAction)
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramViewTopRuler = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramViewLeftRuler = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramGrid = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramShapeColor = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramGradientSetting = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramLineColor = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramBlockPicture = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramBringToFront = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramControlFont = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramSendToBack = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramUndoAction = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramRedoAction = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramArrowShape = class(TDiagramAction)
+  private
+    FShape: TArrowShape;
+    FSource: boolean;
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  published
+    property Shape: TArrowShape read FShape write FShape;
+    property Source: boolean read FSource write FSource;
+  end;
+
+  TDiagramSetZoom = class(TDiagramAction)
+  private
+    FZoom: integer;
+    procedure SetZoom(const Value: integer);
+  public
+    constructor Create(AOwner: TComponent); override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  published
+    property Zoom: integer read FZoom write SetZoom;
+  end;
+
+  TDiagramShadow = class(TDiagramAction)
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  end;
+
+  TDiagramConnectionId = class(TDiagramAction)
+  private
+    FConnectionLineID: string;
+  public
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  published
+    property ConnectionLineID: string read FConnectionLineID write FConnectionLineID;
+  end;
+
+Type
+  TBlocksAlignment = (baLeft, baRight, baTop,baBottom,
+                      baHorzCenter, baVertCenter,
+                      baSameWidth, baSameHeight, baSameSize,
+                      baSameSpaceHorz, baSameSpaceVert,
+                      baIncHorzSpace, baIncrVertSpace,
+                      baDecHorzSpace, baDecVertSpace);
+
+  TBlockList = class(TList)
+  private
+    function GetBlock(index: integer): TCustomDiagramBlock;
+    function GetFirst: TCustomDiagramBlock;
+  public
+    property Blocks[index : integer] : TCustomDiagramBlock read GetBlock; default;
+    property Champion : TCustomDiagramBlock read GetFirst;
+  end;
+
+  TBlockSort = (bsNone, bsByX, bsByY);
+
+  {TDiagramAlign class was first a contribution from David Nardella}
+  TDiagramAlign = class(TDiagramAction)
+  private
+    FBlockAlignment: TBlocksAlignment;
+    FDefaultAlignment: TDiagramAlign;
+    FList : TBlockList;
+    procedure GetSelection;
+    procedure SortByX;
+    procedure SortByY;
+    procedure AlignLeft;
+    procedure AlignRight;
+    procedure AlignTop;
+    procedure AlignBottom;
+    procedure AlignHorzCenter;
+    procedure AlignVertCenter;
+    procedure SameWidth;
+    procedure SameHeight;
+    procedure SameSize;
+    procedure SameSpaceHorz;
+    procedure SameSpaceVert;
+    procedure IncHorzSpace;
+    procedure IncVertSpace;
+    procedure DecHorzSpace;
+    procedure DecVertSpace;
+    procedure SetBlockAlignment(const Value: TBlocksAlignment);
+  protected
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    function Execute: boolean; override;
+    function Update: boolean; override;
+  published
+    property DefaultAlignment : TDiagramAlign read FDefaultAlignment write FDefaultAlignment;
+    property BlockAlignment : TBlocksAlignment read FBlockAlignment write SetBlockAlignment;
+  end;
+
+implementation
+uses Clipbrd, ExtDlgs, Dialogs;
+
+
+resourcestring
+sAlignleftedges =          '靠左对齐';
+sAlignrightedges =         '靠右对齐';
+sAligntopedges =           '上对齐';
+sAlignbottomedges =         '下对齐';
+sAlignhorizontalcenters =   '水平居中';
+sAlignverticalcenters =     '竖向居中';
+sMakesamewidth =            '同宽度';
+sMakesameheight =           '同高度';
+sMakesamesize =             '同大小';
+sSpaceequallyhorizontally = '水平平均间距';
+sSpaceequallyvertically =   '竖向平均间距';
+sIncrementhorizontalspace = '增大水平间距';
+sIncrementverticalspace =   '增大竖向间距';
+sDecrementhorizontalspace = '减少水平间距';
+sDecrementverticalspace =   '减少竖向间距';
+
+const
+  AlignCaptions : Array[TBlocksAlignment] of String = (
+                  sAlignleftedges,
+                  sAlignrightedges,
+                  sAligntopedges,
+                  sAlignbottomedges,
+                  sAlignhorizontalcenters,
+                  sAlignverticalcenters,
+                  sMakesamewidth,
+                  sMakesameheight,
+                  sMakesamesize,
+                  sSpaceequallyhorizontally,
+                  sSpaceequallyvertically,
+                  sIncrementhorizontalspace,
+                  sIncrementverticalspace,
+                  sDecrementhorizontalspace,
+                  sDecrementverticalspace);
+
+  AlignHints : Array[TBlocksAlignment] of String = (
+                  sAlignleftedges,
+                  sAlignrightedges,
+                  sAligntopedges,
+                  sAlignbottomedges,
+                  sAlignhorizontalcenters,
+                  sAlignverticalcenters,
+                  sMakesamewidth,
+                  sMakesameheight,
+                  sMakesamesize,
+                  sSpaceequallyhorizontally,
+                  sSpaceequallyvertically,
+                  sIncrementhorizontalspace,
+                  sIncrementverticalspace,
+                  sDecrementhorizontalspace,
+                  sDecrementverticalspace);
+
+{ TDiagramAction }
+
+procedure TDiagramAction.Notification(AComponent: TComponent;
+  Operation: TOperation);
+begin
+  inherited Notification(AComponent, Operation);
+  if (Operation = opRemove) and (AComponent = Diagram) then
+    Diagram := nil;
+end;
+
+procedure TDiagramAction.SetDiagram(Value: TatDiagram);
+begin
+  if Value <> FDiagram then
+  begin
+    FDiagram := Value;
+    if Value <> nil then Value.FreeNotification(Self);
+  end;
+end;
+
+{ TDiagramDelete }
+
+constructor TDiagramDelete.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Delete';
+end;
+
+function TDiagramDelete.Execute: boolean;
+begin
+  FDiagram.DeleteSelecteds;
+  result := True;
+end;
+
+function TDiagramDelete.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0) and
+    (FDiagram.MouseState = msBrowsing) and
+    not FDiagram.EditingText;
+  result := True;
+end;
+
+{ TDiagramSelectAll }
+
+function TDiagramSelectAll.Execute: boolean;
+begin
+  FDiagram.SelectAll;
+  result := True;
+end;
+
+function TDiagramSelectAll.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.MouseState = msBrowsing);
+  result := True;
+end;
+
+{ TDiagramInsertBlock }
+
+constructor TDiagramInsertBlock.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FKeepInsertingMode := kmNever;
+end;
+
+function TDiagramInsertBlock.Execute: boolean;
+var
+  AKeepInserting: boolean;
+  AReg: TRegDControl;
+begin
+  Case KeepInsertingMode of
+    kmAlways:
+      AKeepInserting := true;
+    kmOnShiftPressed:
+      AKeepInserting := GetKeystate(VK_SHIFT) and $8000 = $8000;
+    kmLinesOnly:
+      begin
+        AReg := RegDControlList.FindByID(DControlID);
+        AKeepInserting := (AReg <> nil) and AReg.DControlClass.InheritsFrom(TCustomDiagramLine);
+      end;
+  else
+    AKeepInserting := false;
+  end;
+  FDiagram.StartInsertingControl(DControlId, AKeepInserting);
+  result := True;
+end;
+
+function TDiagramInsertBlock.Update: boolean;
+begin
+  Enabled := FDiagram <> nil;
+  Checked := Enabled and (FDiagram.InsertDControl <> nil) and
+    (FDiagram.InsertDControl.DControlID = DControlID);
+  result := True;
+end;
+
+{ TDiagramCancelInsert }
+
+constructor TDiagramCancelInsert.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Cancel inserting';
+end;
+
+function TDiagramCancelInsert.Execute: boolean;
+begin
+  FDiagram.CancelInsertingBlock;
+  result := True;
+end;
+
+function TDiagramCancelInsert.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil);
+  if Enabled then
+    Checked := (FDiagram.InsertDControl = nil)
+  else
+    Checked := False;
+  result := True;
+end;
+
+{ TDiagramEditText }
+
+constructor TDiagramEditText.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Edit text';
+end;
+
+function TDiagramEditText.Execute: boolean;
+begin
+  if FDiagram.Selecteds[0].IsMember then
+    FDiagram.Selecteds[0].MasterGroup.EditText
+  else
+    FDiagram.Selecteds[0].EditText;
+  result := True;
+end;
+
+function TDiagramEditText.Update: boolean;
+var
+  enable :Boolean;
+begin
+  Enable := (FDiagram <> nil) and (FDiagram.SelectedCount > 0) and (FDiagram.MouseState = msBrowsing);
+  if Enable then
+  begin
+    if FDiagram.Selecteds[0].IsMember then
+      Enable := Enable and not (crNoEdit in FDiagram.Selecteds[0].MasterGroup.Restrictions)
+    else
+      Enable := Enable and not (crNoEdit in FDiagram.Selecteds[0].Restrictions)
+  end;
+  Enabled := Enable;
+  result := True;
+end;
+
+{ TDiagramCut }
+
+constructor TDiagramCut.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Cut';
+end;
+
+function TDiagramCut.Execute: boolean;
+begin
+  FDiagram.CutToClipboard;
+  result := True;
+end;
+
+function TDiagramCut.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.CanCopy);
+  result := True;
+end;
+
+{ TDiagramCopy }
+
+constructor TDiagramCopy.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Copy';
+end;
+
+function TDiagramCopy.Execute: boolean;
+begin
+  FDiagram.CopyToClipboard;
+  result := True;
+end;
+
+function TDiagramCopy.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.CanCopy);
+  result := True;
+end;
+
+{ TDiagramPaste }
+
+constructor TDiagramPaste.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Paste';
+end;
+
+function TDiagramPaste.Execute: boolean;
+begin
+  FDiagram.PasteFromClipboard;
+  result := True;
+end;
+
+function TDiagramPaste.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.CanPaste);
+  result := True;
+end;
+
+{ TDiagramUndo }
+
+constructor TDiagramUndo.Create(AOwner: TComponent);
+begin
+  inherited;
+  Hint := 'Undo';
+end;
+
+function TDiagramUndo.Execute: boolean;
+begin
+  FDiagram.Undo;
+  result := True;
+end;
+
+function TDiagramUndo.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.NextUndoAction <> '');
+  result := True;
+end;
+
+{ TDiagramViewTopRuler }
+
+function TDiagramViewTopRuler.Execute: boolean;
+begin
+  Checked := not Checked;
+  FDiagram.TopRuler.Visible := Checked;
+  FDiagram.PushUndoStack('view top ruler');
+  result := True;
+end;
+
+function TDiagramViewTopRuler.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil);
+  Checked := Enabled and FDiagram.TopRuler.Visible;
+  result := True;
+end;
+
+{ TDiagramViewLeftRuler }
+
+function TDiagramViewLeftRuler.Execute: boolean;
+begin
+  Checked := not Checked;
+  FDiagram.LeftRuler.Visible := Checked;
+  FDiagram.PushUndoStack('view left ruler');
+  result := True;
+end;
+
+function TDiagramViewLeftRuler.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil);
+  Checked := Enabled and FDiagram.LeftRuler.Visible;
+  result := True;
+end;
+
+{ TDiagramSetZoom }
+
+constructor TDiagramSetZoom.Create(AOwner: TComponent);
+begin
+  inherited;
+  SetZoom(100);
+end;
+
+function TDiagramSetZoom.Execute: boolean;
+begin
+  FDiagram.Zoom := FZoom;
+  FDiagram.PushUndoStack('zoom');
+  result := True;
+end;
+
+procedure TDiagramSetZoom.SetZoom(const Value: integer);
+begin
+  FZoom := Value;
+  if FZoom < 1 then
+    FZoom := 1;
+  if FZoom > 1000 then
+    FZoom := 1000;
+  Caption := IntToStr(FZoom) + '%';
+end;
+
+function TDiagramSetZoom.Update: boolean;
+begin
+  Enabled := FDiagram <> nil;
+  result := True;
+end;
+
+{ TDiagramGrid }
+
+function TDiagramGrid.Execute: boolean;
+begin
+  Checked := not Checked;
+  FDiagram.SnapGrid.Visible  := Checked;
+  FDiagram.Modified;
+  FDiagram.PushUndoStack('view snap grid');
+  Result := True;
+end;
+
+function TDiagramGrid.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil);
+  Checked := Enabled and FDiagram.SnapGrid.Visible;
+  Result := True;
+end;
+
+{ TDiagramBlockPicture }
+
+function TDiagramBlockPicture.Execute: boolean;
+var
+  c: integer;
+  OD: TOpenPictureDialog;
+  Ext: string;
+begin
+  OD := TOpenPictureDialog.Create(nil);
+  try
+    if OD.Execute then
+    begin
+      Ext := UpperCase(ExtractFileExt(OD.FileName));
+      for c := 0 to FDiagram.BlockCount - 1 do
+        if FDiagram.Blocks[c].Selected and not FDiagram.Blocks[c].IsGroup then
+          if Ext = '.BMP' then
+            FDiagram.Blocks[c].Bitmap.LoadFromFile(OD.FileName)
+          else
+            FDiagram.Blocks[c].Picture.LoadFromFile(OD.FileName);
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('picture');
+    end;
+  finally
+    OD.Free;
+  end;
+  result := True;
+end;
+
+function TDiagramBlockPicture.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedBlockCount(cfIgnoreGroups) > 0);
+  Result := True;
+end;
+
+{ TDiagramShapeColor }
+
+function TDiagramShapeColor.Execute: boolean;
+var
+  c: integer;
+  CD: TColorDialog;
+begin
+  CD := TColorDialog.Create(nil);
+  try
+    if CD.Execute then
+    begin
+      for c := 0 to FDiagram.BlockCount - 1 do
+        if FDiagram.Blocks[c].Selected and not FDiagram.Blocks[c].IsGroup then
+        begin
+          FDiagram.Blocks[c].Color := CD.Color;
+          FDiagram.Blocks[c].SelColor := CD.Color;
+        end;
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('color');
+    end;
+  finally
+    CD.Free;
+  end;
+  result := True;
+end;
+
+function TDiagramShapeColor.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedBlockCount(cfIgnoreGroups) > 0);
+  Result := True;
+end;
+
+{ TDiagramLineColor }
+
+function TDiagramLineColor.Execute: boolean;
+var
+  c: integer;
+  CD: TColorDialog;
+begin
+  CD := TColorDialog.Create(nil);
+  try
+    if CD.Execute then
+    begin
+      for c := 0 to FDiagram.BlockCount - 1 do
+        if FDiagram.Blocks[c].Selected and not FDiagram.Blocks[c].IsGroup then
+          FDiagram.Blocks[c].Pen.Color := CD.Color;
+      for c := 0 to FDiagram.LinkCount - 1 do
+        if FDiagram.Links[c].Selected then
+        begin
+          FDiagram.Links[c].Pen.Color := CD.Color;
+          FDiagram.Links[c].SelPen.Color := CD.Color;
+        end;
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('line color');
+    end;
+  finally
+    CD.Free;
+  end;
+  result := True;
+end;
+
+function TDiagramLineColor.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0);
+  Result := True;
+end;
+
+{ TDiagramArrowShape }
+
+function TDiagramArrowShape.Execute: boolean;
+var
+  c: integer;
+begin
+  for c := 0 to FDiagram.LinkCount - 1 do
+    if FDiagram.Links[c].Selected then
+    begin
+      if FSource then
+        FDiagram.Links[c].SourceArrow.Shape := FShape
+      else
+        FDiagram.Links[c].TargetArrow.Shape := FShape;
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('arrow shape');
+    end;
+  result := true;
+end;
+
+function TDiagramArrowShape.Update: boolean;
+
+  function CommonProperty(var Prop: TArrowShape): boolean;
+  var
+    c: integer;
+    first: boolean;
+  begin
+    first := true;
+    result := true;
+    for c := 0 to FDiagram.LinkCount - 1 do
+      if FDiagram.Links[c].Selected then
+      begin
+        if first then
+        begin
+          if FSource then
+            Prop := FDiagram.Links[c].SourceArrow.Shape
+          else
+            Prop := FDiagram.Links[c].TargetArrow.Shape;
+          first := false;
+        end
+        else
+          if FSource then
+            result := Prop = FDiagram.Links[c].SourceArrow.Shape
+          else
+            result := Prop = FDiagram.Links[c].TargetArrow.Shape;
+          if not result then break;
+      end;
+  end;
+
+var
+  AProp: TArrowShape;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedLinkCount > 0);
+  Checked := Enabled and CommonProperty(AProp) and (AProp = FShape);
+  Result := True;
+end;
+
+{ TDiagramBringToFront }
+
+function TDiagramBringToFront.Execute: boolean;
+begin
+  FDiagram.BringToFront;
+  FDiagram.Modified;
+  FDiagram.PushUndoStack('bring to front');
+  result := True;
+end;
+
+function TDiagramBringToFront.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0);
+  Result := True;
+end;
+
+{ TDiagramSendToBack }
+
+function TDiagramSendToBack.Execute: boolean;
+begin
+  FDiagram.SendToBack;
+  FDiagram.Modified;
+  FDiagram.PushUndoStack('send to back');
+  result := True;
+end;
+
+function TDiagramSendToBack.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0);
+  Result := True;
+end;
+
+{ TDiagramContruolFont }
+
+function TDiagramControlFont.Execute: boolean;
+var
+  c: integer;
+  FD: TFontDialog;
+begin
+  FD := TFontDialog.Create(nil);
+  try
+    {Get the first selected member as default font}
+    for c := 0 to FDiagram.SelectedCount - 1 do
+      if not FDiagram.Selecteds[c].IsGroup then
+      begin
+        FD.Font.Assign(FDiagram.Selecteds[c].Font);
+        break;
+      end;
+
+    if FD.Execute then
+    begin
+      for c := 0 to FDiagram.SelectedCount - 1 do
+        if not FDiagram.Selecteds[c].IsGroup then
+          FDiagram.Selecteds[c].Font := FD.Font;
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('text font');
+    end;
+  finally
+    FD.Free;
+  end;
+  Result := True;
+end;
+
+function TDiagramControlFont.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0);
+  Result := True;
+end;
+
+function TDiagramGradientSetting.Execute: Boolean;
+var
+  ge: TGradientEditor;
+  grad: TDiagramGradient;
+  c: Integer;
+begin
+  ge := TGradientEditor.Create(nil);
+  grad := TDiagramGradient.Create(nil);
+
+  grad.StartColor := clWhite;
+  grad.EndColor := clWhite;
+
+  try
+    for c := 0 to FDiagram.SelectedCount - 1 do if not FDiagram.Selecteds[c].IsGroup then
+    begin
+      if (FDiagram.Selecteds[c] is TCustomDiagramBlock) then
+      begin
+        grad.Assign(TCustomDiagramBlock(FDiagram.Selecteds[c]).Gradient);
+        if not grad.Visible then
+        begin
+          grad.StartColor := TCustomDiagramBlock(FDiagram.Selecteds[c]).Color;
+          grad.EndColor := TCustomDiagramBlock(FDiagram.Selecteds[c]).Color;
+        end;
+        break;
+      end;  
+    end;
+
+    if (ge.EditGradient(grad)) then
+    begin
+      for c := 0 to FDiagram.SelectedCount - 1 do if not FDiagram.Selecteds[c].IsGroup then
+      begin
+        if (FDiagram.Selecteds[c] is TCustomDiagramBlock) then
+        begin
+          grad.Visible := true;
+          TCustomDiagramBlock(FDiagram.Selecteds[c]).Gradient.Assign(grad);
+        end;  
+      end;
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('gradient');
+    end;
+  finally
+    grad.Free;
+    ge.Free;
+  end;
+  Result := True;
+end;
+
+function TDiagramGradientSetting.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0);
+  Result := True;
+end;
+
+
+{ TDiagramShadow }
+
+function TDiagramShadow.Execute: boolean;
+var
+  se: TShadowEditor;
+  shad: TBlockShadow;
+  c: Integer;
+begin
+  se := TShadowEditor.Create(nil);
+  shad := TBlockShadow.Create(nil);
+  shad.Color := clGray;
+
+  try
+    for c := 0 to FDiagram.SelectedCount - 1 do if not FDiagram.Selecteds[c].IsGroup then
+    begin
+      if (FDiagram.Selecteds[c] is TCustomDiagramBlock) then
+      begin
+        shad.Assign(TCustomDiagramBlock(FDiagram.Selecteds[c]).Shadow);
+        break;
+      end;
+    end;
+
+    if (se.EditShadow(shad)) then
+    begin
+      for c := 0 to FDiagram.SelectedCount - 1 do if not FDiagram.Selecteds[c].IsGroup then
+      begin
+        if (FDiagram.Selecteds[c] is TCustomDiagramBlock) then
+        begin
+          shad.Visible := true;
+          TCustomDiagramBlock(FDiagram.Selecteds[c]).Shadow.Assign(shad);
+        end;
+      end;
+      FDiagram.Modified;
+      FDiagram.PushUndoStack('shadow');
+    end;
+  finally
+    shad.Free;
+    se.Free;
+  end;
+  Result := True;
+end;
+
+function TDiagramShadow.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.SelectedCount > 0);
+  Result := True;
+end;
+
+{ TDiagramUndoAction }
+
+function TDiagramUndoAction.Execute: boolean;
+begin
+  FDiagram.Undo;
+  result := True;
+end;
+
+function TDiagramUndoAction.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.NextUndoAction <> '');
+  Result := True;
+end;
+
+{ TDiagramRedoAction }
+
+function TDiagramRedoAction.Execute: boolean;
+begin
+  FDiagram.Redo;
+  result := True;
+end;
+
+function TDiagramRedoAction.Update: boolean;
+begin
+  Enabled := (FDiagram <> nil) and (FDiagram.NextRedoAction <> '');
+  Result := True;
+end;
+
+{ TDiagramConnectionId }
+
+function TDiagramConnectionId.Execute: boolean;
+begin
+  if FDiagram.ConnectionLineID = ConnectionLineID then
+    FDiagram.ConnectionLineID := ''
+  else
+    FDiagram.ConnectionLineID := ConnectionLineID;
+  result := True;
+end;
+
+function TDiagramConnectionId.Update: boolean;
+begin
+  Enabled := FDiagram <> nil;
+  Checked := Enabled and (FDiagram.ConnectionLineID = ConnectionLineID);
+  result := True;
+end;
+
+{ TBlockList }
+
+function TBlockList.GetBlock(index: integer): TCustomDiagramBlock;
+begin
+  {$WARNINGS OFF}
+  Result := TCustomDiagramBlock(Items[index]);
+  {$WARNINGS ON}
+end;
+
+function TBlockList.GetFirst: TCustomDiagramBlock;
+begin
+  Result:=Blocks[0];
+end;
+
+{ TDiagramAlign }
+
+procedure TDiagramAlign.AlignBottom;
+Var
+  c: integer;
+  b: number;
+begin
+  b := FList.Champion.Bottom;
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoMove in FList[c].Restrictions) then
+         FList[c].Top:=b-FList[c].Height;
+end;
+
+procedure TDiagramAlign.AlignHorzCenter;
+Var
+  c: integer;
+  hc: number;
+begin
+  with FList.Champion do
+    hc := Left + Width / 2;
+
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoMove in FList[c].Restrictions) then
+        FList[c].Left := hc - (FList[c].Width / 2);
+end;
+
+procedure TDiagramAlign.AlignVertCenter;
+Var
+  c: integer;
+  vc: number;
+begin
+  with FList.Champion do
+    vc:=Top+Height / 2;
+
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoMove in FList[c].Restrictions) then
+        FList[c].Top:=vc-(FList[c].Height / 2);
+end;
+
+procedure TDiagramAlign.AlignLeft;
+Var
+  c : integer;
+begin
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoMove in FList[c].Restrictions) then
+        FList[c].Left:=FList.Champion.Left;
+end;
+
+procedure TDiagramAlign.AlignRight;
+Var
+  c: integer;
+  r: number;
+begin
+  r := FList.Champion.Right;
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoMove in FList[c].Restrictions) then
+        FList[c].Left:=r-FList[c].Width;
+end;
+
+procedure TDiagramAlign.AlignTop;
+Var
+  c : integer;
+begin
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoMove in FList[c].Restrictions) then
+        FList[c].Top:=FList.Champion.Top;
+end;
+
+procedure TDiagramAlign.SameWidth;
+Var
+  c : integer;
+begin
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoResize in FList[c].Restrictions) and
+         not (crKeepRatio in FList[c].Restrictions) then
+           FList[c].Width:=FList.Champion.Width;
+end;
+
+procedure TDiagramAlign.SameHeight;
+Var
+  c : integer;
+begin
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoResize in FList[c].Restrictions) and
+         not (crKeepRatio in FList[c].Restrictions) then
+           FList[c].Height:=FList.Champion.Height;
+end;
+
+procedure TDiagramAlign.SameSize;
+Var
+  c : integer;
+begin
+  with Diagram do
+    for c := 0 to FList.Count - 1 do
+      if not (crNoResize in FList[c].Restrictions) and
+         not (crKeepRatio in FList[c].Restrictions) then
+      begin
+        FList[c].Width:=FList.Champion.Width;
+        FList[c].Height:=FList.Champion.Height;
+      end;
+end;
+
+procedure TDiagramAlign.SameSpaceHorz;
+Var
+  c: integer;
+  Gap: number;
+  TotW: number;
+begin
+  // User can select blocks randomly so we need to sort them
+  SortByX;
+
+  TotW:=0;
+  for c := 0 to FList.Count - 1 do
+    TotW := TotW + FList[c].Width;
+
+  with FList do
+    Gap:= (Blocks[Count-1].Right - Blocks[0].Left - TotW) / (Count-1);
+
+  for c := 1 to FList.Count - 2 do
+    FList[c].Left:=FList[c-1].Right+Gap;
+end;
+
+procedure TDiagramAlign.SameSpaceVert;
+Var
+  c: integer;
+  Gap: number;
+  TotH: number;
+begin
+  // User can select blocks randomly so we need to sort them
+  SortByY;
+
+  TotH := 0;
+  for c := 0 to FList.Count - 1 do
+    TotH := TotH + FList[c].Height;
+
+  with FList do
+    Gap := (Blocks[Count-1].Bottom - Blocks[0].Top - TotH) / (Count-1);
+
+  for c := 1 to FList.Count - 2 do
+    FList[c].Top:=FList[c-1].Bottom+Gap;
+end;
+
+procedure TDiagramAlign.IncHorzSpace;
+Var
+  Step : integer;
+begin
+  SortByX;
+  Step:=Round(Diagram.SnapGrid.SizeX*Diagram.Zoom/100.0);
+  with FList[FList.Count-1] do
+    Left:=Left+Step;
+  SameSpaceHorz;
+end;
+
+procedure TDiagramAlign.IncVertSpace;
+Var
+  Step : integer;
+begin
+  SortByY;
+  Step:=Round(Diagram.SnapGrid.SizeY*Diagram.Zoom/100.0);
+  with FList[FList.Count-1] do
+    Top:=Top+Step;
+  SameSpaceVert;
+end;
+
+procedure TDiagramAlign.DecHorzSpace;
+Var
+  Step : integer;
+begin
+  SortByX;
+  Step:=Round(Diagram.SnapGrid.SizeX*Diagram.Zoom/100.0);
+  with FList[FList.Count-1] do
+  begin
+    Left:=Left-Step;
+    if Left<=FList.Champion.Left then
+      AlignLeft
+    else
+      SameSpaceHorz;
+  end;
+end;
+
+procedure TDiagramAlign.DecVertSpace;
+Var
+  Step : integer;
+begin
+  SortByY;
+  Step:=Round(Diagram.SnapGrid.SizeY*Diagram.Zoom/100.0);
+  with FList[FList.Count-1] do
+  begin
+    Top:=Top-Step;
+    if Top<=FList.Champion.Top then
+      AlignTop
+    else
+      SameSpaceVert;
+  end;
+end;
+
+function TDiagramAlign.Execute: boolean;
+begin
+  GetSelection;
+  if FList.Count > 1 then
+  begin
+    Case FBlockAlignment of
+      baLeft : AlignLeft;
+      baRight : AlignRight;
+      baTop : AlignTop;
+      baBottom : AlignBottom;
+      baHorzCenter : AlignHorzCenter;
+      baVertCenter : AlignVertCenter;
+      baSameWidth : SameWidth;
+      baSameHeight : SameHeight;
+      baSameSize : SameSize;
+      baSameSpaceHorz : SameSpaceHorz;
+      baSameSpaceVert : SameSpaceVert;
+      baIncHorzSpace  : IncHorzSpace;
+      baIncrVertSpace : IncVertSpace;
+      baDecHorzSpace  : DecHorzSpace;
+      baDecVertSpace  : DecVertSpace;
+    end;
+    Diagram.PushUndoStack('Align');
+    if Assigned(FDefaultAlignment) and (FDefaultAlignment <> self) then
+    begin
+      // Properties reflection
+      FDefaultAlignment.BlockAlignment:=FBlockAlignment;
+      FDefaultAlignment.ImageIndex:=ImageIndex;
+      FDefaultAlignment.Caption:=Caption;
+      FDefaultAlignment.Hint:=Hint;
+    end;
+  end;
+  result := True;
+end;
+
+function TDiagramAlign.Update: boolean;
+begin
+  if FBlockAlignment in [baSameSpaceHorz..baDecVertSpace] then
+    Enabled := (Diagram <> nil) and (Diagram.SelectedBlockCount(cfIgnoreAsMembers) > 2) // we need at least 3 blocks
+  else
+    Enabled := (Diagram <> nil) and (Diagram.SelectedBlockCount(cfIgnoreAsMembers) > 1);
+
+  result := true;
+end;
+
+procedure TDiagramAlign.SetBlockAlignment(const Value: TBlocksAlignment);
+begin
+  if FBlockAlignment <> Value then
+  begin
+    FBlockAlignment := Value;
+    Caption:=AlignCaptions[FBlockAlignment];
+    Hint:=AlignHints[FBlockAlignment];
+  end;
+end;
+
+procedure TDiagramAlign.SortByX;
+
+  function XSort : boolean;
+  Var
+    c : integer;
+  begin
+    Result:=true;
+    for c := 0 to FList.Count - 2 do
+      if Flist[c].Left>Flist[c+1].Left then
+      begin
+        Result:=false;
+        FList.Exchange(C,C+1);
+      end;
+  end;
+
+begin
+  Repeat
+  Until XSort;
+end;
+
+procedure TDiagramAlign.SortByY;
+
+  function YSort : boolean;
+  Var
+    c : integer;
+  begin
+    Result:=true;
+    for c := 0 to FList.Count - 2 do
+      if Flist[c].Top>Flist[c+1].Top then
+      begin
+        Result:=false;
+        FList.Exchange(C,C+1);
+      end;
+  end;
+
+begin
+  Repeat
+  Until YSort;
+end;
+
+constructor TDiagramAlign.Create(AOwner: TComponent);
+begin
+  inherited;
+  FList:=TBlockList.Create;
+  BlockAlignment:=baHorzCenter;
+end;
+
+destructor TDiagramAlign.Destroy;
+begin
+  FList.Free;
+  inherited;
+end;
+
+procedure TDiagramAlign.Notification(AComponent: TComponent;
+  Operation: TOperation);
+begin
+  inherited Notification(AComponent, Operation);
+  if (Operation = opRemove) and (AComponent = FDefaultAlignment) then
+    DefaultAlignment := nil;
+end;
+
+procedure TDiagramAlign.GetSelection;
+Var
+  c : integer;
+begin
+  FList.Clear;
+  for c := 0 to Diagram.SelectedCount - 1 do if not Diagram.Selecteds[c].AsMember then
+  begin
+    if Diagram.Selecteds[c].InheritsFrom(TCustomDiagramBlock) then
+      FList.Add(Diagram.Selecteds[c]);
+  end;
+end;
+
+end.

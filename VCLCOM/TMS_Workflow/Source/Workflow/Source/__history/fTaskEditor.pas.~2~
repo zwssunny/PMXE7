@@ -1,0 +1,365 @@
+unit fTaskEditor;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ComCtrls, StdCtrls, ExtCtrls, fAttachPermissions, fFieldFrame, wsClasses,
+  wsMain, wsDiagram, Buttons, fStatusFrame, fExpirationFrame, fAssignedUserFrame;
+
+type
+  TfmTaskEditor = class(TForm)
+    PageControl1: TPageControl;
+    tsGeneral: TTabSheet;
+    lvTasks: TListView;
+    Label1: TLabel;
+    edSubject: TEdit;
+    Label2: TLabel;
+    mmComments: TMemo;
+    btAdd: TSpeedButton;
+    btDelete: TSpeedButton;
+    TabSheet2: TTabSheet;
+    btCancel: TButton;
+    btOk: TButton;
+    cbMailNotification: TCheckBox;
+    tsAttachment: TTabSheet;
+    frPermissions: TfrAttachPermissions;
+    tsFields: TTabSheet;
+    frFields: TfrFieldFrame;
+    frStatus: TfrStatusFrame;
+    tsExpiration: TTabSheet;
+    frExpiration: TfrExpirationFrame;
+    frAssignedUser: TfrAssignedUserFrame;
+    procedure btOkClick(Sender: TObject);
+    procedure btCancelClick(Sender: TObject);
+    procedure btAddClick(Sender: TObject);
+    procedure lvTasksSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure PropertyChanged(Sender: TObject);
+    procedure btDeleteClick(Sender: TObject);
+    procedure lvTasksEdited(Sender: TObject; Item: TListItem; var S: String);
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private                     
+    FDiagram: TCustomWorkflowDiagram;
+    FTasks: TTaskDefinitions;
+    FLastTask: TTaskDefinition;
+    FUpdatingControls: integer;
+    FWorkflowStudio: TCustomWorkflowStudio;
+    procedure TasksToInterface;
+    procedure UpdateListItem(AItem: TListItem; ATask: TTaskDefinition);
+    procedure LoadTaskInEditors(ATask: TTaskDefinition);
+    procedure ClearEditors;
+    procedure SaveEditorsInTask(ATask: TTaskDefinition);
+    procedure DeleteCurrentTask;
+    procedure BeginUpdateControls;
+    procedure EndUpdateControls;
+    procedure SetControlsEnabled(AEnabled: boolean);
+    procedure SaveTask;
+    procedure Localize;
+    function TaskDefFromItem(AItem: TListItem): TTaskDefinition;
+  protected
+    procedure Loaded; override;
+  public
+    function EditTaskDefinitions(ATasks: TTaskDefinitions; ADiagram: TCustomWorkflowDiagram): boolean;
+    constructor Create(AOwner: TComponent; AWorkflowStudio: TCustomWorkflowStudio); reintroduce; 
+    destructor Destroy; override;
+  end;
+
+var
+  fmTaskEditor: TfmTaskEditor;
+
+implementation
+
+uses
+  wsRes;
+
+{$R *.DFM}
+
+{ TForm1 }
+
+function TfmTaskEditor.EditTaskDefinitions(ATasks: TTaskDefinitions; ADiagram: TCustomWorkflowDiagram): boolean;
+begin
+  FTasks.Assign(ATasks);
+  frPermissions.OnPropertyChanged := PropertyChanged;
+  frExpiration.OnPropertyChanged := PropertyChanged;
+  FDiagram := ADiagram;
+  TasksToInterface;
+  result := ShowModal = mrOk;
+  if result then
+  begin
+    SaveTask;
+    ATasks.Assign(FTasks);
+  end;
+end;
+
+procedure TfmTaskEditor.SaveTask;
+begin
+  if FLastTask <> nil then
+  begin
+    frFields.SaveEditorsInTask(FLastTask);
+    FLastTask := nil;
+  end
+end;
+
+procedure TfmTaskEditor.btOkClick(Sender: TObject);
+begin
+  ModalResult := mrOk;
+end;
+
+procedure TfmTaskEditor.btCancelClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TfmTaskEditor.TasksToInterface;
+var
+  c: integer;
+begin
+  lvTasks.Items.Clear;
+  for c := 0 to FTasks.Count - 1 do
+    UpdateListItem(lvTasks.Items.Add, FTasks[c]);
+  ClearEditors;
+  if lvTasks.Items.Count > 0 then
+    lvTasks.Selected := lvTasks.Items[0];
+
+  //frVariables.LoadTaskInEditors(
+end;
+
+procedure TfmTaskEditor.UpdateListItem(AItem: TListItem; ATask: TTaskDefinition);
+begin
+  AItem.Caption := ATask.Name;
+  {$WARNINGS OFF}
+  AItem.Data := ATask;
+  {$WARNINGS ON}
+end;
+
+procedure TfmTaskEditor.btAddClick(Sender: TObject);
+var
+  NewTask: TTaskDefinition;
+  NewName: string;
+  i: integer;
+  NewItem: TListItem;
+begin
+  {Add task in collection}
+  NewTask := FTasks.Add;
+
+  {Find a new unique task name}
+  i := 0;
+  repeat
+    inc(i);
+    NewName := Format('%s%d', [_str(STask), i]);
+  until (FTasks.FindByName(NewName) = nil);
+  NewTask.Name := NewName;
+
+  {Create item in list view}
+  NewItem := lvTasks.Items.Add;
+  UpdateListItem(NewItem, NewTask);
+
+  {select and start renaming the item. EditCaption already selects the item}
+  NewItem.EditCaption;
+end;
+
+procedure TfmTaskEditor.lvTasksSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  if (FTasks <> nil) and not (csDestroying in ComponentState) then
+  begin
+    SaveTask;
+    if (lvTasks.SelCount = 1) then
+      LoadTaskInEditors(TaskDefFromItem(lvTasks.Selected))
+    else
+      ClearEditors;
+  end;
+end;
+
+function TfmTaskEditor.TaskDefFromItem(AItem: TListItem): TTaskDefinition;
+begin
+  {$WARNINGS OFF}
+  result := TTaskDefinition(AItem.Data);
+  {$WARNINGS ON}
+end;
+
+procedure TfmTaskEditor.LoadTaskInEditors(ATask: TTaskDefinition);
+begin
+  if ATask <> nil then
+  begin
+    BeginUpdateControls;
+    try
+      SaveTask;
+      FLastTask := ATask;
+
+      edSubject.Text := ATask.Subject;
+      mmComments.Lines.Text := ATask.Description;
+      edAssignment.Text := ATask.AssignmentRule;
+      cbMailNotification.Checked := ATask.MailNotification;
+      frPermissions.LoadTaskInEditors(ATask);
+      frFields.LoadTaskInEditors(ATask, FDiagram);
+      frStatus.LoadTaskStatusList(ATask);
+      frExpiration.LoadTaskInEditors(ATask);
+
+      SetControlsEnabled(true);
+    finally
+      EndUpdateControls;
+    end;
+  end;
+end;
+
+procedure TfmTaskEditor.SaveEditorsInTask(ATask: TTaskDefinition);
+begin
+  if ATask <> nil then
+  begin
+    ATask.Subject := edSubject.Text;
+    ATask.Description := mmComments.Lines.Text;
+    ATask.AssignmentRule := edAssignment.Text;
+    ATask.MailNotification := cbMailNotification.Checked;
+    frPermissions.SaveEditorsInTask(ATask);
+    frFields.SaveEditorsInTask(ATask);
+    frExpiration.SaveEditorsInTask(ATask);
+  end;
+end;
+
+procedure TfmTaskEditor.ClearEditors;
+begin
+  BeginUpdateControls;
+  try
+    edSubject.Text := '';
+    mmComments.Lines.Clear;
+    edAssignment.Text := '';
+    cbMailNotification.Checked := false;
+    frPermissions.ClearEditors;
+    frFields.ClearAll;
+    frStatus.ClearAll;
+    frExpiration.ClearEditors;
+    SetControlsEnabled(false);
+  finally
+    EndUpdateControls;
+  end;
+end;
+
+procedure TfmTaskEditor.PropertyChanged(Sender: TObject);
+begin
+  if (lvTasks.SelCount = 1) and (FUpdatingControls = 0) then
+    SaveEditorsInTask(TaskDefFromItem(lvTasks.Selected));
+end;
+
+procedure TfmTaskEditor.btDeleteClick(Sender: TObject);
+begin
+  if MessageDlg(_str(SConfirmDeleteItems), mtConfirmation,[mbYes,mbNo],0) = mrYes then
+  begin
+    while lvTasks.SelCount > 0 do
+      DeleteCurrentTask;
+    if lvTasks.Items.Count > 0 then
+      lvTasks.Selected := lvTasks.Items[lvTasks.items.Count - 1]
+    else
+      ClearEditors;
+    lvTasks.SetFocus;
+  end;
+end;
+
+procedure TfmTaskEditor.DeleteCurrentTask;
+begin
+  if Assigned(lvTasks.Selected) then
+  begin
+    FLastTask := nil;
+    TaskDefFromItem(lvTasks.Selected).Free;
+    {$WARNINGS OFF}
+    lvTasks.Selected.Data := nil;
+    {$WARNINGS ON}
+    lvTasks.Selected.Free;
+  end;
+end;
+
+constructor TfmTaskEditor.Create(AOwner: TComponent; AWorkflowStudio: TCustomWorkflowStudio);
+begin
+  inherited Create(AOwner);
+  if AWorkflowStudio <> nil then
+    FWorkflowStudio := AWorkflowStudio
+  else
+    raise Exception.CreateFmt('WorkflowStudio parameter not specified in %s.Create.', [ClassName]);
+    
+  FLastTask := nil;
+  FTasks := TTaskDefinitions.Create(nil);
+  FWorkflowStudio.UserManager.FillAssignmentList(edAssignment.Items);
+end;
+
+destructor TfmTaskEditor.Destroy;
+begin
+  FTasks.Free;
+  inherited;
+end;
+
+procedure TfmTaskEditor.BeginUpdateControls;
+begin
+  inc(FUpdatingControls);
+end;
+
+procedure TfmTaskEditor.EndUpdateControls;
+begin
+  dec(FUpdatingControls);
+end;
+
+procedure TfmTaskEditor.lvTasksEdited(Sender: TObject; Item: TListItem;
+  var S: String);
+var
+  ATask: TTaskDefinition;
+begin
+  ATask := TaskDefFromItem(Item);
+  if ATask <> nil then
+  begin
+    if Trim(S) = '' then
+      S := ATask.Name
+    else
+      ATask.Name := S;
+  end;
+end;
+                          
+procedure TfmTaskEditor.SetControlsEnabled(AEnabled: boolean);
+begin
+  edSubject.Enabled := AEnabled;
+  mmComments.Enabled := AEnabled;
+  edAssignment.Enabled := AEnabled;
+  cbMailNotification.Enabled := AEnabled;
+end;
+
+procedure TfmTaskEditor.FormCreate(Sender: TObject);
+begin
+  PageControl1.ActivePage := tsGeneral;
+end;
+
+procedure TfmTaskEditor.FormActivate(Sender: TObject);
+begin
+  if edSubject.CanFocus then
+    edSubject.SetFocus;
+end;
+
+procedure TfmTaskEditor.Localize;
+begin
+  Self.Caption := _str('fmTaskEditor.Self.Caption');
+  tsGeneral.Caption := _str('fmTaskEditor.tsGeneral.Caption');
+  Label1.Caption := _str('fmTaskEditor.Label1.Caption');
+  Label2.Caption := _str('fmTaskEditor.Label2.Caption');
+  Label3.Caption := _str('fmTaskEditor.Label3.Caption');
+  cbMailNotification.Caption := _str('fmTaskEditor.cbMailNotification.Caption');
+  TabSheet2.Caption := _str('fmTaskEditor.TabSheet2.Caption');
+  tsAttachment.Caption := _str('fmTaskEditor.tsAttachment.Caption');
+  tsFields.Caption := _str('fmTaskEditor.tsFields.Caption');
+  btAdd.Caption := _str('fmTaskEditor.btAdd.Caption');
+  btDelete.Caption := _str('fmTaskEditor.btDelete.Caption');
+  btCancel.Caption := _str('fmTaskEditor.btCancel.Caption');
+  btOk.Caption := _str('fmTaskEditor.btOk.Caption');
+  tsExpiration.Caption := _str('fmTaskEditor.tsExpiration.Caption');
+end;
+
+procedure TfmTaskEditor.Loaded;
+begin
+  inherited;
+  with lvTasks.Columns.Add do
+  begin
+    AutoSize := True;
+    Caption := _Str(STask);
+  end;
+  Localize;
+end;
+
+end.
+

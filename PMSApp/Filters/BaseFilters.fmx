@@ -1,0 +1,68 @@
+object BaseFiltersForm: TBaseFiltersForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnFocusChanged = FormFocusChanged
+  OnVirtualKeyboardShown = FormVirtualKeyboardShown
+  OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
+  DesignerMasterStyle = 3
+  object ItemVertScrollBox: TVertScrollBox
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 519.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    ShowScrollBars = False
+    object EditLayout: TLayout
+      Align = Client
+      Size.Width = 384.000000000000000000
+      Size.Height = 519.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+    end
+  end
+  object tbarBaseFilter: TToolBar
+    Align = Bottom
+    Position.Y = 519.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    object btQuery: TButton
+      Align = Left
+      ModalResult = 1
+      Size.Width = 73.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'donetoolbutton'
+      TabOrder = 1
+      Text = #30830#23450
+      OnClick = btQueryClick
+    end
+    object btCancel: TButton
+      Align = Right
+      ModalResult = 2
+      Position.X = 311.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'deletetoolbutton'
+      TabOrder = 2
+      Text = #21462#28040
+      OnClick = btCancelClick
+    end
+    object WaitAniIndicator: TAniIndicator
+      Align = Center
+      Enabled = True
+      Size.Width = 30.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      Style = Circular
+    end
+  end
+end

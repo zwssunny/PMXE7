@@ -1,0 +1,57 @@
+// ---------------------------------------------------------------------------
+
+#ifndef ZClientQueryH
+#define ZClientQueryH
+#include <System.Classes.hpp>
+#include <Data.db.hpp>
+#include "MsgStream.h"
+#include <stdio.h>
+#include "ClientBroker.h"
+#include "ZClientDataset.h"
+#include "DataSnapClientDataSet.h"
+#ifdef VER190
+#include <WideStrings.hpp>
+#endif
+// ---------------------------------------------------------------------------
+class PACKAGE TServerQueryClient;
+//class PACKAGE TClientBroker;
+//class PACKAGE TZClientDataSet;
+class PACKAGE TZClientQuery : public TDataSnapClientDataSet
+{
+private:
+	TStringList* FSQL;
+	TStringList* __fastcall GetSQL(void);
+	void __fastcall SetSQL(TStringList* Value);
+	int FRowsAffected;
+	TClientBroker *FClientBroker;
+	TServerQueryClient *ServerQuery;
+	TDataSnapClientDataSet* __fastcall GetDataSet();
+	int __fastcall GetSysDbType();
+	int __fastcall GetAccDbType();
+	int __fastcall get_CurRecNo();
+
+protected:
+	void __fastcall QueryChanged(TObject* Sender);
+
+public:
+	__fastcall TZClientQuery(TComponent* AOwner, TClientBroker *FBroker,
+		TZClientDataSet *AClientDataSet); //为了兼容以前版本，AClientDataSet不起作用
+	__fastcall TZClientQuery(TClientBroker *FBroker);
+	__fastcall virtual ~TZClientQuery();
+	void __fastcall Open();
+	int __fastcall ExecSQL();
+	int __fastcall ExecSQLByParams();
+	void __fastcall SysOpen();
+	int __fastcall SysExecSQL();
+	int __fastcall SysExecSQLByParams();
+	__property int RowsAffected = {read = FRowsAffected, nodefault};
+	__property int CurRecNo = {read = get_CurRecNo};
+	__property TCustomClientDataSet* DataSet = {read = GetDataSet};
+	__property int SysDbType = {read = GetSysDbType};
+	__property int AccDbType = {read = GetAccDbType};
+
+__published:
+	__property Params;
+	__property TStringList* SQL = {read = GetSQL, write = SetSQL};
+};
+#endif

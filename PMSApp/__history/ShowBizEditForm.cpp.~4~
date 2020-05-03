@@ -1,0 +1,17 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ShowBizEditForm.h"
+#include "StuffStockInEdit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+void __fastcall ShowBizEditForm(TComponent* Owner,int modulecode,String Param,int Flag)
+{
+  switch(modulecode)
+  {
+	  case 1050208:
+	  break;
+	  default: ShowMessage(L"菜单号:"+IntToStr(modulecode)+L"标志:"+IntToStr(Flag)+L"参数:"+Param);
+  }
+}

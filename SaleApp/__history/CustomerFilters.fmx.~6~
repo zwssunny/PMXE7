@@ -1,0 +1,116 @@
+inherited CustomerFiltersForm: TCustomerFiltersForm
+  Caption = 'BaseFiltersForm1'
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Label5: TLabel
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 208.000000000000000000
+    Text = #23458#25143#31867#22411':'
+    Width = 82.000000000000000000
+  end
+  object edCustName: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 4
+    Position.X = 96.000000000000000000
+    Position.Y = 16.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edCustNum: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 5
+    Position.X = 96.000000000000000000
+    Position.Y = 62.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edMobilePhone: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 6
+    Position.X = 96.000000000000000000
+    Position.Y = 108.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edCardNo: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 7
+    Position.X = 96.000000000000000000
+    Position.Y = 154.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object cboClientType: TComboBox
+    DisableFocusEffect = False
+    Height = 32.000000000000000000
+    Items.Strings = (
+      #25152#26377#31867#22411
+      #30331#35760#23458#25143
+      #19994#20027
+      #39044#23450#23458#25143
+      #31614#32422#23458#25143)
+    ItemIndex = 0
+    Position.X = 96.000000000000000000
+    Position.Y = 200.000000000000000000
+    TabOrder = 8
+    Width = 129.000000000000000000
+  end
+  object Label4: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 168.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #20250#21592#21345#21495#65306
+    Width = 90.000000000000000000
+  end
+  object Label3: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 120.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #31227#21160#30005#35805#65306
+    Width = 90.000000000000000000
+  end
+  object Label2: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 72.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #23458#25143#32534#21495':'
+    Width = 77.000000000000000000
+  end
+  object Label1: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 24.000000000000000000
+    TextSettings.WordWrap = False
+    Text = #23458#25143#21517#31216#65306
+    Width = 90.000000000000000000
+  end
+  object edCardID: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 13
+    Position.X = 96.000000000000000000
+    Position.Y = 240.000000000000000000
+    Width = 233.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label6: TLabel
+    AutoSize = True
+    Height = 23.000000000000000000
+    Position.X = 8.000000000000000000
+    Position.Y = 248.000000000000000000
+    TextSettings.WordWrap = False
+    Text = ' '#35777#20214#21495':'
+    Width = 67.000000000000000000
+  end
+end

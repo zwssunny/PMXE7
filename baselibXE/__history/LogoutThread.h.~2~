@@ -1,0 +1,17 @@
+//---------------------------------------------------------------------------
+
+#ifndef LogoutThreadH
+#define LogoutThreadH
+#include <Classes.hpp>
+#include <SysUtils.hpp>
+#include "DSClientProxy.h"
+//---------------------------------------------------------------------------
+class TLogOutThread : public  TThread
+{
+  private:
+  TLoginUserClient *FLoginUserClient;
+  public:
+  virtual TLogOutThread(TLoginUserClient *ALoginUserClient);
+  void __fastcall Execute();
+};
+#endif

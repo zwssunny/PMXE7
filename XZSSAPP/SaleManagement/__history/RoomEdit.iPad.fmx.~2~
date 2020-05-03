@@ -1,0 +1,184 @@
+inherited frmRoomEditForm_iPad: TfrmRoomEditForm_iPad
+  ClientHeight = 1004
+  ClientWidth = 768
+  DesignerMasterStyle = 2
+  inherited MainVertScrollBox: TVertScrollBox
+    Size.Width = 768.000000000000000000
+    Size.Height = 1004.000000000000000000
+    inherited MainPanel: TPanel
+      Size.Width = 768.000000000000000000
+      Size.Height = 1004.000000000000000000
+      inherited ToolBarTop: TToolBar
+        Size.Width = 768.000000000000000000
+        inherited BtnReserve: TButton
+          Position.X = 576.000000000000000000
+        end
+        inherited BtnLoanCal: TButton
+          Position.X = 672.000000000000000000
+        end
+      end
+      inherited ToolBarBottom: TToolBar
+        Position.Y = 960.000000000000000000
+        Size.Width = 768.000000000000000000
+      end
+      inherited ClientVertScrollBox: TVertScrollBox
+        Size.Width = 768.000000000000000000
+        Size.Height = 916.000000000000000000
+        inherited TabControl: TTabControl
+          Size.Width = 768.000000000000000000
+          Size.Height = 916.000000000000000000
+          inherited DataTab: TTabItem
+            Size.Width = 384.000000000000000000
+            inherited VertScrollBox1: TVertScrollBox
+              Size.Width = 768.000000000000000000
+              Size.Height = 867.000000000000000000
+              inherited expAttribute: TExpander [0]
+                Position.Y = 161.000000000000000000
+                Size.Width = 768.000000000000000000
+                Size.Height = 216.000000000000000000
+                ContentSize = '191'
+                inherited FlowLayout2: TFlowLayout
+                  Size.Width = 768.000000000000000000
+                  Size.Height = 177.000000000000000000
+                  inherited Panel8: TPanel
+                    Position.X = 355.000000000000000000
+                  end
+                  inherited Panel9: TPanel
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel10: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel11: TPanel
+                    Position.Y = 82.000000000000000000
+                  end
+                  inherited Panel12: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 82.000000000000000000
+                  end
+                  inherited Panel13: TPanel
+                    Position.Y = 123.000000000000000000
+                  end
+                  inherited Panel14: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 123.000000000000000000
+                  end
+                end
+              end
+              inherited expPrice: TExpander [1]
+                Position.Y = 713.000000000000000000
+                Size.Width = 768.000000000000000000
+                Size.Height = 152.000000000000000000
+                ContentSize = '127'
+                inherited FlowLayout4: TFlowLayout
+                  Size.Width = 768.000000000000000000
+                  Size.Height = 127.000000000000000000
+                  inherited Panel29: TPanel
+                    Position.X = 355.000000000000000000
+                  end
+                  inherited Panel30: TPanel
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel31: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel32: TPanel
+                    Position.Y = 82.000000000000000000
+                  end
+                end
+              end
+              inherited expBaseInfo: TExpander [2]
+                Size.Width = 768.000000000000000000
+                Size.Height = 161.000000000000000000
+                ContentSize = '136'
+                inherited FlowLayout1: TFlowLayout
+                  Align = Client
+                  Size.Width = 768.000000000000000000
+                  Size.Height = 136.000000000000000000
+                  inherited Panel2: TPanel
+                    Position.X = 355.000000000000000000
+                  end
+                  inherited Panel1: TPanel
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel4: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel5: TPanel
+                    Position.Y = 82.000000000000000000
+                  end
+                  inherited Panel6: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 82.000000000000000000
+                  end
+                end
+              end
+              inherited expAea: TExpander [3]
+                Position.Y = 377.000000000000000000
+                Size.Width = 768.000000000000000000
+                Size.Height = 336.000000000000000000
+                ContentSize = '311'
+                inherited FlowLayout3: TFlowLayout
+                  Align = Client
+                  Size.Width = 768.000000000000000000
+                  Size.Height = 311.000000000000000000
+                  inherited Panel16: TPanel
+                    Position.X = 355.000000000000000000
+                  end
+                  inherited Panel17: TPanel
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel18: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 41.000000000000000000
+                  end
+                  inherited Panel19: TPanel
+                    Position.Y = 82.000000000000000000
+                  end
+                  inherited Panel20: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 82.000000000000000000
+                  end
+                  inherited Panel21: TPanel
+                    Position.Y = 123.000000000000000000
+                  end
+                  inherited Panel22: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 123.000000000000000000
+                  end
+                  inherited Panel26: TPanel
+                    Position.Y = 164.000000000000000000
+                  end
+                  inherited Panel27: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 164.000000000000000000
+                  end
+                  inherited Panel23: TPanel
+                    Position.Y = 205.000000000000000000
+                  end
+                  inherited Panel24: TPanel
+                    Position.X = 355.000000000000000000
+                    Position.Y = 205.000000000000000000
+                  end
+                  inherited Panel25: TPanel
+                    Position.Y = 246.000000000000000000
+                  end
+                end
+              end
+            end
+          end
+          inherited ImageTab: TTabItem
+            Size.Width = 384.000000000000000000
+            inherited ImageListLayout: TFlowLayout
+              Size.Width = 768.000000000000000000
+              Size.Height = 867.000000000000000000
+            end
+          end
+        end
+      end
+    end
+  end
+end
